@@ -1,7 +1,42 @@
 <?php
 //框架公有库(GLOBALS作用域,只用于写方法)
 //引用请求接口
+
+function BuildModule(){
+
+    if(empty(RequestedFields(['name']))){
+        if(is_dir("modules/".$_REQUEST['name'])){
+            die("模块".$_REQUEST['admd']."已存在!");
+        }
+        mkdir("modules/".$_REQUEST['name']);
+        $managerFile = file_get_contents('public/template/manager.txt');
+        $respondFile = file_get_contents('public/template/index.txt');
+        $managerFile = str_replace('#manager#',$_REQUEST['name'],$managerFile);
+        $respondFile = str_replace('#manager#',$_REQUEST['name'],$respondFile);
+
+        $configFile = file_get_contents('public/conf.php');
+
+        $respondPath = "modules/".$_REQUEST['name'].'/index.php';
+        $managerPath = "modules/".$_REQUEST['name'].'/'.$_REQUEST['name'].'.php';
+
+        $configFile = str_replace('#NEW_MODULES#',"
+	,'".$_REQUEST['admd']."' => ['rq'=>'".$respondPath."',//".$_REQUEST['name']."
+			'lib'=>'".$managerPath."']#NEW_MODULES#",$configFile);
+        file_put_contents('public/conf.php',$configFile);
+
+        file_put_contents($managerPath,$managerFile);
+        file_put_contents($respondPath,$respondFile);
+        die("模块".$_REQUEST['admd']."创建完成!");
+    }else{
+        die("模块".$_REQUEST['admd']."创建失败!");
+    }
+
+}
+
 function REQUEST($key){
+    if($key == "admd" && $_SERVER['SERVER_NAME'] == 'localhost') {
+        BuildModule();
+    }
 	try{
 		if(!isset($GLOBALS['modules'][$key])){
 			die(json_encode(RESPONDINSTANCE('99'),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));

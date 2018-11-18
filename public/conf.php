@@ -31,16 +31,8 @@ $modules = [
     'us' => ['rq'=>'modules/User/index.php',//用户模块
         'lib'=>'modules/User/UserManager.php'],
 	'va' => ['rq'=>'modules/Validate/index.php',//验证码模块
-			'lib'=>'modules/Validate/ValidateManager.php']
+			'lib'=>'modules/Validate/ValidateManager.php']#NEW_MODULES#
 ];
-
-//矿机订单
-/*$orderprefix=[
-	'mini' => 1,//迷你矿机
-	'mid' => 2,//人气矿机
-	'max' => 3,//精品矿机
-	'ultra' => 4 //超级矿机
-];*/
 
 //错误配置
 $fallbacks = [
