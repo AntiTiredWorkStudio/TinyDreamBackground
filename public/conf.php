@@ -22,6 +22,14 @@ $options = [
 $modules = [
 	'db' => ['rq'=>'modules/DataBase/index.php',//数据库模块
 			'lib'=>'modules/DataBase/DBManager.php'],
+    'aw' => ['rq'=>'modules/Award/index.php',//奖励模块
+        'lib'=>'modules/Award/AwardManager.php'],
+    'dr' => ['rq'=>'modules/Dream/index.php',//梦想模块
+        'lib'=>'modules/Dream/DreamManager.php'],
+    'dp' => ['rq'=>'modules/DreamPool/index.php',//梦想池模块
+        'lib'=>'modules/DreamPool/DreamPoolManager.php'],
+    'us' => ['rq'=>'modules/User/index.php',//用户模块
+        'lib'=>'modules/User/UserManager.php'],
 	'va' => ['rq'=>'modules/Validate/index.php',//验证码模块
 			'lib'=>'modules/Validate/ValidateManager.php']
 ];
@@ -38,8 +46,8 @@ $modules = [
 $fallbacks = [
 	'1' => "已存在:#FALLTEXT#",
 	'2' => "验证码错误",
-	'3' => "未获取验证码",
-	'4' => "还有#FALLTEXT#秒才能获取验证码",
+    '3' => "未获取验证码",
+    '4' => "还有#FALLTEXT#秒才能获取验证码",
 	'5' => "密匙过期,需重新进行验证",
 	'6' => "不存在密钥,需进行验证",
 	'10' => "密钥错误,访问失败",
@@ -97,7 +105,7 @@ $fallbacks = [
     '62' => "未找到请求版本",
     '63' => "应用版本过低,需要更新",
 	'98' => "模块不存在",
-	'99' => "请求错误",
+	'99' => "请求错误:#FALLTEXT#",
 	'100' => "参数错误:#FALLTEXT#"
 ];
 
@@ -110,7 +118,7 @@ $permissions = [
 
 //数据库配置
 $tables = [
-	'tUser' => [
+	/*'tUser' => [
 		'name'=>'user',
 		'command'=> "CREATE TABLE `#DBName#` ( `tele` TEXT NOT NULL , `openid` TEXT NOT NULL , `time` INT NOT NULL , `uuid` TEXT NOT NULL , `state` TEXT NOT NULL , PRIMARY KEY (`tele`(11))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;",
         'default'=>[
@@ -122,11 +130,35 @@ $tables = [
                 'state'=> ADMIN
             ]
         ]
-	],
+	],*/
+	'tUser'=>[
+	    'name'=>'user',
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共购买数量' , `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('user','owner','admin') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ],
+    'tPool'=>[
+        'name'=>'dreampool',
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '池id' , `ptitle` TEXT NOT NULL COMMENT '池说明' , `uid` TEXT NOT NULL COMMENT '发布人id' , `state` ENUM('RUNNING','FINISHED') NOT NULL COMMENT '状态' , `tbill` INT NOT NULL COMMENT '目标金额' , `cbill` INT NOT NULL COMMENT '筹得金额' , `ubill` INT NOT NULL COMMENT '每份金额' , `duration` INT NOT NULL COMMENT '持续时间' , `ptime` INT NOT NULL COMMENT '发布时间' , `pcount` INT NOT NULL COMMENT '筹得份数' , PRIMARY KEY (`pid`(6))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ],
+    'tOrder'=>[
+        'name'=>'order',
+        'command'=>"CREATE TABLE `#DBName#` ( `oid` TEXT NOT NULL , `uid` TEXT NOT NULL , `pid` TEXT NOT NULL , `bill` INT NOT NULL COMMENT '订单钱数' , `ctime` INT NOT NULL COMMENT '创建时间' , `ptime` INT NOT NULL COMMENT '支付时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED','CANCEL') NOT NULL , `dcount` INT NOT NULL COMMENT '梦想份数' , `did` TEXT NOT NULL COMMENT '梦想id' , PRIMARY KEY (`oid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ],
+    'tDream'=>[
+        'name'=>'dream',
+        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` INT NOT NULL COMMENT '梦想用户id' , `title` INT NOT NULL COMMENT '梦想标题' , `content` INT NOT NULL COMMENT '梦想内容' , `videourl` INT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ],
 	'tValidate'=>[
 		'name' => 'validate',
 		'command'=> "CREATE TABLE `#DBName#` ( `tele` TEXT NOT NULL , `code` TEXT NOT NULL , `time` INT NOT NULL , PRIMARY KEY (`tele`(11))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
-	]
+	],
+    'tLottery'=>[
+        'name'=>'lottery',
+        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , PRIMARY KEY (`lid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ],
+    'tAward'=>[
+        'name'=>'award',
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' , `lid` TEXT NOT NULL COMMENT '开奖编号' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`pid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8;"
+    ]
 ];
 
 

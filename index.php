@@ -4,8 +4,9 @@
 
     header("Content-Type: text/html;charset=utf-8;");
 
-	include_once("public/conf.php");
-	include_once("public/lib.php");
+	include_once("public/conf.php");//加载配置文件
+	include_once("public/lib.php");//加载公有库
+
 	$requestArray = [];
 
 	foreach($_REQUEST as $key=>$value){
