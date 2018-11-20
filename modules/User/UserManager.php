@@ -3,8 +3,80 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 LIB('db');
+LIB('dp');
+LIB('ds');
 
 class UserManager extends DBManager{
+    public static function UserExist($uid){
+        $USM = new UserManager();
+        return (!DBResultExist($USM->SelectDataFromTable($USM->TName('tUser'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]
+        )));
+    }
+    //检查身份
+    public static function CheckIdentity($uid,$identity){
+        $USM = new UserManager();
+        if(!DBResultExist($USM->SelectDataFromTable($USM->TName('tUser'),
+            [
+                'uid'=>$uid,
+                'identity'=>$identity,
+                '_logic'=>'AND'
+            ]
+        ))){
+            return RESPONDINSTANCE('8');
+        }
+        return RESPONDINSTANCE('0');
+    }
+
+    //检查用户是否绑定手机
+    public static function IdentifyTeleUser($uid){
+        $USM = new UserManager();
+
+        $seleResult = $USM->SelectDataFromTable($USM->TName('tUser'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]);
+
+        $resultArray = DBResultToArray($seleResult,true);
+
+        if(DBResultArrayExist($resultArray)){
+            $resultArray = $resultArray[0];
+        }else{
+            return false;
+        }
+
+        return !empty($resultArray['tele']);
+    }
+
+    //检查用户是否提交实名认证
+    public static function IdentifyRealNameUser($uid,$state="SUBMIT"){
+        $USM = new UserManager();
+
+        $seleResult = $USM->SelectDataFromTable($USM->TName('tId'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]);
+
+        $resultArray = DBResultToArray($seleResult,true);
+
+        if(DBResultArrayExist($resultArray)){
+            $resultArray = $resultArray[0];
+        }else{
+            return false;
+        }
+        return
+            ($state == "SUBMIT" &&
+                ($resultArray['state']=="SUBMIT" ||
+                    $resultArray['state']=="SUCCESS")) ||
+            ($state == "SUCCESS" &&
+                ($resultArray['state']=="SUCCESS"));
+    }
+
 
     public function info()
     {
@@ -14,5 +86,66 @@ class UserManager extends DBManager{
     public function UserManager(){
 		parent::__construct();
 	}
+
+    //微信登录返回用户openid,昵称,头像地址后调用 进入小程序验证身份
+	public function EnterApp($uid,$nickname,$headicon){
+        $condition = [
+            'uid'=>$uid,
+            '_logic'=>' '
+        ];
+        $seleResult = $this->SelectDataFromTable($this->TName('tUser'),
+            $condition);
+        $userArray = DBResultToArray($seleResult,true);
+        $backMsg = RESPONDINSTANCE('0');
+        if(empty($userArray)){//未注册
+            $userArray = [
+                "uid"=>$uid,
+                "nickname"=>$nickname,
+                "headicon"=>$headicon,
+                "tele"=>"",
+                "totalReward"=>0,
+                "dayBuy"=>0,
+                "identity"=>"USER",
+                "ltime"=>0,
+            ];
+            $insResult = $this->InsertDataToTable($this->TName('tUser'),$userArray);
+            if(!$insResult){
+                return RESPONDINSTANCE('9');
+            }else{
+                $backMsg['description'] = '注册成功';
+            }
+            //注册
+        }else{//已经注册
+            $userArray = $userArray[0];
+            //检查更新信息
+            $updateList = [];
+            if($userArray['nickname'] != $nickname){
+                $updateList['nickname'] = $nickname;
+            }
+            if($userArray['headicon'] != $headicon){
+                $updateList['headicon'] = $headicon;
+            }
+
+            if(!empty($updateList)){
+                $updateResult = $this->UpdateDataToTable($this->TName('tUser'),$updateList,$condition);
+                if(!$updateResult){
+                    return RESPONDINSTANCE('10');
+                }else{
+                    $backMsg['description'] = '信息更新,登录成功';
+                }
+            }else{
+                $backMsg['description'] = '登录成功';
+            }
+        }
+
+        unset($userArray['nickname']);
+
+        unset($userArray['headicon']);
+
+        $backMsg['selfinfo'] = $userArray;//个人基本信息
+        $backMsg['buyinfo'] = DreamServersManager::GetMainOrders();//购买滚动栏
+        $backMsg['mainpool'] = DreamPoolManager::GetMainPool();//在主页显示的梦想池信息
+        return $backMsg;
+    }
 }
 ?>

@@ -2,6 +2,7 @@
 //框架公有库(GLOBALS作用域,只用于写方法)
 //引用请求接口
 
+//创建模块
 function BuildModule(){
 
     if(empty(RequestedFields(['name']))){
@@ -34,12 +35,18 @@ function BuildModule(){
 }
 
 function REQUEST($key){
-    if($key == "admd" && $_SERVER['SERVER_NAME'] == 'localhost') {
-        BuildModule();
+    if( $_SERVER['SERVER_NAME'] == 'localhost') {
+        switch ($key) {
+            case "admd":
+                BuildModule();
+                break;
+            default:
+                break;
+        }
     }
 	try{
 		if(!isset($GLOBALS['modules'][$key])){
-			die(json_encode(RESPONDINSTANCE('99'),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			die(json_encode(RESPONDINSTANCE('99','不存在模块:'.$key),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 		}
 		$_GET['act'] = $key;
 		include_once($GLOBALS['modules'][$key]['rq']);
@@ -188,6 +195,7 @@ function Responds($action, $manager, $actionArray){
                 ).'</p>';//请求无返回值
 
             }else{
+
                 echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求正确
             }
         }else{
@@ -201,6 +209,49 @@ function Responds($action, $manager, $actionArray){
 //创建响应结构
 function R($funcName, $pars = null){
     return ['func'=>$funcName,'pars'=>$pars];
+}
+
+function DBResultArrayExist($array){
+    return !empty($array) && !empty(array_keys($array));
+}
+
+function DBResultExist($dbResult){
+    return !empty(mysql_fetch_array($dbResult));
+}
+
+//遍历并处理
+function DBResultHandle($dbResult,$func){
+    while($single = mysql_fetch_array($dbResult)){
+        foreach($single as $key=>$value){
+            if(is_numeric($key)){
+                continue;
+            }
+            $func($key,$value);
+        }
+    }
+}
+
+//遍历并转换成表
+function DBResultToArray($dbResult, $NumKey = false,$keepNum = false){
+    $resultArray = [];
+    $seek = 0;
+    while($single = mysql_fetch_array($dbResult)){
+        $rowKey = "";
+        if($NumKey){
+            $rowKey = $seek;
+        }else{
+            $rowKey = $single[0];
+        }
+        $resultArray[$rowKey] = [];
+        foreach($single as $key=>$value){
+            if(!$keepNum && is_numeric($key)){
+                continue;
+            }
+            $resultArray[$rowKey][$key] = $value;
+        }
+        $seek++;
+    }
+    return $resultArray;
 }
 
 class Manager{

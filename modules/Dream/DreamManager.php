@@ -3,6 +3,10 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 LIB('db');
+LIB('us');
+
+
+define("MAX_DREAMS_COUNT",5);
 
 class DreamManager extends DBManager{
     public function info()
@@ -12,5 +16,100 @@ class DreamManager extends DBManager{
 	public function DreamManager(){
 		parent::__construct();
 	}
+
+	//生成梦想id号
+	public static function GenerateDreamID(){
+        $DRM = new DreamManager();
+        return 'DR'.(1000000000 + $DRM->CountTableRow($DRM->TName('tDream')));
+    }
+
+    //统计用户提交的梦想数（未中奖，未实现即为提交）
+    public static function CountSubmitedDream($uid){
+        $condition = [
+            'uid' => $uid,
+            'state'=> 'SUBMIT',
+            '_logic' =>'AND'
+        ];
+        $DRM = new DreamManager();
+        return count(DBResultToArray($DRM->SelectDataFromTable($DRM->TName('tDream'),$condition),true));
+    }
+
+	//判断用户是否有未中奖的梦想，有即可直接选择，无则调用梦想编辑
+	public static function HasSubmitedDream($uid){
+        $condition = [
+            'uid' => $uid,
+            'state'=> 'SUBMIT',
+            '_logic' =>'AND'
+        ];
+        $DRM = new DreamManager();
+        return DBResultExist($DRM->SelectDataFromTable($DRM->TName('tDream'),$condition));
+    }
+
+    //打开梦想编辑页面
+    public function PrepareEditDream($uid){
+        if(DreamManager::CountSubmitedDream($uid)>=MAX_DREAMS_COUNT){//若已经提交的梦想数量超过上限（5个）
+            return RESPONDINSTANCE('14');
+        }
+        return RESPONDINSTANCE('0');
+    }
+
+    //提交梦想信息
+	public function OnEditDream($uid,$title,$content){
+
+        if(UserManager::UserExist($uid)){
+            return RESPONDINSTANCE('15');
+        }
+
+        if(DreamManager::CountSubmitedDream($uid)>=MAX_DREAMS_COUNT){//若已经提交的梦想数量超过上限（5个）
+            return RESPONDINSTANCE('14');
+        }
+
+        $dreamArray = [
+            "did"=>DreamManager::GenerateDreamID(),
+            "uid"=>$uid,
+            "dtypeid"=>"Enterprise|Learn|BodyBuild",
+            "dserverid"=>"ENTSERVER01|LERSERVER01|BDBSERVER01",
+            "title"=>$title,
+            "content"=>$content,
+            "videourl"=>"",
+            "state"=>"SUBMIT",
+        ];
+
+        $insresult = $this->InsertDataToTable($this->TName('tDream'),$dreamArray);
+        if($insresult){
+            $backMsg = RESPONDINSTANCE('0');//梦想提交成功
+            if(isset($_REQUEST['action'])){
+                $actionList = json_decode($_REQUEST['action']);
+                if(isset($actionList['editdream'])){
+                    unset($actionList);
+                }
+                $backMsg['action'] = $actionList;
+            }
+
+            return $backMsg;
+        }else{
+            return RESPONDINSTANCE('13');//梦想提交失败
+        }
+        //return DreamManager::GenerateDreamID();
+    }
+
+    //进入梦想列表
+    public function OnDreamList($uid){
+        $condition = [
+            'uid' => $uid,
+            '_logic' =>' '
+        ];
+        $dreams = $this->SelectDataFromTable($this->TName('tDream'),$condition);
+        $dreamArray = DBResultToArray($dreams,true);
+        if(DBResultArrayExist($dreamArray)){
+            $dreamArray = $dreamArray;
+        }else{
+            $dreamArray = [];
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['dreams'] = $dreamArray;
+        return $backMsg;
+    }
 }
 ?>

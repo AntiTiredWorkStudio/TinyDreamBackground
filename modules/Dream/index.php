@@ -12,6 +12,10 @@
 
     Responds($_GET['act'],(new DreamManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info'),//模块信息
+        'dlist'=>R('OnDreamList',['uid']),//查看梦想列表
+        'pedit'=>R('PrepareEditDream',['uid']),//准备编辑梦想
+        'dedit'=>R('OnEditDream',['uid','title','content']),//编辑梦想(可更改ACTION)
+        'uedit'=>R('UpdateDream',['uid','did']),//修改梦想
     ]);
 ?>

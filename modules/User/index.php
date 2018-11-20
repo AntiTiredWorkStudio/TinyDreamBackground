@@ -3,13 +3,9 @@
 
 	LIB($_GET['act']);
 
-	/*
-	生成验证码 :va=gen&tele=13439955175
-	核实验证码:va=con&tele=13439955175&val=123456
-	*/
-
     Responds($_GET['act'],(new UserManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info'),//模块信息
+        'enter'=>R('EnterApp',['uid','nickname','headicon']),//进入小程序
     ]);
 ?>
