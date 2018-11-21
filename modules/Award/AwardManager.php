@@ -13,5 +13,26 @@ class AwardManager extends DBManager{
 	public function AwardManager(){
 		parent::__construct();
 	}
+
+	//支付后生成的中奖号
+	public static function PayOrderAndCreateNumber($pid,$uid,$did,$oid,$startIndex,$endIndex){
+        $AWM = new AwardManager();
+        $Numbers = [];
+        for($i=$startIndex;$i<$endIndex;$i++) {
+            $awardArray = [
+                "pid" => $pid,
+                "uid" => $uid,
+                "lid" => ($pid.'_'.(10000000+$i)),
+                "index" => $i,
+                "atime" => 0,
+                "did" => $did,
+                "abill" => 0,
+            ];
+            if($AWM->InsertDataToTable($AWM->TName('tAward'),$awardArray)){
+                $Numbers[($pid.'_'.(10000000+$i))] = $awardArray;
+            }
+        }
+        return $Numbers;
+    }
 }
 ?>

@@ -88,7 +88,13 @@ class DreamPoolManager extends DBManager{
         if(!$updateresult){
             return RESPONDINSTANCE('6','没有生效的梦想池'.$pid);
         }
-        return RESPONDINSTANCE('0');
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['PoolInfo'] = [
+            'startIndex'=>$pcount,
+            'endIndex'=>($pcount+$piece),
+            'cbill'=>$cbillNext
+        ];
+        return $backMsg;
     }
 
     public function info()
@@ -149,7 +155,7 @@ class DreamPoolManager extends DBManager{
     //【请求】获取全部梦想池
     public function ListAllPool(){
         $condArray = [];
-        DreamPoolManager::BuyPoolPieceSuccess('p01',10);
+        //DreamPoolManager::BuyPoolPieceSuccess('p01',10);
         return DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),$condArray));
     }
 }

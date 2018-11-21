@@ -16,6 +16,24 @@ class UserManager extends DBManager{
             ]
         )));
     }
+
+    public static function UpdateUserOrderInfo($uid,$totalJoin,$pieces){
+        $USM = new UserManager();
+        $condition = [
+            'uid'=>$uid,
+            '_logic' => ' '
+        ];
+
+        $USM->UpdateDataToTable($USM->TName('tUser'),
+            ['totalJoin'=>$totalJoin,'dayBuy'=>['field'=>'dayBuy','operator'=>'+','value'=>$pieces],'ltime'=>PRC_TIME()],
+            $condition);
+    }
+
+    //检查用户每日购买数量
+    public static function CheckDayBoughtLimit($uid){
+        return true;
+    }
+
     //检查身份
     public static function CheckIdentity($uid,$identity){
         $USM = new UserManager();
@@ -104,6 +122,7 @@ class UserManager extends DBManager{
                 "headicon"=>$headicon,
                 "tele"=>"",
                 "totalReward"=>0,
+                "totalJoin"=>0,
                 "dayBuy"=>0,
                 "identity"=>"USER",
                 "ltime"=>0,

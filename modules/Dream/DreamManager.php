@@ -81,7 +81,7 @@ class DreamManager extends DBManager{
             if(isset($_REQUEST['action'])){
                 $actionList = json_decode($_REQUEST['action']);
                 if(isset($actionList['editdream'])){
-                    unset($actionList);
+                    unset($actionList['editdream']);
                 }
                 $backMsg['action'] = $actionList;
             }
@@ -91,6 +91,49 @@ class DreamManager extends DBManager{
             return RESPONDINSTANCE('13');//梦想提交失败
         }
         //return DreamManager::GenerateDreamID();
+    }
+
+    //选择梦想信息(必须要有action，因为选择梦想操作只在购买梦想池时需要做，一定为过程性动作)
+    public function OnDreamSelected($uid,$did,$action){
+        try {
+            $actionList = json_decode($action,true);
+        }catch (Exception $err){
+            return RESPONDINSTANCE('17',$err);
+        }
+        if(isset($actionList["selectdream"])){
+            unset($actionList["selectdream"]);
+        }else{
+            return RESPONDINSTANCE('17',"未包含selectdream动作");
+        }
+
+        $targetDream = $this->GetSingleDream($uid,$did);//获取梦想
+
+        if(isset($actionList["buy"])){
+            $actionList["buy"]["dream"] = $targetDream;//设置选择的梦想信息
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['action'] = $actionList;
+            return $backMsg;
+        }else{
+            return RESPONDINSTANCE('17',"未包含buy动作");
+        }
+
+    }
+
+    //获取用户的单个梦想
+    public function GetSingleDream($uid,$did){
+        $condition = [
+            'uid' => $uid,
+            'did' => $did,
+            '_logic' =>'AND'
+        ];
+        $dreams = $this->SelectDataFromTable($this->TName('tDream'),$condition);
+        $dreamArray = DBResultToArray($dreams,true);
+        if(DBResultArrayExist($dreamArray)){
+            $dreamArray = $dreamArray[0];
+        }else{
+            $dreamArray = [];
+        }
+        return $dreamArray;
     }
 
     //进入梦想列表

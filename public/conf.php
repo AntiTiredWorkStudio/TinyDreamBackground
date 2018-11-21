@@ -54,6 +54,10 @@ $fallbacks = [
     '14' => "梦想数量超过上限",
     '15' => "不存在用户",
 	'16' => "验证码失效",
+    '17' => "动作错误:#FALLTEXT#",
+    '18' => "用户当日购买量超过上限",
+    '19' => "购买信息创建失败",
+    '20' => "购买信息更新错误",
 	'37' => "已经实名认证",
 	'38' => "实名认证审核中",
     '39' => "实名认证信息提交错误",
@@ -88,7 +92,7 @@ $tables = [
 	],*/
 	'tUser'=>[
 	    'name'=>'user',
-        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共购买数量' , `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('USER','OWNER','ADMIN') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='用户管理';"
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共奖励数量' , `totalJoin` INT NOT NULL COMMENT '总共参与数量' ,  `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('USER','OWNER','ADMIN') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='用户管理';"
     ],
     'tPool'=>[
         'name'=>'dreampool',
@@ -163,7 +167,7 @@ $tables = [
     ],
     'tAward'=>[
         'name'=>'award',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' , `lid` TEXT NOT NULL COMMENT '开奖编号' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`pid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' , `lid` TEXT NOT NULL COMMENT '开奖编号' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`lid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
     ],
     'tId'=>[
         'name'=>'identity',

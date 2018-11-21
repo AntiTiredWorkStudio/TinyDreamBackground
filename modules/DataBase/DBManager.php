@@ -147,7 +147,11 @@ class DBManager extends Manager{
 		$val = '';
 		$logic = ((isset($conArray['_logic']))?$conArray['_logic']:'AND');
 		foreach($valArray as $key=>$value){
-			$val =$val.' `'.$key.'`="'.$value.'",';
+		    if(is_array($value)){
+                $val = $val . ' `' . $key . '`='.$value['field'].$value['operator'].'"' . $value['value'] . '",';
+            }else {
+                $val = $val . ' `' . $key . '`="' . $value . '",';
+            }
 		}
 		
 		foreach($conArray as $key=>$value){
@@ -168,10 +172,12 @@ class DBManager extends Manager{
 		$val = substr($val, 0, -1);
 		$sql = $sql.$val.' WHERE '.$cond;
 		$result = mysql_query($sql,$con);
-		//echo $sql.'</br>';
+		echo $sql.'</br>';
 		if($closeDBLink){
 			mysql_close($con);
 		}
+
+
 		return $result;
 	}
 
@@ -180,7 +186,7 @@ class DBManager extends Manager{
 		$hasCond = false;
 		$con = $this->DBLink();  
 		$sql = 'DELETE FROM `'.$tableName.'`';			
-		
+
 		$cond = ((isset($conArray['_logic']) && $conArray['_logic']=="AND")?(1):(0));
 		
 		$logic = ((isset($conArray['_logic']))?$conArray['_logic']:'AND');

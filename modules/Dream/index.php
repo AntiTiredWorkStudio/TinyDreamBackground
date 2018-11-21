@@ -16,6 +16,7 @@
         'dlist'=>R('OnDreamList',['uid']),//查看梦想列表
         'pedit'=>R('PrepareEditDream',['uid']),//准备编辑梦想
         'dedit'=>R('OnEditDream',['uid','title','content']),//编辑梦想(可更改ACTION)
+        'sdream'=>R('OnDreamSelected',['uid','did','action']),//编辑梦想(可更改ACTION)
         'uedit'=>R('UpdateDream',['uid','did']),//修改梦想
     ]);
 ?>
