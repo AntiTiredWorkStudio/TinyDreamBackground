@@ -98,9 +98,10 @@ class DreamServersManager extends DBManager {
         if(!DreamPoolManager::IsPoolRunning($pid)){
             return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
         }
-
-        //检测当日购买量【未实现】
-        if(!UserManager::CheckDayBoughtLimit($uid)){
+		
+		$dayLimit = UserManager::CheckDayBoughtLimit($uid);
+        //检测当日购买量【实现】
+        if($dayLimit<=0){
             return RESPONDINSTANCE('18');//用户当日购买量超过上限
         }
 
@@ -116,13 +117,13 @@ class DreamServersManager extends DBManager {
             $backMsg['actions'] = [
                 'editdream'=>['uid'=>$uid],//编辑梦想
                 'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit]//购买互助
             ];
         }else {
             //跳转至选择梦想界面
             $backMsg['actions'] = [
                 'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit]//购买互助
             ];
         }
         return $backMsg;

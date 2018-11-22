@@ -172,7 +172,7 @@ class DBManager extends Manager{
 		$val = substr($val, 0, -1);
 		$sql = $sql.$val.' WHERE '.$cond;
 		$result = mysql_query($sql,$con);
-		echo $sql.'</br>';
+		//echo $sql.'</br>';
 		if($closeDBLink){
 			mysql_close($con);
 		}

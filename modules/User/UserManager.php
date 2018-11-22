@@ -29,9 +29,33 @@ class UserManager extends DBManager{
             $condition);
     }
 
-    //检查用户每日购买数量
+    //检查用户每日购买数量,过日后自动清0
     public static function CheckDayBoughtLimit($uid){
-        return true;
+		$USM = new UserManager();
+       
+	   $condition = [
+            'uid'=>$uid,
+            '_logic' => ' '
+        ];
+
+        $result = DBResultToArray($USM->SelectDataFromTable($USM->TName('tUser'),$condition),true);
+		
+		if(empty($result[0])){
+			return false;
+		}
+		
+		$lDAY = DAY($result[0]['ltime']);
+		
+		$cDAY = DAY(PRC_TIME());
+		
+		if($cDAY > $lDAY){
+			$USM->UpdateDataToTable($USM->TName('tUser'),
+            ['dayBuy'=>0],
+            $condition);
+			$result[0]['dayBuy'] = 0;
+		}
+
+		return 5-($result[0]['dayBuy']);
     }
 
     //检查身份
@@ -103,6 +127,10 @@ class UserManager extends DBManager{
 
     public function UserManager(){
 		parent::__construct();
+	}
+	
+	public function test(){
+		return UserManager::CheckDayBoughtLimit("a01");
 	}
 
     //微信登录返回用户openid,昵称,头像地址后调用 进入小程序验证身份

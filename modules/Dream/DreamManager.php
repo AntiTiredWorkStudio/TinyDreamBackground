@@ -79,7 +79,7 @@ class DreamManager extends DBManager{
         if($insresult){
             $backMsg = RESPONDINSTANCE('0');//梦想提交成功
             if(isset($_REQUEST['action'])){
-                $actionList = json_decode($_REQUEST['action']);
+                $actionList = json_decode($_REQUEST['action'],true);
                 if(isset($actionList['editdream'])){
                     unset($actionList['editdream']);
                 }
