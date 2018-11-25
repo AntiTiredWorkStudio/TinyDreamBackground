@@ -17,6 +17,16 @@ class DreamManager extends DBManager{
 		parent::__construct();
 	}
 
+	//梦想实施
+	public static function OnDreamDoing($did){
+        //未实现
+    }
+
+    //梦想完成
+    public static function OnDreamSuccess($did){
+        //未实现
+    }
+
 	//生成梦想id号
 	public static function GenerateDreamID(){
         $DRM = new DreamManager();
@@ -109,6 +119,9 @@ class DreamManager extends DBManager{
         $targetDream = $this->GetSingleDream($uid,$did);//获取梦想
 
         if(isset($actionList["buy"])){
+            if(empty($targetDream)){
+                return RESPONDINSTANCE('21');
+            }
             $actionList["buy"]["dream"] = $targetDream;//设置选择的梦想信息
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['action'] = $actionList;
@@ -124,6 +137,7 @@ class DreamManager extends DBManager{
         $condition = [
             'uid' => $uid,
             'did' => $did,
+            'state'=>'SUBMIT',
             '_logic' =>'AND'
         ];
         $dreams = $this->SelectDataFromTable($this->TName('tDream'),$condition);

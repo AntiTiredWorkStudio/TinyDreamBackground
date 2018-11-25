@@ -10,7 +10,9 @@
 
     Responds($_GET['act'],(new ValidateManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info'),//模块信息
+        'pbind'=>R('PrepareBindingTele'),//进入验证手机号页面调用
+        'bind'=>R('BindingTele',['uid','tele']),//绑定手机号
     ]);
 
 ?>

@@ -40,6 +40,7 @@ class DreamServersManager extends DBManager {
 
     //获得首页滚动购买信息
     public static function GetMainOrders(){
+        //未实现
         return [];
     }
 
@@ -92,10 +93,10 @@ class DreamServersManager extends DBManager {
     }
 
 
-    //下单动作开始
+    //下单动作开始【在任意梦想池点击参与互助或继续互助】
     public function PlaceOrderInADreamPoolStart($uid,$pid){
-
-        if(!DreamPoolManager::IsPoolRunning($pid)){
+        $RunningResult = DreamPoolManager::IsPoolRunning($pid);
+        if(!$RunningResult['result']){
             return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
         }
 		
@@ -117,24 +118,35 @@ class DreamServersManager extends DBManager {
             $backMsg['actions'] = [
                 'editdream'=>['uid'=>$uid],//编辑梦想
                 'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
             ];
         }else {
             //跳转至选择梦想界面
             $backMsg['actions'] = [
                 'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
             ];
         }
+        return $backMsg;
+    }
+
+    //进入下单界面返回信息
+    public function PlaceOrderInADreamPoolPrepare($pid){
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['pool'] = DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),['pid'=>$pid]))[$pid];
+        $backMsg['overplus'] = ($backMsg['pool']['ptime']+$backMsg['pool']['duration']) - PRC_TIME();
         return $backMsg;
     }
 
     //下单动作准备支付,订单创建
     public function PlaceOrderInADreamPoolCreate($action){
         $actionList = json_decode($action,true);
-        if(!(isset($actionList['buy']) && isset($actionList['buy']['pid']) &&  isset($actionList['buy']['dream']))){
+        if(!(isset($actionList['buy']) && isset($actionList['buy']['pid']) &&  isset($actionList['buy']['dream']) && isset($actionList['buy']['less']))){
             return RESPONDINSTANCE('17',"购买信息或梦想信息错误,无法创建订单");
         }
+
+        $pless = $actionList['buy']['less'];
+
         DreamServersManager::ClearSubmitOrder($actionList['buy']['dream']['uid']);
 
         $orderArray = [
@@ -158,7 +170,8 @@ class DreamServersManager extends DBManager {
                     ],
                     "oid"=>$orderArray['oid'],
                     "pid"=>$orderArray['pid'],
-                    "did"=>$orderArray['did']
+                    "did"=>$orderArray['did'],
+                    'pless'=>$pless
                 ]
             ];
             $backMsg['order'] = $orderArray;
@@ -210,7 +223,7 @@ class DreamServersManager extends DBManager {
         UserManager::UpdateUserOrderInfo($uid,$this->CountUserJoinedPool($uid),$pcount);
 
         //修改AwardManager,为用户添加梦想编号
-        $NumberArray = AwardManager::PayOrderAndCreateNumber($actionList['pay']['pid'],$uid,$actionList['pay']['did'],$oid,$startIndex,$endIndex);
+        $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$actionList['pay']['did'],$oid,$startIndex,$endIndex);
         if($result && !empty($NumberArray)){
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['numbers'] = $NumberArray;
@@ -247,6 +260,11 @@ class DreamServersManager extends DBManager {
         $array = DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
             ['uid'=>$uid,'_logic'=>' ']),true);
         return $array;
+    }
+
+    //玩家获取全部梦想池信息及参与信息
+    public function GetAllPoolsInfo($uid){
+        //未实现
     }
 
 

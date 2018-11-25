@@ -4,6 +4,7 @@
 
 	Responds($_GET['act'],(new AwardManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info'),//模块信息
+        'done'=>R('DoneAlottery',['dnum']),//开奖
     ]);
 ?>

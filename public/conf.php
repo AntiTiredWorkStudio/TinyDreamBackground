@@ -58,6 +58,9 @@ $fallbacks = [
     '18' => "用户当日购买量超过上限",
     '19' => "购买信息创建失败",
     '20' => "购买信息更新错误",
+    '21' => "当前用户不存在这个梦想",
+    '22' => "请求频率过高",
+    '23' => "期号#FALLTEXT#已经开奖",
 	'37' => "已经实名认证",
 	'38' => "实名认证审核中",
     '39' => "实名认证信息提交错误",
@@ -74,7 +77,6 @@ $permissions = [
     'manage'=>5,//管理员
     'user'=>1//用户
 ];
-
 //数据库配置
 $tables = [
 	/*'tUser' => [
@@ -163,11 +165,11 @@ $tables = [
 	],
     'tLottery'=>[
         'name'=>'lottery',
-        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , PRIMARY KEY (`lid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖号码';"
+        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , `state` ENUM('DOING','SUCCESS') NOT NULL COMMENT '梦想号状态'  , PRIMARY KEY (`lid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖号码';"
     ],
     'tAward'=>[
         'name'=>'award',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' , `lid` TEXT NOT NULL COMMENT '开奖编号' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`lid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' ,`lid` TEXT NOT NULL COMMENT '开奖编号' ,  `expect` TEXT NOT NULL COMMENT '期号' , `code` TEXT NOT NULL COMMENT '开奖号码' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`pid`(6))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
     ],
     'tId'=>[
         'name'=>'identity',

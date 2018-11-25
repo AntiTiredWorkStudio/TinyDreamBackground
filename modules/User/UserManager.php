@@ -29,6 +29,16 @@ class UserManager extends DBManager{
             $condition);
     }
 
+    //当开奖时用户中奖调用,reward为中奖金额
+    public static function OnUserReward($uid,$reward){
+        $USM = new UserManager();
+        $reward = $reward/100;//除100
+        $USM->UpdateDataToTable($USM->TName('tUser'),
+            ['totalReward'=>['field'=>'totalReward','operator'=>'+','value'=>$reward]],
+            ['uid'=>$uid,'_logic'=>' ']
+        );
+    }
+
     //检查用户每日购买数量,过日后自动清0
     public static function CheckDayBoughtLimit($uid){
 		$USM = new UserManager();
@@ -193,6 +203,33 @@ class UserManager extends DBManager{
         $backMsg['buyinfo'] = DreamServersManager::GetMainOrders();//购买滚动栏
         $backMsg['mainpool'] = DreamPoolManager::GetMainPool();//在主页显示的梦想池信息
         return $backMsg;
+    }
+
+    //开始实名认证
+    public function RealNameIdentifyStart($uid){
+        //未实现
+
+    }
+
+    //实名认证成功
+    public function RealNameIdentifyFinished($uid,$ccardfurl,$icardfurl,$icardburl,$ccardnum,$icardnum){
+        //未实现
+
+    }
+
+    //实名认证审核
+    public function RealNameAudit($uid,$state){
+        //未实现
+
+    }
+
+    //显示所有需要认证信息
+    public function ViewAllVerifyInfo(){
+        //未实现
+
+        //有中标梦想并提交了实名认证的用户在此查询并获取
+
+        //提交了实名认证但无中标梦想的用户的实名认证不在此显示
     }
 }
 ?>

@@ -10,7 +10,7 @@
     Responds($_GET['act'],(new DreamPoolManager()),
     [
         'inf'=>R('info'),//初始化数据库
-        'add'=>R('add',["pid","ptitle","uid","tbill","ubill","duration"]),
+        'add'=>R('add',["ptitle","uid","tbill","ubill","duration"]),
         'list'=>R('ListAllPool'),
     ]);
 ?>

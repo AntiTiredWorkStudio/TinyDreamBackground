@@ -112,6 +112,44 @@ class DBManager extends Manager{
 		return mysql_fetch_row($result);
 	}
 
+    //插入多行数据
+    public function InsertDatasToTable($tableName,$array,$closeDBLink = false){
+        $con = $this->DBLink();
+        $sqlPart0 = 'INSERT INTO `'.$tableName.'`(';
+        $sqlPart1 = ') VALUES ';
+        $keys = '';
+        $targetValues = "";
+
+        foreach($array['key'] as $key){
+            $keys = $keys.'`'.$key.'`,';
+        }
+        $keys = substr($keys, 0, -1);
+        foreach($array['values'] as $value){
+            $currentValue = '(';
+            foreach ($value as $item) {
+                $currentValue = $currentValue.'"'.$item.'"'.',';
+            }
+            $currentValue = substr($currentValue, 0, -1);
+            $currentValue = $currentValue.'),';
+            $targetValues = $targetValues.$currentValue;
+        }
+        $targetValues = substr($targetValues, 0, -1);
+
+        if(empty($targetValues)){
+            $targetValues = "()";
+        }
+
+        $sql = $sqlPart0.$keys.$sqlPart1.$targetValues;
+        //echo $sql;
+        $result = mysql_query($sql,$con);
+
+        if($closeDBLink){
+            mysql_close($con);
+        }
+        return $result;
+    }
+
+
 	//插入数据
 	public function InsertDataToTable($tableName,$array,$closeDBLink = false){
 		$con = $this->DBLink();
@@ -135,6 +173,38 @@ class DBManager extends Manager{
 		}
 		return $result;
 	}
+
+	//通过自定义条件更新表
+	public function UpdateDataToTableByQuery($tableName,$valArray,$conString = null,$closeDBLink = false){
+        $con = $this->DBLink();
+        $sql = 'UPDATE `'.$tableName.'` SET ';
+
+        $val = '';
+
+        foreach($valArray as $key=>$value){
+            if(is_array($value)){
+                $val = $val . ' `' . $key . '`='.$value['field'].$value['operator'].'"' . $value['value'] . '",';
+            }else {
+                $val = $val . ' `' . $key . '`="' . $value . '",';
+            }
+        }
+        $val = substr($val, 0, -1);
+
+        if(empty($conString)){
+            $sql = $sql.$val.' WHERE 1';
+        }else{
+            $sql = $sql.$val.' WHERE '.$conString;
+        }
+       // echo $sql;
+        $result = mysql_query($sql,$con);
+
+        if($closeDBLink){
+            mysql_close($con);
+        }
+
+
+        return $result;
+    }
 
     //更新数据
 	public function UpdateDataToTable($tableName,$valArray,$conArray,$closeDBLink = false){

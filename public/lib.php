@@ -234,6 +234,9 @@ function DBResultHandle($dbResult,$func){
 //遍历并转换成表
 function DBResultToArray($dbResult, $NumKey = false,$keepNum = false){
     $resultArray = [];
+    if(empty($dbResult)){
+        return $resultArray;
+    }
     $seek = 0;
     while($single = mysql_fetch_array($dbResult)){
         $rowKey = "";
