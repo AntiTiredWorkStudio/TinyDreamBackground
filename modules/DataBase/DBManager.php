@@ -286,9 +286,6 @@ class DBManager extends Manager{
 		return $result;
 	}
 
-	/*public function SelectDataFromTableByColumOrder($tableName,$conArray,$order,$closeDBLink = false,$field='*'){
-
-    }*/
 
     //查找数据
 	public function SelectDataFromTable($tableName,$conArray,$closeDBLink = false,$field='*'){
@@ -341,6 +338,76 @@ class DBManager extends Manager{
 		}
 		return $result;
 	}
+
+    //查找数据
+    public function SelectDatasFromTable($tableName,$conArray,$closeDBLink = false,$field='*'){
+        $hasCond = false;
+        $con = $this->DBLink();
+        $sql = 'SELECT '.$field.' FROM `'.$tableName.'`';
+
+        if(!empty($conArray)){
+            $cond = ((isset($conArray['_logic']) && $conArray['_logic']=="AND")?(1):(0));
+
+            $logic = ((isset($conArray['_logic']))?$conArray['_logic']:'AND');
+
+
+            foreach($conArray as $key=>$value){
+                if($value=="" || $key=='_logic'){
+                    continue;
+                }
+                if($cond=='1' || $cond=='0'){
+                    $cond = "";
+                }
+                if(!$hasCond){
+                    $hasCond = true;
+                }
+                $tCondStr = '';
+                $orcondlist = explode('|',$value);//OR条件
+                if(count($orcondlist)>1) {
+                    $tCondStr = '(';
+                    foreach ($orcondlist as $sval) {
+                        $tCondStr = $tCondStr . ' `' . $key . '`="' . $sval . '" OR';
+                    }
+                    $tCondStr = rtrim($tCondStr,'OR');
+                    $tCondStr = $tCondStr . ')';
+
+                }
+
+                $andcondlist = explode('&',$value);//AND条件
+                if(count($andcondlist)>1) {
+                    $tCondStr = '(';
+                    foreach ($andcondlist as $sval) {
+                        $tCondStr = $tCondStr . ' `' . $key . '`="' . $sval . '" AND';
+                    }
+                    $tCondStr = rtrim($tCondStr,'AND');
+                    $tCondStr = $tCondStr . ')';
+                }
+
+                if($tCondStr!='') {
+                    $cond = $cond . ' ' . $tCondStr . ' ' . $logic . ' ';
+                }else{
+                    $cond = $cond . ' `' . $key . '`="' . $value . '" AND';
+                }
+                $hasCond = true;
+            }
+            if($hasCond){
+                $cond = substr($cond, 0, (($logic=='AND')?(-4):(-3)));
+            }
+
+        }
+
+        if(!empty($conArray)){
+            $sql = $sql.' WHERE '.$cond;
+        }
+       // echo '</br>'.$sql.'</br>';
+        //file_put_contents(time().'.txt',$sql);
+
+        $result = mysql_query($sql,$con);
+        if($closeDBLink){
+            mysql_close($con);
+        }
+        return $result;
+    }
 	
 	public function DBManager(){
 		$con = $this->DBLink();

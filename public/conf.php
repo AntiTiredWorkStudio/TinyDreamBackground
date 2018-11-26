@@ -61,11 +61,14 @@ $fallbacks = [
     '21' => "当前用户不存在这个梦想",
     '22' => "请求频率过高",
     '23' => "期号#FALLTEXT#已经开奖",
-	'37' => "已经实名认证",
+	'37' => "实名认证信息已经提交",
 	'38' => "实名认证审核中",
     '39' => "实名认证信息提交错误",
     '40' => "实名认证信息更新错误",
     '41' => "用户未通过实名认证",
+    '42' => "用户未提交实名认证信息",
+    '43' => "实名认证审核参数不正确,应为SUCCESS或FAILED",
+    '44' => "梦想更新失败",
 	'98' => "模块不存在",
 	'99' => "请求错误:#FALLTEXT#",
 	'100' => "参数错误:#FALLTEXT#"
@@ -106,7 +109,7 @@ $tables = [
     ],
     'tDream'=>[
         'name'=>'dream',
-        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
+        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','FAILED','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
     ],
     'tDreamType'=>[
         'name'=>'dreamtype',
@@ -173,7 +176,7 @@ $tables = [
     ],
     'tId'=>[
         'name'=>'identity',
-        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
     ]
 ];
 

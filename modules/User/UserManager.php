@@ -2,9 +2,16 @@
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+require "Res/autoload.php";
+use Qiniu\Auth;
+
 LIB('db');
 LIB('dp');
 LIB('ds');
+
+define('CARD_FRONT','card_f');
+define('ID_FRONT','id_f');
+define('ID_BACK','id_b');
 
 class UserManager extends DBManager{
     public static function UserExist($uid){
@@ -205,22 +212,134 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
-    //开始实名认证
-    public function RealNameIdentifyStart($uid){
-        //未实现
 
+    //云存储服务配置
+    public $CloudOptions = [
+        'ak'=>'d-SztTGFAV7_BX-dKRtM8y1diABoXe1zxCgd-2yi',
+        'sk'=>'CWv29dzAFng2KZ15Cf21Pv6FoOoWtB3-nzh1zgJH',
+        'domain'=>'http://tdream.antit.top',
+        'bucket'=>'tinydream'
+    ];
+
+
+
+    //生成文件名
+    public function GenerateFileName($uid,$type){
+        return $type.sha1($uid.'_'.PRC_TIME());
     }
 
-    //实名认证成功
-    public function RealNameIdentifyFinished($uid,$ccardfurl,$icardfurl,$icardburl,$ccardnum,$icardnum){
-        //未实现
+    //开始实名认证
+    public function RealNameIdentifyStart($uid){
 
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]),true);
+        if(!empty($tIdentify)){
+            if($tIdentify[0]['state'] != 'FAILED' && $tIdentify[0]['state'] != 'NONE'){
+                $backMsg = RESPONDINSTANCE('37');
+                $backMsg['state'] = $tIdentify[0]['state'];
+                return $backMsg;//实名认证提交或审核
+                //实名认证审核成功:只有在中奖时才会审核实名认证
+            }else{
+                $this->DeletDataFromTable($this->TName('tId'),[
+                    'uid'=>$uid,
+                    '_logic'=>' '
+                ]);
+            }
+        }
+
+        //未实现
+        $auth = new Auth($this->CloudOptions['ak'], $this->CloudOptions['sk']);
+        $token = $auth->uploadToken($this->CloudOptions['bucket']);
+        $timeStamp = PRC_TIME();
+        $backMsg['uptoken']=$token;
+
+        $backMsg['domain']=$this->CloudOptions['domain'];
+
+        $backMsg['filename'][CARD_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,CARD_FRONT);
+        $backMsg['filename'][ID_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_FRONT);
+        $backMsg['filename'][ID_BACK]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_BACK);
+        $backMsg['timeStamp']=$timeStamp;
+
+        $this->InsertDataToTable($this->TName('tId'),
+            [
+                "uid"=>$uid,
+                "ccardfurl"=>$backMsg['filename'][CARD_FRONT],
+                "icardfurl"=>$backMsg['filename'][ID_FRONT],
+                "icardburl"=>$backMsg['filename'][ID_BACK],
+                "ccardnum"=>0,
+                "icardnum"=>0,
+                "ftime"=>$timeStamp,
+                "state"=>"NONE",
+            ]
+        );
+
+        return $backMsg;
+    }
+
+    //实名认证成功(signal签名为用户id和时间戳字符串连接后的sha1值)
+    public function RealNameIdentifyFinished($uid,$ccardnum,$icardnum,$signal){
+        //未实现
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]),true);
+        if(!empty($tIdentify)){
+            if(sha1($uid.$tIdentify[0]['ftime']) != $signal){
+                return RESPONDINSTANCE('40');//签名不正确
+            }
+
+            if($tIdentify[0]['state'] != 'NONE'){
+                $backMsg = RESPONDINSTANCE('39');
+                $backMsg['state'] = $tIdentify[0]['state'];
+                return $backMsg;
+            }else{
+                $this->UpdateDataToTable($this->TName('tId'),
+                    [
+                        'ccardnum'=>$ccardnum,
+                        'icardnum'=>$icardnum,
+                        'state'=>'SUBMIT',//修改为提交状态,前台提示已提交
+                        'ftime'=>PRC_TIME()//修改时间,禁止签名复用
+                    ]
+                    ,
+                    [
+                        'uid'=>$uid,
+                        '_logic'=>' '
+                    ]);
+                return RESPONDINSTANCE('0');
+            }
+        }else{
+            $backMsg = RESPONDINSTANCE('39');
+        }
+
+        return $backMsg;
     }
 
     //实名认证审核
     public function RealNameAudit($uid,$state){
         //未实现
-
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
+            [
+                'uid'=>$uid,
+                'state'=>'SUBMIT',
+                '_logic'=>' '
+            ]),true);
+        if(!empty($tIdentify)) {
+            if($state == 'FAILED' || $state=='SUCCESS'){
+                $this->UpdateDataToTable($this->TName('tId'),['state'=>$state],[
+                    'uid'=>$uid,
+                    'state'=>'SUBMIT',
+                    '_logic'=>' '
+                ]);
+            }else{
+                return RESPONDINSTANCE('43');
+            }
+        }else{
+            return RESPONDINSTANCE('42');//必须是SUBMIT状态的实名认证信息才可通过
+        }
     }
 
     //显示所有需要认证信息
@@ -230,6 +349,31 @@ class UserManager extends DBManager{
         //有中标梦想并提交了实名认证的用户在此查询并获取
 
         //提交了实名认证但无中标梦想的用户的实名认证不在此显示
+
+        $array = DBResultToArray($this->SelectDataFromTable($this->TName('tDream'),['state'=>'DOING']));
+        $cond = '';
+
+        $finishUser =[];
+
+        foreach ($array as $key => $item) {
+            if(!empty($item['videourl'])){
+                $finishUser[$item['uid']] = [$item['videourl']];
+            }
+            $cond = $cond.$item['uid'].'|';
+        }
+
+
+
+
+        $resultArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tId'),
+            ['uid'=>$cond,
+             'state'=>'SUBMIT']
+        ));
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['verify'] = $resultArray;
+        $backMsg['video'] = $finishUser;
+        return $backMsg;
     }
 }
 ?>

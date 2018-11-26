@@ -24,8 +24,46 @@ class ValidateManager extends DBManager{
     }
 
     //绑定手机号
-    public function BindingTele($uid,$tele){
+    public function BindingTele($uid,$tele,$code){
         //未实现
+        $condition = [
+                'tele'=>[
+                    'var'=>$tele
+                ]
+            ];
+
+        $exist = $this->ExistRowInTable($GLOBALS['tables']['tValidate']['name'],$condition);
+
+
+        $condition = [
+            'tele'=>$tele,
+            '_logic' => 'AND'
+        ];
+
+        $resultInstance = null;
+
+        if($exist){
+           $pars = mysql_fetch_array($this->SelectDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition));
+
+                if($pars['code'] == $code){
+                    if((PRC_TIME() - $pars['time']>900)){
+                        $resultInstance = RESPONDINSTANCE('16');//验证码失效
+                    }else{
+                        $resultInstance = RESPONDINSTANCE(0);//验证成功
+                        $this->UpdateDataToTable($this->TName('tUser'),
+                            ['tele'=>$tele],
+                            ['uid'=>$uid,'_logic'=>' ']
+                        );
+                    }
+                    $this->DeletDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition);
+                    //echo 0;
+                }else{
+                    $resultInstance = RESPONDINSTANCE(2);//验证码错误
+                }
+            }else{
+                $resultInstance = RESPONDINSTANCE(3);//还未获取验证码
+            }
+            return $resultInstance;
     }
 
 	//生成验证码
@@ -88,62 +126,12 @@ class ValidateManager extends DBManager{
 		return $content;
 	}
 
-	//检查验证码
-	public function ConfirmCode($tele,$code){
-		$condition = [
-			'tele'=>[
-			'var'=>$tele
-			]
-		];
-		
-		$exist = $this->ExistRowInTable($GLOBALS['tables']['tValidate']['name'],$condition);
-		
-		
-		$condition = [
-			'tele'=>$tele,
-			'_logic' => 'AND'
-		];
-		
-		$resultInstance = null;
-		
-		if($exist){
-			$pars = mysql_fetch_array($this->SelectDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition));
-			
-			if($pars['code'] == $code){
-				if((PRC_TIME() - $pars['time']>900)){
-					$resultInstance = RESPONDINSTANCE('16');//验证码失效
-				}else{
-					$resultInstance = RESPONDINSTANCE(0);//验证成功
-				}
-				$this->DeletDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition);
-				//echo 0;
-			}else{
-				$resultInstance = RESPONDINSTANCE(2);//验证码错误
-			}
-		}else{
-			$resultInstance = RESPONDINSTANCE(3);//还未获取验证码
-		}
-		return $resultInstance;
-	}
 
-    //检查验证码并生成KeyChain
-	public function ConfirmCodeAndGenerateKeychain($tele,$code){
-		$result = $this->ConfirmCode($tele,$code);
-		if($result['result'] == 'true'){
-			$KEM = new KeyChain();
-			$gResult = $KEM->Update_KeyChain($tele);
-			foreach($gResult as $key=>$value){
-				$result[$key] = $value;
-			}
-		}
-		return $result;
-	}
-	
 	public function ValidateManager(){
 		parent::__construct();
 	}
 
-	//发送验证码
+	//发送验证码api
 	function nowapi_call($tele,$code){
 		$a_parm = [];
 		$a_parm['app']='sms.send';

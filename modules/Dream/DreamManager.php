@@ -17,14 +17,18 @@ class DreamManager extends DBManager{
 		parent::__construct();
 	}
 
-	//梦想实施
+	//梦想实施(AwardManager调用)
 	public static function OnDreamDoing($did){
         //未实现
+        $DRM = new DreamManager();
+        $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'DOING'],['did'=>$did,'_logic'=>' ']);
     }
 
-    //梦想完成
+    //梦想完成(UserManager 调用)
     public static function OnDreamSuccess($did){
         //未实现
+        $DRM = new DreamManager();
+        $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'SUCCESS'],['did'=>$did,'_logic'=>' ']);
     }
 
 	//生成梦想id号
@@ -101,6 +105,42 @@ class DreamManager extends DBManager{
             return RESPONDINSTANCE('13');//梦想提交失败
         }
         //return DreamManager::GenerateDreamID();
+    }
+
+    //完善梦想信息
+    public function OnEditingDream($uid,$did,$contentList){
+        $contentList = json_decode($contentList,true);
+        //未实现
+        $targetList = [
+            'title',
+            'content',
+            'videourl'
+        ];
+        $fixArray = [];
+        foreach ($targetList as $item) {
+            if(isset($contentList[$item])){
+                $fixArray[$item] = $contentList[$item];
+            }
+        }
+        if(empty($fixArray)){
+            return RESPONDINSTANCE('44');//梦想更新失败
+        }
+        //echo json_encode($fixArray,JSON_UNESCAPED_UNICODE);
+
+        $updateResult = $this->UpdateDataToTableByQuery($this->TName('tDream'),$fixArray,"`uid`=\"$uid\" AND `did`=\"$did\" AND (`state`=\"DOING\" OR `state`=\"SUBMIT\")");//['uid'=>$uid,'did'=>$did,''=>'','_logic'=>'AND']);
+
+
+        if(!$updateResult){
+            return RESPONDINSTANCE('44');//梦想更新失败
+        }else{
+
+            if(isset($contentList['videourl'])){
+                //完成上传小视频
+            }
+
+            return RESPONDINSTANCE('0');//更新成功
+        }
+
     }
 
     //选择梦想信息(必须要有action，因为选择梦想操作只在购买梦想池时需要做，一定为过程性动作)
