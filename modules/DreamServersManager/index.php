@@ -12,5 +12,9 @@
         'pay'=>R('PlaceOrderInADreamPoolPay',['uid','oid','bill','pcount','action']),//支付完成【修改action】
         'gap'=>R('GetAllPoolsInfo',['uid']),//玩家获取全部梦想池信息及参与信息
         'oinfo'=>R('GetAllOrdersUser',['uid']),//获取玩家的全部订单
+        'precs'=>R('ShowOrdersInPoolStart',['pid']),//进入参与记录页面调用
+        'preco'=>R('GetOrdersInPoolByRange',['pid','min','max']),//通过范围获取订单
+        'plists'=>R('ShowPoolsInfoStart'),//进入梦想池页面调用,获取梦想池总数
+        'plistg'=>R('GetPoolsInfoByRange',['uid','min','max']),//用户获取全部梦想池信息及参与信息,可选参数type(RUNNING,FINISHED,JOIN)
     ]);
 ?>

@@ -332,7 +332,7 @@ class UserManager extends DBManager{
                 $this->UpdateDataToTable($this->TName('tId'),['state'=>$state],[
                     'uid'=>$uid,
                     'state'=>'SUBMIT',
-                    '_logic'=>' '
+                    '_logic'=>'AND'
                 ]);
             }else{
                 return RESPONDINSTANCE('43');
@@ -361,8 +361,6 @@ class UserManager extends DBManager{
             }
             $cond = $cond.$item['uid'].'|';
         }
-
-
 
 
         $resultArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tId'),

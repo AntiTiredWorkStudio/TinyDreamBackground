@@ -41,7 +41,12 @@ class DreamServersManager extends DBManager {
     //获得首页滚动购买信息
     public static function GetMainOrders(){
         //未实现
-        return [];
+        $DSM = new DreamServersManager();
+        $sql = 'SELECT * FROM `order` WHERE `state`="SUCCESS" order By `ptime` DESC LIMIT 0,8';
+        $sresult = mysql_query($sql,$DSM->DBLink());
+        $array = DBResultToArray($sresult,true);
+        //echo $sql;
+        return $array;
     }
 
     //删除用户未完成的订单
@@ -233,7 +238,7 @@ class DreamServersManager extends DBManager {
         return RESPONDINSTANCE('20');
     }
 
-    //获取玩家参与的梦想池数量
+    //获取用户参与的梦想池数量
     public function CountUserJoinedPool($uid){
         $orders = $this->GetAllOrdersUser($uid);
         if(empty($orders)){
@@ -255,18 +260,148 @@ class DreamServersManager extends DBManager {
         return $count;
     }
 
-    //获取玩家的全部订单
+    //获取用户的全部订单
     public function GetAllOrdersUser($uid){
         $array = DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
             ['uid'=>$uid,'_logic'=>' ']),true);
         return $array;
     }
 
-    //玩家获取全部梦想池信息及参与信息
-    public function GetAllPoolsInfo($uid){
-        //未实现
+
+
+    //进入梦想池页面调用
+    public function ShowPoolsInfoStart(){
+        $link = $this->DBLink();
+        $sql = 'SELECT COUNT(*) FROM `dreampool` WHERE 1';
+
+        $cResult = mysql_fetch_array(mysql_query($sql,$link))[0];
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['poolCount'] = $cResult;
+        return $backMsg;
     }
 
+
+    //用户获取全部梦想池信息及参与信息
+    public function GetPoolsInfoByRange($uid,$min,$max){
+        //未实现
+        $link = $this->DBLink();
+
+        $sql = "SELECT * FROM `dreampool` WHERE 1 ORDER BY `ptime` DESC LIMIT $min,$max";
+
+        $cResult = DBResultToArray(mysql_query($sql,$link),true);
+        $tResult = [];
+        $type = 'ALL';
+        if(isset($_REQUEST['type'])){
+            $type = $_REQUEST['type'];
+        }
+
+        foreach ($cResult as $key=>$item) {
+
+            if(AwardManager::GetUserLottery($item['pid'],$uid)>0){//参加
+                //用户是否参加
+                if($item['state'] == 'FINISHED'){//结束
+                    //是否中奖
+                    $awardArray = DBResultToArray($this->SelectDataFromTable($this->TName('tAward'),
+                    [
+                        'pid'=>$item['pid'],
+                        'uid'=>$uid
+                    ]
+                    ));
+
+                    if(!empty($awardArray)){
+                        //参加中奖
+                        $cResult[$key]['ustatus'] = "JOIN|AWARD";
+                    }else{
+                        //参加没中奖
+                        $cResult[$key]['ustatus'] = "JOIN|NOTAWARD";
+                    }
+                    if($type == "FINISHED"){
+                        $tResult[$key] = $cResult[$key];
+                    }
+                }else{
+                    //未结束但是参加
+                    $cResult[$key]['ustatus'] = "JOIN";
+                    if($type == "RUNNING"){
+                        $tResult[$key] = $cResult[$key];
+                    }
+                }
+                if($type == "JOIN"){
+                    $tResult[$key] = $cResult[$key];
+                }
+            }else{//未参加
+                if($item['state'] == 'RUNNING') {//未参加没结束
+                    $cResult[$key]['ustatus'] = "NONE";
+                    if($type == "RUNNING"){
+                        $tResult[$key] = $cResult[$key];
+                    }
+                }else{//未参加结束
+                    $cResult[$key]['ustatus'] = "NONE";
+                    if($type == "FINISHED"){
+                        $tResult[$key] = $cResult[$key];
+                    }
+                }
+            }
+
+            if($type=='ALL'){
+                $tResult = $cResult;
+            }
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['Pools'] = $tResult;
+        return $backMsg;
+    }
+
+    //进入参与记录页面调用
+    public function ShowOrdersInPoolStart($pid){
+        $link = $this->DBLink();
+        $sql = 'SELECT COUNT(*) FROM `order` WHERE `pid`="'.$pid.'"';
+
+        $cResult = mysql_fetch_array(mysql_query($sql,$link))[0];
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['ordCount'] = $cResult;
+        return $backMsg;
+    }
+
+    //根据范围获取订单及用户信息
+    public function GetOrdersInPoolByRange($pid,$min,$max){
+        $link = $this->DBLink();
+
+        $sql = 'SELECT * FROM `order` WHERE `pid`="'.$pid.'" LIMIT '.$min.','.$max;
+
+        $cResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $user = [];
+
+        $uids = "";
+
+        $i = 0;
+
+        foreach ($cResult as $item) {
+            $user[$i++] = $item['uid'];
+            $uids = $uids.$item['uid'].'|';
+        }
+
+        $array = DBResultToArray($this->SelectDatasFromTable($this->TName('tUser'),
+            [
+                'uid'=>$uids
+            ]));
+
+        $user=[];
+
+        foreach ($array as $key => $item) {
+            $user[$item['uid']] = $item['tele'];
+        }
+
+        foreach ($cResult as $key => $item) {
+            $cResult[$key]['tele'] = $user[$cResult[$key]['uid']];
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+
+        $backMsg['orders'] = $cResult;
+
+        return $backMsg;
+    }
 
     public function DreamServersManager(){
         parent::__construct();
