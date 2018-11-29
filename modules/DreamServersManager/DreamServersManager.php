@@ -243,18 +243,19 @@ class DreamServersManager extends DBManager {
         $orders = $this->GetAllOrdersUser($uid);
         if(empty($orders)){
             return 0;
-        }else{
+        }/*else{
             $orders = $orders[0];
-        }
+        }*/
+        //echo json_encode($orders);
         $contains = [];
         $count = 0;
 
         foreach ($orders as $key=>$value) {
 
-            if(array_key_exists($orders['pid'],$contains)){
+            if(array_key_exists($value['pid'],$contains)){
                 continue;
             }
-            $contains[$orders['pid']] = true;
+            $contains[$value['pid']] = true;
             $count++;
         }
         return $count;
@@ -266,8 +267,6 @@ class DreamServersManager extends DBManager {
             ['uid'=>$uid,'_logic'=>' ']),true);
         return $array;
     }
-
-
 
     //进入梦想池页面调用
     public function ShowPoolsInfoStart(){

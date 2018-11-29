@@ -12,5 +12,6 @@
         'inf'=>R('info'),//初始化数据库
         'add'=>R('add',["ptitle","uid","tbill","ubill","duration"]),
         'list'=>R('ListAllPool'),
+        'fua'=>R('ForceUpdateAllPools'),
     ]);
 ?>

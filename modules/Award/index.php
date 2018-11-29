@@ -7,5 +7,6 @@
         'inf'=>R('info'),//模块信息
         'done'=>R('DoneAlottery',['dnum']),//开奖
         'onums'=>R('GetLotteryByOrder',['oid']),//通过订单获取
+        'anums'=>R('AutoLottery'),//自动开奖
     ]);
 ?>

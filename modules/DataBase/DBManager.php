@@ -195,7 +195,7 @@ class DBManager extends Manager{
         }else{
             $sql = $sql.$val.' WHERE '.$conString;
         }
-       // echo $sql;
+        //echo $sql;
         $result = mysql_query($sql,$con);
 
         if($closeDBLink){

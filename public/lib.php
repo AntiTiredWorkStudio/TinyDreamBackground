@@ -70,6 +70,12 @@ function RequestedFields($fields){
 //引用库接口
 function LIB($key){
 	try{
+	    if($key == "all"){
+            foreach ($GLOBALS['modules'] as $key=>$module) {
+                include_once($GLOBALS['modules'][$key]['lib']);
+	        }
+        }
+
 		if(!isset($GLOBALS['modules'][$key])){
 
 			die(json_encode(RESPONDINSTANCE('98'),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));

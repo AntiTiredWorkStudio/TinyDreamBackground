@@ -8,7 +8,21 @@ class DreamPoolManager extends DBManager{
     //生成梦想id号
     public static function GeneratePoolID(){
         $DPM = new DreamPoolManager();
-        return (100000 + $DPM->CountTableRow($DPM->TName('tPool')));
+        return (100000 + ($DPM->CountTableRow($DPM->TName('tPool'))+1));
+    }
+
+    //获取单个梦想池
+    public static function Pool($pid){
+        $DPM = new DreamPoolManager();
+        $pools = DBResultToArray($DPM->SelectDataFromTable($DPM->TName('tPool'),
+            [
+                'pid'=>$pid,
+                '_logic'=>' '
+            ]),true);
+        if(!empty($pools)){
+            return $pools[0];
+        }
+        return $pools;
     }
 
     //池存在并且未完成互助
@@ -99,12 +113,13 @@ class DreamPoolManager extends DBManager{
         $returnMsg = [];
 
         foreach ($poolInfo as $key=>$value){
+            ++$seek;
             if(self::HasPoolFinished($value['ptime'],$value['duration'],$value['cbill'],$value['tbill'])){
-                if((++$seek) >= $length){
+                /*if(($seek) >= $length-1){
                     $condition = $condition.'`pid`="'.$value['pid'].'"';
-                }else{
-                    $condition = $condition.'`pid`="'.$value['pid'].'" OR ';
-                }
+                }else{*/
+                $condition = $condition.'`pid`="'.$value['pid'].'" OR ';
+                //}
                 $returnMsg[$value['pid']]['state'] = 'FINISHED';
                 $returnMsg[$value['pid']]['info'] = $value;
             }else{
@@ -112,6 +127,8 @@ class DreamPoolManager extends DBManager{
                 $returnMsg[$value['pid']]['info']  = $value;
             }
         }
+
+        $condition = substr($condition, 0, -4);
         //echo $condition;
         if(!empty($condition)){
             $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),['state'=>'FINISHED'],$condition);
@@ -134,6 +151,9 @@ class DreamPoolManager extends DBManager{
         parent::__construct();
     }
 
+    public function ForceUpdateAllPools(){
+        return self::UpdateAllPools();
+    }
     //更新梦想池
     public function UpdatePool($pid){
         $poolInfo = DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']));
@@ -183,7 +203,7 @@ class DreamPoolManager extends DBManager{
     public function Add($ptitle,$uid,$tbill,$ubill,$duration){
 
         //校验身份
-        if(UserManager::CheckIdentity($uid,"User")){
+        if(!UserManager::CheckIdentity($uid,"User")){
             return RESPONDINSTANCE('8');
         }
 

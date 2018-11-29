@@ -23,6 +23,14 @@ class ValidateManager extends DBManager{
         }
     }
 
+    //强制绑定手机号（无需验证码）
+    public function ForceBindTele($uid,$tele){
+        $this->UpdateDataToTable($this->TName('tUser'),
+            ['tele'=>$tele],
+            ['uid'=>$uid,'_logic'=>' ']
+        );
+    }
+
     //绑定手机号
     public function BindingTele($uid,$tele,$code){
         //未实现

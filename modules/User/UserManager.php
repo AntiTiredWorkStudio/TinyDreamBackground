@@ -279,7 +279,7 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
-    //实名认证成功(signal签名为用户id和时间戳字符串连接后的sha1值)
+    //实名认证提交成功(signal签名为用户id和时间戳字符串连接后的sha1值)
     public function RealNameIdentifyFinished($uid,$ccardnum,$icardnum,$signal){
         //未实现
         $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),

@@ -4,7 +4,8 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 LIB('db');
 LIB('us');
-
+LIB('aw');
+LIB('dp');
 
 define("MAX_DREAMS_COUNT",5);
 
@@ -164,7 +165,7 @@ class DreamManager extends DBManager{
             }
             $actionList["buy"]["dream"] = $targetDream;//设置选择的梦想信息
             $backMsg = RESPONDINSTANCE('0');
-            $backMsg['action'] = $actionList;
+            $backMsg['actions'] = $actionList;
             return $backMsg;
         }else{
             return RESPONDINSTANCE('17',"未包含buy动作");
@@ -204,8 +205,22 @@ class DreamManager extends DBManager{
             $dreamArray = [];
         }
 
+        foreach($dreamArray as $key=>$value){
+            if($value['state']!='DOING'){
+//                DreamPoolManager::Pool()
+            }else{
+                $lottery = AwardManager::GetAwardLotteryByDreamID($value['did']);
+                $dreamArray[$key]['lottery'] = $lottery;
+                if(!empty($lottery)){
+                    $pool = DreamPoolManager::Pool($lottery['pid']);
+                    $dreamArray[$key]['pool'] = $pool;
+                }
+            }
+        }
+
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['dreams'] = $dreamArray;
+
         return $backMsg;
     }
 }

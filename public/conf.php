@@ -33,7 +33,9 @@ $modules = [
 	'va' => ['rq'=>'modules/Validate/index.php',//验证码模块
 			'lib'=>'modules/Validate/ValidateManager.php'],
     'ds' => ['rq'=>'modules/DreamServersManager/index.php',//梦想服务模块
-			'lib'=>'modules/DreamServersManager/DreamServersManager.php']#NEW_MODULES#
+			'lib'=>'modules/DreamServersManager/DreamServersManager.php']
+	,'ts' => ['rq'=>'modules/TestManager/index.php',//TestManager
+			'lib'=>'modules/TestManager/TestManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -168,7 +170,7 @@ $tables = [
 	],
     'tLottery'=>[
         'name'=>'lottery',
-        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , `state` ENUM('DOING','SUCCESS') NOT NULL COMMENT '梦想号状态'  , PRIMARY KEY (`lid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖号码';"
+        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , `state` ENUM('WAITTING','MISS','GET') NOT NULL COMMENT '梦想号状态'  , PRIMARY KEY (`lid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖号码';"
     ],
     'tAward'=>[
         'name'=>'award',

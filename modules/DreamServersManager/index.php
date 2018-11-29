@@ -16,5 +16,6 @@
         'preco'=>R('GetOrdersInPoolByRange',['pid','min','max']),//通过范围获取订单
         'plists'=>R('ShowPoolsInfoStart'),//进入梦想池页面调用,获取梦想池总数
         'plistg'=>R('GetPoolsInfoByRange',['uid','min','max']),//用户获取全部梦想池信息及参与信息,可选参数type(RUNNING,FINISHED,JOIN)
+        'cup'=>R('CountUserJoinedPool',['uid']),
     ]);
 ?>
