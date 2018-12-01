@@ -150,6 +150,23 @@ class UserManager extends DBManager{
 		return UserManager::CheckDayBoughtLimit("a01");
 	}
 
+	//个人信息
+	public function SelfInfo($uid){
+        $condition = [
+            'uid'=>$uid,
+            '_logic'=>' '
+        ];
+        $seleResult = $this->SelectDataFromTable($this->TName('tUser'),
+            $condition);
+        $userArray = DBResultToArray($seleResult,true);
+        if(!empty($userArray)){
+            $userArray = $userArray[0];
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['selfinfo'] = $userArray;
+        return $backMsg;
+    }
+
     //微信登录返回用户openid,昵称,头像地址后调用 进入小程序验证身份
 	public function EnterApp($uid,$nickname,$headicon){
         $condition = [
@@ -249,7 +266,7 @@ class UserManager extends DBManager{
                 ]);
             }
         }
-
+        $backMsg = RESPONDINSTANCE('0');
         //未实现
         $auth = new Auth($this->CloudOptions['ak'], $this->CloudOptions['sk']);
         $token = $auth->uploadToken($this->CloudOptions['bucket']);

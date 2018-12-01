@@ -13,12 +13,12 @@ class ValidateManager extends DBManager{
 
     //准备绑定手机号
     public function PrepareBindingTele($uid){
-        $result = DBResultToArray($this->SelectDataFromTable($this->TName('tUser'),['uid'=>$uid]));
+        $result = DBResultToArray($this->SelectDataFromTable($this->TName('tUser'),['uid'=>$uid,'_logic'=>' ']));
         if(empty($result)){
-            return $result;
+            return RESPONDINSTANCE('15');
         }else{
-            $backMsg = RESPONDINSTANCE('15');
-            $backMsg['tele'] = $result['uid']['tele'];
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['tele'] = $result[$uid]['tele'];
             return $backMsg;
         }
     }

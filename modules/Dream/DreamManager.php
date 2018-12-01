@@ -25,11 +25,23 @@ class DreamManager extends DBManager{
         $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'DOING'],['did'=>$did,'_logic'=>' ']);
     }
 
+    //梦想完成完善,提交审核
+    public static function OnDreamVerify($did){
+        $DRM = new DreamManager();
+        return $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'VERIFY'],['did'=>$did,'stat'=>'DOING','_logic'=>'AND']);
+    }
+
     //梦想完成(UserManager 调用)
     public static function OnDreamSuccess($did){
         //未实现
         $DRM = new DreamManager();
         $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'SUCCESS'],['did'=>$did,'_logic'=>' ']);
+    }
+
+    //梦想失效或完成失败
+    public static function OnDreamFailed($did){
+        $DRM = new DreamManager();
+        $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'FAILED'],['did'=>$did,'_logic'=>' ']);
     }
 
 	//生成梦想id号
@@ -59,6 +71,7 @@ class DreamManager extends DBManager{
         $DRM = new DreamManager();
         return DBResultExist($DRM->SelectDataFromTable($DRM->TName('tDream'),$condition));
     }
+
 
     //打开梦想编辑页面
     public function PrepareEditDream($uid){
@@ -206,7 +219,7 @@ class DreamManager extends DBManager{
         }
 
         foreach($dreamArray as $key=>$value){
-            if($value['state']!='DOING'){
+            if($value['state']!='DOING' && $value['state']!='VERIFY'){
 //                DreamPoolManager::Pool()
             }else{
                 $lottery = AwardManager::GetAwardLotteryByDreamID($value['did']);

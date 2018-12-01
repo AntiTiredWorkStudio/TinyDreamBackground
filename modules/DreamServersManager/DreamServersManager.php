@@ -45,6 +45,21 @@ class DreamServersManager extends DBManager {
         $sql = 'SELECT * FROM `order` WHERE `state`="SUCCESS" order By `ptime` DESC LIMIT 0,8';
         $sresult = mysql_query($sql,$DSM->DBLink());
         $array = DBResultToArray($sresult,true);
+
+
+        $uids ='';
+        foreach ($array as $item) {
+            $uids=  $uids.$item['uid'].'|';
+        }
+
+        $headIcons = DBResultToArray($DSM->SelectDatasFromTable($DSM->TName('tUser'),
+            ['uid'=>$uids],'false','uid,headicon'));
+
+
+        foreach ($array as $key=>$item) {
+            $array[$key]['headicon'] = $headIcons[$item['uid']]['headicon'];
+        }
+
         //echo $sql;
         return $array;
     }
@@ -279,7 +294,6 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
-
     //用户获取全部梦想池信息及参与信息
     public function GetPoolsInfoByRange($uid,$min,$max){
         //未实现
@@ -350,6 +364,29 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+    //完善梦想后将中奖梦想提交审核
+    public function SubmitDreamToVerify($uid,$did){
+        //判断梦想是否中奖并没有超越时限
+        if(!AwardManager::AwardedDreamVailid($did)){
+
+            DreamManager::OnDreamFailed($did);//设置梦想失效
+
+            return RESPONDINSTANCE('45');//不存在该中奖梦想或中奖梦想过期
+        }
+
+        //判断用户是否提交了实名认证
+        if(!UserManager::IdentifyRealNameUser($uid)){
+            return RESPONDINSTANCE('42');
+        }
+
+        //梦想状态需为DOING
+        if(!DreamManager::OnDreamVerify($did)){
+            return RESPONDINSTANCE('46');
+        }
+
+        return RESPONDINSTANCE('0');
+    }
+
     //进入参与记录页面调用
     public function ShowOrdersInPoolStart($pid){
         $link = $this->DBLink();
@@ -399,6 +436,21 @@ class DreamServersManager extends DBManager {
 
         $backMsg['orders'] = $cResult;
 
+        return $backMsg;
+    }
+
+    //查看梦想池某用户的详细信息
+    public function ShowPoolDetails($uid,$pid){
+        $resultArray = DBResultToArray($this->SelectDataFromTable(
+            $this->TName('tLottery'),
+            [
+                'pid'=>$pid,
+                'uid'=>$uid,
+                '_logic'=>'AND'
+            ]
+        ));
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['lottey']=$resultArray;
         return $backMsg;
     }
 

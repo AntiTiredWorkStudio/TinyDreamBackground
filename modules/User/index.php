@@ -11,6 +11,6 @@
         'rnamef'=>R('RealNameIdentifyFinished',['uid','ccardnum','icardnum','signal']),//实名认证提交
         'rnamea'=>R('RealNameAudit',['uid','state']),//实名认证审核
         'verify'=>R('ViewAllVerifyInfo'),//显示所有需要审核的信息
-
+        'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
     ]);
 ?>

@@ -71,6 +71,8 @@ $fallbacks = [
     '42' => "用户未提交实名认证信息",
     '43' => "实名认证审核参数不正确,应为SUCCESS或FAILED",
     '44' => "梦想更新失败",
+    '45' => "不存在该开奖记录",
+    '46' => "梦想状态校验失败",
 	'98' => "模块不存在",
 	'99' => "请求错误:#FALLTEXT#",
 	'100' => "参数错误:#FALLTEXT#"
@@ -111,7 +113,7 @@ $tables = [
     ],
     'tDream'=>[
         'name'=>'dream',
-        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','FAILED','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
+        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','VERIFY','FAILED','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
     ],
     'tDreamType'=>[
         'name'=>'dreamtype',
