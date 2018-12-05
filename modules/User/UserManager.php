@@ -451,7 +451,7 @@ class UserManager extends DBManager{
         $result = file_get_contents($url);
         $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['openid'] = $result['data']['openid'];
+        $backMsg['openid'] = $result['openid'];
         return $result;
     }
 }
