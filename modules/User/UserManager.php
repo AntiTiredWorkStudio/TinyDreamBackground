@@ -101,14 +101,16 @@ class UserManager extends DBManager{
             ]);
 
         $resultArray = DBResultToArray($seleResult,true);
-
-        if(DBResultArrayExist($resultArray)){
+        if(!empty($resultArray)){
+            $resultArray = $resultArray[0];
+        }
+       /* if(DBResultArrayExist($resultArray)){
             $resultArray = $resultArray[0];
         }else{
             return false;
-        }
+        }*/
 
-        return !empty($resultArray['tele']);
+        return (!empty($resultArray['tele'])) && $resultArray['tele']!="";
     }
 
     //检查用户是否提交实名认证
@@ -134,6 +136,32 @@ class UserManager extends DBManager{
                     $resultArray['state']=="SUCCESS")) ||
             ($state == "SUCCESS" &&
                 ($resultArray['state']=="SUCCESS"));
+    }
+
+
+    //获取某用户的实名认证信息
+    public function GetUserRealNameIdentify($uid){
+        $rNameResult = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]));
+        if(empty($rNameResult)){
+            return RESPONDINSTANCE('12');
+        }else{
+
+            if($rNameResult[$uid]['state'] == 'NONE'){
+                return RESPONDINSTANCE('12');
+            }
+            if($rNameResult[$uid]['state'] == 'FAILED'){
+                return RESPONDINSTANCE('41');
+            }
+
+
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['realName'] = $rNameResult;
+            return $backMsg;
+        }
     }
 
 
@@ -174,7 +202,7 @@ class UserManager extends DBManager{
             '_logic'=>' '
         ];
         $seleResult = $this->SelectDataFromTable($this->TName('tUser'),
-            $condition);
+        $condition);
         $userArray = DBResultToArray($seleResult,true);
         $backMsg = RESPONDINSTANCE('0');
         if(empty($userArray)){//未注册
@@ -235,10 +263,22 @@ class UserManager extends DBManager{
         'ak'=>'d-SztTGFAV7_BX-dKRtM8y1diABoXe1zxCgd-2yi',
         'sk'=>'CWv29dzAFng2KZ15Cf21Pv6FoOoWtB3-nzh1zgJH',
         'domain'=>'http://tdream.antit.top',
-        'bucket'=>'tinydream'
+        'bucket'=>'tinydream',
+        'region'=>'ECN'
     ];
 
-
+    public function uploadURLFromRegionCode($code) {
+        $uploadURL = null;
+        switch($code) {
+            case 'ECN': $uploadURL = 'https://up.qbox.me'; break;
+            case 'NCN': $uploadURL = 'https://up-z1.qbox.me'; break;
+            case 'SCN': $uploadURL = 'https://up-z2.qbox.me'; break;
+            case 'NA': $uploadURL = 'https://up-na0.qbox.me'; break;
+            case 'ASG': $uploadURL = 'https://up-as0.qbox.me'; break;
+            default: $uploadURL="";
+        }
+        return $uploadURL;
+    }
 
     //生成文件名
     public function GenerateFileName($uid,$type){
@@ -272,20 +312,24 @@ class UserManager extends DBManager{
         $token = $auth->uploadToken($this->CloudOptions['bucket']);
         $timeStamp = PRC_TIME();
         $backMsg['uptoken']=$token;
-
+        $backMsg['upurl']= $this->uploadURLFromRegionCode($this->CloudOptions['region']);
         $backMsg['domain']=$this->CloudOptions['domain'];
-
-        $backMsg['filename'][CARD_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,CARD_FRONT);
+       /*$backMsg['filename'][CARD_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,CARD_FRONT);
         $backMsg['filename'][ID_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_FRONT);
-        $backMsg['filename'][ID_BACK]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_BACK);
+        $backMsg['filename'][ID_BACK]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_BACK);*/
         $backMsg['timeStamp']=$timeStamp;
+
+        $backMsg['filename'][CARD_FRONT]=$this->GenerateFileName($uid,CARD_FRONT);
+        $backMsg['filename'][ID_FRONT]=$this->GenerateFileName($uid,ID_FRONT);
+        $backMsg['filename'][ID_BACK]=$this->GenerateFileName($uid,ID_BACK);
+
 
         $this->InsertDataToTable($this->TName('tId'),
             [
                 "uid"=>$uid,
-                "ccardfurl"=>$backMsg['filename'][CARD_FRONT],
-                "icardfurl"=>$backMsg['filename'][ID_FRONT],
-                "icardburl"=>$backMsg['filename'][ID_BACK],
+                "ccardfurl"=>$this->CloudOptions['domain'].'/'.$backMsg['filename'][CARD_FRONT],
+                "icardfurl"=>$this->CloudOptions['domain'].'/'.$backMsg['filename'][ID_FRONT],
+                "icardburl"=>$this->CloudOptions['domain'].'/'.$backMsg['filename'][ID_BACK],
                 "ccardnum"=>0,
                 "icardnum"=>0,
                 "ftime"=>$timeStamp,

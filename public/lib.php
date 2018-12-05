@@ -77,8 +77,7 @@ function LIB($key){
         }
 
 		if(!isset($GLOBALS['modules'][$key])){
-
-			die(json_encode(RESPONDINSTANCE('98'),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			die(json_encode(RESPONDINSTANCE('98',$key),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 		}
 		include_once($GLOBALS['modules'][$key]['lib']);
 	}catch(Exception $err){
@@ -163,7 +162,7 @@ function ISSUCCESS($backMsg){
 
 //中国时间
 function PRC_TIME(){
-    return time()+8*3600;
+    return time();
 }
 
 

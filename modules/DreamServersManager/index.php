@@ -17,6 +17,7 @@
         'plistg'=>R('GetPoolsInfoByRange',['uid','min','max']),//用户获取全部梦想池信息及参与信息,可选参数type(RUNNING,FINISHED,JOIN)
         'cup'=>R('CountUserJoinedPool',['uid']),//获取玩家加入梦想池的数量
         'sver'=>R('SubmitDreamToVerify',['uid','did']),//完善梦想后将中奖梦想提交审核
-        'pdetial'=>R('ShowPoolDetails',['uid','pid'])
+        'pdetial'=>R('ShowPoolDetails',['uid','pid']),//获取编号
+        'wxpay'=>R('WxPay',['oid','bill'])//统一下单
     ]);
 ?>

@@ -158,7 +158,7 @@ class DreamPoolManager extends DBManager{
     public function UpdatePool($pid){
         $poolInfo = DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']));
 
-        if(DBResultArrayExist($poolInfo)){
+        if(!empty($poolInfo)){
             $duration = $poolInfo[$pid]['duration'];
             $ptime = $poolInfo[$pid]['ptime'];
             $tbill = $poolInfo[$pid]['tbill'];
@@ -176,6 +176,7 @@ class DreamPoolManager extends DBManager{
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['poolInfo'] = $poolInfo[$pid];
             $backMsg['pless'] = $pless;
+
             return $backMsg;
         }else{
             return RESPONDINSTANCE('5');

@@ -28,7 +28,7 @@ class DreamManager extends DBManager{
     //梦想完成完善,提交审核
     public static function OnDreamVerify($did){
         $DRM = new DreamManager();
-        return $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'VERIFY'],['did'=>$did,'stat'=>'DOING','_logic'=>'AND']);
+        return $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'VERIFY'],['did'=>$did,'state'=>'DOING','_logic'=>'AND']);
     }
 
     //梦想完成(UserManager 调用)
@@ -111,7 +111,7 @@ class DreamManager extends DBManager{
                 if(isset($actionList['editdream'])){
                     unset($actionList['editdream']);
                 }
-                $backMsg['action'] = $actionList;
+                $backMsg['actions'] = $actionList;
             }
 
             return $backMsg;
@@ -120,6 +120,15 @@ class DreamManager extends DBManager{
         }
         //return DreamManager::GenerateDreamID();
     }
+
+
+   /* public function OnDreamVerify($uid,$did){
+        $result = $this->UpdateDataToTable($this->TName('tDream'),
+            ['state'=>'VERIFY'],
+            ['uid'=>$uid,'did'=>$did,'_logic'=>' ']
+            );
+        return RESPONDINSTANCE('0');
+    }*/
 
     //完善梦想信息
     public function OnEditingDream($uid,$did,$contentList){
@@ -187,13 +196,29 @@ class DreamManager extends DBManager{
     }
 
     //获取用户的单个梦想
-    public function GetSingleDream($uid,$did){
+    public function GetUserSingleDream($uid,$did){
+        $backMsg = RESPONDINSTANCE('0');
+        $state = 'SUBMIT';
+        if(isset($_REQUEST['state'])){
+            $state = $_REQUEST['state'];
+        }
+        $backMsg['dream'] = $this->GetSingleDream($uid,$did,$state);
+        if(empty($backMsg['dream'])){
+            return RESPONDINSTANCE('47');
+        }
+        return $backMsg;
+    }
+    //获取用户的单个梦想
+    public function GetSingleDream($uid,$did,$state='SUBMIT'){
         $condition = [
             'uid' => $uid,
             'did' => $did,
-            'state'=>'SUBMIT',
+            'state'=>$state,
             '_logic' =>'AND'
         ];
+        if($state == 'all'){
+            unset($condition['state']);
+        }
         $dreams = $this->SelectDataFromTable($this->TName('tDream'),$condition);
         $dreamArray = DBResultToArray($dreams,true);
         if(DBResultArrayExist($dreamArray)){
@@ -233,7 +258,7 @@ class DreamManager extends DBManager{
 
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['dreams'] = $dreamArray;
-
+        $backMsg['dcount'] = self::PrepareEditDream($uid);
         return $backMsg;
     }
 }

@@ -19,5 +19,6 @@
         'sdream'=>R('OnDreamSelected',['uid','did','action']),//选择梦想(可更改ACTION)
         'uedit'=>R('UpdateDream',['uid','did']),//修改梦想
         'gedit'=>R('OnEditingDream',['uid','did','contentList']),//完善梦想
+        'gdream'=>R('GetUserSingleDream',['uid','did'])//获取单一梦想
     ]);
 ?>

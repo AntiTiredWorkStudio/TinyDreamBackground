@@ -135,5 +135,31 @@ class TestManager extends DBManager {
             $DRM->OnEditDream($uid, $uid . "的梦想", "我的梦想是挣" . $uid . "块钱");
         }
     }
+
+    //检查梦想池非正常结束记录
+    public function FixDreamPoolUnrightbleFinished(){
+        $DPM = new DreamPoolManager();
+        echo "现在时间:".date("Y-m-d H:i",PRC_TIME()).'</br>';
+        $condition = "";
+        $fcondition = "";
+        $array = DBResultToArray($DPM->SelectDatasFromTable($DPM->TName('tPool'),
+            []));
+        foreach ($array as $key => $value) {
+            if((PRC_TIME()>$value['ptime']+$value['duration']) || ($value['cbill']>$value['tbill'])){
+                //echo '持续时间:'.$value['duration'].'</br>';
+                //echo '结束时间:'.date("Y-m-d H:i",($value['ptime']+$value['duration'])).'</br>';
+                $fcondition = $fcondition.'`pid`="'.$value['pid'].'" OR ';
+            }else{
+                echo $value['pid'].' 开始时间:'.date("Y-m-d H:i",$value['ptime']).' 结束时间:'.date("Y-m-d H:i",($value['ptime']+$value['duration']))."  目标款项目:".$value['tbill']."  已筹金额:".$value['cbill']."  [未结束]</br>";
+                $condition = $condition.'`pid`="'.$value['pid'].'" OR ';
+                //array_push($fixID,$value['pid']);
+            }
+        }
+        $condition = $condition.' `pid`=""';
+        $fcondition = $fcondition.' `pid`=""';
+        //echo $fcondition;
+        $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),['state'=>'RUNNING'],$condition);
+        $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),['state'=>'FINISHED'],$fcondition);
+    }
 }
 ?>

@@ -8,6 +8,156 @@ LIB('dr');
 LIB('dp');
 LIB('aw');
 
+class WechatPay{
+
+    public $minerPrice;
+    public $App_ID;
+    public $Mhc_ID;
+    public $App_Key;
+    public $notify_Url;
+    public $order_id;
+    public function __construct($orderid,$mprice){
+        $this->minerPrice = $mprice;
+        $this->order_id = $orderid;
+        $this->App_ID = $GLOBALS['options']['APP_ID'];
+        $this->App_Key = $GLOBALS['options']['MCH_KEY'];
+        $this->Mhc_ID = $GLOBALS['options']['MCH_ID'];
+        $this->notify_Url = $_SERVER["REMOTE_ADDR"];
+
+    }
+
+    function generateNonce()
+    {
+        return md5(uniqid('', true));
+    }
+
+    public function getPayResponse(){
+        $backMsg = RESPONDINSTANCE('0');
+            $prepay_Result = $this->generatePrepayId();
+            if($prepay_Result['result']!='true'){
+                return $prepay_Result;
+            }
+            $prepay_id = $prepay_Result['prepay_id'];
+            $response = array(
+                'appid' => $this->App_ID,
+                'partnerid' => $this->Mhc_ID,
+                'prepayid' => $prepay_id,
+                'package' => 'Sign=WXPay',
+                'noncestr' => $this->generateNonce(),
+                'timestamp' => time(),
+            );
+            $response['sign'] = $this->calculateSign($response, $this->App_Key);
+            $backMsg['pay'] = $response;
+            return $backMsg;
+    }
+
+    public function generatePrepayId()
+    {
+        $params = array(
+            'appid'            => $this->App_ID,
+            'mch_id'           => $this->Mhc_ID,
+            'nonce_str'        => $this->generateNonce(),
+            'body'             => 'FitMiner',
+            'out_trade_no'     => time(),
+            'total_fee'        => $this->minerPrice,
+            'spbill_create_ip' => $this->notify_Url,//$_SERVER["REMOTE_ADDR"],
+            'notify_url'       => "http://www.antit.top/fitback/index.php",
+            'trade_type'       => 'APP',
+        );
+
+        $params['sign'] = $this->calculateSign($params, $this->App_Key);
+
+        $xml = $this->getXMLFromArray($params);
+
+
+        $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
+
+        //file_put_contents("xml.txt",$result);
+
+        $xml = simplexml_load_string($result);
+
+        if($xml->return_code != "SUCCESS"){
+            $errmsg = RESPONDINSTANCE('58');
+            $errmsg['error']['return_code'] = (string)$xml->return_code;
+            $errmsg['error']['return_msg'] = (string)$xml->return_msg;
+            return $errmsg;
+        }
+
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['prepay_id'] = (string)$xml->prepay_id;
+        //file_put_contents("xml.txt",$xml->return_code);
+
+        return $backMsg;
+    }
+
+    function calculateSign($arr, $key)
+    {
+        ksort($arr);
+
+        $buff = "";
+        foreach ($arr as $k => $v) {
+            if ($k != "sign" && $k != "key" && $v != "" && !is_array($v)){
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
+        $buff = trim($buff, "&");
+        //var_export($arr);
+        //echo $buff;
+        file_put_contents("buff.txt",$buff);
+
+        $result = strtoupper(md5($buff . "&key=" . $key));
+
+        return $result;
+    }
+    /**
+     * Get xml from array
+     */
+    function getXMLFromArray($arr)
+    {
+        $xml = "<xml>";
+        foreach ($arr as $key=>$val) {
+            if (is_numeric($val)) {
+                $xml =$xml. '<'.$key.'>'.$val.'</'.$key.'>';
+            } else {
+                //$xml =$xml. '<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+                $xml =$xml. '<'.$key.'>'.$val.'</'.$key.'>';
+            }
+        }
+        $xml =$xml. '</xml>';
+        return $xml;
+    }
+
+
+
+    private function https_post($url,$param)
+    {
+        $ch = curl_init();
+        //如果$param是数组的话直接用
+        curl_setopt($ch, CURLOPT_URL, $url);
+        //如果$param是json格式的数据，则打开下面这个注释
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        //         'Content-Type: application/json',
+        //         'Content-Length: ' . strlen($param))
+        // );
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        //如果用的协议是https则打开鞋面这个注释
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+        $data = curl_exec($ch);
+
+        curl_close($ch);
+        return $data;
+
+    }
+
+}
+
 //梦想池服务中心,购票等功能
 class DreamServersManager extends DBManager {
     public function info()
@@ -53,11 +203,12 @@ class DreamServersManager extends DBManager {
         }
 
         $headIcons = DBResultToArray($DSM->SelectDatasFromTable($DSM->TName('tUser'),
-            ['uid'=>$uids],'false','uid,headicon'));
+            ['uid'=>$uids],'false','uid,nickname,headicon'));
 
 
         foreach ($array as $key=>$item) {
             $array[$key]['headicon'] = $headIcons[$item['uid']]['headicon'];
+            $array[$key]['nickname'] = $headIcons[$item['uid']]['nickname'];
         }
 
         //echo $sql;
@@ -116,7 +267,8 @@ class DreamServersManager extends DBManager {
     //下单动作开始【在任意梦想池点击参与互助或继续互助】
     public function PlaceOrderInADreamPoolStart($uid,$pid){
         $RunningResult = DreamPoolManager::IsPoolRunning($pid);
-        if(!$RunningResult['result']){
+
+        if($RunningResult['result']=="false"){
             return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
         }
 		
@@ -195,6 +347,7 @@ class DreamServersManager extends DBManager {
                 ]
             ];
             $backMsg['order'] = $orderArray;
+            $backMsg['pool'] = DreamPoolManager::Pool($actionList['buy']['pid']);
             return $backMsg;
         }else{
             return RESPONDINSTANCE('19');
@@ -294,6 +447,11 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+    //统一下单
+    public function WxPay($oid,$bill){
+        return (new WechatPay($oid, $bill))->getPayResponse();
+    }
+
     //用户获取全部梦想池信息及参与信息
     public function GetPoolsInfoByRange($uid,$min,$max){
         //未实现
@@ -348,7 +506,7 @@ class DreamServersManager extends DBManager {
                         $tResult[$key] = $cResult[$key];
                     }
                 }else{//未参加结束
-                    $cResult[$key]['ustatus'] = "NONE";
+                    $cResult[$key]['ustatus'] = "NONE|NOTAWARD";
                     if($type == "FINISHED"){
                         $tResult[$key] = $cResult[$key];
                     }
