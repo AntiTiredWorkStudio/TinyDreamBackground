@@ -434,5 +434,25 @@ class UserManager extends DBManager{
         $backMsg['video'] = $finishUser;
         return $backMsg;
     }
+
+    //获取AccessToken
+    public function GetAccessToken($code){
+        /*wx.request({//获取用户的openid
+            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + C.conf.appid + '&secret=' + C.conf.secret+'&js_code='+res.code+'&grant_type=authorization_code',
+            success:function(res){
+            app.globalData.openid = res.data.openid;
+            if (app.currentPage && app.currentPage.onLogin){
+                app.currentPage.onLogin(res.data.openid)//调用【当登录】事件
+              }
+            return;
+        }
+          })*/
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$GLOBALS['options']['APP_ID'].'&secret='.$GLOBALS['options']['APP_SECRET'].'&js_code='.$code.'&grant_type=authorization_code';
+        $result = file_get_contents($url);
+        $result = json_decode($result);
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['openid'] = $result['data']['openid'];
+        return $result;
+    }
 }
 ?>

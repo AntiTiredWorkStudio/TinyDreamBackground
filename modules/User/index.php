@@ -13,5 +13,6 @@
         'verify'=>R('ViewAllVerifyInfo'),//显示所有需要审核的信息
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
         'rnameg'=>R('GetUserRealNameIdentify',['uid']),//获取单一用户的实名认证信息
+        'gakt'=>R('GetAccessToken',['code'])
     ]);
 ?>
