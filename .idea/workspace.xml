@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
-      <change beforePath="$PROJECT_DIR$/modules/User/index.php" afterPath="$PROJECT_DIR$/modules/User/index.php" />
-      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,8 +36,8 @@
       <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="757">
-              <caret line="453" column="55" lean-forward="false" selection-start-line="453" selection-start-column="55" selection-end-line="453" selection-end-column="55" />
+            <state relative-caret-position="485">
+              <caret line="451" column="44" lean-forward="true" selection-start-line="451" selection-start-column="44" selection-end-line="451" selection-end-column="44" />
               <folding>
                 <element signature="n#UserExist#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#OnUserReward#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -384,12 +381,12 @@
       <workItem from="1543901207148" duration="11604000" />
       <workItem from="1543946957434" duration="2172000" />
       <workItem from="1543974984834" duration="1819000" />
-      <workItem from="1544015604987" duration="1242000" />
+      <workItem from="1544015604987" duration="2131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241376000" />
+    <option name="totallyTimeSpent" value="242265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -858,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="453" column="55" lean-forward="false" selection-start-line="453" selection-start-column="55" selection-end-line="453" selection-end-column="55" />
+        <state relative-caret-position="485">
+          <caret line="451" column="44" lean-forward="true" selection-start-line="451" selection-start-column="44" selection-end-line="451" selection-end-column="44" />
           <folding>
             <element signature="n#UserExist#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#OnUserReward#0;n#UserManager#0;n#!!top" expanded="false" />

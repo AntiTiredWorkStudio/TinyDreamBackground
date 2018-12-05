@@ -449,7 +449,7 @@ class UserManager extends DBManager{
           })*/
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$GLOBALS['options']['APP_ID'].'&secret='.$GLOBALS['options']['APP_SECRET'].'&js_code='.$code.'&grant_type=authorization_code';
         $result = file_get_contents($url);
-        $result = json_decode($result);
+        $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['openid'] = $result['data']['openid'];
         return $result;
