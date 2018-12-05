@@ -452,6 +452,112 @@ class DreamServersManager extends DBManager {
         return (new WechatPay($oid, $bill))->getPayResponse();
     }
 
+
+    //获取各种梦想池数量
+    public function GetPoolsCountInfo($uid){
+        $link = $this->DBLink();
+
+        $sqlr = "SELECT COUNT(*) FROM `dreampool` WHERE `state`='RUNNING'";
+        $sqlf = "SELECT COUNT(*) FROM `dreampool` WHERE `state`='FINISHED'";
+        $sqlu = "SELECT `pid` FROM `order` WHERE `uid`='$uid'";
+
+
+        $rResult = DBResultToArray(mysql_query($sqlr,$link),true);
+        $fResult = DBResultToArray(mysql_query($sqlf,$link),true);
+        $uResult = DBResultToArray(mysql_query($sqlu,$link),true);
+
+
+        $backMsg = RESPONDINSTANCE('0');
+        if(!empty($rResult)) {
+            $backMsg['rcount'] = $rResult[0]['COUNT(*)'];
+        }else{
+            $backMsg['rcount'] = 0;
+        }
+        if(!empty($uResult)) {
+
+            $countArr = [];
+
+            foreach ($uResult as $value){
+                if(!array_key_exists($value['pid'],$countArr)) {
+                    $countArr[$value['pid']] = true;
+                }
+            }
+
+
+            $backMsg['ucount'] = count($countArr);
+        }else{
+            $backMsg['ucount'] = 0;
+        }
+        if(!empty($fResult)) {
+            $backMsg['fcount'] = $fResult[0]['COUNT(*)'];
+        }else{
+            $backMsg['fcount'] = 0;
+        }
+
+        return $backMsg;
+    }
+
+    //用户获取参与中的梦想池
+    public function GetRunningPoolInfoByRange($min,$count){
+        $link = $this->DBLink();
+
+        $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' ORDER BY `ptime` DESC LIMIT $min,$count";
+
+        $tResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['Pools'] = $tResult;
+        return $backMsg;
+
+    }
+
+    //用户获取参与中的梦想池
+    public function GetFinishedPoolInfoByRange($min,$count){
+        $link = $this->DBLink();
+
+        $sql = "SELECT * FROM `dreampool` WHERE `state`='FINISHED' ORDER BY `ptime` DESC LIMIT $min,$count";
+
+        $tResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['Pools'] = $tResult;
+        return $backMsg;
+    }
+
+    //用户获取参与中的梦想池
+    public function GetJoinedPoolInfoByRange($uid,$min,$count){
+        $link = $this->DBLink();
+
+        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid'";
+
+        $tResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $condition = "";
+        $seek = 0;
+        foreach ($tResult as $value){
+            if($seek>=$min && $seek<($min+$count)){
+                //$condition = $condition.'`pid`="'.$value['pid'].'"';
+                $condition = $condition.$value['pid'].'|';
+            }
+            $seek++;
+        }
+
+        $sresult = $this->SelectDatasFromTable($this->TName('tPool'),
+                [
+                    'pid'=>$condition
+                ]
+            );
+
+        $array = DBResultToArray($sresult);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['Pools'] = $array;
+        return $backMsg;
+
+        echo $condition;
+    }
+
+
     //用户获取全部梦想池信息及参与信息
     public function GetPoolsInfoByRange($uid,$min,$max){
         //未实现
