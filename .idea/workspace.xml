@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +36,8 @@
       <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="453" column="36" lean-forward="false" selection-start-line="453" selection-start-column="36" selection-end-line="453" selection-end-column="36" />
+            <state relative-caret-position="587">
+              <caret line="454" column="23" lean-forward="false" selection-start-line="454" selection-start-column="23" selection-end-line="454" selection-end-column="23" />
               <folding>
                 <element signature="n#UserExist#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#OnUserReward#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -382,12 +381,12 @@
       <workItem from="1543901207148" duration="11604000" />
       <workItem from="1543946957434" duration="2172000" />
       <workItem from="1543974984834" duration="1819000" />
-      <workItem from="1544015604987" duration="2298000" />
+      <workItem from="1544015604987" duration="2534000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242432000" />
+    <option name="totallyTimeSpent" value="242668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -856,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="453" column="36" lean-forward="false" selection-start-line="453" selection-start-column="36" selection-end-line="453" selection-end-column="36" />
+        <state relative-caret-position="587">
+          <caret line="454" column="23" lean-forward="false" selection-start-line="454" selection-start-column="23" selection-end-line="454" selection-end-column="23" />
           <folding>
             <element signature="n#UserExist#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#OnUserReward#0;n#UserManager#0;n#!!top" expanded="false" />

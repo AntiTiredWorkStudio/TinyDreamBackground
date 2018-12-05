@@ -452,7 +452,7 @@ class UserManager extends DBManager{
         $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['openid'] = $result['openid'];
-        return $result;
+        return $backMsg;
     }
 }
 ?>
