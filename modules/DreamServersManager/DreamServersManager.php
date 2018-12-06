@@ -674,11 +674,14 @@ class DreamServersManager extends DBManager {
 
         $uids = "";
 
+        $dids = "";
+
         $i = 0;
 
         foreach ($cResult as $item) {
             $user[$i++] = $item['uid'];
             $uids = $uids.$item['uid'].'|';
+            $dids = $dids.$item['did'].'|';
         }
 
         $array = DBResultToArray($this->SelectDatasFromTable($this->TName('tUser'),
@@ -692,8 +695,15 @@ class DreamServersManager extends DBManager {
             $user[$item['uid']] = $item['tele'];
         }
 
+        $darray = DBResultToArray($this->SelectDatasFromTable($this->TName('tDream')
+            ,[
+                'did'=>$dids
+            ]));
+        //echo json_encode($darray);
+
         foreach ($cResult as $key => $item) {
-            $cResult[$key]['tele'] = $user[$cResult[$key]['uid']];
+            $cResult[$key]['tele'] = substr_replace($user[$cResult[$key]['uid']],'****',3,4);
+            $cResult[$key]['dtitle'] = $this->subtext($darray[$cResult[$key]['did']]['title'],10);
         }
 
         $backMsg = RESPONDINSTANCE('0');
@@ -702,6 +712,18 @@ class DreamServersManager extends DBManager {
 
         return $backMsg;
     }
+
+
+    public function subtext($text, $length)
+    {
+        if(mb_strlen($text, 'utf8') > $length) {
+            return mb_substr($text, 0, $length, 'utf8').'...';
+        } else {
+            return $text;
+        }
+
+    }
+
 
     //查看梦想池某用户的详细信息
     public function ShowPoolDetails($uid,$pid){
