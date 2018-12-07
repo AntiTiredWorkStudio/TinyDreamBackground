@@ -17,8 +17,9 @@ class WechatPay{
     public $notify_Url;
     public $order_id;
     public function __construct($orderid,$mprice){
-        $this->minerPrice = $mprice;
+        $this->minerPrice = intval($mprice);
         $this->order_id = $orderid;
+
         $this->App_ID = $GLOBALS['options']['APP_ID'];
         $this->App_Key = $GLOBALS['options']['MCH_KEY'];
         $this->Mhc_ID = $GLOBALS['options']['MCH_ID'];
