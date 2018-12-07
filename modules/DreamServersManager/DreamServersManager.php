@@ -63,7 +63,7 @@ class WechatPay{
             'total_fee'        => $this->minerPrice,
             'spbill_create_ip' => $this->notify_Url,//$_SERVER["REMOTE_ADDR"],
             'notify_url'       => "http://www.antit.top/fitback/index.php",
-            'trade_type'       => 'APP',
+            'trade_type'       => 'JSAPI',
         );
 
         $params['sign'] = $this->calculateSign($params, $this->App_Key);
