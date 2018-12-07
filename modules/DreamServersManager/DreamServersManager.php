@@ -32,9 +32,9 @@ class WechatPay{
         return md5(uniqid('', true));
     }
 
-    public function getPayResponse(){
+    public function getPayResponse($oid,$uid){
         $backMsg = RESPONDINSTANCE('0');
-            $prepay_Result = $this->generatePrepayId();
+            $prepay_Result = $this->generatePrepayId($oid,$uid);
             if($prepay_Result['result']!='true'){
                 return $prepay_Result;
             }
@@ -52,17 +52,37 @@ class WechatPay{
             return $backMsg;
     }
 
-    public function generatePrepayId()
+    public function generatePrepayId($oid,$uid)
     {
+
+        /*
+         * <xml>
+               <appid>wx2421b1c4370ec43b</appid>
+               <attach>支付测试</attach>
+               <body>JSAPI支付测试</body>
+               <mch_id>10000100</mch_id>
+               <detail><![CDATA[{ "goods_detail":[ { "goods_id":"iphone6s_16G", "wxpay_goods_id":"1001", "goods_name":"iPhone6s 16G", "quantity":1, "price":528800, "goods_category":"123456", "body":"苹果手机" }, { "goods_id":"iphone6s_32G", "wxpay_goods_id":"1002", "goods_name":"iPhone6s 32G", "quantity":1, "price":608800, "goods_category":"123789", "body":"苹果手机" } ] }]]></detail>
+               <nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>
+               <notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
+               <openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>
+               <out_trade_no>1415659990</out_trade_no>
+               <spbill_create_ip>14.23.150.211</spbill_create_ip>
+               <total_fee>1</total_fee>
+               <trade_type>JSAPI</trade_type>
+               <sign>0CB01533B8C1EF103065174F50BCA001</sign>
+           </xml>
+         * */
         $params = array(
             'appid'            => $this->App_ID,
+            'attach'             => '小梦想互助',
+            'body'             => '购买一个梦想',
             'mch_id'           => $this->Mhc_ID,
             'nonce_str'        => $this->generateNonce(),
-            'body'             => 'FitMiner',
-            'out_trade_no'     => time(),
-            'total_fee'        => $this->minerPrice,
-            'spbill_create_ip' => $this->notify_Url,//$_SERVER["REMOTE_ADDR"],
             'notify_url'       => "http://www.antit.top/fitback/index.php",
+            'openid'       => $uid,
+            'out_trade_no'     => $oid,
+            'spbill_create_ip' => $this->notify_Url,//$_SERVER["REMOTE_ADDR"],
+            'total_fee'        => $this->minerPrice,
             'trade_type'       => 'JSAPI',
         );
 
@@ -449,8 +469,9 @@ class DreamServersManager extends DBManager {
     }
 
     //统一下单
-    public function WxPay($oid,$bill){
-        return (new WechatPay($oid, $bill))->getPayResponse();
+    public function WxPay($oid,$bill,$uid){
+       // echo $oid.' '.$bill.' '.$uid;
+        return (new WechatPay($oid, $bill))->getPayResponse($oid,$uid);
     }
 
 
