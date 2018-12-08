@@ -701,8 +701,8 @@ class DreamServersManager extends DBManager {
     public function GetOrdersInPoolByRange($pid,$min,$max){
         $link = $this->DBLink();
 
-        $sql = 'SELECT * FROM `order` WHERE `pid`="'.$pid.'" LIMIT '.$min.','.$max;
-
+        $sql = 'SELECT * FROM `order` WHERE `pid`="'.$pid.'" AND `state`="SUCCESS" LIMIT '.$min.','.$max;
+        
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 
         $user = [];
