@@ -248,5 +248,19 @@ class AwardManager extends DBManager{
         $backMsg['nums'] = $orderArray;
         return $backMsg;
     }
+
+    //获取梦想池开奖号
+    public function GetLotteryFromPid($pid){
+        $sResult = $this->SelectDataFromTable($this->TName('tAward'),['pid'=>$pid,'_logic'=>' '],false,'`lid`');
+        $lottery = DBResultToArray($sResult,true);
+        if(!empty($lottery)){
+            $lid = $lottery[0]['lid'];
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['lid'] = $lid;
+        }else{
+            $backMsg = RESPONDINSTANCE('59');
+        }
+        return $backMsg;
+    }
 }
 ?>
