@@ -686,8 +686,12 @@ class DreamServersManager extends DBManager {
     public function ShowOrdersInPoolStart($pid){
         $link = $this->DBLink();
         $sql = 'SELECT COUNT(*) FROM `order` WHERE `pid`="'.$pid.'" `state`="SUCCESS"';
-
-        $cResult = mysql_fetch_array(mysql_query($sql,$link))[0];
+        $result = mysql_query($sql,$link);
+        if(!$result){
+            $cResult = [];
+        }else{
+            $cResult = mysql_fetch_array($result)[0];
+        }
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['ordCount'] = $cResult;
         return $backMsg;
