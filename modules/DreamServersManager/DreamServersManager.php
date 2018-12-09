@@ -392,6 +392,11 @@ class DreamServersManager extends DBManager {
             return RESPONDINSTANCE('17',"购买信息或梦想信息错误,无法完成订单");
         }
 
+        $did = $actionList['pay']['did'];
+        if(isset($_REQUEST['did'])){
+            $did = $_REQUEST['did'];
+        }
+
         //更新订单信息
         $condition = [
             'uid'=>$uid,
@@ -410,6 +415,7 @@ class DreamServersManager extends DBManager {
                 'state'=>'SUCCESS',
                 'bill'=>$bill,
                 'dcount'=>$pcount,
+                'did'=>$did,
                 'ptime'=>PRC_TIME()
             ],
             $condition
@@ -426,7 +432,7 @@ class DreamServersManager extends DBManager {
         UserManager::UpdateUserOrderInfo($uid,$this->CountUserJoinedPool($uid),$pcount);
 
         //修改AwardManager,为用户添加梦想编号
-        $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$actionList['pay']['did'],$oid,$startIndex,$endIndex);
+        $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$did,$oid,$startIndex,$endIndex);
         if($result && !empty($NumberArray)){
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['numbers'] = $NumberArray;
@@ -702,7 +708,7 @@ class DreamServersManager extends DBManager {
         $link = $this->DBLink();
 
         $sql = 'SELECT * FROM `order` WHERE `pid`="'.$pid.'" AND `state`="SUCCESS" LIMIT '.$min.','.$max;
-        
+
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 
         $user = [];
