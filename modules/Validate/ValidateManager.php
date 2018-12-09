@@ -143,7 +143,7 @@ class ValidateManager extends DBManager{
 	function nowapi_call($tele,$code){
 		$a_parm = [];
 		$a_parm['app']='sms.send';
-		$a_parm['tempid']='51517';
+		$a_parm['tempid']='51585';
 		$a_parm['param']=urlencode('code='.$code);
 		$a_parm['phone']=$tele;
 		$a_parm['appkey']='16194';
