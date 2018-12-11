@@ -39,7 +39,7 @@ class UserManager extends DBManager{
     //当开奖时用户中奖调用,reward为中奖金额
     public static function OnUserReward($uid,$reward){
         $USM = new UserManager();
-        $reward = $reward/100;//除100
+        $reward = $reward;//不除100
         $USM->UpdateDataToTable($USM->TName('tUser'),
             ['totalReward'=>['field'=>'totalReward','operator'=>'+','value'=>$reward]],
             ['uid'=>$uid,'_logic'=>' ']

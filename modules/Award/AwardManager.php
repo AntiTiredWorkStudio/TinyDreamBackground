@@ -180,7 +180,8 @@ class AwardManager extends DBManager{
             if($item['state'] == 'FINISHED'){
                 if($item['pcount'] <=0){
                     $cResult = "未中奖";
-                }else {
+                }
+                else {
                     $cResult = $key . '-' . (10000000+ (($DoalBallNum+$item['pid'] ) % $item['pcount']));
 
                     $targetLottery = $this->GetLottoryInfo($cResult);
@@ -207,9 +208,11 @@ class AwardManager extends DBManager{
                 $backMsg['DonePools'][$key] = $cResult;
                 $count++;
             }
+
         }
 
-
+        $this->UpdateDataToTable($this->TName('tPool'),
+            ['award'=>'YES'],['award'=>'NO','_logic'=>' ']);
       //  echo json_encode($resultArray);
         /*for($i=0;$i<$pCount;$i++){
             $resultArray[$i][0] = sha1("ghosteum_".$password."_".(1000000+$i));
