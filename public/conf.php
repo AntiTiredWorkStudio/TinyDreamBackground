@@ -5,7 +5,7 @@ define('ADMIN','admin_init');
 define('DEFDOWNLOAD','http://fitchain.pro');
 //配置信息
 $options = [
-    'debug'  => true,//调试模式
+    'debug'  => false,//调试模式
     'token'  => 'konglf',
     // 'aes_key' => null, // 可选
 	'server' => '127.0.0.1',	//网站/数据库ip
@@ -109,7 +109,7 @@ $tables = [
     ],
     'tPool'=>[
         'name'=>'dreampool',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '池id' , `ptitle` TEXT NOT NULL COMMENT '池说明' , `uid` TEXT NOT NULL COMMENT '发布人id' , `state` ENUM('RUNNING','FINISHED') NOT NULL COMMENT '状态' , `tbill` INT NOT NULL COMMENT '目标金额' , `cbill` INT NOT NULL COMMENT '筹得金额' , `ubill` INT NOT NULL COMMENT '每份金额' , `duration` INT NOT NULL COMMENT '持续时间' , `ptime` INT NOT NULL COMMENT '发布时间' , `pcount` INT NOT NULL COMMENT '筹得份数' , PRIMARY KEY (`pid`(6))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想池';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '池id' , `ptitle` TEXT NOT NULL COMMENT '池说明' , `uid` TEXT NOT NULL COMMENT '发布人id' , `state` ENUM('RUNNING','FINISHED') NOT NULL COMMENT '状态' , `tbill` INT NOT NULL COMMENT '目标金额' , `cbill` INT NOT NULL COMMENT '筹得金额' , `ubill` INT NOT NULL COMMENT '每份金额' , `duration` INT NOT NULL COMMENT '持续时间' , `ptime` INT NOT NULL COMMENT '发布时间' , `pcount` INT NOT NULL COMMENT '筹得份数' ,`award` ENUM('NO','YES') NOT NULL DEFAULT 'NO' COMMENT '梦想池开奖状态' , PRIMARY KEY (`pid`(6))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想池';"
     ],
     'tOrder'=>[
         'name'=>'order',

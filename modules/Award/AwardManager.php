@@ -154,6 +154,10 @@ class AwardManager extends DBManager{
         );
     }
 
+    public function GetUnawardPools(){
+        return DreamPoolManager::GetAllUnAwardPools();
+    }
+
     //自动开奖
     public function AutoLottery(){
         return self::DrawTheWinnerLottery();
@@ -168,12 +172,16 @@ class AwardManager extends DBManager{
         $resultArray = [];
         $count = 0;
         $time = PRC_TIME();
-        foreach ($result as $key => $item) {
+
+        $pools = DreamPoolManager::GetAllUnAwardPools();
+
+
+        foreach ($pools as $key => $item) {
             if($item['state'] == 'FINISHED'){
-                if($item['info']['pcount'] <=0){
+                if($item['pcount'] <=0){
                     $cResult = "未中奖";
                 }else {
-                    $cResult = $key . '-' . (10000000+ (($DoalBallNum+$item['info']['pid'] ) % $item['info']['pcount']));
+                    $cResult = $key . '-' . (10000000+ (($DoalBallNum+$item['pid'] ) % $item['pcount']));
 
                     $targetLottery = $this->GetLottoryInfo($cResult);
                     if(empty($targetLottery)){
@@ -183,10 +191,10 @@ class AwardManager extends DBManager{
                     }
 
                     DreamManager::OnDreamDoing($targetLottery['did']);//更新梦想表——梦想实现
-                    UserManager::OnUserReward($targetLottery['uid'],$item['info']['cbill']);//更新用户表——用户中奖总额修改
-                    $this->SetPoolsAwardLottery($item['info']['pid'],$targetLottery['lid']);//更新编号信息（中奖/未中奖）
+                    UserManager::OnUserReward($targetLottery['uid'],$item['cbill']);//更新用户表——用户中奖总额修改
+                    $this->SetPoolsAwardLottery($item['pid'],$targetLottery['lid']);//更新编号信息（中奖/未中奖）
 
-                    $resultArray[$count][0] = $item['info']['pid'];//梦想池id
+                    $resultArray[$count][0] = $item['pid'];//梦想池id
                     $resultArray[$count][1] = $targetLottery['uid'];//中奖用户id
                     $resultArray[$count][2] = $targetLottery['lid'];//开奖编号
                     $resultArray[$count][3] = $expect;//期号
@@ -194,13 +202,15 @@ class AwardManager extends DBManager{
                     $resultArray[$count][5] = $targetLottery['index'];//梦想编号
                     $resultArray[$count][6] = $time;//开奖时间
                     $resultArray[$count][7] = $targetLottery['did'];//中奖梦想id
-                    $resultArray[$count][8] = $item['info']['cbill'];//金额
+                    $resultArray[$count][8] = $item['cbill'];//金额
                 }
                 $backMsg['DonePools'][$key] = $cResult;
                 $count++;
             }
         }
 
+
+      //  echo json_encode($resultArray);
         /*for($i=0;$i<$pCount;$i++){
             $resultArray[$i][0] = sha1("ghosteum_".$password."_".(1000000+$i));
             $resultArray[$i][1] = "player".($i+1);

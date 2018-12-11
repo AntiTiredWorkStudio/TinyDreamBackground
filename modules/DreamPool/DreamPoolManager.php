@@ -11,6 +11,23 @@ class DreamPoolManager extends DBManager{
         return (100000 + ($DPM->CountTableRow($DPM->TName('tPool'))+1));
     }
 
+    //获取全部未开奖梦想池
+    public static function GetAllUnAwardPools(){
+        $DPM = new DreamPoolManager();
+        $aResult = $DPM->SelectDataFromTable($DPM->TName('tPool'),
+            ['award'=>'NO','_logic'=> ' ']
+            );
+        $PoolList = DBResultToArray($aResult,false);
+
+        return $PoolList;
+    }
+
+    //获取全部梦想池
+    public static function GetAllPools(){
+        $DPM = new DreamPoolManager();
+        return $DPM->ListAllPool();
+    }
+
     //获取单个梦想池
     public static function Pool($pid){
         $DPM = new DreamPoolManager();
@@ -219,7 +236,8 @@ class DreamPoolManager extends DBManager{
             "ubill"=>$ubill,
             "duration"=>$duration,
             "ptime"=>PRC_TIME(),
-            "pcount"=>0
+            "pcount"=>0,
+            "award" =>'NO'
         ]);
         if($insresult){
             return RESPONDINSTANCE('0');
