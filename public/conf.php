@@ -16,7 +16,8 @@ $options = [
     'APP_SECRET'=>'c155ac5842ccffbb40a9611bad0c0832',
     'MCH_KEY'=>'fitminer12345678FITMINER12345678',//微信商户key
     'MCH_ID'=>'1514357161',//微信商户号
-    'Notify_Url'=>'http://paysdk.weixin.qq.com/notify.php'//'http://www.antit.top:8001/fitback/index.php'
+    'Notify_Url'=>'http://paysdk.weixin.qq.com/notify.php',//'http://www.antit.top:8001/fitback/index.php'
+    'ManageIndex'=>'admin/index.html'
 ];
 
 //模块配置
@@ -36,7 +37,9 @@ $modules = [
     'ds' => ['rq'=>'modules/DreamServersManager/index.php',//梦想服务模块
 			'lib'=>'modules/DreamServersManager/DreamServersManager.php']
 	,'ts' => ['rq'=>'modules/TestManager/index.php',//TestManager
-			'lib'=>'modules/TestManager/TestManager.php']#NEW_MODULES#
+			'lib'=>'modules/TestManager/TestManager.php']
+	,'auth' => ['rq'=>'modules/AuthManager/index.php',//AuthManager
+			'lib'=>'modules/AuthManager/AuthManager.php']#NEW_MODULES#
 ];
 
 //错误配置

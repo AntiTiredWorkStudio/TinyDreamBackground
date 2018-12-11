@@ -2,47 +2,62 @@
 //框架公有库(GLOBALS作用域,只用于写方法)
 //引用请求接口
 
-//创建模块
-function BuildModule(){
 
-    if(empty(RequestedFields(['name']))){
-        if(is_dir("modules/".$_REQUEST['name'])){
-            die("模块".$_REQUEST['admd']."已存在!");
-        }
-        mkdir("modules/".$_REQUEST['name']);
-        $managerFile = file_get_contents('public/template/manager.txt');
-        $respondFile = file_get_contents('public/template/index.txt');
-        $managerFile = str_replace('#manager#',$_REQUEST['name'],$managerFile);
-        $respondFile = str_replace('#manager#',$_REQUEST['name'],$respondFile);
-
-        $configFile = file_get_contents('public/conf.php');
-
-        $respondPath = "modules/".$_REQUEST['name'].'/index.php';
-        $managerPath = "modules/".$_REQUEST['name'].'/'.$_REQUEST['name'].'.php';
-
-        $configFile = str_replace('#NEW_MODULES#',"
-	,'".$_REQUEST['admd']."' => ['rq'=>'".$respondPath."',//".$_REQUEST['name']."
-			'lib'=>'".$managerPath."']#NEW_MODULES#",$configFile);
-        file_put_contents('public/conf.php',$configFile);
-
-        file_put_contents($managerPath,$managerFile);
-        file_put_contents($respondPath,$respondFile);
-        die("模块".$_REQUEST['admd']."创建完成!");
-    }else{
-        die("模块".$_REQUEST['admd']."创建失败!");
+define('PERMISSION_LOCAL','localhost');
+//控制器基类
+class Manager{
+    public function info(){
+        return "控制器";
     }
-
 }
 
+//监视器类
+class Monitor extends Manager{
+    public function info(){
+        return "监视管理器";
+    }
+//创建模块
+    public function BuildModule($module,$controller){
+      //  if(empty(RequestedFields(['name']))){
+            if(is_dir("modules/".$controller)){
+                die("模块".$module."已存在!");
+            }
+            mkdir("modules/".$controller);
+            $managerFile = file_get_contents('public/template/manager.txt');
+            $respondFile = file_get_contents('public/template/index.txt');
+            $managerFile = str_replace('#manager#',$controller,$managerFile);
+            $respondFile = str_replace('#manager#',$controller,$respondFile);
+
+            $configFile = file_get_contents('public/conf.php');
+
+            $respondPath = "modules/".$controller.'/index.php';
+            $managerPath = "modules/".$controller.'/'.$controller.'.php';
+
+            $configFile = str_replace('#NEW_MODULES#',"
+	,'".$module."' => ['rq'=>'".$respondPath."',//".$controller."
+			'lib'=>'".$managerPath."']#NEW_MODULES#",$configFile);
+            file_put_contents('public/conf.php',$configFile);
+
+            file_put_contents($managerPath,$managerFile);
+            file_put_contents($respondPath,$respondFile);
+            die("模块".$module."创建完成!");
+       // }else{
+      //      die("模块".$_REQUEST['admd']."创建失败!");
+      //  }
+
+    }
+}
+
+
+
 function REQUEST($key){
-    if( $_SERVER['SERVER_NAME'] == 'localhost') {
-        switch ($key) {
-            case "admd":
-                BuildModule();
-                break;
-            default:
-                break;
-        }
+    if($key=='moi') {
+        Responds($key,(new Monitor()),
+            [
+                'inf'=>R('info'),//模块信息
+                'build'=>R('BuildModule',['key','name']),
+            ],PERMISSION_LOCAL);
+        return;
     }
 	try{
 		if(!isset($GLOBALS['modules'][$key])){
@@ -167,8 +182,12 @@ function PRC_TIME(){
 
 
 //设置模块的响应动作
-function Responds($action, $manager, $actionArray){
-
+function Responds($action, $manager, $actionArray,$permission='all'){
+    if($permission!='all'){
+        if($permission == 'localhost' && $_SERVER['SERVER_NAME'] != 'localhost') {
+            die("无此权限");
+        }
+    }
     if(!array_key_exists($_REQUEST[$action],$actionArray)){
         die(json_encode(RESPONDINSTANCE('99',"请求模块'".$action."'不包含动作 '".$_REQUEST[$action]."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
@@ -182,7 +201,7 @@ function Responds($action, $manager, $actionArray){
 
         if(empty($fieldCheck)){
             if(method_exists($manager,$actionArray[$_REQUEST[$action]]['func'])) {
-                $result = $manager->$actionArray[$_REQUEST[$action]]['func'](...$paras);
+                $result = $manager->$actionArray[$_REQUEST[$action]]['func'](...$paras);//调用功能
             }else{
                 echo json_encode(RESPONDINSTANCE('100',"请求模块'".$action."'未定义方法 '".$actionArray[$_REQUEST[$action]]['func']."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
                 die();
@@ -260,11 +279,5 @@ function DBResultToArray($dbResult, $NumKey = false,$keepNum = false){
         $seek++;
     }
     return $resultArray;
-}
-
-class Manager{
-    public function info(){
-        return "控制器";
-    }
 }
 ?>

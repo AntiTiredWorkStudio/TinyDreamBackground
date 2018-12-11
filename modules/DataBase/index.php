@@ -3,14 +3,11 @@
 
 	include_once("DBManager.php");
 
-    if($_SERVER['SERVER_NAME'] != 'localhost') {
-        die("无此权限");
-    }
     Responds($_GET['act'],(new DBManager()),
         [
             'ini'=>R('InitDB'),//初始化数据库
-            'getf'=>R('GetTableFields',['tname']),
+            'getf'=>R('GetTableFields',['tname']),//获取数据库字段
             'template'=>R('DBPHPTemplate')
-        ]);
+        ],PERMISSION_LOCAL);
 
 ?>

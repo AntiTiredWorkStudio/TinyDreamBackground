@@ -14,8 +14,15 @@
 	}
 
 	if(empty($requestArray)){
-		die(FAILED('98'));
+	    if(isset($GLOBALS['options']['ManageIndex'])){
+            header('Location:'.$GLOBALS['options']['ManageIndex']);//进入管理后台
+	        return;
+        }else {
+            die(FAILED('98'));
+        }
 	}
+
+
 
 	REQUEST($requestArray[0]);
 ?>
