@@ -53,13 +53,12 @@ class WechatPay{
             $noncestr = $response['noncestr'];
             $timestamp = $response['timestamp'];
             $mhc_secret = $this->App_Key;
-            $backMsg['paySign'] = md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret");
+            $backMsg['paySign'] = strtoupper(md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret"));
             return $backMsg;
     }
 
     public function generatePrepayId($oid,$uid)
     {
-
         /*
          * <xml>
                <appid>wx2421b1c4370ec43b</appid>
@@ -76,6 +75,23 @@ class WechatPay{
                <trade_type>JSAPI</trade_type>
                <sign>0CB01533B8C1EF103065174F50BCA001</sign>
            </xml>
+         * */
+
+        /*
+         *
+         *1.小程序ID	appid	            有
+         *2.商户号	    mch_id	            有
+         *3.随机字符串	nonce_str	        有
+         *4.签名	    sign                后加
+         *5.商品描述	body                有
+         *6.商户订单号	out_trade_no        有
+         *7.标价金额	total_fee           有
+         *8.终端IP	    spbill_create_ip    有
+         *9.通知地址	notify_url          有
+         *10.交易类型	trade_type          有
+         *
+         *
+         *
          * */
         $params = array(
             'appid'            => $this->App_ID,
@@ -104,7 +120,7 @@ class WechatPay{
 
         $xml = simplexml_load_string($result);
 
-       // echo $xml;
+        file_put_contents("xml.txt",$result);
 
         if($xml->return_code != "SUCCESS"){
             $errmsg = RESPONDINSTANCE('58');

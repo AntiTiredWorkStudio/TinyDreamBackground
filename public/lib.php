@@ -16,6 +16,24 @@ class Monitor extends Manager{
     public function info(){
         return "监视管理器";
     }
+
+    public function AddTask(){
+
+    }
+
+    //启动监视器
+    public function RunMonitor(){
+        ignore_user_abort(true);
+        set_time_limit(0);
+        $interval = 1;
+        $stop = 0;
+        do {
+            if( $stop == 10 ) break;
+            file_put_contents('task'.time().'.txt',time());
+            $stop++;
+            sleep ($interval);
+        } while (true);
+    }
 //创建模块
     public function BuildModule($module,$controller){
       //  if(empty(RequestedFields(['name']))){
@@ -56,6 +74,7 @@ function REQUEST($key){
             [
                 'inf'=>R('info'),//模块信息
                 'build'=>R('BuildModule',['key','name']),
+                'run'=>R('RunMonitor'),
             ],PERMISSION_LOCAL);
         return;
     }
