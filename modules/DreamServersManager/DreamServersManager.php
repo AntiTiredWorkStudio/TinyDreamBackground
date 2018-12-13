@@ -17,7 +17,7 @@ class WechatPay{
     public $notify_Url;
     public $order_id;
     public function __construct($orderid,$mprice){
-        $this->minerPrice = intval($mprice);
+        $this->minerPrice = $mprice;
         $this->order_id = $orderid;
 
         $this->App_ID = $GLOBALS['options']['APP_ID'];
@@ -53,7 +53,8 @@ class WechatPay{
             $noncestr = $response['noncestr'];
             $timestamp = $response['timestamp'];
             $mhc_secret = $this->App_Key;
-            $backMsg['paySign'] = strtoupper(md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret"));
+            $backMsg['paySign'] =
+                strtoupper(md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret"));
             return $backMsg;
     }
 
@@ -102,7 +103,7 @@ class WechatPay{
             'notify_url'       => "http://www.antit.top/fitback/index.php",
             'openid'           => $uid,
             'out_trade_no'     => $oid,
-            'spbill_create_ip' => $this->notify_Url,//$_SERVER["REMOTE_ADDR"],
+            'spbill_create_ip' => $this->notify_Url,
             'total_fee'        => $this->minerPrice,
             'trade_type'       => 'JSAPI',
         );
@@ -111,16 +112,13 @@ class WechatPay{
 
         $xml = $this->getXMLFromArray($params);
 
-        //echo $xml;
-
-
         $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
 
         //file_put_contents("xml.txt",$result);
 
         $xml = simplexml_load_string($result);
 
-        file_put_contents("xml.txt",$result);
+        //file_put_contents("xml.txt",$result);
 
         if($xml->return_code != "SUCCESS"){
             $errmsg = RESPONDINSTANCE('58');
