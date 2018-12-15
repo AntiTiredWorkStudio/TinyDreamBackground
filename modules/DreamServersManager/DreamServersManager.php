@@ -112,13 +112,13 @@ class WechatPay{
 
         $xml = $this->getXMLFromArray($params);
 
+        //file_put_contents('unifiedorder.txt',$xml);
+
         $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
 
-        //file_put_contents("xml.txt",$result);
 
         $xml = simplexml_load_string($result);
 
-        //file_put_contents("xml.txt",$result);
 
         if($xml->return_code != "SUCCESS"){
             $errmsg = RESPONDINSTANCE('58');
@@ -129,8 +129,8 @@ class WechatPay{
 
 
         $backMsg = RESPONDINSTANCE('0');
+
         $backMsg['prepay_id'] = (string)$xml->prepay_id;
-        //file_put_contents("xml.txt",$xml->return_code);
 
         return $backMsg;
     }

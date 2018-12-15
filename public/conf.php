@@ -12,10 +12,10 @@ $options = [
     'admin'  => 'konglf2112',	//数据库用户名
     'password'  => '3226460036',	//数据库用户密码
 	'database' => 'TinyDream', 	//数据库名
-    'APP_ID' => 'wx9a61a8000316fa66',//'wx8da643be043ceadc',//微信AppID
-    'APP_SECRET'=>'c155ac5842ccffbb40a9611bad0c0832',
-    'MCH_KEY'=>'fitminer12345678FITMINER12345678',//微信商户key
-    'MCH_ID'=>'1514357161',//微信商户号
+    'APP_ID' => 'wx1eed012d4550cf4c',//'wx8da643be043ceadc',//微信AppID
+    'APP_SECRET'=>'d64642153be2ddfbcb239e16b0dfb4ae',
+    'MCH_KEY'=>'xmxtinydream2018XMXTINYDREAM2018',//微信商户key
+    'MCH_ID'=>'1520507531',//微信商户号
     'Notify_Url'=>'http://paysdk.weixin.qq.com/notify.php',//'http://www.antit.top:8001/fitback/index.php'
     'ManageIndex'=>'admin/index.html'
 ];
