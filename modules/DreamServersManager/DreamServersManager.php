@@ -49,9 +49,11 @@ class WechatPay{
 
             $mhc_secret = $this->Mhc_Key;
 
+          //  echo "appId=$appID&nonceStr=$nonceStr&package=$package&signType=$signType&timeStamp=$timeStamp&key=$mhc_secret";
+
             $paySign = strtoupper(md5("appId=$appID&nonceStr=$nonceStr&package=$package&signType=$signType&timeStamp=$timeStamp&key=$mhc_secret"));
             $backMsg['timeStamp'] = $timeStamp;
-            $backMsg['nonceStr'] = $nonceStr;
+            $backMsg['nonceStr'] =  $this->generateNonce();// $nonceStr;
             $backMsg['package'] = $package;
             $backMsg['signType'] = $signType;
             $backMsg['paySign'] = $paySign;
@@ -129,7 +131,7 @@ class WechatPay{
         $params = array(
             'appid'            => $this->App_ID,
             'attach'           => '小梦想互助',
-            'body'             => '购买一个梦想',
+            'body'             => '小梦想互助-购买一个梦想',
             'mch_id'           => $this->Mhc_ID,
             'nonce_str'        => $this->generateNonce(),
             'notify_url'       => "http://www.antit.top/fitback/index.php",
