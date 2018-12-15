@@ -53,7 +53,7 @@ class WechatPay{
             $backMsg['timeStamp'] = $timeStamp;
             $backMsg['nonceStr'] = $nonceStr;
             $backMsg['package'] = $package;
-            $backMsg['signType '] = $signType;
+            $backMsg['signType'] = $signType;
             $backMsg['paySign'] = $paySign;
 
             /*
