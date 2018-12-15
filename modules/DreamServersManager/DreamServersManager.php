@@ -153,10 +153,17 @@ class WechatPay{
         $xml = $this->getXMLFromArray($params);
 
 
+        file_put_contents('unifiedorder01.txt',$xml);
+
         $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
 
 
+
+        file_put_contents('unifiedorder02.txt',$result);
+
         $xml = simplexml_load_string($result);
+
+
 
 
         if($xml->return_code != "SUCCESS"){
@@ -167,7 +174,6 @@ class WechatPay{
         }
 
 
-        file_put_contents('unifiedorder03.txt',$result);
 
         $backMsg = RESPONDINSTANCE('0');
 
@@ -179,6 +185,7 @@ class WechatPay{
         $backMsg['trade_type'] = (string)$xml->trade_type;
 
 //        var_export($backMsg);
+        file_put_contents('unifiedorder03.txt',json_encode($backMsg, JSON_PRETTY_PRINT));
 
         return $backMsg;
     }
