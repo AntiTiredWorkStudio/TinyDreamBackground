@@ -58,6 +58,8 @@ class WechatPay{
             $backMsg['signType'] = $signType;
             $backMsg['paySign'] = $paySign;
 
+        file_put_contents('unifiedorder04.txt',json_encode($backMsg,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
             /*
              * 小程序签名参数：
              * appId,nonceStr,package,signType,timeStamp
@@ -185,7 +187,7 @@ class WechatPay{
         $backMsg['trade_type'] = (string)$xml->trade_type;
 
 //        var_export($backMsg);
-        file_put_contents('unifiedorder03.txt',json_encode($backMsg, JSON_PRETTY_PRINT));
+        file_put_contents('unifiedorder03.txt',json_encode($backMsg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         return $backMsg;
     }
