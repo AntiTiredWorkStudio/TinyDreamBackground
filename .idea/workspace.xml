@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" afterPath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
-      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,16 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamPool/index.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -45,23 +33,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+            <state relative-caret-position="407">
+              <caret line="31" column="48" lean-forward="false" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
               <folding>
-                <marker date="1544682350118" expanded="true" signature="7541:7618" ph="SELECT * FRO... order" />
-                <marker date="1544682350118" expanded="true" signature="15587:15627" ph="SELECT COUNT... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="16099:16155" ph="SELECT COUNT... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="16175:16232" ph="SELECT COUNT... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="16252:16296" ph="SELECT `pid`... order" />
-                <marker date="1544682350118" expanded="true" signature="17373:17456" ph="SELECT * FRO... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="17774:17858" ph="SELECT * FRO... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="18178:18222" ph="SELECT `pid`... order" />
-                <marker date="1544682350118" expanded="true" signature="19088:19155" ph="SELECT * FRO... dreampool" />
-                <marker date="1544682350118" expanded="true" signature="22022:22095" ph="SELECT COUNT... order" />
-                <marker date="1544682350118" expanded="true" signature="22513:22595" ph="SELECT * FRO... order" />
+                <marker date="1544876491201" expanded="true" signature="7561:7638" ph="SELECT * FRO... order" />
+                <marker date="1544876491201" expanded="true" signature="15607:15647" ph="SELECT COUNT... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="16119:16175" ph="SELECT COUNT... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="16195:16252" ph="SELECT COUNT... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="16272:16316" ph="SELECT `pid`... order" />
+                <marker date="1544876491201" expanded="true" signature="17393:17476" ph="SELECT * FRO... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="17794:17878" ph="SELECT * FRO... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="18198:18242" ph="SELECT `pid`... order" />
+                <marker date="1544876491201" expanded="true" signature="19108:19175" ph="SELECT * FRO... dreampool" />
+                <marker date="1544876491201" expanded="true" signature="22042:22115" ph="SELECT COUNT... order" />
+                <marker date="1544876491201" expanded="true" signature="22533:22615" ph="SELECT * FRO... order" />
               </folding>
             </state>
           </provider>
@@ -119,10 +107,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="conf.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="conf.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/conf.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4726">
+            <state relative-caret-position="-4794">
               <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
               <folding>
                 <marker date="1544875232887" expanded="true" signature="2916:3121" ph="CREATE TABLE... ##DBName##" />
@@ -144,6 +132,16 @@
                 <marker date="1544875232887" expanded="true" signature="8313:8760" ph="CREATE TABLE... ##DBName##" />
                 <marker date="1544875232887" expanded="true" signature="8831:9314" ph="CREATE TABLE... identity" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DreamPoolManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2794">
+              <caret line="127" column="18" lean-forward="false" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -215,8 +213,8 @@
         <option value="$PROJECT_DIR$/modules/TestManager/index.php" />
         <option value="$PROJECT_DIR$/modules/DataBase/index.php" />
         <option value="$PROJECT_DIR$/public/lib.php" />
-        <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
+        <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
       </list>
     </option>
   </component>
@@ -399,18 +397,18 @@
       <workItem from="1544613690959" duration="6044000" />
       <workItem from="1544676979187" duration="3847000" />
       <workItem from="1544797835018" duration="1254000" />
-      <workItem from="1544874140717" duration="694000" />
+      <workItem from="1544874140717" duration="1729000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294621000" />
+    <option name="totallyTimeSpent" value="295656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.080729164" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -632,13 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1938">
-          <caret line="121" column="41" lean-forward="false" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DataBase/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -740,26 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
-          <folding>
-            <marker date="1544682350118" expanded="true" signature="7541:7618" ph="SELECT * FRO... order" />
-            <marker date="1544682350118" expanded="true" signature="15587:15627" ph="SELECT COUNT... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="16099:16155" ph="SELECT COUNT... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="16175:16232" ph="SELECT COUNT... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="16252:16296" ph="SELECT `pid`... order" />
-            <marker date="1544682350118" expanded="true" signature="17373:17456" ph="SELECT * FRO... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="17774:17858" ph="SELECT * FRO... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="18178:18222" ph="SELECT `pid`... order" />
-            <marker date="1544682350118" expanded="true" signature="19088:19155" ph="SELECT * FRO... dreampool" />
-            <marker date="1544682350118" expanded="true" signature="22022:22095" ph="SELECT COUNT... order" />
-            <marker date="1544682350118" expanded="true" signature="22513:22595" ph="SELECT * FRO... order" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamPool/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -770,7 +741,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/conf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4726">
+        <state relative-caret-position="-4794">
           <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
           <folding>
             <marker date="1544875232887" expanded="true" signature="2916:3121" ph="CREATE TABLE... ##DBName##" />
@@ -791,6 +762,34 @@
             <marker date="1544875232887" expanded="true" signature="8313:8745" ph="CREATE TABLE... ##DBName##" />
             <marker date="1544875232887" expanded="true" signature="8313:8760" ph="CREATE TABLE... ##DBName##" />
             <marker date="1544875232887" expanded="true" signature="8831:9314" ph="CREATE TABLE... identity" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2794">
+          <caret line="127" column="18" lean-forward="false" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="31" column="48" lean-forward="false" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
+          <folding>
+            <marker date="1544876491201" expanded="true" signature="7561:7638" ph="SELECT * FRO... order" />
+            <marker date="1544876491201" expanded="true" signature="15607:15647" ph="SELECT COUNT... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="16119:16175" ph="SELECT COUNT... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="16195:16252" ph="SELECT COUNT... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="16272:16316" ph="SELECT `pid`... order" />
+            <marker date="1544876491201" expanded="true" signature="17393:17476" ph="SELECT * FRO... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="17794:17878" ph="SELECT * FRO... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="18198:18242" ph="SELECT `pid`... order" />
+            <marker date="1544876491201" expanded="true" signature="19108:19175" ph="SELECT * FRO... dreampool" />
+            <marker date="1544876491201" expanded="true" signature="22042:22115" ph="SELECT COUNT... order" />
+            <marker date="1544876491201" expanded="true" signature="22533:22615" ph="SELECT * FRO... order" />
           </folding>
         </state>
       </provider>

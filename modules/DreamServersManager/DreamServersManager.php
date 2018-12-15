@@ -29,7 +29,7 @@ class WechatPay{
 
     function generateNonce()
     {
-        return md5(uniqid('', true));
+        return strtoupper(md5(uniqid('', true)));
     }
 
     public function getPayResponse($oid,$uid){
@@ -104,7 +104,7 @@ class WechatPay{
             'openid'           => $uid,
             'out_trade_no'     => $oid,
             'spbill_create_ip' => $this->notify_Url,
-            'total_fee'        => $this->minerPrice,
+            'total_fee'        => intval($this->minerPrice),
             'trade_type'       => 'JSAPI',
         );
 
