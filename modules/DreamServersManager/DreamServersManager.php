@@ -142,6 +142,10 @@ class WechatPay{
             'trade_type'       => 'JSAPI',
         );
 
+
+
+        //var_export($params);
+
         //var_export($params);
 
         $params['sign'] = $this->calculateSign($params, $this->Mhc_Key);
@@ -151,8 +155,6 @@ class WechatPay{
 
         $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
 
-
-        file_put_contents('unifiedorder02.txt',$result);
 
         $xml = simplexml_load_string($result);
 
@@ -165,6 +167,8 @@ class WechatPay{
         }
 
 
+        file_put_contents('unifiedorder03.txt',$result);
+
         $backMsg = RESPONDINSTANCE('0');
 
         $backMsg['appid'] = (string)$xml->appid;
@@ -173,6 +177,8 @@ class WechatPay{
         $backMsg['sign'] = (string)$xml->sign;
         $backMsg['prepay_id'] = (string)$xml->prepay_id;
         $backMsg['trade_type'] = (string)$xml->trade_type;
+
+//        var_export($backMsg);
 
         return $backMsg;
     }
