@@ -13,7 +13,7 @@ class WechatPay{
     public $minerPrice;
     public $App_ID;
     public $Mhc_ID;
-    public $App_Key;
+    public $Mhc_Key;
     public $notify_Url;
     public $order_id;
     public function __construct($orderid,$mprice){
@@ -21,10 +21,10 @@ class WechatPay{
         $this->order_id = $orderid;
 
         $this->App_ID = $GLOBALS['options']['APP_ID'];
-        $this->App_Key = $GLOBALS['options']['MCH_KEY'];
+        $this->Mhc_Key = $GLOBALS['options']['MCH_KEY'];
         $this->Mhc_ID = $GLOBALS['options']['MCH_ID'];
         $this->notify_Url = $_SERVER["REMOTE_ADDR"];
-
+        //var_export($this);
     }
 
     function generateNonce()
@@ -38,8 +38,40 @@ class WechatPay{
             if($prepay_Result['result']!='true'){
                 return $prepay_Result;
             }
-            $prepay_id = $prepay_Result['prepay_id'];
-            $response = array(
+
+
+            $appID = $prepay_Result['appid'];
+
+            $timeStamp = time().'';
+            $nonceStr = $prepay_Result['nonce_str'];
+            $package = 'prepayid='.$prepay_Result['prepay_id'];
+            $signType = 'MD5';
+
+            $mhc_secret = $this->Mhc_Key;
+
+            $paySign = strtoupper(md5("appId=$appID&nonceStr=$nonceStr&package=$package&signType=$signType&timeStamp=$timeStamp&key=$mhc_secret"));
+            $backMsg['timeStamp'] = $timeStamp;
+            $backMsg['nonceStr'] = $nonceStr;
+            $backMsg['package'] = $package;
+            $backMsg['signType '] = $signType;
+            $backMsg['paySign'] = $paySign;
+
+            /*
+             * 小程序签名参数：
+             * appId,nonceStr,package,signType,timeStamp
+             * */
+           // $backMsg['paySign'] =
+           // strtoupper(md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret"));
+/*
+ *
+ *
+ * timeStamp: data.pay.timestamp.toString(),
+        nonceStr: data.pay.noncestr,
+        package: 'prepayid='+data.pay.prepayid,
+        signType: 'MD5',
+        paySign: data.paySign,
+ * */
+            /*$response = array(
                 'appid' => $this->App_ID,
                 'partnerid' => $this->Mhc_ID,
                 'prepayid' => $prepay_id,
@@ -52,9 +84,9 @@ class WechatPay{
 
             $noncestr = $response['noncestr'];
             $timestamp = $response['timestamp'];
-            $mhc_secret = $this->App_Key;
-            $backMsg['paySign'] =
-                strtoupper(md5("appId=$this->App_ID&nonceStr=$noncestr&package=prepay_id=$prepay_id&signType=MD5&timeStamp=$timestamp&key=$mhc_secret"));
+            $mhc_secret = $this->App_Key;*/
+
+
             return $backMsg;
     }
 
@@ -108,14 +140,17 @@ class WechatPay{
             'trade_type'       => 'JSAPI',
         );
 
-        $params['sign'] = $this->calculateSign($params, $this->App_Key);
+        //var_export($params);
+
+        $params['sign'] = $this->calculateSign($params, $this->Mhc_Key);
 
         $xml = $this->getXMLFromArray($params);
 
-        //file_put_contents('unifiedorder.txt',$xml);
 
         $result =  $this->https_post("https://api.mch.weixin.qq.com/pay/unifiedorder",$xml);
 
+
+        file_put_contents('unifiedorder02.txt',$result);
 
         $xml = simplexml_load_string($result);
 
@@ -130,7 +165,12 @@ class WechatPay{
 
         $backMsg = RESPONDINSTANCE('0');
 
+        $backMsg['appid'] = (string)$xml->appid;
+        $backMsg['mch_id'] = (string)$xml->mch_id;
+        $backMsg['nonce_str'] = (string)$xml->nonce_str;
+        $backMsg['sign'] = (string)$xml->sign;
         $backMsg['prepay_id'] = (string)$xml->prepay_id;
+        $backMsg['trade_type'] = (string)$xml->trade_type;
 
         return $backMsg;
     }
@@ -138,14 +178,16 @@ class WechatPay{
     function calculateSign($arr, $key)
     {
         ksort($arr);
-
         $buff = "";
         foreach ($arr as $k => $v) {
-            if ($k != "sign" && $k != "key" && $v != "" && !is_array($v)){
+          //  if ($k != "sign" && $k != "key" && $v != "" && !is_array($v)){
                 $buff .= $k . "=" . $v . "&";
-            }
+          //  }
+
+        //    echo $buff.'</br>';
         }
         $buff = trim($buff, "&");
+        //echo 'result:'.$buff.'</br>';
         //var_export($arr);
         //echo $buff;
         file_put_contents("buff.txt",$buff);
