@@ -783,7 +783,10 @@ class DreamServersManager extends DBManager {
             return $backMsg;
 
         } catch (Exception $e) {
-            echo $e->getMessage();
+//            echo $e->getMessage();
+            $backMsg = RESPONDINSTANCE('58');
+            $backMsg['error'] = $e->getMessage();
+            return $backMsg;
         }
        // echo $oid.' '.$bill.' '.$uid;
         //return (new WechatPay($oid, $bill))->getPayResponse($oid,$uid);
