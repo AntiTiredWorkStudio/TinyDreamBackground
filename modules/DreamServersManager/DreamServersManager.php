@@ -368,6 +368,13 @@ class WeixinPay {
         //统一下单接口
         $unifiedorder = $this->unifiedorder();
 //        print_r($unifiedorder);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['appId'] = $this->appid;
+        $backMsg['timeStamp'] = '' . time() . '';
+        $backMsg['nonceStr'] = $this->createNoncestr();
+        $backMsg['package'] = 'prepay_id='.$unifiedorder['prepay_id'];
+        $backMsg['signType'] = 'MD5';
         $parameters = array(
             'appId' => $this->appid, //小程序ID
             'timeStamp' => '' . time() . '', //时间戳
@@ -376,7 +383,7 @@ class WeixinPay {
             'signType' => 'MD5'//签名方式
         );
         //签名
-        $parameters['paySign'] = $this->getSign($parameters);
+        $backMsg['paySign'] = $this->getSign($parameters);
         return $parameters;
     }
     //作用：产生随机字符串，不长于32位
