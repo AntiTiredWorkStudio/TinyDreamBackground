@@ -1,0 +1,3 @@
+<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[商户号mch_id与appid不匹配]]></return_msg>
+</xml>
