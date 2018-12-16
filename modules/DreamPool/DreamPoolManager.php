@@ -187,7 +187,11 @@ class DreamPoolManager extends DBManager{
                 $this->UpdateDataToTable($this->TName('tPool'),['state'=>'FINISHED'],['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']);
                 return RESPONDINSTANCE('5');
             }else{
-                $pless = ($tbill - $cbill)/$ubill;
+                if($ubill == 0){
+                    $pless = 10000;
+                }else{
+                    $pless = ($tbill - $cbill)/$ubill;
+                }
             }
 
             $backMsg = RESPONDINSTANCE('0');

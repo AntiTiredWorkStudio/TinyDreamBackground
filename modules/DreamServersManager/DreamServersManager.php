@@ -1035,6 +1035,8 @@ class DreamServersManager extends DBManager {
             $dids = $dids.$item['did'].'|';
         }
 
+       // echo json_encode($user);
+
         $array = DBResultToArray($this->SelectDatasFromTable($this->TName('tUser'),
             [
                 'uid'=>$uids
@@ -1052,7 +1054,9 @@ class DreamServersManager extends DBManager {
             ]));
         //echo json_encode($darray);
 
+
         foreach ($cResult as $key => $item) {
+            //echo 'kkkkkk:'.$key.'=>'.$item.'</br>';
             $cResult[$key]['tele'] = substr_replace($user[$cResult[$key]['uid']],'****',3,4);
             $cResult[$key]['dtitle'] = $this->subtext($darray[$cResult[$key]['did']]['title'],10);
         }
