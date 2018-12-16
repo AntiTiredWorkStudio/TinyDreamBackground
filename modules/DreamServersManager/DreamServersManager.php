@@ -44,7 +44,7 @@ class WechatPay{
 
             $timeStamp = time().'';
             $nonceStr = $prepay_Result['nonce_str'];
-            $package = 'prepayid='.$prepay_Result['prepay_id'];
+            $package = 'prepay_id='.$prepay_Result['prepay_id'];
             $signType = 'MD5';
 
             $mhc_secret = $this->Mhc_Key;
@@ -132,11 +132,11 @@ class WechatPay{
          * */
         $params = array(
             'appid'            => $this->App_ID,
-            'attach'           => '小梦想互助',
+           // 'attach'           => '小梦想互助',
             'body'             => '小梦想互助-购买一个梦想',
             'mch_id'           => ''.$this->Mhc_ID,
             'nonce_str'        => $this->generateNonce(),
-            'notify_url'       => "http://www.antit.top/fitback/index.php",
+            'notify_url'       => "https://tinydream.antit.top/index.php",
             'openid'           => $uid,
             'out_trade_no'     => ''.$oid,
             'spbill_create_ip' => $this->notify_Url,
