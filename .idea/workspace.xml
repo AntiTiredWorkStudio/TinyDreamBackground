@@ -26,20 +26,21 @@
       <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="385" column="27" lean-forward="false" selection-start-line="385" selection-start-column="27" selection-end-line="385" selection-end-column="27" />
+            <state relative-caret-position="427">
+              <caret line="408" column="21" lean-forward="false" selection-start-line="408" selection-start-column="18" selection-end-line="408" selection-end-column="21" />
               <folding>
-                <marker date="1544940550216" expanded="true" signature="15120:15197" ph="SELECT * FRO... order" />
-                <marker date="1544940550216" expanded="true" signature="23166:23206" ph="SELECT COUNT... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="23989:24045" ph="SELECT COUNT... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="24065:24122" ph="SELECT COUNT... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="24142:24186" ph="SELECT `pid`... order" />
-                <marker date="1544940550216" expanded="true" signature="25263:25346" ph="SELECT * FRO... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="25664:25748" ph="SELECT * FRO... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="26068:26112" ph="SELECT `pid`... order" />
-                <marker date="1544940550216" expanded="true" signature="26978:27045" ph="SELECT * FRO... dreampool" />
-                <marker date="1544940550216" expanded="true" signature="29912:29985" ph="SELECT COUNT... order" />
-                <marker date="1544940550216" expanded="true" signature="30403:30485" ph="SELECT * FRO... order" />
+                <element signature="n#WechatPay#0;n#!!top" expanded="false" />
+                <marker date="1544940731031" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
+                <marker date="1544940731031" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="23986:24042" ph="SELECT COUNT... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="24062:24119" ph="SELECT COUNT... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="24139:24183" ph="SELECT `pid`... order" />
+                <marker date="1544940731031" expanded="true" signature="25260:25343" ph="SELECT * FRO... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="25661:25745" ph="SELECT * FRO... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="26065:26109" ph="SELECT `pid`... order" />
+                <marker date="1544940731031" expanded="true" signature="26975:27042" ph="SELECT * FRO... dreampool" />
+                <marker date="1544940731031" expanded="true" signature="29909:29982" ph="SELECT COUNT... order" />
+                <marker date="1544940731031" expanded="true" signature="30400:30482" ph="SELECT * FRO... order" />
               </folding>
             </state>
           </provider>
@@ -298,6 +299,12 @@
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="DreamServersManager" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="TestManager" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -392,12 +399,12 @@
       <workItem from="1544676979187" duration="3847000" />
       <workItem from="1544797835018" duration="1254000" />
       <workItem from="1544874140717" duration="16606000" />
-      <workItem from="1544923263045" duration="4861000" />
+      <workItem from="1544923263045" duration="7940000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315394000" />
+    <option name="totallyTimeSpent" value="318473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -771,20 +778,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="385" column="27" lean-forward="false" selection-start-line="385" selection-start-column="27" selection-end-line="385" selection-end-column="27" />
+        <state relative-caret-position="427">
+          <caret line="408" column="21" lean-forward="false" selection-start-line="408" selection-start-column="18" selection-end-line="408" selection-end-column="21" />
           <folding>
-            <marker date="1544940550216" expanded="true" signature="15120:15197" ph="SELECT * FRO... order" />
-            <marker date="1544940550216" expanded="true" signature="23166:23206" ph="SELECT COUNT... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="23989:24045" ph="SELECT COUNT... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="24065:24122" ph="SELECT COUNT... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="24142:24186" ph="SELECT `pid`... order" />
-            <marker date="1544940550216" expanded="true" signature="25263:25346" ph="SELECT * FRO... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="25664:25748" ph="SELECT * FRO... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="26068:26112" ph="SELECT `pid`... order" />
-            <marker date="1544940550216" expanded="true" signature="26978:27045" ph="SELECT * FRO... dreampool" />
-            <marker date="1544940550216" expanded="true" signature="29912:29985" ph="SELECT COUNT... order" />
-            <marker date="1544940550216" expanded="true" signature="30403:30485" ph="SELECT * FRO... order" />
+            <element signature="n#WechatPay#0;n#!!top" expanded="false" />
+            <marker date="1544940731031" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
+            <marker date="1544940731031" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="23986:24042" ph="SELECT COUNT... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="24062:24119" ph="SELECT COUNT... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="24139:24183" ph="SELECT `pid`... order" />
+            <marker date="1544940731031" expanded="true" signature="25260:25343" ph="SELECT * FRO... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="25661:25745" ph="SELECT * FRO... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="26065:26109" ph="SELECT `pid`... order" />
+            <marker date="1544940731031" expanded="true" signature="26975:27042" ph="SELECT * FRO... dreampool" />
+            <marker date="1544940731031" expanded="true" signature="29909:29982" ph="SELECT COUNT... order" />
+            <marker date="1544940731031" expanded="true" signature="30400:30482" ph="SELECT * FRO... order" />
           </folding>
         </state>
       </provider>

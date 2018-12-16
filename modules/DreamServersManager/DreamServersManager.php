@@ -384,7 +384,7 @@ class WeixinPay {
         );
         //签名
         $backMsg['paySign'] = $this->getSign($parameters);
-        return $parameters;
+        return $backMsg;
     }
     //作用：产生随机字符串，不长于32位
     private function createNoncestr($length = 32) {
