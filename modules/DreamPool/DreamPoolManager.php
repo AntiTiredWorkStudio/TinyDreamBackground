@@ -2,6 +2,8 @@
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+define('POOL_TITLE_PREFIX','梦想互助');
+define('POOL_TITLE_POSTFIX','期');
 LIB('db');
 LIB('us');
 class DreamPoolManager extends DBManager{
@@ -232,11 +234,14 @@ class DreamPoolManager extends DBManager{
         if(!UserManager::CheckIdentity($uid,"User")){
             return RESPONDINSTANCE('8');
         }
-
-        $pid = self::GeneratePoolID();
+		
+        $pid = $index;
+		$title= POOL_TITLE_PREFIX.$index.POOL_TITLE_POSTFIX;
+		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
+		
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
             "pid"=>$pid,
-            "ptitle"=>$ptitle,
+            "ptitle"=>$title,
             "uid"=>$uid,
             "state"=>'RUNNING',
             "tbill"=>$tbill,
@@ -256,7 +261,14 @@ class DreamPoolManager extends DBManager{
 	
 	//获取当天剩余时间
 	public function GetDayTimeLess(){
-		return GetDayLessTime();
+		$second = GetDayLessTime();
+		if(!isset($_REQUEST['formate'])){
+			return $second;
+		}
+		$hours = ($second - $second%3600)/3600;
+		$minutes = ($second%3600 - ($second%3600)%60)/60;
+		$sec = $second%60;
+		return $hours.'-'.$minutes.'-'.$sec;
 	}
 	
     //【请求】增加梦想池
