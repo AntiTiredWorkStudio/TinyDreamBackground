@@ -851,7 +851,7 @@ class DreamServersManager extends DBManager {
     public function GetRunningPoolInfoByRange($min,$count){
         $link = $this->DBLink();
 
-        $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' ORDER BY `ptime` ASC LIMIT $min,$count";
+        $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' ORDER BY `ptime` DESC LIMIT $min,$count";
 
         $tResult = DBResultToArray(mysql_query($sql,$link),true);
 
