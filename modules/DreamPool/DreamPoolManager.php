@@ -249,7 +249,7 @@ class DreamPoolManager extends DBManager{
         }
 		
         $pid = self::GeneratePoolIDAuto();
-		$title= POOL_TITLE_PREFIX.$index.POOL_TITLE_POSTFIX;
+		$title= POOL_TITLE_PREFIX.$pid.POOL_TITLE_POSTFIX;
 		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
 		
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
