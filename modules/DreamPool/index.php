@@ -13,5 +13,6 @@
         'add'=>R('add',["ptitle","uid","tbill","ubill","duration"]),
         'list'=>R('ListAllPool'),
         'fua'=>R('ForceUpdateAllPools'),
+		'gdtl'=>R('GetDayTimeLess'),//获取当天剩余时间
     ]);
 ?>

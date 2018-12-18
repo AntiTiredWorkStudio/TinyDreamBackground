@@ -200,6 +200,11 @@ function PRC_TIME(){
 }
 
 
+//获取当天剩余时间
+public function GetDayLessTime(){
+	return PRC_TIME()%86400;
+}
+
 //设置模块的响应动作
 function Responds($action, $manager, $actionArray,$permission='all'){
     if($permission!='all'){

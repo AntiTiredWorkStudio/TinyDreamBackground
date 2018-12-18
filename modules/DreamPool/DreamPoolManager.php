@@ -10,6 +10,11 @@ class DreamPoolManager extends DBManager{
         $DPM = new DreamPoolManager();
         return (100000 + ($DPM->CountTableRow($DPM->TName('tPool'))+1));
     }
+	
+	//通过梦想池的期号生成ID
+	public static function GeneratePoolIDByIndexDay(){
+		
+	}
 
     //获取全部未开奖梦想池
     public static function GetAllUnAwardPools(){
@@ -220,7 +225,40 @@ class DreamPoolManager extends DBManager{
         }
         return RESPONDINSTANCE('0');
     }
+	
+	//通过期号和持续天数增加梦想池
+	public function AddPoolByIndex($index,$uid,$tbill,$ubill,$day){
+        //校验身份
+        if(!UserManager::CheckIdentity($uid,"User")){
+            return RESPONDINSTANCE('8');
+        }
 
+        $pid = self::GeneratePoolID();
+        $insresult = $this->InsertDataToTable($this->TName('tPool'),[
+            "pid"=>$pid,
+            "ptitle"=>$ptitle,
+            "uid"=>$uid,
+            "state"=>'RUNNING',
+            "tbill"=>$tbill,
+            "cbill"=>0,
+            "ubill"=>$ubill,
+            "duration"=>$duration,
+            "ptime"=>PRC_TIME(),
+            "pcount"=>0,
+            "award" =>'NO'
+        ]);
+        if($insresult){
+            return RESPONDINSTANCE('0');
+        }else{
+            return RESPONDINSTANCE('1');
+        }
+	}
+	
+	//获取当天剩余时间
+	public function GetDayTimeLess(){
+		return GetDayLessTime();
+	}
+	
     //【请求】增加梦想池
     public function Add($ptitle,$uid,$tbill,$ubill,$duration){
 
