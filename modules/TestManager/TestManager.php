@@ -148,8 +148,22 @@ class TestManager extends DBManager {
 			$tdreams = $this->SelectDataFromTable($this->TName('tDream'),['uid'=>$tUid]);
 			$dresult = DBResultToArray($tdreams,true);
 			$did = $dresult[rand(0,count($dresult)-1)]['did'];//随机梦想id
-			$this->UpdateDataToTable($this->TName('tOrder'),['did'=>$did],['oid'=>$value['oid'],'did'=>'undefined']);
+			$this->UpdateDataToTable($this->TName('tOrder'),['did'=>$did],['oid'=>$value['oid'],'did'=>'undefined','_logic'=>'AND']);
 			echo "修复订单:".$value['oid'].',梦想变为:'.$did.'</br>';
+		}
+	}
+	
+	//修复编号梦想undefined问题
+	public function FixLottery(){
+		$LotteryResult = DBResultToArray($this->SelectDataFromTable($this->TName('tLottery'),['did'=>'undefined']));
+		
+		foreach($LotteryResult as $key=>$value){
+			$tOid = $value['oid'];
+			$tOrder = $this->SelectDataFromTable($this->TName('tOrder'),['oid'=>$tOid]);
+			$tOrder = DBResultToArray($tOrder,true)[0];
+			
+			$this->UpdateDataToTable($this->TName('tLottery'),['did'=>$tOrder['did']],['lid'=>$value['lid'],'did'=>'undefined','_logic'=>'AND']);
+			echo "修复编号:".$value['lid'].',梦想变为:'.$tOrder['did'].'</br>';
 		}
 	}
 
