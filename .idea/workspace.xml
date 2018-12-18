@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
+      <change beforePath="$PROJECT_DIR$/public/lib.php" afterPath="$PROJECT_DIR$/public/lib.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,10 +16,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/DreamPool/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
+            <state relative-caret-position="18577">
               <caret line="991" column="42" lean-forward="false" selection-start-line="991" selection-start-column="42" selection-end-line="991" selection-end-column="42" />
               <folding>
                 <element signature="n#WechatPay#0;n#!!top" expanded="false" />
@@ -37,16 +47,6 @@
                 <marker date="1545150702691" expanded="true" signature="32199:32272" ph="SELECT COUNT... order" />
                 <marker date="1545150702691" expanded="true" signature="32690:32772" ph="SELECT * FRO... order" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/User/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -83,16 +83,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/init.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -103,7 +93,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="conf.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="conf.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/conf.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="305">
@@ -135,8 +125,8 @@
       <file leaf-file-name="DreamPoolManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1450">
-              <caret line="104" column="9" lean-forward="true" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
+            <state relative-caret-position="312">
+              <caret line="312" column="24" lean-forward="true" selection-start-line="312" selection-start-column="24" selection-end-line="312" selection-end-column="24" />
               <folding>
                 <marker date="1545145777092" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
               </folding>
@@ -144,14 +134,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="lib.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="233" column="61" lean-forward="false" selection-start-line="233" selection-start-column="50" selection-end-line="233" selection-end-column="61" />
+            <state relative-caret-position="333">
+              <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
               <folding>
                 <element signature="n#BuildModule#0;n#Monitor#0;n#!!top" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/TestManager/TestManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5508">
+              <caret line="149" column="18" lean-forward="false" selection-start-line="149" selection-start-column="18" selection-end-line="149" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -160,7 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>RealNameIdentifyStart</find>
       <find>实名认证</find>
       <find>OnEditingDream</find>
       <find>GetUserSingleDream</find>
@@ -185,11 +184,12 @@
       <find>ASC</find>
       <find>GetRunningPoolInfoByRange</find>
       <find>REQUEST</find>
-      <find>DAY</find>
       <find>GetPoolsCountInfo</find>
       <find>EnterApp</find>
       <find>GetJoinedPoolInfoByRange</find>
+      <find>DAY</find>
       <find>SubmitDreamToVerify</find>
+      <find>GetDayTimeLess</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -220,12 +220,12 @@
         <option value="$PROJECT_DIR$/modules/DreamServersManager/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-miniapp.php" />
         <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
-        <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
         <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
+        <option value="$PROJECT_DIR$/public/lib.php" />
       </list>
     </option>
   </component>
@@ -236,7 +236,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -404,15 +404,15 @@
       <workItem from="1544797835018" duration="1254000" />
       <workItem from="1544874140717" duration="16606000" />
       <workItem from="1544923263045" duration="18257000" />
-      <workItem from="1545133693019" duration="8508000" />
+      <workItem from="1545133693019" duration="12008000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="337298000" />
+    <option name="totallyTimeSpent" value="340798000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -565,13 +565,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/TestManager/TestManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5066">
-          <caret line="149" column="18" lean-forward="false" selection-start-line="149" selection-start-column="18" selection-end-line="149" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_4.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -600,6 +593,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -650,29 +644,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamPool/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="13" column="8" lean-forward="false" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/lib.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="233" column="61" lean-forward="false" selection-start-line="233" selection-start-column="50" selection-end-line="233" selection-end-column="61" />
-          <folding>
-            <element signature="n#BuildModule#0;n#Monitor#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -689,16 +665,6 @@
         <state relative-caret-position="476">
           <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1450">
-          <caret line="104" column="9" lean-forward="true" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
-          <folding>
-            <marker date="1545145777092" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -728,37 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="991" column="42" lean-forward="false" selection-start-line="991" selection-start-column="42" selection-end-line="991" selection-end-column="42" />
-          <folding>
-            <element signature="n#WechatPay#0;n#!!top" expanded="false" />
-            <element signature="n#WeixinPay#0;n#!!top" expanded="false" />
-            <element signature="e#23559#24550#0#PHP" expanded="false" />
-            <marker date="1545150702691" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
-            <marker date="1545150702691" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
-            <marker date="1545150702691" expanded="true" signature="27361:27444" ph="SELECT * FRO... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="27762:27846" ph="SELECT * FRO... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="28166:28210" ph="SELECT `pid`... order" />
-            <marker date="1545150702691" expanded="true" signature="29265:29332" ph="SELECT * FRO... dreampool" />
-            <marker date="1545150702691" expanded="true" signature="32199:32272" ph="SELECT COUNT... order" />
-            <marker date="1545150702691" expanded="true" signature="32690:32772" ph="SELECT * FRO... order" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/conf.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
@@ -782,6 +717,73 @@
             <marker date="1545156530925" expanded="true" signature="8313:8745" ph="CREATE TABLE... ##DBName##" />
             <marker date="1545156530925" expanded="true" signature="8313:8760" ph="CREATE TABLE... ##DBName##" />
             <marker date="1545156530925" expanded="true" signature="8831:9314" ph="CREATE TABLE... identity" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/TestManager/TestManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5508">
+          <caret line="149" column="18" lean-forward="false" selection-start-line="149" selection-start-column="18" selection-end-line="149" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18577">
+          <caret line="991" column="42" lean-forward="false" selection-start-line="991" selection-start-column="42" selection-end-line="991" selection-end-column="42" />
+          <folding>
+            <element signature="n#WechatPay#0;n#!!top" expanded="false" />
+            <element signature="n#WeixinPay#0;n#!!top" expanded="false" />
+            <element signature="e#23559#24550#0#PHP" expanded="false" />
+            <marker date="1545150702691" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
+            <marker date="1545150702691" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
+            <marker date="1545150702691" expanded="true" signature="27361:27444" ph="SELECT * FRO... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="27762:27846" ph="SELECT * FRO... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="28166:28210" ph="SELECT `pid`... order" />
+            <marker date="1545150702691" expanded="true" signature="29265:29332" ph="SELECT * FRO... dreampool" />
+            <marker date="1545150702691" expanded="true" signature="32199:32272" ph="SELECT COUNT... order" />
+            <marker date="1545150702691" expanded="true" signature="32690:32772" ph="SELECT * FRO... order" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamPool/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="312" column="24" lean-forward="true" selection-start-line="312" selection-start-column="24" selection-end-line="312" selection-end-column="24" />
+          <folding>
+            <marker date="1545145777092" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+          <folding>
+            <element signature="n#BuildModule#0;n#Monitor#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>

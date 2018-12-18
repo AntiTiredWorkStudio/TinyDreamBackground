@@ -22,21 +22,78 @@ class Monitor extends Manager{
     public function CheckDay(){
         return DAY(time()).'  '.DAY(time()+1300);//date('y-m-d',time());
     }
-    public function AddTask(){
 
+    //增加任务
+    public function AddTask($confName,$dayTime,$module,$action){
+        $currentConf = json_decode(file_get_contents($confName.'.txt'),true);//读取配置文件
+
+        $task = [
+            'daytime'=>$dayTime,
+            'module'=>$module,
+            'action'=>$action,
+        ];
+
+        array_push($currentConf['tasks'],$task);
+
+        file_put_contents($confName,json_encode($currentConf));//保存配置文件
     }
 
     //启动监视器
-    public function RunMonitor(){
+    public function RunMonitor($duration = 300){//默认5分钟1刷新
         ignore_user_abort(true);
         set_time_limit(0);
         $interval = 1;
         $stop = 0;
-        do {
-            if( $stop == 10 ) break;
-            file_put_contents('task'.time().'.txt',time());
-            $stop++;
-            sleep ($interval);
+        $confName = 'task'.time().'.txt';
+        $confContent = [
+            'startTime' => date("y-m-d  h:i:s"),//启动时间
+            'duration'  => $duration,                 //检视时间
+            'times'     => 0,                         //监视次数
+            'awake'     => true,                      //监视器状态
+            'pause'     => false,                     //暂停
+            'seek'      => 0,                         //动作位置
+            'tasks'     => [                          //任务列表
+
+            ]
+        ];
+        file_put_contents($confName,json_encode($confContent));//保存配置文件
+        do {//开始监视器
+            $task = [];
+            $cdura = $duration;
+            if(!file_exists($confName)){//配置文件被删除
+                file_put_contents('delete.txt',time());
+                break;
+            }else {
+                $currentConf = json_decode(file_get_contents($confName),true);//读取配置文件
+                if(!$currentConf['awake']){
+                    unlink($confName);
+                    break;
+                }
+
+                if(!$currentConf['pause']) {
+                    $seek = $currentConf['seek'];
+                    if (count($currentConf['tasks']) > 0) {
+                        $task = $currentConf['tasks'][$seek];
+                        $currentConf['seek'] = ($seek + 1) % count($currentConf['tasks']);
+                        $nextTask = $currentConf['tasks'][$currentConf['seek']];
+                        if ($task['daytime'] < $nextTask['daytime']) {
+                            $cdura = $nextTask['daytime'] - $task['daytime'];
+                        } else {
+                            $cdura = (86400 + $nextTask['daytime']) - $task['daytime'];
+                        }
+                    } else {
+                        $cdura = $currentConf['duration'];
+                    }
+                }else{
+                    $cdura = $currentConf['duration'];
+                }
+                $currentConf['times'] = $currentConf['times']+1;
+
+                file_put_contents($confName,json_encode($currentConf));//保存配置文件
+
+            }
+
+            sleep ($cdura);
         } while (true);
     }
 //创建模块
@@ -77,7 +134,7 @@ function MonitorBuilder($key){
         [
             'inf'=>R('info'),//模块信息
             'build'=>R('BuildModule',['key','name']),
-            'run'=>R('RunMonitor'),
+            'run'=>R('RunMonitor',['duration']),
             'cday'=>R('CheckDay'),//检查天
         ],PERMISSION_LOCAL);
 }
@@ -209,6 +266,10 @@ function PRC_TIME(){
     return time();
 }
 
+//获取当天剩余时间
+function GetDayPassTime(){
+    return (PRC_TIME()+8*3600)%86400;
+}
 
 //获取当天剩余时间
 function GetDayLessTime(){
