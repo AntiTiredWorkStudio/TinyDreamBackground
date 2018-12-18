@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" afterPath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" afterPath="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -143,10 +144,10 @@
       <file leaf-file-name="DreamPoolManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="34" />
+            <state relative-caret-position="-1925">
+              <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="26" />
               <folding>
-                <marker date="1545145503078" expanded="true" signature="488:549" ph="SELECT COUNT... dreampool" />
+                <marker date="1545145777092" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
               </folding>
             </state>
           </provider>
@@ -388,12 +389,12 @@
       <workItem from="1544797835018" duration="1254000" />
       <workItem from="1544874140717" duration="16606000" />
       <workItem from="1544923263045" duration="18257000" />
-      <workItem from="1545133693019" duration="3056000" />
+      <workItem from="1545133693019" duration="3321000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="331846000" />
+    <option name="totallyTimeSpent" value="332111000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -755,10 +756,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="34" />
+        <state relative-caret-position="-1925">
+          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="26" />
           <folding>
-            <marker date="1545145503078" expanded="true" signature="488:549" ph="SELECT COUNT... dreampool" />
+            <marker date="1545145777092" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
           </folding>
         </state>
       </provider>

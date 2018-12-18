@@ -4,6 +4,10 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 define('POOL_TITLE_PREFIX','梦想互助');
 define('POOL_TITLE_POSTFIX','期');
+
+define('MAIN_POOL_ORDER_BY','ptime');//主梦想池的排序字段
+define('MAIN_POOL_ORDER_RULE','DESC');//主梦想池的筛选规则
+
 LIB('db');
 LIB('us');
 class DreamPoolManager extends DBManager{
@@ -71,8 +75,8 @@ class DreamPoolManager extends DBManager{
             [
                 "state"=>'RUNNING',
                 "_logic"=>' ',
-                "_orderby"=>'cbill',
-                "_orderrule"=>'ASC',
+                "_orderby"=>MAIN_POOL_ORDER_BY,
+                "_orderrule"=>MAIN_POOL_ORDER_RULE,
                 "_Limfrom"=>0,
                 '_Limto'=>1
             ]
