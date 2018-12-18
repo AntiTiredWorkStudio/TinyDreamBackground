@@ -884,7 +884,13 @@ class DreamServersManager extends DBManager {
 
         $condition = "";
         $seek = 0;
+        $seekRecord = [];
         foreach ($tResult as $value){
+            if(!isset($seekRecord[$value['pid']])) {
+                $seekRecord[$value['pid']] = true;
+            }else{
+                continue;
+            }
             if($seek>=$min && $seek<($min+$count)){
                 //$condition = $condition.'`pid`="'.$value['pid'].'"';
                 $condition = $condition.$value['pid'].'|';

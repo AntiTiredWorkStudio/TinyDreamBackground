@@ -280,8 +280,8 @@ function Responds($action, $manager, $actionArray,$permission='all'){
 }
 
 //创建响应结构
-function R($funcName, $pars = null){
-    return ['func'=>$funcName,'pars'=>$pars];
+function R($funcName, $pars = null,$permission = 'all'){
+    return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission];
 }
 
 function DBResultArrayExist($array){
