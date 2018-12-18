@@ -4,6 +4,9 @@
 
 
 define('PERMISSION_LOCAL','localhost');
+define('MONITOR_COMMAND','moi');
+define('TIME_ZONE',8);
+
 //控制器基类
 class Manager{
     public function info(){
@@ -16,7 +19,9 @@ class Monitor extends Manager{
     public function info(){
         return "监视管理器";
     }
-
+    public function CheckDay(){
+        return DAY(time()).'  '.DAY(time()+1300);//date('y-m-d',time());
+    }
     public function AddTask(){
 
     }
@@ -66,16 +71,20 @@ class Monitor extends Manager{
     }
 }
 
-
+//创建监视器
+function MonitorBuilder($key){
+    return Responds($key,(new Monitor()),
+        [
+            'inf'=>R('info'),//模块信息
+            'build'=>R('BuildModule',['key','name']),
+            'run'=>R('RunMonitor'),
+            'cday'=>R('CheckDay'),//检查天
+        ],PERMISSION_LOCAL);
+}
 
 function REQUEST($key){
-    if($key=='moi') {
-        Responds($key,(new Monitor()),
-            [
-                'inf'=>R('info'),//模块信息
-                'build'=>R('BuildModule',['key','name']),
-                'run'=>R('RunMonitor'),
-            ],PERMISSION_LOCAL);
+    if($key==MONITOR_COMMAND) {
+        MonitorBuilder($key);
         return;
     }
 	try{
@@ -181,7 +190,8 @@ function RESPONDINSTANCE($code = 0,$fallContext='',$infoArray = null){
 
 //通过时间戳计算天数
 function DAY($tStamp){
-    return ($tStamp - $tStamp%86400)/86400;
+    $fixedtStamp = $tStamp + TIME_ZONE*3600;//时区问题需要在手动计算天数时考虑
+    return ($fixedtStamp - $fixedtStamp%86400)/86400;
 }
 
 //通过天数计算时间戳
