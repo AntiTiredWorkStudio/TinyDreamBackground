@@ -201,8 +201,8 @@ function PRC_TIME(){
 
 
 //获取当天剩余时间
-public function GetDayLessTime(){
-	return PRC_TIME()%86400;
+function GetDayLessTime(){
+	return 86400 - (PRC_TIME()+8*3600)%86400;
 }
 
 //设置模块的响应动作
