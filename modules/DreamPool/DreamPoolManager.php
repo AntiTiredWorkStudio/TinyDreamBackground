@@ -19,7 +19,7 @@ class DreamPoolManager extends DBManager{
 		$sql = 'SELECT COUNT(*) FROM `dreampool` WHERE `ptime`>"'."$ftime".'"';
 		$DPM = new DreamPoolManager();
 		$link = $DPM->DBLink();
-		$index = DBResultToArray(mysql_query($sql,$link),true)[0]['COUNT(*)'];
+		$index = DBResultToArray(mysql_query($sql,$link),true)[0]['COUNT(*)']+1;
 		if($index <10){
 			$index = '0'.$index;
 		}
@@ -244,7 +244,32 @@ class DreamPoolManager extends DBManager{
 	
 	//通过天数增加梦想池
 	public function AddPoolByDay($uid,$tbill,$ubill,$day){
+		if(!UserManager::CheckIdentity($uid,"User")){
+            return RESPONDINSTANCE('8');
+        }
 		
+        $pid = self::GeneratePoolIDAuto();
+		$title= POOL_TITLE_PREFIX.$index.POOL_TITLE_POSTFIX;
+		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
+		
+        $insresult = $this->InsertDataToTable($this->TName('tPool'),[
+            "pid"=>$pid,
+            "ptitle"=>$title,
+            "uid"=>$uid,
+            "state"=>'RUNNING',
+            "tbill"=>$tbill,
+            "cbill"=>0,
+            "ubill"=>$ubill,
+            "duration"=>$duration,
+            "ptime"=>PRC_TIME(),
+            "pcount"=>0,
+            "award" =>'NO'
+        ]);
+        if($insresult){
+            return RESPONDINSTANCE('0');
+        }else{
+            return RESPONDINSTANCE('1');
+        }
 	}
 	
 	//通过期号和持续天数增加梦想池
