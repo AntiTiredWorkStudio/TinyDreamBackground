@@ -15,12 +15,16 @@ class DreamPoolManager extends DBManager{
 	
 	//通过梦想池的期号生成ID
 	public static function GeneratePoolIDAuto(){
-		$ftime = GetFirstMonthDay();
+		$ftime = GetFirstMonthDayStamp();
 		$sql = 'SELECT COUNT(*) FROM `dreampool` WHERE `ptime`>"'."$ftime".'"';
 		$DPM = new DreamPoolManager();
 		$link = $DPM->DBLink();
-		$result = DBResultToArray(mysql_query($sql,$link));
-		return $result;
+		$index = DBResultToArray(mysql_query($sql,$link),true)[0]['COUNT(*)'];
+		if($index <10){
+			$index = '0'.$index;
+		}
+		$date = GetFirstMonthDayObject();
+		return $date['y'].$date['m'].$index;
 	}
 
     //获取全部未开奖梦想池

@@ -205,12 +205,19 @@ function GetDayLessTime(){
 	return 86400 - (PRC_TIME()+8*3600)%86400;
 }
 
-function GetFirstMonthDay(){
+function GetFirstMonthDayObject(){
+	$date = [];
+	$date['y']=date("Y",time()); 
+	$date['m']=date("m",time()); 
+	$date['d'] = 1;
+	return $date;
+}
+
+function GetFirstMonthDayStamp(){
 	$y=date("Y",time()); 
 	$m=date("m",time()); 
 	$d = 1;
 	return strtotime("$m/$d/$y");
-	//return date("{'year':Y,'month':m,'day':d}");
 }
 
 //设置模块的响应动作
