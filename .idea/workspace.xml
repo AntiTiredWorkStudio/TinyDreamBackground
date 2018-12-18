@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" afterPath="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" afterPath="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +27,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="389">
@@ -36,17 +36,17 @@
                 <element signature="n#WechatPay#0;n#!!top" expanded="false" />
                 <element signature="n#WeixinPay#0;n#!!top" expanded="false" />
                 <element signature="e#23559#24550#0#PHP" expanded="false" />
-                <marker date="1545145199210" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
-                <marker date="1545145199210" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
-                <marker date="1545145199210" expanded="true" signature="27361:27443" ph="SELECT * FRO... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="27761:27845" ph="SELECT * FRO... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="28165:28209" ph="SELECT `pid`... order" />
-                <marker date="1545145199210" expanded="true" signature="29075:29142" ph="SELECT * FRO... dreampool" />
-                <marker date="1545145199210" expanded="true" signature="32009:32082" ph="SELECT COUNT... order" />
-                <marker date="1545145199210" expanded="true" signature="32500:32582" ph="SELECT * FRO... order" />
+                <marker date="1545145303077" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
+                <marker date="1545145303077" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
+                <marker date="1545145303077" expanded="true" signature="27361:27443" ph="SELECT * FRO... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="27761:27845" ph="SELECT * FRO... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="28165:28209" ph="SELECT `pid`... order" />
+                <marker date="1545145303077" expanded="true" signature="29075:29142" ph="SELECT * FRO... dreampool" />
+                <marker date="1545145303077" expanded="true" signature="32009:32082" ph="SELECT COUNT... order" />
+                <marker date="1545145303077" expanded="true" signature="32500:32582" ph="SELECT * FRO... order" />
               </folding>
             </state>
           </provider>
@@ -141,12 +141,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DreamPoolManager.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DreamPoolManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7004">
-              <caret line="206" column="35" lean-forward="false" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
-              <folding />
+            <state relative-caret-position="350">
+              <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+              <folding>
+                <marker date="1545145347848" expanded="true" signature="488:549" ph="SELECT COUNT... dreampool" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -155,7 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GetAllPoolsInfo</find>
       <find>PlaceOrderInADreamPoolPrepare</find>
       <find>PrepareBindingTele</find>
       <find>98</find>
@@ -185,6 +186,7 @@
       <find>GetAccessToken</find>
       <find>wxpay</find>
       <find>PlaceOrderInADreamPoolStart</find>
+      <find>GetRunningPoolInfoByRange</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -218,9 +220,9 @@
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-miniapp.php" />
-        <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
+        <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
       </list>
     </option>
   </component>
@@ -387,12 +389,12 @@
       <workItem from="1544797835018" duration="1254000" />
       <workItem from="1544874140717" duration="16606000" />
       <workItem from="1544923263045" duration="18257000" />
-      <workItem from="1545133693019" duration="2740000" />
+      <workItem from="1545133693019" duration="2887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="331530000" />
+    <option name="totallyTimeSpent" value="331677000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -670,14 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7004">
-          <caret line="206" column="35" lean-forward="false" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/conf.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2754">
@@ -745,17 +739,27 @@
             <element signature="n#WechatPay#0;n#!!top" expanded="false" />
             <element signature="n#WeixinPay#0;n#!!top" expanded="false" />
             <element signature="e#23559#24550#0#PHP" expanded="false" />
-            <marker date="1545145199210" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
-            <marker date="1545145199210" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
-            <marker date="1545145199210" expanded="true" signature="27361:27443" ph="SELECT * FRO... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="27761:27845" ph="SELECT * FRO... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="28165:28209" ph="SELECT `pid`... order" />
-            <marker date="1545145199210" expanded="true" signature="29075:29142" ph="SELECT * FRO... dreampool" />
-            <marker date="1545145199210" expanded="true" signature="32009:32082" ph="SELECT COUNT... order" />
-            <marker date="1545145199210" expanded="true" signature="32500:32582" ph="SELECT * FRO... order" />
+            <marker date="1545145303077" expanded="true" signature="15117:15194" ph="SELECT * FRO... order" />
+            <marker date="1545145303077" expanded="true" signature="23163:23203" ph="SELECT COUNT... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="26087:26143" ph="SELECT COUNT... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="26163:26220" ph="SELECT COUNT... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="26240:26284" ph="SELECT `pid`... order" />
+            <marker date="1545145303077" expanded="true" signature="27361:27443" ph="SELECT * FRO... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="27761:27845" ph="SELECT * FRO... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="28165:28209" ph="SELECT `pid`... order" />
+            <marker date="1545145303077" expanded="true" signature="29075:29142" ph="SELECT * FRO... dreampool" />
+            <marker date="1545145303077" expanded="true" signature="32009:32082" ph="SELECT COUNT... order" />
+            <marker date="1545145303077" expanded="true" signature="32500:32582" ph="SELECT * FRO... order" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+          <folding>
+            <marker date="1545145347848" expanded="true" signature="488:549" ph="SELECT COUNT... dreampool" />
           </folding>
         </state>
       </provider>
