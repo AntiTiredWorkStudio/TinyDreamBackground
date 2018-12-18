@@ -12,5 +12,6 @@
         'cp'=>R('CreateDreamPool',['c']),//生成一定数量的梦想池
         'cu'=>R("CreateUserAndDream",['c']),//随机生成用户和梦想并绑定手机号
         'fi'=>R('FixDreamPoolUnrightbleFinished'),////检查梦想池非正常结束记录
+		'fo'=>R('FixOrderDreamUndefine'),//检查订单中梦想编号未定义
     ],PERMISSION_LOCAL);
 ?>

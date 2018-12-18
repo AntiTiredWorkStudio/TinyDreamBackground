@@ -135,6 +135,14 @@ class TestManager extends DBManager {
             $DRM->OnEditDream($uid, $uid . "的梦想", "我的梦想是挣" . $uid . "块钱");
         }
     }
+	
+	//检查订单中梦想编号未定义
+	public function FixOrderDreamUndefine(){
+		return DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
+		[
+			'did'=>'undefined'
+		]));
+	}
 
     //检查梦想池非正常结束记录
     public function FixDreamPoolUnrightbleFinished(){
