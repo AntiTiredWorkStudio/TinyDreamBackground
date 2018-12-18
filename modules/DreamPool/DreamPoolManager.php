@@ -271,6 +271,11 @@ class DreamPoolManager extends DBManager{
 		return $hours.'-'.$minutes.'-'.$sec;
 	}
 	
+	//获取本月第一天的时间戳
+	public function FirstMonthDay(){
+		return GetFirstMonthDay();
+	}
+	
     //【请求】增加梦想池
     public function Add($ptitle,$uid,$tbill,$ubill,$duration){
 
