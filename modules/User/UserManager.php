@@ -254,6 +254,7 @@ class UserManager extends DBManager{
         $backMsg['selfinfo'] = $userArray;//个人基本信息
         $backMsg['buyinfo'] = DreamServersManager::GetMainOrders();//购买滚动栏
         $backMsg['mainpool'] = DreamPoolManager::GetMainPool();//在主页显示的梦想池信息
+        $backMsg['award'] = DreamManager::UserDreamAwardingInfo($uid);
         return $backMsg;
     }
 

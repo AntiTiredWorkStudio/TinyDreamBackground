@@ -25,6 +25,23 @@ class DreamManager extends DBManager{
         $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'DOING'],['did'=>$did,'_logic'=>' ']);
     }
 
+
+    //获取用户待完成中奖信息
+    public static function UserDreamAwardingInfo($uid){
+        $DRM = new DreamManager();
+        $dresult = $DRM->SelectDataFromTable($DRM->TName('tDream'),['uid'=>$uid,'state'=>'DOING','_logic'=>'AND']);
+        $dArray = DBResultToArray($dresult,true);
+        $result = [];
+        if(!empty($dArray)){
+            $dArray = $dArray[0];
+            $result['result'] = true;
+            $result['dtitle'] = $dArray['title'];
+        }else{
+            $result['result'] = false;
+        }
+        return $result;
+    }
+
     //梦想完成完善,提交审核
     public static function OnDreamVerify($did){
         $DRM = new DreamManager();
