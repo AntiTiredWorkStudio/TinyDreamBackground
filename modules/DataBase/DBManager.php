@@ -285,7 +285,7 @@ class DBManager extends Manager{
 		}
 		return $result;
 	}
-
+	
 
     //查找数据
 	public function SelectDataFromTable($tableName,$conArray,$closeDBLink = false,$field='*'){

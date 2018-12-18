@@ -14,8 +14,13 @@ class DreamPoolManager extends DBManager{
     }
 	
 	//通过梦想池的期号生成ID
-	public static function GeneratePoolIDByIndexDay(){
-		
+	public static function GeneratePoolIDAuto(){
+		$ftime = GetFirstMonthDay();
+		$sql = 'SELECT COUNT(*) FROM `dreampool` WHERE `ptime`>"'."$ftime".'"';
+		$DPM = new DreamPoolManager();
+		$link = $DPM->DBLink();
+		$result = DBResultToArray(mysql_query($sql,$link));
+		return $result;
 	}
 
     //获取全部未开奖梦想池
@@ -228,8 +233,19 @@ class DreamPoolManager extends DBManager{
         return RESPONDINSTANCE('0');
     }
 	
+	//测试id生成
+	public function gid(){
+		return self::GeneratePoolIDAuto();
+	}
+	
+	//通过天数增加梦想池
+	public function AddPoolByDay($uid,$tbill,$ubill,$day){
+		
+	}
+	
 	//通过期号和持续天数增加梦想池
 	public function AddPoolByIndex($index,$uid,$tbill,$ubill,$day){
+		//SELECT COUNT(*) FROM `dreampool` WHERE `ptime`>"1543593600" 
         //校验身份
         if(!UserManager::CheckIdentity($uid,"User")){
             return RESPONDINSTANCE('8');

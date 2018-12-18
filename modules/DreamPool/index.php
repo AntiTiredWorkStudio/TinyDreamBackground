@@ -16,5 +16,6 @@
         'fua'=>R('ForceUpdateAllPools'),//强制刷新全部梦想池
 		'gdtl'=>R('GetDayTimeLess'),//获取当天剩余时间
 		'gfmd'=>R('FirstMonthDay'),//获取本月第1天
+		'gid'=>R('gid'),//自动生成id
     ]);
 ?>
