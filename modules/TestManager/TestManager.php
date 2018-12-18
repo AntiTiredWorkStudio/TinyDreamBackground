@@ -138,10 +138,19 @@ class TestManager extends DBManager {
 	
 	//检查订单中梦想编号未定义
 	public function FixOrderDreamUndefine(){
-		return DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
+		$fixResult = DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
 		[
 			'did'=>'undefined'
 		]));
+		
+		foreach($fixResult as $key=>$value){
+			$tUid = $value['uid'];
+			$tdreams = $this->SelectDataFromTable($this->('tDream'),['uid'=>$tUid]);
+			$dresult = DBResultToArray($tdreams,true);
+			$did = $dresult[rand(0,count($dresult)-1)]['did'];//随机梦想id
+			$this->UpdateDataToTable($this->TName('tOrder'),['did'=>$did],['oid'=>$value['oid'],'did'=>'undefined']);
+			echo "修复订单:".$value['oid'].',梦想变为:'.$did.'</br>';
+		}
 	}
 
     //检查梦想池非正常结束记录
