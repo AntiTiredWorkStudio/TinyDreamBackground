@@ -145,7 +145,7 @@ class TestManager extends DBManager {
 		
 		foreach($fixResult as $key=>$value){
 			$tUid = $value['uid'];
-			$tdreams = $this->SelectDataFromTable($this->('tDream'),['uid'=>$tUid]);
+			$tdreams = $this->SelectDataFromTable($this->TName('tDream'),['uid'=>$tUid]);
 			$dresult = DBResultToArray($tdreams,true);
 			$did = $dresult[rand(0,count($dresult)-1)]['did'];//随机梦想id
 			$this->UpdateDataToTable($this->TName('tOrder'),['did'=>$did],['oid'=>$value['oid'],'did'=>'undefined']);
