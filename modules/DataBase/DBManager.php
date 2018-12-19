@@ -340,7 +340,7 @@ class DBManager extends Manager{
 	}
 
     //查找数据
-    public function SelectDatasFromTable($tableName,$conArray,$closeDBLink = false,$field='*',$orderRule){
+    public function SelectDatasFromTable($tableName,$conArray,$closeDBLink = false,$field='*',$orderRule=[]){
         $hasCond = false;
         $con = $this->DBLink();
         $sql = 'SELECT '.$field.' FROM `'.$tableName.'`';
