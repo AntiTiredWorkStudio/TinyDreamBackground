@@ -340,7 +340,7 @@ class DBManager extends Manager{
 	}
 
     //查找数据
-    public function SelectDatasFromTable($tableName,$conArray,$closeDBLink = false,$field='*'){
+    public function SelectDatasFromTable($tableName,$conArray,$closeDBLink = false,$field='*',$orderRule){
         $hasCond = false;
         $con = $this->DBLink();
         $sql = 'SELECT '.$field.' FROM `'.$tableName.'`';
@@ -399,6 +399,10 @@ class DBManager extends Manager{
         if(!empty($conArray)){
             $sql = $sql.' WHERE '.$cond;
         }
+		
+		if(!empty($orderRule) && isset($orderRule['by']) && isset($orderRule['rule'])){
+			$sql = $sql.' ORDER BY `'.$orderRule['by'].'` '.$orderRule['rule'];
+		}
        // echo '</br>'.$sql.'</br>';
         //file_put_contents(time().'.txt',$sql);
 

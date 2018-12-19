@@ -878,7 +878,7 @@ class DreamServersManager extends DBManager {
     public function GetJoinedPoolInfoByRange($uid,$min,$count){
         $link = $this->DBLink();
 
-        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid' ORDER BY `ptime` DESC";
+        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid'";
 
         $tResult = DBResultToArray(mysql_query($sql,$link),true);
 
@@ -898,10 +898,15 @@ class DreamServersManager extends DBManager {
             $seek++;
         }
 
+		
         $sresult = $this->SelectDatasFromTable($this->TName('tPool'),
                 [
                     'pid'=>$condition
-                ]
+                ],false,'*',
+				[
+					'by'=>'ptime',
+					'rule'=>'DESC'
+				]
             );
 
         $array = DBResultToArray($sresult);
