@@ -13,6 +13,8 @@
         'verify'=>R('ViewAllVerifyInfo'),//显示所有需要审核的信息
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
         'rnameg'=>R('GetUserRealNameIdentify',['uid']),//获取单一用户的实名认证信息
-        'gakt'=>R('GetAccessToken',['code'])
+        'gakt'=>R('GetAccessToken',['code']),
+        'blogin'=>R('OnGetLoginCode',['tele']),//后台用户登录
+        'ologin'=>R('OnBackgroundLogin',['tele','code']),//后台登录，校验验证码
     ]);
 ?>

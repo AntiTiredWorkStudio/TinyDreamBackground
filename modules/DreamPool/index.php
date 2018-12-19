@@ -14,10 +14,11 @@
 		'addi'=>R('AddPoolByIndex',["index","uid","tbill","ubill","day"]),//通过期号和持续天数增加梦想池
         'apbd'=>R('AddPoolByDay',["uid","tbill","ubill","day"]),//通过天数增加梦想池
 		'list'=>R('ListAllPool'),//列出全部梦想池
+        'listr'=>R('ListPoolsByRange',['seek','count']),//按范围列出梦想池
         'fua'=>R('ForceUpdateAllPools'),//强制刷新全部梦想池
 		'gdtl'=>R('GetDayTimeLess'),//获取当天剩余时间
 		'gfmd'=>R('FirstMonthDay'),//获取本月第1天
 		'gid'=>R('gid'),//自动生成id
-		
+		'cpool'=>R('CountPools'),//返回梦想池数量
     ]);
 ?>

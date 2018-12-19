@@ -360,5 +360,35 @@ class DreamPoolManager extends DBManager{
         //DreamPoolManager::BuyPoolPieceSuccess('p01',10);
         return DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),$condArray));
     }
+
+
+    public function CountPools(){
+        $link = $this->DBLink();
+
+        $sql = "SELECT COUNT(*) FROM `dreampool`";
+
+        mysql_query($sql,$link);
+
+
+        $cResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['count'] = $cResult[0]["COUNT(*)"];
+        return $backMsg;
+    }
+
+    //用户获取全部梦想池信息及参与信息
+    public function ListPoolsByRange($seek,$count){
+        //未实现
+        $link = $this->DBLink();
+
+        $sql = "SELECT * FROM `dreampool` WHERE 1 ORDER BY `ptime` DESC LIMIT $seek,$count";
+
+        $cResult = DBResultToArray(mysql_query($sql,$link),true);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['Pools'] = $cResult;
+        return $backMsg;
+    }
 }
 ?>

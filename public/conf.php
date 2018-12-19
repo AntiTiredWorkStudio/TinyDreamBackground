@@ -39,7 +39,9 @@ $modules = [
 	,'ts' => ['rq'=>'modules/TestManager/index.php',//TestManager
 			'lib'=>'modules/TestManager/TestManager.php']
 	,'auth' => ['rq'=>'modules/AuthManager/index.php',//AuthManager
-			'lib'=>'modules/AuthManager/AuthManager.php']#NEW_MODULES#
+			'lib'=>'modules/AuthManager/AuthManager.php']
+	,'admin' => ['rq'=>'modules/BackgroundController/index.php',//BackgroundController
+			'lib'=>'modules/BackgroundController/BackgroundController.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -80,6 +82,8 @@ $fallbacks = [
     '47' => "不存在梦想",
     '58' => "支付请求失败",
     '59' => "梦想池未开奖",
+    '60' => "手机号不存在",
+    '61' => "用户#FALLTEXT#无足够权限",
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
 	'100' => "参数错误:#FALLTEXT#"

@@ -8,6 +8,7 @@ use Qiniu\Auth;
 LIB('db');
 LIB('dp');
 LIB('ds');
+LIB('va');
 
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
@@ -138,6 +139,50 @@ class UserManager extends DBManager{
                 ($resultArray['state']=="SUCCESS"));
     }
 
+
+
+
+    //获取验证码
+    public function OnGetLoginCode ($tele){
+        $user = $this->SelectDataFromTable($this->TName('tUser'),['tele'=>$tele],false,'uid');
+        $result = DBResultToArray($user,true);
+        if(empty($result)){
+            return RESPONDINSTANCE('60');
+        }
+
+        $uid = $result[0]['uid'];
+
+        if(self::CheckIdentity($uid,'OWNER')['code']=='0' ||
+            self::CheckIdentity($uid,'ADMIN')['code']=='0') {
+            $VAM = new ValidateManager();
+            return $VAM->GenerateCode($tele);
+        }else{
+            return RESPONDINSTANCE('61');
+        }
+    }
+
+    //后台登录
+    public function OnBackgroundLogin($tele,$code){
+        $user = $this->SelectDataFromTable($this->TName('tUser'),['tele'=>$tele],false,'uid');
+        $result = DBResultToArray($user,true);
+        if(empty($user)){
+            return RESPONDINSTANCE('60');
+        }
+        $uid = $result[0]['uid'];
+
+        if(self::CheckIdentity($uid,'OWNER') && self::CheckIdentity($uid,'ADMIN')) {
+            $VAM = new ValidateManager();
+            $backMsg = $VAM->ConfirmCode($tele, $code);
+            $backMsg['access_token'] = $this->GenerateAccessToken();
+            return $backMsg;
+        }else{
+            return RESPONDINSTANCE('61');
+        }
+    }
+
+    public function GenerateAccessToken(){
+        return "asdfasdji2qnwduiqsniqudbnuawxwqjriuog";//需要优化
+    }
 
     //获取某用户的实名认证信息
     public function GetUserRealNameIdentify($uid){

@@ -333,6 +333,10 @@ function Responds($action, $manager, $actionArray,$permission='all'){
                 die();
             }
 
+            if(!isset($actionArray[$_REQUEST[$action]]['backMsg']) || !$actionArray[$_REQUEST[$action]]['backMsg']){
+                return;
+            }
+
             if(is_null($result)){
                 echo '<h3>执行结果</h3><p>'.json_encode(
                     [
@@ -357,8 +361,8 @@ function Responds($action, $manager, $actionArray,$permission='all'){
 }
 
 //创建响应结构
-function R($funcName, $pars = null,$permission = 'all'){
-    return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission];
+function R($funcName, $pars = null,$permission = 'all',$return=true){
+    return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission,'backMsg'=>$return];
 }
 
 function DBResultArrayExist($array){

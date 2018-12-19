@@ -31,6 +31,45 @@ class ValidateManager extends DBManager{
         );
     }
 
+    //验证码
+    public function ConfirmCode($tele,$code){
+        //未实现
+        $condition = [
+            'tele'=>[
+                'var'=>$tele
+            ]
+        ];
+
+        $exist = $this->ExistRowInTable($GLOBALS['tables']['tValidate']['name'],$condition);
+
+
+        $condition = [
+            'tele'=>$tele,
+            '_logic' => 'AND'
+        ];
+
+        $resultInstance = null;
+
+        if($exist){
+            $pars = mysql_fetch_array($this->SelectDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition));
+
+            if($pars['code'] == $code){
+                if((PRC_TIME() - $pars['time']>900)){
+                    $resultInstance = RESPONDINSTANCE('16');//验证码失效
+                }else{
+                    $resultInstance = RESPONDINSTANCE(0);//验证成功
+                }
+                $this->DeletDataFromTable($GLOBALS['tables']['tValidate']['name'],$condition);
+                //echo 0;
+            }else{
+                $resultInstance = RESPONDINSTANCE(2);//验证码错误
+            }
+        }else{
+            $resultInstance = RESPONDINSTANCE(3);//还未获取验证码
+        }
+        return $resultInstance;
+    }
+
     //绑定手机号
     public function BindingTele($uid,$tele,$code){
         //未实现
@@ -177,7 +216,7 @@ class ValidateManager extends DBManager{
 		}
 		//array
 		if($a_cdata['success']!='1'){
-			echo $a_cdata['msgid'].' '.$a_cdata['msg'];
+			//echo $a_cdata['msgid'].' '.$a_cdata['msg'];
 			return false;
 		}
 		return $a_cdata['result'];
