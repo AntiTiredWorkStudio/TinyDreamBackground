@@ -176,7 +176,7 @@ class DreamPoolManager extends DBManager{
 
     //梦想池是否完成
     static function HasPoolFinished($ptime,$duration,$cbill,$tbill){
-        return (PRC_TIME()>=($ptime + $duration)) || $cbill>$tbill;
+        return (PRC_TIME()>=($ptime + $duration)) || $cbill>=$tbill;
     }
 
     public function info()

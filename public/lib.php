@@ -14,6 +14,11 @@ class Manager{
     }
 }
 
+
+function TaskSort($a,$b)
+{
+	return ($a['daytime']<$b['daytime'])?-1:1;
+}
 //监视器类
 class Monitor extends Manager{
     public function info(){
@@ -22,20 +27,27 @@ class Monitor extends Manager{
     public function CheckDay(){
         return DAY(time()).'  '.DAY(time()+1300);//date('y-m-d',time());
     }
+	
+
 
     //增加任务
     public function AddTask($confName,$dayTime,$module,$action){
-        $currentConf = json_decode(file_get_contents($confName.'.txt'),true);//读取配置文件
-
+		$path = $confName.'.txt';
+        $currentConf = json_decode(file_get_contents($path),true);//读取配置文件
+		$taskArray = $currentConf['tasks'];
         $task = [
             'daytime'=>$dayTime,
             'module'=>$module,
             'action'=>$action,
         ];
 
-        array_push($currentConf['tasks'],$task);
+        array_push($taskArray,$task);
+		
+		uasort($taskArray,"TaskSort");
+		
+		$currentConf['tasks'] = $taskArray;
 
-        file_put_contents($confName,json_encode($currentConf));//保存配置文件
+        file_put_contents($path,json_encode($currentConf));//保存配置文件
     }
 
     //启动监视器
@@ -44,6 +56,7 @@ class Monitor extends Manager{
         set_time_limit(0);
         $interval = 1;
         $stop = 0;
+		$tStamp = time();
         $confName = 'task'.time().'.txt';
         $confContent = [
             'startTime' => date("y-m-d  h:i:s"),//启动时间
@@ -56,6 +69,9 @@ class Monitor extends Manager{
 
             ]
         ];
+		
+		$this->AddTask($tStamp,12000,'ds','inf');
+		
         file_put_contents($confName,json_encode($confContent));//保存配置文件
         do {//开始监视器
             $task = [];
