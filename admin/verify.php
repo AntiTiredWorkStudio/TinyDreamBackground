@@ -76,24 +76,38 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+                $verifyArray = $pageData['verify'];
+
+
+
+
+                $seek = 0;
+                foreach ($verifyArray as $key => $value) {
+
+                    
+
+                ?>
                 <tr>
-                    <td>1</td>
-                    <td>基本搞定</td>
-                    <td>18388169715</td>
-                    <td>梦想池2018121201期</td>
-                    <td>463255101032210654</td>
-                    <td><a href="#">查看</a></td>
-                    <td><a href="#">查看</a></td>
-                    <td>6216600000001999067</td>
-                    <td><a href="#">查看</a></td>
+                    <td><?php echo 1+($seek++);?></td>
+                    <td><?php echo $value['info']['nickname'];?></td>
+                    <td><?php echo $value['info']['tele'];?></td>
+                    <td>梦想池<?php echo $value['award']['pid'];?>期</td>
+                    <td><?php echo $value['identity']['icardnum'];?></td>
+                    <td><a href="<?php echo $value['identity']['icardfurl'];?>">查看</a></td>
+                    <td><a href="<?php echo $value['identity']['icardburl'];?>">查看</a></td>
+                    <td><?php echo $value['identity']['ccardnum'];?></td>
+                    <td><a href="<?php echo $value['identity']['ccardfurl'];?>">查看</a></td>
                     <td ><input type="checkbox"></td>
-                    <td>基本搞定</td>
+                    <td><?php echo $value['dream']['title'];?></td>
                     <td><a href="#">查看</a></td>
                     <td ><input type="checkbox"></td>
                     <td ><input type="checkbox"></td>
 
                 </tr>
-
+                <?php
+                }
+                ?>
 
                 </tbody>
 

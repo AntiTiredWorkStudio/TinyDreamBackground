@@ -37,8 +37,15 @@ class BackgroundController extends DBManager {
         require ($pageData['path']);
     }
 
+    //审核结果
     public function BuildVerify(){
         $pageData = $this->pages['verify'];
+        $USM = new UserManager();
+        $result = $USM->ViewAllVerifyInfo();
+
+        if($result['result'] == 'true'){
+            $pageData['verify'] = $result['verify'];
+        }
         require ($pageData['path']);
     }
 
