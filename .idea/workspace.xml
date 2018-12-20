@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/admin/verify.php" afterPath="$PROJECT_DIR$/admin/verify.php" />
-      <change beforePath="$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php" afterPath="$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -89,7 +88,7 @@
       <file leaf-file-name="verify.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/verify.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
+            <state relative-caret-position="328">
               <caret line="87" column="20" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="20" />
               <folding />
             </state>
@@ -423,12 +422,12 @@
       <workItem from="1545133693019" duration="12008000" />
       <workItem from="1545214792906" duration="5896000" />
       <workItem from="1545230144856" duration="16390000" />
-      <workItem from="1545299781043" duration="10480000" />
+      <workItem from="1545299781043" duration="10666000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="373564000" />
+    <option name="totallyTimeSpent" value="373750000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -880,7 +879,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/verify.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
+        <state relative-caret-position="328">
           <caret line="87" column="20" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="20" />
           <folding />
         </state>

@@ -100,7 +100,7 @@
                     <td><a href="<?php echo $value['identity']['ccardfurl'];?>">查看</a></td>
                     <td ><input type="checkbox"></td>
                     <td><?php echo $value['dream']['title'];?></td>
-                    <td><a href="#">查看</a></td>
+                    <td><?php echo $value['dream']['content'];?></td>
                     <td ><input type="checkbox"></td>
                     <td ><input type="checkbox"></td>
 
