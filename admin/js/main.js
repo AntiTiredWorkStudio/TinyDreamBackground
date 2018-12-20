@@ -76,6 +76,12 @@ var PostModule = {
 		$("#btn_post").click(
 			module.postDreamPool
 		);
+		$("#edit").click(
+		    module.editDreamPool
+        );
+        $("#delete").click(
+            module.deleteDreamPool
+        );
 		this.postContent={
 			input_Day:$("#input_day"),
 			input_tBill:$("#input_tbill"),
@@ -83,12 +89,35 @@ var PostModule = {
 		}
 		console.log(this.postContent);
     },
+    editDreamPool:function (res) {
+        var pid = $(res.currentTarget).attr('pid');
+
+        str = ($(this).children($("span")).attr("class")=="lnr lnr-chevron-down")?"lnr lnr-pencil":"lnr lnr-chevron-down";
+        console.log(str);
+        $(this).val(str);   // 按钮被点击后，在“编辑”和“确定”之间切换
+
+        $(this).children($("span")).attr("class", str);
+
+        $(this).parent().siblings("td").each(
+            function() {  // 获取当前行的其他单元格
+                obj_text = $(this).find("input:text");    // 判断单元格下是否有文本框
+                if (!obj_text.length)   // 如果没有文本框，则添加文本框使之可以编辑
+                    $(this).html("<input class='edit_frame' type='text' value='" + $(this).text() + "'>");
+                else   // 如果已经存在文本框，则将其显示为文本框修改的值
+                    $(this).html(obj_text.val());
+            }
+        );
+
+    },
+    deleteDreamPool:function (res) {
+        var pid = $(res.currentTarget).attr('pid');
+    },
 	postContent:null,
 	postDreamPool :function(){
         var module = PostModule;
-		
+		console.log(module.postContent.input_Day.val());
 		if(IsDays(module.postContent.input_Day.val())!=""){
-			alert("天数不符合要求");
+			alert("天数不符合要求:"+IsDays(module.postContent.input_Day.val()));
 			return;
 		}
 		if(IsBill(module.postContent.input_tBill.val())!=""){

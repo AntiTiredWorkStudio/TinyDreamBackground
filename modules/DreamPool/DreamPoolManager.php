@@ -272,7 +272,7 @@ class DreamPoolManager extends DBManager{
         if($insresult){
             return RESPONDINSTANCE('0');
         }else{
-            return RESPONDINSTANCE('1');
+            return RESPONDINSTANCE('1',$pid);
         }
 	}
 	

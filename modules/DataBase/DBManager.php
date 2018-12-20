@@ -166,7 +166,7 @@ class DBManager extends Manager{
 		$values = substr($values, 0, -1);
 		$result = mysql_query($sqlPart0.$keys.$sqlPart1.$values.$sqlPart2,$con);
 		
-		//file_put_contents('testselect.txt',$sqlPart0.$keys.$sqlPart1.$values.$sqlPart2);
+		file_put_contents('testselect.txt',$sqlPart0.$keys.$sqlPart1.$values.$sqlPart2);
 		//echo $sqlPart0.$keys.$sqlPart1.$values.$sqlPart2;
 		if($closeDBLink){
 			mysql_close($con);

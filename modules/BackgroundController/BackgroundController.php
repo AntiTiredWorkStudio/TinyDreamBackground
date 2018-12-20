@@ -23,13 +23,16 @@ class BackgroundController extends DBManager {
         require ($pageData['path']);
     }
 
+
+    //引用发布梦想池
     public function BuildPostDream(){
         $pageData = $this->pages['postDream'];
         $DPM = new DreamPoolManager();
         $pageData['count'] = $DPM->CountPools()['count'];
         $pageData['psize'] = (isset($_REQUEST['psize']))?$_REQUEST['psize']:DEFAULT_PAGE_SIZE;
         $pageData['seek'] = (isset($_REQUEST['seek']))?$_REQUEST['seek']:DEFAULT_START_SEEK;
-        $pageData['pages'] = intval($pageData['count']/$pageData['psize']);
+
+        $pageData['pages'] = ceil($pageData['count']/$pageData['psize']);
         $pageData['pools'] = $DPM->ListPoolsByRange($pageData['seek'],$pageData['psize'])['Pools'];//DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),[]));
         require ($pageData['path']);
     }

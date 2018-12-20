@@ -1774,3 +1774,32 @@ ul.activity-timeline > li {
     border: 1px solid #CCC; }
 
 /*# sourceMappingURL=main.css.map */
+
+.edit_frame {
+  padding: 4px 10px;
+  height: 40px;
+  width: auto;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+  cursor: pointer;
+  background: #ffffff;
+  color: #a3a3a3;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+
+.edit_frame input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}

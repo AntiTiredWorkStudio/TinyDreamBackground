@@ -1,6 +1,6 @@
 
 var Options = {
-    Url : "http://localhost"//"https://tinydream.antit.top"
+    Url : "http://localhost:8003"//"https://tinydream.antit.top"
 };
 
 var Page_Builder = function (module, action, paras, fResult,fFailed) {
@@ -80,7 +80,7 @@ var IsDays = function(target){
         return "还未输入天数";
     }
 
-    if(!(/^[1-99]$/.test(target))){
+    if(!(/[1-99]\d|\d/.test(target))){
         return "天数格式有误，请重填";
     }
 
