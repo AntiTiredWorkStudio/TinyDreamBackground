@@ -457,27 +457,51 @@ class UserManager extends DBManager{
 
         //提交了实名认证但无中标梦想的用户的实名认证不在此显示
 
-        $array = DBResultToArray($this->SelectDataFromTable($this->TName('tDream'),['state'=>'DOING']));
+        $array = DBResultToArray($this->SelectDataFromTable($this->TName('tDream'),['state'=>'VERIFY']));
         $cond = '';
 
-        $finishUser =[];
-
+        $resultArray = [];
         foreach ($array as $key => $item) {
-            if(!empty($item['videourl'])){
+            /*if(!empty($item['videourl'])){
                 $finishUser[$item['uid']] = [$item['videourl']];
-            }
+            }*/
+            $resultArray[$item['uid']]['dream'] = $item;
+            $resultArray[$item['uid']]['identity'] = [];
             $cond = $cond.$item['uid'].'|';
         }
 
+        $infoArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tUser'),
+            ['uid'=>$cond]));
+        foreach ($infoArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['info'] =$item;
+            }
+        }
 
-        $resultArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tId'),
+        $awardArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tAward'),
+            ['uid'=>$cond]));
+
+        foreach ($awardArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['award'] =$item;
+            }
+        }
+
+
+        $idArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tId'),
             ['uid'=>$cond,
              'state'=>'SUBMIT']
         ));
 
+        foreach ($idArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['identity'] =$item;
+            }
+        }
+
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['verify'] = $resultArray;
-        $backMsg['video'] = $finishUser;
+        //$backMsg['dream'] = $finishUser;
         return $backMsg;
     }
 
