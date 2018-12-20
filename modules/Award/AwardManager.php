@@ -276,5 +276,10 @@ class AwardManager extends DBManager{
         }
         return $backMsg;
     }
+	
+	//获取需要审核的梦想
+	public function GetAllVerifyDream(){
+		
+	}
 }
 ?>

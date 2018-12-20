@@ -1,6 +1,6 @@
 
 var Options = {
-    Url : "http://localhost:8003"
+    Url : "http://localhost"//"https://tinydream.antit.top"
 };
 
 var Page_Builder = function (module, action, paras, fResult,fFailed) {
@@ -72,6 +72,36 @@ var IsValidateCode = function(target){
 
     return "";
 }
+
+//检查天数格式
+var IsDays = function(target){
+
+    if(target == null || target==""){
+        return "还未输入天数";
+    }
+
+    if(!(/^[1-99]$/.test(target))){
+        return "天数格式有误，请重填";
+    }
+
+    return "";
+}
+
+
+//检查金额格式
+var IsBill = function(target){
+
+    if(target == null || target==""){
+        return "还未输入金额";
+    }
+
+    if(!(/[1-10000000]\d|\d/.test(target))){
+        return "金额格式有误，请重填";
+    }
+
+    return "";
+}
+
 
 //检查手机号格式
 var IsCellPhoneNumber = function(target){

@@ -12,34 +12,28 @@
 			<div  id='ReleaseDreamPool'>
 				<!-- 输入框开始 -->
 				<div class="row">
-					<div class="col-md-4">
-						<div class="input-group">
-							<span class="input-group-addon">梦想池名称(20字内)</span>
-							<input type="text" class="form-control" placeholder="">
-						</div>
-					</div>
 					<div class="col-md-2">
 						<div class="input-group">
 							<span class="input-group-addon">时限(天)</span>
-							<input type="number" class="form-control" placeholder="">
+							<input id="input_day" type="number" class="form-control" placeholder="">
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="input-group">
 							<span class="input-group-addon">互助目标(元)</span>
-							<input type="number" class="form-control" placeholder="">
+							<input id="input_tbill" type="number" class="form-control" placeholder="">
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="input-group">
 							<span class="input-group-addon">价格(元/份)</span>
-							<input type="number" class="form-control" placeholder="">
+							<input id="input_ubill" type="number" class="form-control" placeholder="">
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12" style="margin: 15px auto;display: block;text-align: center;">
-						<button type="button" class="btn btn-primary" style="width: 10%;">添加梦想</button>
+						<button id="btn_post" type="button" class="btn btn-primary" style="width: 10%;">发布梦想池</button>
 					</div>
 				</div>
 				<!-- 输入框结束 -->
