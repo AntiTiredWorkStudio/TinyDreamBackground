@@ -6,13 +6,24 @@ var main = function () {
     }
     BuildNavigator();
 }
+var accessToken = "NONE";
+window.onbeforeunload = function (e) {
+    // For Safari
+    SaveStorage("login",accessToken);
+};
 
 var HasLogin = function () {
     if(!ExistStorage("login")){
         return false;
     }
 
-    var accessToken = GetStorage("login");
+    accessToken = GetStorage("login");
+
+    if(accessToken == "NONE"){
+        return false;
+    }
+
+    RemoveStorage("login");
     //校验AccessToken  (自己的身份信息)
     // sha1(tele+"-"+dayTime) == accessToken
     return true;

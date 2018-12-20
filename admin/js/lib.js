@@ -120,6 +120,10 @@ var SaveStorage = function (key,value) {
     window.localStorage.setItem(key,value);
 }
 
+var RemoveStorage = function (key) {
+    window.localStorage.removeItem(key);
+}
+
 var ExistStorage = function(key){
     return !(window.localStorage.getItem(key)==null);
 }

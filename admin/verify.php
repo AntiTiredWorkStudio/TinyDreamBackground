@@ -68,15 +68,16 @@
                     <th>身份证反面</th>
                     <th>银行卡号</th>
                     <th>银行照片</th>
-                    <th>实名认证</th>
                     <th>梦想标题</th>
                     <th>梦想内容</th>
-                    <th>审核梦想</th>
-                    <th>获得互助金</th>
+                    <th>实名认证</th>
+                    <th>梦想审核</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
+
+
                 $verifyArray = $pageData['verify'];
 
 
@@ -84,28 +85,48 @@
 
                 $seek = 0;
                 foreach ($verifyArray as $key => $value) {
-
-                    
-
-                ?>
+                    $look = "查看";
+                    if(empty($value['identity'])){
+                        $value['identity']['icardnum'] = "未提交";
+                        $value['identity']['icardfurl'] = "#";
+                        $value['identity']['icardburl'] = "#";
+                        $value['identity']['ccardnum'] = "未提交";
+                        $value['identity']['ccardfurl'] = "#";
+                        $look = "未提交";
+                    }
+                    $index = 1+($seek++);
+                    print <<<EOT
                 <tr>
-                    <td><?php echo 1+($seek++);?></td>
-                    <td><?php echo $value['info']['nickname'];?></td>
-                    <td><?php echo $value['info']['tele'];?></td>
-                    <td>梦想池<?php echo $value['award']['pid'];?>期</td>
-                    <td><?php echo $value['identity']['icardnum'];?></td>
-                    <td><a href="<?php echo $value['identity']['icardfurl'];?>">查看</a></td>
-                    <td><a href="<?php echo $value['identity']['icardburl'];?>">查看</a></td>
-                    <td><?php echo $value['identity']['ccardnum'];?></td>
-                    <td><a href="<?php echo $value['identity']['ccardfurl'];?>">查看</a></td>
-                    <td ><input type="checkbox"></td>
-                    <td><?php echo $value['dream']['title'];?></td>
-                    <td><?php echo $value['dream']['content'];?></td>
-                    <td ><input type="checkbox"></td>
-                    <td ><input type="checkbox"></td>
+                    <td>{$index}</td>
+                    <td>{$value['info']['nickname']}</td>
+                    <td>{$value['info']['tele']}</td>
+                    <td>梦想池{$value['award']['pid']}期</td>
+                    <td>{$value['identity']['icardnum']}</td>
+                    <td><a href="{$value['identity']['icardfurl']}">$look</a></td>
+                    <td><a href="{$value['identity']['icardburl']}">$look</a></td>
+                    <td>{$value['identity']['ccardnum']}</td>
+                    <td><a href="{$value['identity']['ccardfurl']}">$look</a></td>
+                    <td>{$value['dream']['title']}</td>
+                    <td>{$value['dream']['content']}</td>                
+EOT;
 
+                    print <<<EOT
+                    <td >
+                        <button type="button" class="btn btn-success" >通过</button>
+                        <button type="button" class="btn btn-danger" >拒绝</button>
+                    </td>                
+EOT;
+                    print <<<EOT
+                    <td >
+                        <button type="button" class="btn btn-success" >通过</button>
+                        <button type="button" class="btn btn-danger" >拒绝</button>
+                    </td>           
+
+                    EOT;
+
+                    print <<<EOT
                 </tr>
-                <?php
+                    EOT;
                 }
                 ?>
 
