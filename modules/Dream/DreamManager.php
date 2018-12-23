@@ -226,7 +226,7 @@ class DreamManager extends DBManager{
         return $backMsg;
     }
     //获取用户的单个梦想
-    public function GetSingleDream($uid,$did,$state='SUBMIT'){
+    public function GetSingleDream($uid,$did,$state='all'){
         $condition = [
             'uid' => $uid,
             'did' => $did,
@@ -277,6 +277,23 @@ class DreamManager extends DBManager{
         $backMsg['dreams'] = $dreamArray;
         $backMsg['dcount'] = self::PrepareEditDream($uid);
         return $backMsg;
+    }
+
+    //设置梦想状态（审核通过/结束）
+    public function SetDreamStateByJson($did,$state){
+        $stateArray = json_decode($state,true);
+        $setArray = [];
+        if(isset($stateArray['state'])){
+            $setArray['state'] = $stateArray['state'];
+        }
+        if(isset($stateArray['payment'])){
+            $setArray['payment'] = $stateArray['payment'];
+        }
+        $this->UpdateDataToTable($this->TName('tDream'),
+            $setArray,
+            ['did'=>$did]
+        );
+        return RESPONDINSTANCE('0');
     }
 }
 ?>

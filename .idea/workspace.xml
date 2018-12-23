@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/js/lib.js" afterPath="$PROJECT_DIR$/admin/js/lib.js" />
       <change beforePath="$PROJECT_DIR$/admin/js/main.js" afterPath="$PROJECT_DIR$/admin/js/main.js" />
       <change beforePath="$PROJECT_DIR$/admin/verify.php" afterPath="$PROJECT_DIR$/admin/verify.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Dream/DreamManager.php" afterPath="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Dream/index.php" afterPath="$PROJECT_DIR$/modules/Dream/index.php" />
+      <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
+      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,42 +22,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BackgroundController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/main.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AwardManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding>
-                <marker date="1545299500550" expanded="true" signature="547:621" ph="SELECT COUNT... lottery" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="postdream.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/postdream.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4317">
+            <state relative-caret-position="291">
               <caret line="145" column="31" lean-forward="false" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
               <folding>
                 <element signature="e#6#98#0#PHP" expanded="true" />
@@ -63,53 +34,49 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1560">
+              <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="verify.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/verify.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-79">
-              <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="128" selection-end-column="24" />
+            <state relative-caret-position="402">
+              <caret line="172" column="56" lean-forward="false" selection-start-line="172" selection-start-column="56" selection-end-line="172" selection-end-column="56" />
               <folding>
-                <marker date="1545326595498" expanded="true" signature="184:206" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="184:2767" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="206:1377" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="238:446" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="276:431" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="477:764" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="566:747" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="795:1202" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="833:986" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1004:1185" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1233:1319" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1350:1366" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1399:1675" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1492:1664" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1699:2767" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1735:1799" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1849:2767" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1940:2767" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1966:2686" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="1988:2661" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="2038:2075" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="2117:2161" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="2205:2285" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="2710:2767" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:3499" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:3557" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:3897" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:4142" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:4146" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="3435:4766" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="4210:4402" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="4481:4673" ph="..." />
-                <marker date="1545326595498" expanded="false" signature="4915:4942" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="4943:5003" ph="..." />
-                <marker date="1545326595498" expanded="false" signature="5048:5076" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="5077:5409" ph="..." />
-                <marker date="1545326595498" expanded="false" signature="5111:5118" ph="«" />
-                <marker date="1545326595498" expanded="false" signature="5375:5382" ph="»" />
-                <marker date="1545326595498" expanded="true" signature="5454:5567" ph="..." />
-                <marker date="1545326595498" expanded="true" signature="5484:5558" ph="{...}" />
+                <element signature="e#6#98#0#PHP" expanded="true" />
+                <element signature="e#2859#2933#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#td#5;n#tbody#0;n#table#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#6;n#tbody#0;n#table#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <marker date="1545585374797" expanded="true" signature="226:248" ph="..." />
+                <marker date="1545585374797" expanded="true" signature="3754:4572" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="470">
+              <caret line="18" column="71" lean-forward="false" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/TestManager/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="14" column="24" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="14" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,28 +84,20 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="-610">
+              <caret line="179" column="53" lean-forward="false" selection-start-line="179" selection-start-column="53" selection-end-line="179" selection-end-column="53" />
+              <folding>
+                <element signature="e#1678#4212#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lib.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
+      <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="125" column="0" lean-forward="true" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/User/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="38" />
+            <state relative-caret-position="6046">
+              <caret line="310" column="49" lean-forward="false" selection-start-line="310" selection-start-column="37" selection-end-line="310" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -147,7 +106,7 @@
       <file leaf-file-name="DreamServersManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
+            <state relative-caret-position="34">
               <caret line="737" column="0" lean-forward="false" selection-start-line="737" selection-start-column="0" selection-end-line="737" selection-end-column="0" />
               <folding>
                 <element signature="n#WechatPay#0;n#!!top" expanded="false" />
@@ -168,16 +127,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="476" column="58" lean-forward="true" selection-start-line="476" selection-start-column="58" selection-end-line="476" selection-end-column="58" />
+            <state relative-caret-position="660">
+              <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DreamManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/Dream/DreamManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="542">
+              <caret line="288" column="37" lean-forward="false" selection-start-line="288" selection-start-column="30" selection-end-line="288" selection-end-column="37" />
               <folding>
-                <element signature="n#IdentifyTeleUser#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#IdentifyRealNameUser#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetUserRealNameIdentify#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamDoing#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#UserDreamAwardingInfo#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamVerify#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamSuccess#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamFailed#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#GenerateDreamID#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#CountSubmitedDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#HasSubmitedDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#PrepareEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnEditingDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamSelected#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#GetUserSingleDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#GetSingleDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+                <element signature="n#OnDreamList#0;n#DreamManager#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -195,9 +175,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>md5</find>
-      <find>generatePrepayId</find>
-      <find>out_trade_no</find>
       <find>total_fee</find>
       <find>ShowOrdersInPoolStart</find>
       <find>precs</find>
@@ -225,6 +202,9 @@
       <find>GetJoinedPoolInfoByRange</find>
       <find>需要审核</find>
       <find>ViewAllVerifyInfo</find>
+      <find>a_</find>
+      <find>OnDreamSelected</find>
+      <find>审核</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -242,7 +222,6 @@
         <option value="$PROJECT_DIR$/public/template/manager.txt" />
         <option value="$PROJECT_DIR$/modules/Validate/index.php" />
         <option value="$PROJECT_DIR$/modules/TestManager/TestManager.php" />
-        <option value="$PROJECT_DIR$/modules/Dream/index.php" />
         <option value="$PROJECT_DIR$/modules/Award/index.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/modules/TestManager/index.php" />
@@ -251,8 +230,6 @@
         <option value="$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-miniapp.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
         <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
-        <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
-        <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/User/index.php" />
         <option value="$PROJECT_DIR$/admin/login.html" />
         <option value="$PROJECT_DIR$/admin/page-login.html" />
@@ -268,12 +245,15 @@
         <option value="$PROJECT_DIR$/admin/js/o.http" />
         <option value="$PROJECT_DIR$/admin/assets/css/main.css" />
         <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
-        <option value="$PROJECT_DIR$/modules/DataBase/DBManager.php" />
         <option value="$PROJECT_DIR$/admin/postdream.php" />
-        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php" />
-        <option value="$PROJECT_DIR$/admin/js/main.js" />
         <option value="$PROJECT_DIR$/admin/js/lib.js" />
+        <option value="$PROJECT_DIR$/modules/DataBase/DBManager.php" />
+        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
+        <option value="$PROJECT_DIR$/public/conf.php" />
+        <option value="$PROJECT_DIR$/modules/Dream/index.php" />
+        <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
+        <option value="$PROJECT_DIR$/admin/js/main.js" />
         <option value="$PROJECT_DIR$/admin/verify.php" />
       </list>
     </option>
@@ -285,11 +265,11 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-476" />
-    <option name="y" value="429" />
+    <option name="y" value="369" />
     <option name="width" value="1619" />
-    <option name="height" value="1040" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -346,6 +326,12 @@
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="AuthManager" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Award" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -358,6 +344,18 @@
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="DataBase" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Dream" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="DreamPool" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -365,6 +363,12 @@
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="DreamServersManager" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="TestManager" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
@@ -466,17 +470,19 @@
       <workItem from="1545214792906" duration="5896000" />
       <workItem from="1545230144856" duration="16390000" />
       <workItem from="1545299781043" duration="15030000" />
+      <workItem from="1545482040287" duration="1979000" />
+      <workItem from="1545549904814" duration="13690000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378114000" />
+    <option name="totallyTimeSpent" value="393783000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-476" y="429" width="1619" height="1040" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20524018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -504,18 +510,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="39" />
+      <option name="time" value="42" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/User/Res/src/Qiniu/Auth.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2482">
-          <caret line="74" column="31" lean-forward="false" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_9.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7480">
@@ -553,25 +552,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/TestManager/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="14" column="24" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_4.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="739" column="16" lean-forward="false" selection-start-line="739" selection-start-column="10" selection-end-line="739" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -633,19 +617,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Dream/DreamManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="37" column="27" lean-forward="false" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/TestManager/TestManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5066">
           <caret line="149" column="18" lean-forward="false" selection-start-line="149" selection-start-column="18" selection-end-line="149" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -653,9 +628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -663,7 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="9244" column="12" lean-forward="false" selection-start-line="9244" selection-start-column="12" selection-end-line="9244" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -680,10 +651,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
           <caret line="155" column="18" lean-forward="false" selection-start-line="155" selection-start-column="18" selection-end-line="155" selection-end-column="18" />
-          <folding>
-            <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -698,7 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-93">
           <caret line="32" column="49" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -706,85 +672,109 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="9" column="32" lean-forward="false" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/o.http">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="8" column="55" lean-forward="false" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/lib.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="331" column="90" lean-forward="true" selection-start-line="331" selection-start-column="90" selection-end-line="331" selection-end-column="90" />
-          <folding>
-            <element signature="n#BuildModule#0;n#Monitor#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/o.http" />
     <entry file="file://$PROJECT_DIR$/admin/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="389">
           <caret line="1796" column="11" lean-forward="false" selection-start-line="1796" selection-start-column="11" selection-end-line="1796" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="258" column="41" lean-forward="true" selection-start-line="258" selection-start-column="41" selection-end-line="258" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <marker date="1545299500550" expanded="true" signature="547:621" ph="SELECT COUNT... lottery" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="43" column="38" lean-forward="true" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/DataBase/DBManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="333" column="9" lean-forward="false" selection-start-line="333" selection-start-column="9" selection-end-line="333" selection-end-column="9" />
+          <folding>
+            <marker date="1545580712058" expanded="true" signature="775:821" ph="select count... " />
+            <marker date="1545580712058" expanded="true" signature="2300:2439" ph="select colum... columns" />
+            <marker date="1545580712058" expanded="true" signature="2675:2711" ph="SELECT * FRO... ${$tableName}" />
+            <marker date="1545580712058" expanded="true" signature="3160:3189" ph="INSERT INTO `${$tableName}`... " />
+            <marker date="1545580712058" expanded="true" signature="4251:4280" ph="INSERT INTO `${$tableName}`... " />
+            <marker date="1545580712058" expanded="true" signature="7018:7046" ph="DELETE FROM `${$tableName}`... " />
+            <marker date="1545580712058" expanded="true" signature="12601:12616" ph="..." />
+            <marker date="1545580712058" expanded="true" signature="12728:12743" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/conf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="137" column="14" lean-forward="true" selection-start-line="137" selection-start-column="14" selection-end-line="137" selection-end-column="14" />
+        <state relative-caret-position="390">
+          <caret line="15" column="53" lean-forward="true" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
           <folding>
-            <marker date="1545237077614" expanded="true" signature="3121:3326" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="3620:4046" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="3620:4061" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="4135:4692" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="4135:4706" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="4777:5181" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="4777:5196" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="5267:5715" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="5267:5728" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="5807:6100" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="6763:7070" ph="CREATE TABLE... dreamserver" />
-            <marker date="1545237077614" expanded="true" signature="7811:7967" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="7811:7981" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="8053:8433" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="8053:8448" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="8519:8951" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="8519:8966" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1545237077614" expanded="true" signature="9037:9520" ph="CREATE TABLE... identity" />
+            <marker date="1545582984062" expanded="true" signature="3620:4061" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="4135:4706" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="4777:5196" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="5267:5771" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="5850:6143" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="6806:7113" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="7854:8024" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="8096:8491" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="8562:9009" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1545582984062" expanded="true" signature="9080:9563" ph="CREATE TABLE... ##DBName##" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DataBase/DBManager.php">
+    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="248" column="0" lean-forward="true" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
+        <state relative-caret-position="2610">
+          <caret line="226" column="28" lean-forward="false" selection-start-line="226" selection-start-column="20" selection-end-line="226" selection-end-column="28" />
           <folding>
-            <marker date="1545308231931" expanded="true" signature="775:821" ph="select count... " />
-            <marker date="1545308231931" expanded="true" signature="2300:2439" ph="select colum... columns" />
-            <marker date="1545308231931" expanded="true" signature="2675:2711" ph="SELECT * FRO... ${$tableName}" />
-            <marker date="1545308231931" expanded="true" signature="3160:3189" ph="INSERT INTO `${$tableName}`... " />
-            <marker date="1545308231931" expanded="true" signature="4251:4280" ph="INSERT INTO `${$tableName}`... " />
-            <marker date="1545308231931" expanded="true" signature="7018:7046" ph="DELETE FROM `${$tableName}`... " />
-            <marker date="1545308231931" expanded="true" signature="12601:12616" ph="..." />
-            <marker date="1545308231931" expanded="true" signature="12728:12743" ph="..." />
+            <element signature="n#IdentifyTeleUser#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#IdentifyRealNameUser#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserRealNameIdentify#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#SelfInfo#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#RealNameIdentifyStart#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#RealNameIdentifyFinished#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#ViewAllVerifyInfo#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -796,15 +786,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php">
+    <entry file="file://$PROJECT_DIR$/modules/AuthManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="258" column="41" lean-forward="true" selection-start-line="258" selection-start-column="41" selection-end-line="258" selection-end-column="41" />
-          <folding>
-            <marker date="1545308202641" expanded="true" signature="589:650" ph="SELECT COUNT... dreampool" />
-            <marker date="1545308202641" expanded="true" signature="10666:10698" ph="SELECT COUNT... dreampool" />
-            <marker date="1545308202641" expanded="true" signature="11069:11137" ph="SELECT * FRO... dreampool" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -816,80 +802,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="38" />
+        <state relative-caret-position="170">
+          <caret line="5" column="9" lean-forward="true" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
+    <entry file="file://$PROJECT_DIR$/public/lib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="6046">
+          <caret line="310" column="49" lean-forward="false" selection-start-line="310" selection-start-column="37" selection-end-line="310" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/postdream.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="145" column="31" lean-forward="false" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
           <folding>
-            <marker date="1545299500550" expanded="true" signature="547:621" ph="SELECT COUNT... lottery" />
+            <element signature="e#6#98#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
+    <entry file="file://$PROJECT_DIR$/modules/TestManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="476" column="58" lean-forward="true" selection-start-line="476" selection-start-column="58" selection-end-line="476" selection-end-column="58" />
-          <folding>
-            <element signature="n#IdentifyTeleUser#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#IdentifyRealNameUser#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#GetUserRealNameIdentify#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+        <state relative-caret-position="476">
+          <caret line="14" column="24" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="14" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/main.html">
+    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="125" column="0" lean-forward="true" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        <state relative-caret-position="470">
+          <caret line="18" column="71" lean-forward="false" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
+        <state relative-caret-position="34">
           <caret line="737" column="0" lean-forward="false" selection-start-line="737" selection-start-column="0" selection-end-line="737" selection-end-column="0" />
           <folding>
             <element signature="n#WechatPay#0;n#!!top" expanded="false" />
@@ -909,61 +866,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/postdream.php">
+    <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4317">
-          <caret line="145" column="31" lean-forward="false" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
+        <state relative-caret-position="660">
+          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Dream/DreamManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="288" column="37" lean-forward="false" selection-start-line="288" selection-start-column="30" selection-end-line="288" selection-end-column="37" />
           <folding>
-            <element signature="e#6#98#0#PHP" expanded="true" />
+            <element signature="n#OnDreamDoing#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#UserDreamAwardingInfo#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnDreamVerify#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnDreamSuccess#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnDreamFailed#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#GenerateDreamID#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#CountSubmitedDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#HasSubmitedDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#PrepareEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnEditingDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnDreamSelected#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserSingleDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#GetSingleDream#0;n#DreamManager#0;n#!!top" expanded="false" />
+            <element signature="n#OnDreamList#0;n#DreamManager#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1560">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-610">
+          <caret line="179" column="53" lean-forward="false" selection-start-line="179" selection-start-column="53" selection-end-line="179" selection-end-column="53" />
+          <folding>
+            <element signature="e#1678#4212#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/verify.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-79">
-          <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="128" selection-end-column="24" />
+        <state relative-caret-position="402">
+          <caret line="172" column="56" lean-forward="false" selection-start-line="172" selection-start-column="56" selection-end-line="172" selection-end-column="56" />
           <folding>
-            <marker date="1545326595498" expanded="true" signature="184:206" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="184:2767" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="206:1377" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="238:446" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="276:431" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="477:764" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="566:747" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="795:1202" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="833:986" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1004:1185" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1233:1319" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1350:1366" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1399:1675" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1492:1664" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1699:2767" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1735:1799" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1849:2767" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1940:2767" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1966:2686" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="1988:2661" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="2038:2075" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="2117:2161" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="2205:2285" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="2710:2767" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:3499" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:3557" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:3897" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:4142" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:4146" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="3435:4766" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="4210:4402" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="4481:4673" ph="..." />
-            <marker date="1545326595498" expanded="false" signature="4915:4942" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="4943:5003" ph="..." />
-            <marker date="1545326595498" expanded="false" signature="5048:5076" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="5077:5409" ph="..." />
-            <marker date="1545326595498" expanded="false" signature="5111:5118" ph="«" />
-            <marker date="1545326595498" expanded="false" signature="5375:5382" ph="»" />
-            <marker date="1545326595498" expanded="true" signature="5454:5567" ph="..." />
-            <marker date="1545326595498" expanded="true" signature="5484:5558" ph="{...}" />
+            <element signature="e#6#98#0#PHP" expanded="true" />
+            <element signature="e#2859#2933#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#td#5;n#tbody#0;n#table#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#6;n#tbody#0;n#table#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <marker date="1545585374797" expanded="true" signature="226:248" ph="..." />
+            <marker date="1545585374797" expanded="true" signature="3754:4572" ph="..." />
           </folding>
         </state>
       </provider>

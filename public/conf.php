@@ -124,7 +124,7 @@ $tables = [
     ],
     'tDream'=>[
         'name'=>'dream',
-        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','VERIFY','FAILED','SUCCESS') NOT NULL , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
+        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','VERIFY','FAILED','SUCCESS') NOT NULL ,`payment` BOOLEAN NOT NULL COMMENT '付款标识' , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
     ],
     'tDreamType'=>[
         'name'=>'dreamtype',

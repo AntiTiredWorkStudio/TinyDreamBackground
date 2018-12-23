@@ -57,13 +57,13 @@ document.OnPartLoad = function (data) {
     console.log(data.id);
     switch(data.id){
         case "nav":
-            NavigatorModule.init();
+            NavigatorModule.init(data);
             break;
         case "post":
-            PostModule.init();
+            PostModule.init(data);
             break;
         case "verf":
-            VerfModule.init();
+            VerfModule.init(data);
             break;
         default:
             break;
@@ -78,6 +78,7 @@ var NavigatorModule = {
     },
 }
 
+//梦想池管理模块
 var PostModule = {
     init: function () {
         var module = this;
@@ -166,10 +167,76 @@ var PostModule = {
     }
 }
 
+//认证审核模块
 var VerfModule = {
-    init: function () {
-
+    init: function (option) {
+        console.log(option);
+        this.verifyInfo = option;
+        var module = this;
+        $("#id_success").click(module.idVerify);
+        $("#id_failed").click(module.idVerify);
+        $("#dream_success").click(module.dreamVerify);
+        $("#dream_failed").click(module.dreamVerify);
+        $("#dream_payment").click(module.dreamPayment);
     },
+    verifyInfo:null,
+    idVerify:function (res) {
+        var tuid = $(res.currentTarget).attr('uid');
+        var tstate = "";
+        if(res.currentTarget.id == "id_success"){
+            tstate = "SUCCESS";
+        }else {
+            tstate = "FAILED";
+        }
+        TD_Request('us','rnamea',{uid:tuid,state:tstate}
+        ,function (code, data) {
+                console.log(data);
+                LoadWorkSpace('a_verify');
+                alert(data.context);
+            },
+            function (code, data) {
+                console.log(data);
+                alert(data.context);
+            }
+        )
+        console.log(res.currentTarget);
+    },
+    dreamVerify:function (res) {
+        var tdid = $(res.currentTarget).attr('did');
+        var result = "";
+        if(res.currentTarget.id == "dream_success"){
+            result = "SUCCESS";
+        }else {
+            result = "FAILED";
+        }
+
+        TD_Request('dr','sdjson',{did:tdid,state:JSON.stringify({state:result})},
+            function (code, data) {
+                console.log(data);
+                LoadWorkSpace('a_verify');
+                alert(data.context);
+            },
+            function (code, data) {
+                console.log(data);
+                alert(data.context);
+            }
+        )
+    },
+    dreamPayment:function (res) {
+        var tdid = $(res.currentTarget).attr('did');
+
+        TD_Request('dr','sdjson',{did:tdid,state:JSON.stringify({payment:true})},
+            function (code, data) {
+                console.log(data);
+                LoadWorkSpace('a_verify');
+                alert(data.context);
+            },
+            function (code, data) {
+                console.log(data);
+                alert(data.context);
+            }
+        )
+    }
 }
 
 

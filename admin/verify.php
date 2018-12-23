@@ -5,6 +5,9 @@
  * Date: 2018-12-20
  * Time: 上午 12:28
  */
+
+
+    $verifyArray = $pageData['verify'];
 ?>
 
 
@@ -70,23 +73,27 @@
                     <th>银行照片</th>
                     <th>梦想标题</th>
                     <th>梦想内容</th>
+                    <th>互助公函</th>
                     <th>实名认证</th>
                     <th>梦想审核</th>
+                    <th>打款</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
 
-
-                $verifyArray = $pageData['verify'];
-
+                /*if(empty($verifyArray)){
+                    return;
+                }*/
 
 
 
                 $seek = 0;
                 foreach ($verifyArray as $key => $value) {
                     $look = "查看";
-                    if(empty($value['identity'])){
+                    $hasSubmitVerify = !empty($value['identity']);
+                    $hasVerifySuccess = $hasSubmitVerify ? ($value['identity']['state'] == "SUCCESS") : false;
+                    if (!$hasSubmitVerify) {
                         $value['identity']['icardnum'] = "未提交";
                         $value['identity']['icardfurl'] = "#";
                         $value['identity']['icardburl'] = "#";
@@ -94,7 +101,7 @@
                         $value['identity']['ccardfurl'] = "#";
                         $look = "未提交";
                     }
-                    $index = 1+($seek++);
+                    $index = 1 + ($seek++);
                     print <<<EOT
                 <tr>
                     <td>{$index}</td>
@@ -107,29 +114,71 @@
                     <td>{$value['identity']['ccardnum']}</td>
                     <td><a href="{$value['identity']['ccardfurl']}">$look</a></td>
                     <td>{$value['dream']['title']}</td>
-                    <td>{$value['dream']['content']}</td>                
+                    <td>{$value['dream']['content']}</td> 
+                    <td><a href="{$value['dream']['videourl']}">$look</a></td>               
+                           
 EOT;
+                    ?>
 
-                    print <<<EOT
-                    <td >
-                        <button type="button" class="btn btn-success" >通过</button>
-                        <button type="button" class="btn btn-danger" >拒绝</button>
-                    </td>                
-EOT;
-                    print <<<EOT
-                    <td >
-                        <button type="button" class="btn btn-success" >通过</button>
-                        <button type="button" class="btn btn-danger" >拒绝</button>
-                    </td>           
+                    <?php if ($hasSubmitVerify && !$hasVerifySuccess) { ?>
+                        <td>
+                            <button id="id_success" uid="<?php echo $value['info']['uid'] ?>" type="button"
+                                    class="btn btn-success">通过
+                            </button>
+                            <button id="id_failed" uid="<?php echo $value['info']['uid'] ?>" type="button"
+                                    class="btn btn-danger">拒绝
+                            </button>
+                        </td>
+                        <?php
+                    } else if ($hasVerifySuccess) {
+                        ?>
+                        <td style="color:green">
+                            实名认证通过
+                        </td>
+                        <?php
+                    } else if (!$hasSubmitVerify) {
+                        ?>
+                        <td style="color:red">
+                            用户未提交实名认证
+                        </td>
+                        <?php
+                    }
 
-                    EOT;
-
-                    print <<<EOT
-                </tr>
-                    EOT;
+                    if ($hasSubmitVerify && $hasVerifySuccess && $value['dream']['state'] == "VERIFY") {
+                        ?>
+                        <td>
+                            <button id="dream_success" did="<?php echo $value['dream']['did'] ?>" type="button"
+                                    class="btn btn-success">通过
+                            </button>
+                            <button id="dream_failed" did="<?php echo $value['dream']['did'] ?>" type="button"
+                                    class="btn btn-danger">拒绝
+                            </button>
+                        </td>
+                    <?php } else {
+                        ?>
+                        <td style="color:red">
+                            用户未通过实名认证
+                        </td>
+                        <?php
+                    }
+                    if ($value['dream']['payment'] == 1) {
+                        ?>
+                        <td style="color:green">
+                            已经打款
+                        </td>
+                        <?php
+                    } else {
+                        ?>
+                        <td style="color:red">
+                            <button id="dream_payment" did="<?php echo $value['dream']['did'] ?>" type="button"
+                                    class="btn btn-success">标记打款
+                            </button>
+                        </td>
+                        <?php
+                    }
                 }
                 ?>
-
+                </tr>
                 </tbody>
 
             </table>
@@ -152,7 +201,7 @@ EOT;
 </div>
 
 <script>
-    if(document.OnPartLoad) {
+    if(document.OnPartLoad){
         document.OnPartLoad(<?php echo json_encode($pageData);?>);
     }
 </script>

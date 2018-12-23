@@ -432,7 +432,7 @@ class UserManager extends DBManager{
             [
                 'uid'=>$uid,
                 'state'=>'SUBMIT',
-                '_logic'=>' '
+                '_logic'=>'AND'
             ]),true);
         if(!empty($tIdentify)) {
             if($state == 'FAILED' || $state=='SUCCESS'){
@@ -441,6 +441,7 @@ class UserManager extends DBManager{
                     'state'=>'SUBMIT',
                     '_logic'=>'AND'
                 ]);
+                return RESPONDINSTANCE('0');
             }else{
                 return RESPONDINSTANCE('43');
             }
@@ -490,7 +491,7 @@ class UserManager extends DBManager{
 
         $idArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tId'),
             ['uid'=>$cond,
-             'state'=>'SUBMIT']
+             'state'=>'SUBMIT|SUCCESS|FAILED']
         ));
 
         foreach ($idArray as $key=>$item) {
