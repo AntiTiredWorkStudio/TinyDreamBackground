@@ -147,7 +147,7 @@ class DreamManager extends DBManager{
                 $actionList = json_decode($_REQUEST['action'],true);
                 if(isset($actionList['editdream'])){
                     unset($actionList['editdream']);
-					$backMsg['buy']['did'] = $dreamArray['did'];
+					$backMsg['buy']['dream'] = $dreamArray['did'];
                 }
                 $backMsg['actions'] = $actionList;
             }

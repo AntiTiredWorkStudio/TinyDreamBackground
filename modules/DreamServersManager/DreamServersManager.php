@@ -572,7 +572,7 @@ class DreamServersManager extends DBManager {
             //跳转至选择梦想界面
             $backMsg['actions'] = [
                 //'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'did'=>$userFirstDreamID]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'dream'=>$userFirstDreamID]//购买互助
             ];
         }
         return $backMsg;
