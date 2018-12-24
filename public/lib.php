@@ -314,6 +314,9 @@ function Responds($action, $manager, $actionArray,$permission='all'){
             die("无此权限");
         }
     }
+	if(empty($_REQUEST[$action]) || $_REQUEST[$action] ==''){
+		die(json_encode($actionArray));
+	}
     if(!array_key_exists($_REQUEST[$action],$actionArray)){
         die(json_encode(RESPONDINSTANCE('99',"请求模块'".$action."'不包含动作 '".$_REQUEST[$action]."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
