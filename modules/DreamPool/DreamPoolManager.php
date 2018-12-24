@@ -365,7 +365,7 @@ class DreamPoolManager extends DBManager{
     public function CountPools(){
         $link = $this->DBLink();
 
-        $sql = "SELECT COUNT(*) FROM `dreampool`";
+        $sql = "SELECT COUNT(*) FROM `".$this->TName("tPool")."`";
 
         mysql_query($sql,$link);
 
@@ -382,12 +382,12 @@ class DreamPoolManager extends DBManager{
         //未实现
         $link = $this->DBLink();
 
-        $sql = "SELECT * FROM `dreampool` WHERE 1 ORDER BY `ptime` DESC LIMIT $seek,$count";
+        $sql = "SELECT * FROM `".$this->TName("tPool")."` WHERE 1 ORDER BY `ptime` DESC LIMIT $seek,$count";
 
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['Pools'] = $cResult;
+        $backMsg['awards'] = $cResult;
         return $backMsg;
     }
 }

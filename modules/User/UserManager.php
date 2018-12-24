@@ -208,6 +208,17 @@ class UserManager extends DBManager{
             return $backMsg;
         }
     }
+	
+	//快速获取用户信息
+	public static function GetUsersInfoByString($uidStr){
+		$USM = (new UserManager());
+		$users = DBResultToArray($USM->SelectDatasFromTable($USM->TName('tUser'),['uid'=>$uidStr]));
+		return $users;
+	}
+	//快速获取用户信息
+	public static function GetUserInfo($uid){
+		return (new UserManager())->SelfInfo('uid')['selfinfo'];
+	}
 
 
     public function info()

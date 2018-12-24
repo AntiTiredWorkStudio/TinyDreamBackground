@@ -555,19 +555,24 @@ class DreamServersManager extends DBManager {
         }
 
         $backMsg = RESPONDINSTANCE('0');
+		
 
         if(!DreamManager::HasSubmitedDream($uid)){
             //跳转至编辑梦想页面
             $backMsg['actions'] = [
                 'editdream'=>['uid'=>$uid],//编辑梦想
-                'selectdream'=>['uid'=>$uid],//选择梦想
+                //'selectdream'=>['uid'=>$uid],//选择梦想
                 'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
             ];
         }else {
+			$userFirstDreamID = DreamManager::UserFirstSubmitedDream($uid);
+			if(!empty($userFirstDreamID)){
+				$userFirstDreamID = $userFirstDreamID[0]['did'];
+			}
             //跳转至选择梦想界面
             $backMsg['actions'] = [
-                'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
+                //'selectdream'=>['uid'=>$uid],//选择梦想
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'did'=>$userFirstDreamID]//购买互助
             ];
         }
         return $backMsg;

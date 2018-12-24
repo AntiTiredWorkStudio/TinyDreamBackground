@@ -10,5 +10,7 @@
         'anums'=>R('AutoLottery'),//自动开奖
         'lfromp' => R('GetLotteryFromPid',['pid']),
         'gawap'=>R('GetUnawardPools'),
+		'gplu'=>R('GetPreviousLuckyByRange',['seek','count']),//获取往期幸运者
+		'cplu'=>R('CountPreviousLucky'),//获取往期幸运者
     ]);
 ?>
