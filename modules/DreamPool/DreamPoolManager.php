@@ -387,7 +387,7 @@ class DreamPoolManager extends DBManager{
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['awards'] = $cResult;
+        $backMsg['Pools'] = $cResult;
         return $backMsg;
     }
 }

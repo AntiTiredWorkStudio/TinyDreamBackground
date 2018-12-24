@@ -33,7 +33,8 @@ class BackgroundController extends DBManager {
         $pageData['seek'] = (isset($_REQUEST['seek']))?$_REQUEST['seek']:DEFAULT_START_SEEK;
 
         $pageData['pages'] = ceil($pageData['count']/$pageData['psize']);
-        $pageData['pools'] = $DPM->ListPoolsByRange($pageData['seek'],$pageData['psize'])['Pools'];//DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),[]));
+        $pageData['pools'] = $DPM->ListPoolsByRange($pageData['seek'],$pageData['psize'])['Pools'];
+        
         require ($pageData['path']);
     }
 
