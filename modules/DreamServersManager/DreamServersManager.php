@@ -567,7 +567,7 @@ class DreamServersManager extends DBManager {
         }else {
 			$userFirstDream = DreamManager::UserFirstSubmitedDream($uid);
 			if(!empty($userFirstDream)){
-				$userFirstDream = $userFirstDreamID[0];
+				$userFirstDream = $userFirstDream[0];
 			}
             //跳转至选择梦想界面
             $backMsg['actions'] = [
