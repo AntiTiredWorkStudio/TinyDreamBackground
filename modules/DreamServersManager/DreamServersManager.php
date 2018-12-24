@@ -565,14 +565,14 @@ class DreamServersManager extends DBManager {
                 'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
             ];
         }else {
-			$userFirstDreamID = DreamManager::UserFirstSubmitedDream($uid);
-			if(!empty($userFirstDreamID)){
-				$userFirstDreamID = $userFirstDreamID[0]['did'];
+			$userFirstDream = DreamManager::UserFirstSubmitedDream($uid);
+			if(!empty($userFirstDream)){
+				$userFirstDream = $userFirstDreamID[0];
 			}
             //跳转至选择梦想界面
             $backMsg['actions'] = [
                 //'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'dream'=>$userFirstDreamID]//购买互助
+                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'dream'=>$userFirstDream]//购买互助
             ];
         }
         return $backMsg;
