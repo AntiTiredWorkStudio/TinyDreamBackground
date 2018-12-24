@@ -34,7 +34,7 @@ class BackgroundController extends DBManager {
 
         $pageData['pages'] = ceil($pageData['count']/$pageData['psize']);
         $pageData['pools'] = $DPM->ListPoolsByRange($pageData['seek'],$pageData['psize'])['Pools'];
-        
+
         require ($pageData['path']);
     }
 
