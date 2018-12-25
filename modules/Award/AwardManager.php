@@ -320,6 +320,7 @@ class AwardManager extends DBManager{
 			
 			if(array_key_exists($value['did'],$dreamsInfo)){
 				$cResult[$i]['title'] =  $dreamsInfo[$value['did']]['title'];
+				$cResult[$i]['content'] =  $dreamsInfo[$value['did']]['content'];
 				$cResult[$i]['state'] =  $dreamsInfo[$value['did']]['state'];
 			}
 		}
