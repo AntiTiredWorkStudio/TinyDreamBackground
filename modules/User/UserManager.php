@@ -13,6 +13,7 @@ LIB('va');
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
 define('ID_BACK','id_b');
+define('PUB_LETTER','letter_');
 
 class UserManager extends DBManager{
     public static function UserExist($uid){
@@ -24,6 +25,22 @@ class UserManager extends DBManager{
             ]
         )));
     }
+
+
+    //生成公函上传token
+    public static function GeneratePublicLetter($uid){
+        $USM = new UserManager();
+        $auth = new Auth($USM->CloudOptions['ak'], $USM->CloudOptions['sk']);
+        $token = $auth->uploadToken($USM->CloudOptions['bucket']);
+        $timeStamp = PRC_TIME();
+        $backMsg['uptoken']=$token;
+        $backMsg['upurl']= $USM->uploadURLFromRegionCode($USM->CloudOptions['region']);
+        $backMsg['domain']=$USM->CloudOptions['domain'];
+        $backMsg['timeStamp']=$timeStamp;
+        $backMsg['fileName'] = $USM->GenerateFileName($uid,PUB_LETTER);
+        return $backMsg;
+    }
+
 
     public static function UpdateUserOrderInfo($uid,$totalJoin,$pieces){
         $USM = new UserManager();
@@ -341,6 +358,7 @@ class UserManager extends DBManager{
     public function GenerateFileName($uid,$type){
         return $type.sha1($uid.'_'.PRC_TIME());
     }
+
 
     //开始实名认证
     public function RealNameIdentifyStart($uid){

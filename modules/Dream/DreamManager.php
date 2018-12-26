@@ -244,6 +244,9 @@ class DreamManager extends DBManager{
         if(empty($backMsg['dream'])){
             return RESPONDINSTANCE('47');
         }
+        if($state == 'all'){
+            $backMsg['upload'] = UserManager::GeneratePublicLetter($uid);
+        }
         return $backMsg;
     }
     //获取用户的单个梦想
