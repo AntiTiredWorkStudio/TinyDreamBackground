@@ -207,7 +207,7 @@ var VerfModule = {
         if(res.currentTarget.id == "dream_success"){
             result = "SUCCESS";
         }else {
-            result = "FAILED";
+            result = "DOING";
         }
 
         TD_Request('dr','sdjson',{did:tdid,state:JSON.stringify({state:result})},

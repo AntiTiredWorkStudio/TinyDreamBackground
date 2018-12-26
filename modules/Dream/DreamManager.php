@@ -282,7 +282,7 @@ class DreamManager extends DBManager{
         }
 
         foreach($dreamArray as $key=>$value){
-            if($value['state']!='DOING' && $value['state']!='VERIFY'){
+            if($value['state']!='DOING' && $value['state']!='VERIFY' && $value['state']!='SUCCESS'){
 //                DreamPoolManager::Pool()
             }else{
                 $lottery = AwardManager::GetAwardLotteryByDreamID($value['did']);
