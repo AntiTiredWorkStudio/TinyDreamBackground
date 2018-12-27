@@ -883,7 +883,7 @@ class DreamServersManager extends DBManager {
     public function GetJoinedPoolInfoByRange($uid,$min,$count){
         $link = $this->DBLink();
 
-        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid'";
+        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid' AND `state`='SUCCESS'";
 
         $tResult = DBResultToArray(mysql_query($sql,$link),true);
 
