@@ -336,7 +336,7 @@ class UserManager extends DBManager{
     public $CloudOptions = [
         'ak'=>'d-SztTGFAV7_BX-dKRtM8y1diABoXe1zxCgd-2yi',
         'sk'=>'CWv29dzAFng2KZ15Cf21Pv6FoOoWtB3-nzh1zgJH',
-        'domain'=>'http://tdream.antit.top',
+        'domain'=>'https://tdream.antit.top',
         'bucket'=>'tinydream',
         'region'=>'ECN'
     ];
