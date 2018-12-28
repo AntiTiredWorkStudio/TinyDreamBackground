@@ -7,6 +7,7 @@ LIB('us');
 LIB('dr');
 LIB('dp');
 LIB('aw');
+LIB('ub');
 
 class WechatPay{
 
@@ -554,6 +555,8 @@ class DreamServersManager extends DBManager {
             return RESPONDINSTANCE('11');//若未绑定手机即会提示先绑定手机
         }
 
+        UserBehaviourManager::OnBehave($uid,JOIN);
+
         $backMsg = RESPONDINSTANCE('0');
 		
 
@@ -680,6 +683,7 @@ class DreamServersManager extends DBManager {
         //修改AwardManager,为用户添加梦想编号
         $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$did,$oid,$startIndex,$endIndex);
         if($result && !empty($NumberArray)){
+            UserBehaviourManager::OnBehave($uid,PAY);
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['numbers'] = $NumberArray;
             $backMsg['actions'] = 'clear';

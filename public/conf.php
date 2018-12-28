@@ -41,7 +41,9 @@ $modules = [
 	,'auth' => ['rq'=>'modules/AuthManager/index.php',//AuthManager
 			'lib'=>'modules/AuthManager/AuthManager.php']
 	,'admin' => ['rq'=>'modules/BackgroundController/index.php',//BackgroundController
-			'lib'=>'modules/BackgroundController/BackgroundController.php']#NEW_MODULES#
+			'lib'=>'modules/BackgroundController/BackgroundController.php']
+	,'ub' => ['rq'=>'modules/UserBehaviourManager/index.php',//UserBehaviourManager
+			'lib'=>'modules/UserBehaviourManager/UserBehaviourManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -192,6 +194,10 @@ $tables = [
     'tId'=>[
         'name'=>'identity',
         'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
+    ],
+    'tBehave'=>[
+        'name'=>'behaviour',
+        'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '行为统计';"
     ]
 ];
 
