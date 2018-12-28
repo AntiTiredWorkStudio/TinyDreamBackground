@@ -197,7 +197,7 @@ $tables = [
     ],
     'tBehave'=>[
         'name'=>'behaviour',
-        'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '行为统计';"
+        'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '行为统计';"
     ]
 ];
 

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php" afterPath="$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php" />
+      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,23 +47,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="conf.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="conf.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/conf.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2287">
-              <caret line="197" column="12" lean-forward="false" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="12" />
+            <state relative-caret-position="451">
+              <caret line="199" column="258" lean-forward="false" selection-start-line="199" selection-start-column="256" selection-end-line="199" selection-end-column="258" />
               <folding>
-                <marker date="1546008493433" expanded="true" signature="3768:4209" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="4283:4854" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="4925:5344" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="5415:5919" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="5998:6291" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="6954:7261" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="8002:8172" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="8244:8639" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="8710:9157" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="9228:9711" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1546008493433" expanded="true" signature="9787:10082" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="3768:4209" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="4283:4854" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="4925:5344" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="5415:5919" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="5998:6291" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="6954:7261" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="8002:8172" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="8244:8639" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="8710:9157" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="9228:9711" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1546014142425" expanded="true" signature="9787:10082" ph="CREATE TABLE... ##DBName##" />
               </folding>
             </state>
           </provider>
@@ -97,23 +97,23 @@
       <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="-646">
               <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserBehaviourManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserBehaviourManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="88" column="5" lean-forward="true" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
+            <state relative-caret-position="407">
+              <caret line="36" column="72" lean-forward="false" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="72" />
               <folding>
-                <marker date="1546013272780" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
-                <marker date="1546013272780" expanded="true" signature="1937:1991" ph="SELECT COUNT... ${$table}" />
-                <marker date="1546013272780" expanded="true" signature="2384:2465" ph="SELECT * FRO... behaviour" />
-                <marker date="1546013272780" expanded="true" signature="2384:2837" ph="SELECT * FRO... behaviour" />
+                <marker date="1546013642915" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
+                <marker date="1546013642915" expanded="true" signature="1934:1988" ph="SELECT COUNT... ${$table}" />
+                <marker date="1546013642915" expanded="true" signature="2381:2462" ph="SELECT * FRO... behaviour" />
+                <marker date="1546013642915" expanded="true" signature="2381:2834" ph="SELECT * FRO... behaviour" />
               </folding>
             </state>
           </provider>
@@ -249,10 +249,10 @@
         <option value="$PROJECT_DIR$/admin/js/main.js" />
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
-        <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php" />
+        <option value="$PROJECT_DIR$/public/conf.php" />
       </list>
     </option>
   </component>
@@ -486,12 +486,12 @@
       <workItem from="1545745460788" duration="709000" />
       <workItem from="1545841848238" duration="3245000" />
       <workItem from="1545929951235" duration="1469000" />
-      <workItem from="1546005181383" duration="6108000" />
+      <workItem from="1546005181383" duration="6854000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="409746000" />
+    <option name="totallyTimeSpent" value="410492000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -862,34 +862,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/conf.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2287">
-          <caret line="197" column="12" lean-forward="false" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="12" />
-          <folding>
-            <marker date="1546008493433" expanded="true" signature="3768:4209" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="4283:4854" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="4925:5344" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="5415:5919" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="5998:6291" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="6954:7261" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="8002:8172" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="8244:8639" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="8710:9157" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="9228:9711" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1546008493433" expanded="true" signature="9787:10082" ph="CREATE TABLE... ##DBName##" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/lib.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -931,13 +903,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="88" column="5" lean-forward="true" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
+        <state relative-caret-position="407">
+          <caret line="36" column="72" lean-forward="false" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="72" />
           <folding>
-            <marker date="1546013272780" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
-            <marker date="1546013272780" expanded="true" signature="1937:1991" ph="SELECT COUNT... ${$table}" />
-            <marker date="1546013272780" expanded="true" signature="2384:2465" ph="SELECT * FRO... behaviour" />
-            <marker date="1546013272780" expanded="true" signature="2384:2837" ph="SELECT * FRO... behaviour" />
+            <marker date="1546013642915" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
+            <marker date="1546013642915" expanded="true" signature="1934:1988" ph="SELECT COUNT... ${$table}" />
+            <marker date="1546013642915" expanded="true" signature="2381:2462" ph="SELECT * FRO... behaviour" />
+            <marker date="1546013642915" expanded="true" signature="2381:2834" ph="SELECT * FRO... behaviour" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-646">
+          <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/conf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="199" column="258" lean-forward="false" selection-start-line="199" selection-start-column="256" selection-end-line="199" selection-end-column="258" />
+          <folding>
+            <marker date="1546014142425" expanded="true" signature="3768:4209" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="4283:4854" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="4925:5344" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="5415:5919" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="5998:6291" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="6954:7261" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="8002:8172" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="8244:8639" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="8710:9157" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="9228:9711" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1546014142425" expanded="true" signature="9787:10082" ph="CREATE TABLE... ##DBName##" />
           </folding>
         </state>
       </provider>

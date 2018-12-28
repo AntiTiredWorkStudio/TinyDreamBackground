@@ -24,7 +24,7 @@ class UserBehaviourManager extends DBManager{
 
     public static function OnBehave($typeid,$behave){
         if($typeid != STAT){
-            self::OnBehave($typeid,$behave);
+            self::OnBehave(STAT,$behave);
         }
         $ubid = self::GenerateDayID($typeid);
         $sql = self::GetAddRecordSql($ubid,$typeid,$behave);
