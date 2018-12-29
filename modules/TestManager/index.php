@@ -14,5 +14,6 @@
         'fi'=>R('FixDreamPoolUnrightbleFinished'),////检查梦想池非正常结束记录
 		'fo'=>R('FixOrderDreamUndefine'),//检查订单中梦想编号未定义
 		'fl'=>R('FixLottery'),//修复编号梦想undefined问题
+        'fa'=>R('FixUserAwardMoney'),//修复中奖获得金额信息
     ],PERMISSION_LOCAL);
 ?>
