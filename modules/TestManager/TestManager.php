@@ -196,17 +196,18 @@ class TestManager extends DBManager {
     //修复中奖获得金额信息
     public function FixUserAwardMoney(){
         $AWM = new AwardManager();
-        $AWM->SelectDataFromTable($AWM->TName('tAward'),['state'=>'GET']);
-        $lots = DBResultToArray($AWM,true);
+        $result= $AWM->SelectDataFromTable($AWM->TName('tLottery'),['state'=>'GET']);
+        $lots = DBResultToArray($result,true);
         $rewards = [];
         foreach ($lots as $lot) {
             $user = DBResultToArray($AWM->SelectDataFromTable($AWM->TName('tUser'),['uid'=>$lot['uid']]),true)[0];
             $pool = DBResultToArray($AWM->SelectDataFromTable($AWM->TName('tPool'),['pid'=>$lot['pid']]),true)[0];
+            echo $pool['pid'].'  '.$user['nickname'].'  '.$pool['cbill'].'</br>';
             $rewards[$user['nickname']]['totalReward'] = $user['totalReward'];
             $rewards[$user['nickname']]['cacuReward'] = isset($rewards[$user['nickname']]['cacuReward'])?($rewards[$user['nickname']]['cacuReward']+$pool['cbill']):$pool['cbill'];
         }
 
-        echo json_encode($rewards);
+        echo json_encode($rewards,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 }
 ?>

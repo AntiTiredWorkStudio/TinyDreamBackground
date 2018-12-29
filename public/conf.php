@@ -189,7 +189,7 @@ $tables = [
     ],
     'tAward'=>[
         'name'=>'award',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' ,`lid` TEXT NOT NULL COMMENT '开奖编号' ,  `expect` TEXT NOT NULL COMMENT '期号' , `code` TEXT NOT NULL COMMENT '开奖号码' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`pid`(6))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' ,`lid` TEXT NOT NULL COMMENT '开奖编号' ,  `expect` TEXT NOT NULL COMMENT '期号' , `code` TEXT NOT NULL COMMENT '开奖号码' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额' , PRIMARY KEY (`pid`(10))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
     ],
     'tId'=>[
         'name'=>'identity',
