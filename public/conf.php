@@ -43,7 +43,9 @@ $modules = [
 	,'admin' => ['rq'=>'modules/BackgroundController/index.php',//BackgroundController
 			'lib'=>'modules/BackgroundController/BackgroundController.php']
 	,'ub' => ['rq'=>'modules/UserBehaviourManager/index.php',//UserBehaviourManager
-			'lib'=>'modules/UserBehaviourManager/UserBehaviourManager.php']#NEW_MODULES#
+			'lib'=>'modules/UserBehaviourManager/UserBehaviourManager.php']
+	,'no' => ['rq'=>'modules/NoticeManager/index.php',//NoticeManager
+			'lib'=>'modules/NoticeManager/NoticeManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -198,6 +200,10 @@ $tables = [
     'tBehave'=>[
         'name'=>'behaviour',
         'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '行为统计';"
+    ],
+    'tNotice'=>[
+        'name'=>'notice',
+        'command'=>"CREATE TABLE `#DBName#` ( `nid` TEXT NOT NULL COMMENT '通知id' , `uid` TEXT NOT NULL COMMENT '用户id' , `content` TEXT NOT NULL COMMENT '消息内容' , `action` TEXT NOT NULL COMMENT '命令标识符' , `ptime` INT NOT NULL COMMENT '生成时间' , `state` ENUM('READ','UNREAD') NOT NULL COMMENT '阅读状态' , PRIMARY KEY (`nid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '通知表';"
     ]
 ];
 

@@ -93,7 +93,7 @@
                     $look = "查看";
                     $hasSubmitVerify = !empty($value['identity']);
                     $hasVerifySuccess = $hasSubmitVerify ? ($value['identity']['state'] == "SUCCESS") : false;
-                    if (!$hasSubmitVerify) {
+                    if (!$hasSubmitVerify ) {
                         $value['identity']['icardnum'] = "未提交";
                         $value['identity']['icardfurl'] = "#";
                         $value['identity']['icardburl'] = "#";

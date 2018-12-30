@@ -488,6 +488,8 @@ class UserManager extends DBManager{
         //提交了实名认证但无中标梦想的用户的实名认证不在此显示
 
         $array = DBResultToArray($this->SelectDataFromTable($this->TName('tDream'),['state'=>'VERIFY']));
+
+        
         $cond = '';
 
         $resultArray = [];
