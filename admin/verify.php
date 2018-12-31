@@ -145,7 +145,7 @@ EOT;
                         <?php
                     }
 
-                    if ($hasSubmitVerify && $hasVerifySuccess && ($value['dream']['state'] == "VERIFY" || $value['dream']['state'] == "SUCCESS")) {
+                    if ($hasSubmitVerify && $hasVerifySuccess && ($value['dream']['state'] == "VERIFY")) {
                         ?>
                         <td>
                             <button id="dream_success" did="<?php echo $value['dream']['did'] ?>" type="button"
@@ -155,7 +155,14 @@ EOT;
                                     class="btn btn-danger">拒绝
                             </button>
                         </td>
-                    <?php } else {
+                    <?php }else
+                        if($hasSubmitVerify && $hasVerifySuccess && $value['dream']['state'] == "SUCCESS"){
+                            ?>
+                            <td style="color:green">
+                                梦想审核通过
+                            </td>
+                            <?php
+                    } else {
                         ?>
                         <td style="color:red">
                             用户未通过实名认证
