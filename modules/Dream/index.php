@@ -20,6 +20,7 @@
         'uedit'=>R('UpdateDream',['uid','did']),//修改梦想
         'gedit'=>R('OnEditingDream',['uid','did','contentList']),//完善梦想
         'gdream'=>R('GetUserSingleDream',['uid','did']),//获取单一梦想
-        'sdjson'=>R('SetDreamStateByJson',['did','state'])//通过JSON 修改梦想状态
+        'sdjson'=>R('SetDreamStateByJson',['did','state']),//通过JSON 修改梦想状态
+        //'gdname'=>R('GetDreamUid',['did'])
     ]);
 ?>

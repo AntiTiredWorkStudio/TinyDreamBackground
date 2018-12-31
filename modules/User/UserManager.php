@@ -9,6 +9,7 @@ LIB('db');
 LIB('dp');
 LIB('ds');
 LIB('va');
+LIB('no');
 
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
@@ -465,11 +466,16 @@ class UserManager extends DBManager{
             ]),true);
         if(!empty($tIdentify)) {
             if($state == 'FAILED' || $state=='SUCCESS'){
+
                 $this->UpdateDataToTable($this->TName('tId'),['state'=>$state],[
                     'uid'=>$uid,
                     'state'=>'SUBMIT',
                     '_logic'=>'AND'
                 ]);
+
+                if($state== 'FAILED'){
+                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[]);
+                }
                 return RESPONDINSTANCE('0');
             }else{
                 return RESPONDINSTANCE('43');

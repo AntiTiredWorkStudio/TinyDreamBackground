@@ -8,6 +8,7 @@ LIB('dr');
 LIB('dp');
 LIB('aw');
 LIB('ub');
+LIB('no');
 
 class WechatPay{
 
@@ -684,6 +685,14 @@ class DreamServersManager extends DBManager {
         $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$did,$oid,$startIndex,$endIndex);
         if($result && !empty($NumberArray)){
             UserBehaviourManager::OnBehave($uid,PAY);
+            NoticeManager::CreateNotice($uid,
+                NOTICE_BUY,
+                [
+                    'ptitle'=>'梦想互助'.$actionList['pay']['pid'].'期',
+                    'lids'=>ConnectArrayByChar($NumberArray,'、')
+                ]
+            );
+
             $backMsg = RESPONDINSTANCE('0');
             $backMsg['numbers'] = $NumberArray;
             $backMsg['actions'] = 'clear';

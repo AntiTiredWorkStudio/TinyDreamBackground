@@ -413,4 +413,13 @@ function DBResultToArray($dbResult, $NumKey = false,$keepNum = false){
     }
     return $resultArray;
 }
+
+
+function ConnectArrayByChar($numsArray,$char){
+    $str = '';
+    foreach ($numsArray as $num){
+        $str = $str.$num.$char;
+    }
+    return rtrim($str,$char);
+}
 ?>

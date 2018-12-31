@@ -303,6 +303,14 @@ class DreamManager extends DBManager{
         return $backMsg;
     }
 
+    public function GetDreamUid($did){
+        $result = DBResultToArray($this->SelectDataByQuery($this->TName('tDream'),self::FieldIsValue('did',$did),false,'uid'),true);
+        if(count($result)>0){
+            $result = $result[0];
+        }
+        return $result['uid'];
+    }
+
     //设置梦想状态（审核通过/结束）
     public function SetDreamStateByJson($did,$state){
         $stateArray = json_decode($state,true);
@@ -312,6 +320,11 @@ class DreamManager extends DBManager{
         }
         if(isset($stateArray['payment'])){
             $setArray['payment'] = $stateArray['payment'];
+
+            if($setArray['payment']=='1'){
+                $uid = $this->$this->GetDreamUid($did);
+                NoticeManager::CreateNotice($uid,NOTICE_PAID,[]);
+            }
         }
         $this->UpdateDataToTable($this->TName('tDream'),
             $setArray,
