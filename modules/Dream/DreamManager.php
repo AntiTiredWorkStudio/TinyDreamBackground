@@ -322,7 +322,7 @@ class DreamManager extends DBManager{
             $setArray['payment'] = $stateArray['payment'];
 
             if($setArray['payment']=='1'){
-                $uid = $this->$this->GetDreamUid($did);
+                $uid = $this->GetDreamUid($did);
                 NoticeManager::CreateNotice($uid,NOTICE_PAID,[]);
             }
         }
