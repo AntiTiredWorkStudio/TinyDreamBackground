@@ -151,14 +151,13 @@ class NoticeManager extends DBManager {
         }
         $notice = $this->template[$noticeKey];
 	    $parinfo = $notice['pars'];
-	    $parList = [];
-	    foreach ($parinfo as $key=>$var){
-            if(!isset($pars[$key])){
+	    foreach ($parinfo as $var){
+            if(!isset($pars[$var])){
                 return;//参数格式有误
             }
-            array_push($parList,$var);
         }
-        $content = $this->BuildContent($notice['context'],$noticeKey,$parList);//vprintf($notice['context'],$parList);
+        $content = $this->BuildContent($notice['context'],$noticeKey,$pars);
+
 	    $this->InsertDataToTable($this->TName('tNotice'),
             [
                 "nid"=>self::GenerateNoticeID(),
@@ -168,6 +167,14 @@ class NoticeManager extends DBManager {
                 "ptime"=>time(),
                 "state"=>'UNREAD',
             ]);
+			file_put_contents('notice.txt',json_encode([
+                "nid"=>self::GenerateNoticeID(),
+                "uid"=>$uid,
+                "content"=>$content,
+                "action"=>$notice['action'],
+                "ptime"=>time(),
+                "state"=>'UNREAD',
+            ]));
     }
 
 
