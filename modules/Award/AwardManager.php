@@ -332,7 +332,22 @@ class AwardManager extends DBManager{
         $backMsg['awards'] = $cResult;
         return $backMsg;
 	}
-	
-	
+
+	//计算中奖步骤
+	public function GetCalc($pid){
+        $awardInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tAward'),self::FieldIsValue('pid',$pid)),true);
+        if(!empty($awardInfo)){
+            $awardInfo = $awardInfo[0];
+        }
+        $pcount = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),
+            self::FieldIsValue('pid',$pid),false,'pcount'),true);
+        if(!empty($pcount)){
+            $pcount = $pcount[0]['pcount'];
+        }
+        $awardInfo['pcount'] = $pcount;
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['awardInfo'] = $awardInfo;
+        return $backMsg;
+    }
 }
 ?>

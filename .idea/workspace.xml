@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" afterPath="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/modules/Award/AwardManager.php" afterPath="$PROJECT_DIR$/modules/Award/AwardManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Award/index.php" afterPath="$PROJECT_DIR$/modules/Award/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,24 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="488" column="20" lean-forward="false" selection-start-line="488" selection-start-column="20" selection-end-line="488" selection-end-column="20" />
-              <folding>
-                <element signature="n#IdentifyTeleUser#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#IdentifyRealNameUser#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetUserRealNameIdentify#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#SelfInfo#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NoticeManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NoticeManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="407">
@@ -63,11 +48,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/User/index.php">
+      <file leaf-file-name="AwardManager.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+            <state relative-caret-position="366">
+              <caret line="336" column="27" lean-forward="false" selection-start-line="336" selection-start-column="20" selection-end-line="336" selection-end-column="27" />
+              <folding>
+                <marker date="1546236662774" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
+                <marker date="1546236662774" expanded="true" signature="9368:9417" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+                <marker date="1546236662774" expanded="true" signature="9783:9868" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -193,7 +192,6 @@
         <option value="$PROJECT_DIR$/modules/aManager/aManager.php" />
         <option value="$PROJECT_DIR$/public/template/manager.txt" />
         <option value="$PROJECT_DIR$/modules/Validate/index.php" />
-        <option value="$PROJECT_DIR$/modules/Award/index.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-miniapp.php" />
@@ -222,7 +220,6 @@
         <option value="$PROJECT_DIR$/modules/DataBase/index.php" />
         <option value="$PROJECT_DIR$/modules/DataBase/DBManager.php" />
         <option value="$PROJECT_DIR$/modules/NoticeManager/index.php" />
-        <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
         <option value="$PROJECT_DIR$/modules/Dream/index.php" />
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
@@ -231,6 +228,8 @@
         <option value="$PROJECT_DIR$/admin/verify.php" />
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
         <option value="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" />
+        <option value="$PROJECT_DIR$/modules/Award/index.php" />
+        <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
       </list>
     </option>
   </component>
@@ -455,12 +454,12 @@
       <workItem from="1546093469233" duration="5514000" />
       <workItem from="1546135320105" duration="1988000" />
       <workItem from="1546165825124" duration="18824000" />
-      <workItem from="1546224797014" duration="9481000" />
+      <workItem from="1546224797014" duration="10470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="447892000" />
+    <option name="totallyTimeSpent" value="448881000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -723,26 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-          <folding>
-            <marker date="1546228681020" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
-            <marker date="1546228681020" expanded="true" signature="9368:9417" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
-            <marker date="1546228681020" expanded="true" signature="9783:9868" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="12" column="59" lean-forward="false" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -912,6 +891,26 @@
         <state relative-caret-position="407">
           <caret line="50" column="23" lean-forward="true" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="336" column="27" lean-forward="false" selection-start-line="336" selection-start-column="20" selection-end-line="336" selection-end-column="27" />
+          <folding>
+            <marker date="1546236662774" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
+            <marker date="1546236662774" expanded="true" signature="9368:9417" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+            <marker date="1546236662774" expanded="true" signature="9783:9868" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
+          </folding>
         </state>
       </provider>
     </entry>
