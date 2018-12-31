@@ -685,11 +685,15 @@ class DreamServersManager extends DBManager {
         $NumberArray = AwardManager::PayOrderAndCreateLottery($actionList['pay']['pid'],$uid,$did,$oid,$startIndex,$endIndex);
         if($result && !empty($NumberArray)){
             UserBehaviourManager::OnBehave($uid,PAY);
+            $numArray = [];
+            foreach ($NumberArray as $key => $value) {
+                array_push($numArray,$value['lid']);
+            }
             NoticeManager::CreateNotice($uid,
                 NOTICE_BUY,
                 [
                     'ptitle'=>'梦想互助'.$actionList['pay']['pid'].'期',
-                    'lids'=>ConnectArrayByChar($NumberArray,'、')
+                    'lids'=>ConnectArrayByChar($numArray,'、')
                 ]
             );
 
