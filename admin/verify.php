@@ -87,12 +87,13 @@
                 }*/
 
 
-
                 $seek = 0;
                 foreach ($verifyArray as $key => $value) {
+					
                     $look = "查看";
                     $hasSubmitVerify = !empty($value['identity']);
                     $hasVerifySuccess = $hasSubmitVerify ? ($value['identity']['state'] == "SUCCESS") : false;
+					//echo $hasVerifySuccess.'</br>';
                     if (!$hasSubmitVerify ) {
                         $value['identity']['icardnum'] = "未提交";
                         $value['identity']['icardfurl'] = "#";
@@ -144,7 +145,7 @@ EOT;
                         <?php
                     }
 
-                    if ($hasSubmitVerify && $hasVerifySuccess && $value['dream']['state'] == "VERIFY") {
+                    if ($hasSubmitVerify && $hasVerifySuccess && ($value['dream']['state'] == "VERIFY" || $value['dream']['state'] == "SUCCESS")) {
                         ?>
                         <td>
                             <button id="dream_success" did="<?php echo $value['dream']['did'] ?>" type="button"
