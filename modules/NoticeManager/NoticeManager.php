@@ -48,7 +48,7 @@ class NoticeManager extends DBManager {
             'action'=>'lucky'
         ],
         'paid'=>[
-            'pars'=>['num'],
+            'pars'=>[],
             'context'=>'温馨提醒，您的梦想互助金已转款，注意查收，如有问题请联系客服。',
             'action'=>'view'
         ]

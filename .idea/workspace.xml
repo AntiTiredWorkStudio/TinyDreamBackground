@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/Dream/DreamManager.php" afterPath="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" afterPath="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,21 +16,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BackgroundController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/NoticeManager/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="44" />
+            <state relative-caret-position="272">
+              <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/BackgroundController/index.php">
+      <file leaf-file-name="BackgroundController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="9" column="34" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="34" />
+            <state relative-caret-position="644">
+              <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -49,6 +49,16 @@
                 <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NoticeManager.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="50" column="23" lean-forward="true" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DreamManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DreamManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/Dream/DreamManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="323" column="42" lean-forward="true" selection-start-line="323" selection-start-column="42" selection-end-line="323" selection-end-column="42" />
+            <state relative-caret-position="420">
+              <caret line="325" column="36" lean-forward="true" selection-start-line="325" selection-start-column="36" selection-end-line="325" selection-end-column="36" />
               <folding>
                 <element signature="n#OnEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
                 <element signature="n#OnEditingDream#0;n#DreamManager#0;n#!!top" expanded="false" />
@@ -120,16 +130,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -226,11 +226,11 @@
         <option value="$PROJECT_DIR$/modules/Dream/index.php" />
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
-        <option value="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php" />
         <option value="$PROJECT_DIR$/admin/verify.php" />
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
+        <option value="$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php" />
       </list>
     </option>
   </component>
@@ -455,12 +455,12 @@
       <workItem from="1546093469233" duration="5514000" />
       <workItem from="1546135320105" duration="1988000" />
       <workItem from="1546165825124" duration="18824000" />
-      <workItem from="1546224797014" duration="9221000" />
+      <workItem from="1546224797014" duration="9481000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="447632000" />
+    <option name="totallyTimeSpent" value="447892000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -767,22 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/NoticeManager/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="148" column="48" lean-forward="false" selection-start-line="148" selection-start-column="48" selection-end-line="148" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -828,14 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -904,14 +880,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/Dream/DreamManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="323" column="42" lean-forward="true" selection-start-line="323" selection-start-column="42" selection-end-line="323" selection-end-column="42" />
+        <state relative-caret-position="420">
+          <caret line="325" column="36" lean-forward="true" selection-start-line="325" selection-start-column="36" selection-end-line="325" selection-end-column="36" />
           <folding>
             <element signature="n#OnEditDream#0;n#DreamManager#0;n#!!top" expanded="false" />
             <element signature="n#OnEditingDream#0;n#DreamManager#0;n#!!top" expanded="false" />
             <element signature="n#OnDreamSelected#0;n#DreamManager#0;n#!!top" expanded="false" />
             <marker date="1546235412258" expanded="true" signature="1458:1575" ph="SELECT * FRO... ${$DRM-&gt;TName('tDream')}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/NoticeManager/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/NoticeManager/NoticeManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="50" column="23" lean-forward="true" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
