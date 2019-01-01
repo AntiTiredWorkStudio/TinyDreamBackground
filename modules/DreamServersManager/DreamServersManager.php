@@ -872,6 +872,9 @@ class DreamServersManager extends DBManager {
 
     //用户获取参与中的梦想池
     public function GetRunningPoolInfoByRange($min,$count){
+
+        DreamPoolManager::UpdateAllRunningPool();//获取前更新梦想池状态
+
         $link = $this->DBLink();
 
         $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' ORDER BY `ptime` DESC LIMIT $min,$count";
@@ -886,6 +889,9 @@ class DreamServersManager extends DBManager {
 
     //用户获取参与中的梦想池
     public function GetFinishedPoolInfoByRange($min,$count){
+
+        DreamPoolManager::UpdateAllRunningPool();//获取前更新梦想池状态
+
         $link = $this->DBLink();
 
         $sql = "SELECT * FROM `dreampool` WHERE `state`='FINISHED' ORDER BY `ptime` DESC LIMIT $min,$count";
@@ -899,6 +905,9 @@ class DreamServersManager extends DBManager {
 
     //用户获取参与中的梦想池
     public function GetJoinedPoolInfoByRange($uid,$min,$count){
+
+        DreamPoolManager::UpdateAllRunningPool();//获取前更新梦想池状态
+
         $link = $this->DBLink();
 
         $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid' AND `state`='SUCCESS'";

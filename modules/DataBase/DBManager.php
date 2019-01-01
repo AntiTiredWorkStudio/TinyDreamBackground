@@ -25,9 +25,13 @@ class DBManager extends Manager{
         return '('.$condA .' AND '.$condB.')';
     }
 
-    //判断字段的值是否等于value(支持| & 字符)
-    public static function FieldIsValue($field,$value,$symbol='='){
-        $fieldStr = self::SqlField($field);
+    public static function Symbol($parseA,$parseB,$symbol='+'){
+        return '('.$parseA.$symbol.$parseB.')';
+    }
+
+    //判断表达式的值是否等于value(支持| & 字符)
+    public static function ExpressionIsValue($field,$value,$symbol='='){
+        $fieldStr = $field;
         $orcondlist = explode('|',$value);//OR条件
         if(count($orcondlist)>1) {
             $tCondStr = '(';
@@ -53,6 +57,15 @@ class DBManager extends Manager{
         return $tCondStr;
     }
 
+    //判断字段的值是否等于value(支持| & 字符)
+    public static function FieldIsValue($field,$value,$symbol='='){
+        $fieldStr = self::SqlField($field);
+        return self::ExpressionIsValue($fieldStr,$value,$symbol);
+    }
+
+    public static function SqlValue($val){
+        return "'$val'";
+    }
     //生成sql字段
     public static function SqlField($name){
         return "`$name`";
@@ -307,6 +320,23 @@ class DBManager extends Manager{
 
 		return $result;
 	}
+
+	//通过sql条件语句删除数据
+    public function DeletDataByQuery($tableName,$conString,$closeDBLink = false){
+        $con = $this->DBLink();
+        $sql = 'DELETE FROM `'.$tableName.'`';
+
+        if(empty($conString)){
+            $sql = $sql.' WHERE 0';
+        }else{
+            $sql = $sql.' WHERE '.$conString;
+        }
+        $result = mysql_query($sql,$con);
+        if($closeDBLink){
+            mysql_close($con);
+        }
+        return $result;
+    }
 
     //删除数据
 	public function DeletDataFromTable($tableName,$conArray,$closeDBLink = false){
