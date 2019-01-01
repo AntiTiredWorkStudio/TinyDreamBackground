@@ -31,7 +31,8 @@ class Monitor extends Manager{
 
 
     //增加任务
-    public function AddTask($confName,$dayTime,$module,$action){
+    public function AddTask($confName,$dayTime,$module,$action,$pars){
+//0-86400 24*3600
 		$path = $confName.'.txt';
         $currentConf = json_decode(file_get_contents($path),true);//读取配置文件
 		$taskArray = $currentConf['tasks'];
@@ -39,76 +40,88 @@ class Monitor extends Manager{
             'daytime'=>$dayTime,
             'module'=>$module,
             'action'=>$action,
+            'pars'=>json_decode($pars)
         ];
 
-        array_push($taskArray,$task);
+        $taskArray[$dayTime] = $task;
 		
 		uasort($taskArray,"TaskSort");
 		
 		$currentConf['tasks'] = $taskArray;
 
-        file_put_contents($path,json_encode($currentConf));//保存配置文件
+        file_put_contents($path,json_encode($currentConf,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));//保存配置文件
     }
 
+
+
     //启动监视器
-    public function RunMonitor($duration = 300){//默认5分钟1刷新
+    public function RunMonitor($duration = 300,$default=''){//默认5分钟1刷新
         ignore_user_abort(true);
         set_time_limit(0);
-        $interval = 1;
-        $stop = 0;
-		$tStamp = time();
-        $confName = 'task'.time().'.txt';
-        $confContent = [
-            'startTime' => date("y-m-d  h:i:s"),//启动时间
-            'duration'  => $duration,                 //检视时间
-            'times'     => 0,                         //监视次数
-            'awake'     => true,                      //监视器状态
-            'pause'     => false,                     //暂停
-            'seek'      => 0,                         //动作位置
-            'tasks'     => [                          //任务列表
 
-            ]
-        ];
-		
-		$this->AddTask($tStamp,12000,'ds','inf');
-		
-        file_put_contents($confName,json_encode($confContent));//保存配置文件
+        if($default=='') {
+            $confName = 'task' . PRC_TIME() . '.txt';
+            $confContent = [
+                'startTime' => date("y-m-d  h:i:s"),//启动时间
+                'duration' => $duration,                 //检视时间
+                'times' => 0,                         //监视次数
+                'awake' => true,                      //监视器状态
+                'pause' => false,                     //暂停
+                'seek' => '',                         //动作位置
+                'tasks' => [                          //任务列表
+
+                ]
+            ];
+            file_put_contents($confName, json_encode($confContent));//保存配置文件
+        }else{
+            $confName = $default;
+        }
         do {//开始监视器
-            $task = [];
             $cdura = $duration;
             if(!file_exists($confName)){//配置文件被删除
-                file_put_contents('delete.txt',time());
                 break;
-            }else {
+            }else {//配置文件存在
                 $currentConf = json_decode(file_get_contents($confName),true);//读取配置文件
-                if(!$currentConf['awake']){
-                    unlink($confName);
+                if(!$currentConf['awake']){//确定监视器处于关闭状态
+                    unlink($confName);//注销监视器
                     break;
                 }
-
-                if(!$currentConf['pause']) {
-                    $seek = $currentConf['seek'];
-                    if (count($currentConf['tasks']) > 0) {
-                        $task = $currentConf['tasks'][$seek];
-                        $currentConf['seek'] = ($seek + 1) % count($currentConf['tasks']);
-                        $nextTask = $currentConf['tasks'][$currentConf['seek']];
-                        if ($task['daytime'] < $nextTask['daytime']) {
-                            $cdura = $nextTask['daytime'] - $task['daytime'];
-                        } else {
-                            $cdura = (86400 + $nextTask['daytime']) - $task['daytime'];
+                if(!$currentConf['pause']) {//没暂停
+                    $seek = $currentConf['seek'];//获取当前动作
+                    $task = $currentConf['tasks'];//获取动作列表
+                    if(count($task)>0) {//包含动作
+                        if ($seek != '') {
+                            //执行动作
+                            $seek='';
                         }
-                    } else {
-                        $cdura = $currentConf['duration'];
+                        $passTime = GetDayPassTime();
+                        $min = 86400;
+                        foreach ($task as $key => $value) {
+                            if ($key > $passTime) {
+                                $condVal = abs($key - $passTime);
+                                if ($min >= $condVal) {
+                                    $seek = $key;
+                                    $min = $condVal;
+                                    file_put_contents('action.txt',$min);
+                                }
+                            }
+                        }
+                        $cdura = $min;
+                        if ($seek == '') {
+                            $cdura = GetDayLessTime() + current($task)['daytime'];
+                            $seek = current($task)['daytime'];
+                            file_put_contents('action.txt',$cdura);
+                        }
+                        $currentConf['seek'] = $seek;
+                    }else{
+                        //不包含动作
                     }
-                }else{
+                    $currentConf['times'] = $currentConf['times']+1;//增加执行次数
+                }else{//监视器是暂停状态
                     $cdura = $currentConf['duration'];
                 }
-                $currentConf['times'] = $currentConf['times']+1;
-
                 file_put_contents($confName,json_encode($currentConf));//保存配置文件
-
             }
-
             sleep ($cdura);
         } while (true);
     }
@@ -152,6 +165,7 @@ function MonitorBuilder($key){
             'build'=>R('BuildModule',['key','name']),
             'run'=>R('RunMonitor',['duration']),
             'cday'=>R('CheckDay'),//检查天
+            'task'=>R('AddTask',['confName','dayTime','module','action','pars'])//增加任务
         ],PERMISSION_LOCAL);
 }
 
@@ -282,7 +296,11 @@ function PRC_TIME(){
     return time();
 }
 
-//获取当天剩余时间
+function MoitorTime(){
+    return (PRC_TIME()+8*3600);
+}
+
+//获取当天已过时间
 function GetDayPassTime(){
     return (PRC_TIME()+8*3600)%86400;
 }
