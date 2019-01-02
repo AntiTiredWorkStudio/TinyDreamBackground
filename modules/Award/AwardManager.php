@@ -338,7 +338,9 @@ class AwardManager extends DBManager{
         $awardInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tAward'),self::FieldIsValue('pid',$pid)),true);
         if(!empty($awardInfo)){
             $awardInfo = $awardInfo[0];
-        }
+        }else{
+			return RESPONDINSTANCE('62');
+		}
         $pcount = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),
             self::FieldIsValue('pid',$pid),false,'pcount'),true);
         if(!empty($pcount)){

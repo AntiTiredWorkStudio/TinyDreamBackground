@@ -58,6 +58,7 @@ class Monitor extends Manager{
     public function RunMonitor($duration = 300,$default=''){//默认5分钟1刷新
         ignore_user_abort(true);
         set_time_limit(0);
+		LIB('all');
 
         if($default=='') {
             $confName = 'task' . PRC_TIME() . '.txt';
