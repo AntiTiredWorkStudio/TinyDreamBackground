@@ -28,7 +28,7 @@ class Monitor extends Manager{
         return DAY(time()).'  '.DAY(time()+1300);//date('y-m-d',time());
     }
 	
-
+	
 
     //增加任务
     public function AddTask($confName,$dayTime,$module,$action,$pars){
@@ -40,8 +40,10 @@ class Monitor extends Manager{
             'daytime'=>$dayTime,
             'module'=>$module,
             'action'=>$action,
-            'pars'=>json_decode($pars)
+            'pars'=>json_decode($pars,true)
         ];
+		
+		
 
         $taskArray[$dayTime] = $task;
 		
@@ -52,7 +54,7 @@ class Monitor extends Manager{
         file_put_contents($path,json_encode($currentConf,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));//保存配置文件
     }
 
-
+	
 
     //启动监视器
     public function RunMonitor($duration = 300,$default=''){//默认5分钟1刷新
@@ -68,14 +70,14 @@ class Monitor extends Manager{
                 'times' => 0,                         //监视次数
                 'awake' => true,                      //监视器状态
                 'pause' => false,                     //暂停
-                'seek' => '',                         //动作位置
+                'seek' => "",                         //动作位置
                 'tasks' => [                          //任务列表
 
                 ]
             ];
             file_put_contents($confName, json_encode($confContent));//保存配置文件
         }else{
-            $confName = $default;
+            $confName = $default.'.txt';
         }
         do {//开始监视器
             $cdura = $duration;
@@ -83,8 +85,10 @@ class Monitor extends Manager{
                 break;
             }else {//配置文件存在
                 $currentConf = json_decode(file_get_contents($confName),true);//读取配置文件
+				//var_export($currentConf);
                 if(!$currentConf['awake']){//确定监视器处于关闭状态
                     unlink($confName);//注销监视器
+					//echo $confName.'注销';
                     break;
                 }
                 if(!$currentConf['pause']) {//没暂停
@@ -93,6 +97,14 @@ class Monitor extends Manager{
                     if(count($task)>0) {//包含动作
                         if ($seek != '') {
                             //执行动作
+							if(isset($task[$seek])){
+								$runTask = $task[$seek];
+								$_REQUEST[$runTask['module']] = $runTask['action'];
+								foreach($runTask['pars'] as $key=>$value){
+									$_REQUEST[$key] = $value;
+								}
+								REQUEST($runTask['module']);
+							}
                             $seek='';
                         }
                         $passTime = GetDayPassTime();
@@ -108,11 +120,12 @@ class Monitor extends Manager{
                             }
                         }
                         $cdura = $min;
-                        if ($seek == '') {
+                        if ($seek == "") {
                             $cdura = GetDayLessTime() + current($task)['daytime'];
                             $seek = current($task)['daytime'];
                             file_put_contents('action.txt',$cdura);
                         }
+						$currentConf['next'] = $cdura;
                         $currentConf['seek'] = $seek;
                     }else{
                         //不包含动作
@@ -164,7 +177,7 @@ function MonitorBuilder($key){
         [
             'inf'=>R('info'),//模块信息
             'build'=>R('BuildModule',['key','name']),
-            'run'=>R('RunMonitor',['duration']),
+            'run'=>R('RunMonitor',['duration','default']),
             'cday'=>R('CheckDay'),//检查天
             'task'=>R('AddTask',['confName','dayTime','module','action','pars'])//增加任务
         ],PERMISSION_LOCAL);
