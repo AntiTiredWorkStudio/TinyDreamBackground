@@ -910,7 +910,7 @@ class DreamServersManager extends DBManager {
 
         $link = $this->DBLink();
 
-        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid' AND `state`='SUCCESS'";
+        $sql = "SELECT `pid` FROM `order` WHERE `uid`='$uid' AND `state`='SUCCESS' ORDER BY `ptime` DESC";
 
         $tResult = DBResultToArray(mysql_query($sql,$link),true);
 
