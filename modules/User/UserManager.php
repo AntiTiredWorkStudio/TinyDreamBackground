@@ -254,6 +254,7 @@ class UserManager extends DBManager{
 
 	//个人信息
 	public function SelfInfo($uid){
+		self::CheckDayBoughtLimit($uid);
         $condition = [
             'uid'=>$uid,
             '_logic'=>' '
