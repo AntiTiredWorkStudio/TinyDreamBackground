@@ -166,6 +166,25 @@ class TestManager extends DBManager {
 			echo "修复编号:".$value['lid'].',梦想变为:'.$tOrder['did'].'</br>';
 		}
 	}
+	
+	public function RebuildLotteryState(){
+		$awards = $this->SelectDataByQuery($this->TName('tAward'),'1',false,'pid,lid');
+		$awardList = DBResultToArray($awards,true);
+		$condition = "";
+		foreach($awardList as $key=>$value){
+			if($condition == ""){
+				$condition = $condition.self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid']));
+			}else{
+				$condition = self::C_Or($condition,self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid'])));
+			}
+		}
+		$lottery = $this->SelectDataByQuery($this->TName('tLottery'),$condition);
+		$lotteryList = DBResultToArray($lottery,true);
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['award'] = $awardList;
+		$backMsg['lList'] = $lotteryList;
+		return $backMsg;
+	}
 
     //检查梦想池非正常结束记录
     public function FixDreamPoolUnrightbleFinished(){
