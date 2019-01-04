@@ -16,5 +16,6 @@
 		'fl'=>R('FixLottery'),//修复编号梦想undefined问题
         'fa'=>R('FixUserAwardMoney'),//修复中奖获得金额信息
 		'rl'=>R('RebuildLotteryState'),//重新建立梦想编号状态
+		'rd'=>R('RebuildDreamState'),//重新建立梦想状态
     ],PERMISSION_LOCAL);
 ?>

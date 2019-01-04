@@ -167,6 +167,46 @@ class TestManager extends DBManager {
 		}
 	}
 	
+	public function RebuildDreamState(){
+		$awards = $this->SelectDataByQuery($this->TName('tAward'),'1',false,'pid,did');
+		$awardList = DBResultToArray($awards,true);
+		$condition = "";
+		$conditionReject = "";
+		foreach($awardList as $key=>$value){
+			if($condition == ""){
+				$condition = $condition.self::FieldIsValue('did',$value['did']);
+			}else{
+				$condition = self::C_Or($condition,self::FieldIsValue('did',$value['did']));
+			}
+			
+			if($conditionReject == ""){
+				$conditionReject = self::FieldIsValue('did',$value['did'],'!=');
+			}else{
+				$conditionReject = self::C_And($conditionReject,self::FieldIsValue('did',$value['did'],'!='));
+			}
+			
+			//if($conditionReject == ""){
+//				$conditionReject = $conditionReject.self::C_And(self::FieldIsValue('did',$value['did'],'!='),self::FieldIsValue('state','SUBMIT','!='));
+			//}else{
+//				$conditionReject = self::C_Or($conditionReject,self::C_And(self::FieldIsValue('did',$value['did'],'!='),self::FieldIsValue('state','SUBMIT','!=')));
+			//}
+		}
+		$conditionReject = self::C_And($conditionReject,self::FieldIsValue('state','SUBMIT','!='));
+		
+		
+		$dream = $this->SelectDataByQuery($this->TName('tDream'),$condition,false,'did,state');
+		$dreamList = DBResultToArray($dream,true);
+		$dreamReject = $this->SelectDataByQuery($this->TName('tDream'),$conditionReject,false,'did,state');
+		$dreamRejectList = DBResultToArray($dreamReject,true);
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['award'] = $awardList;
+		$backMsg['dList'] = $dreamList;
+		$backMsg['dListReject'] = $dreamRejectList;
+		$this->UpdateDataToTableByQuery($this->TName('tDream'),['state'=>'SUBMIT'],$conditionReject);
+		//$backMsg['lListReject'] = $lotteryRejectList;
+		return $backMsg;
+	}
+	
 	public function RebuildLotteryState(){
 		$awards = $this->SelectDataByQuery($this->TName('tAward'),'1',false,'pid,lid');
 		$awardList = DBResultToArray($awards,true);
