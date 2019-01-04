@@ -171,18 +171,30 @@ class TestManager extends DBManager {
 		$awards = $this->SelectDataByQuery($this->TName('tAward'),'1',false,'pid,lid');
 		$awardList = DBResultToArray($awards,true);
 		$condition = "";
+		$conditionReject = "";
 		foreach($awardList as $key=>$value){
 			if($condition == ""){
 				$condition = $condition.self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid']));
 			}else{
 				$condition = self::C_Or($condition,self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid'])));
 			}
+			if($conditionReject == ""){
+				$conditionReject = $conditionReject.self::C_And(self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid'],'!=')),self::FieldIsValue('state','GET'));
+			}else{
+				$conditionReject = self::C_Or($conditionReject,self::C_And(self::C_And(self::FieldIsValue('pid',$value['pid']),self::FieldIsValue('lid',$value['lid'],'!=')),self::FieldIsValue('state','GET')));
+			}
 		}
 		$lottery = $this->SelectDataByQuery($this->TName('tLottery'),$condition);
 		$lotteryList = DBResultToArray($lottery,true);
+		
+		$lotteryReject = $this->SelectDataByQuery($this->TName('tLottery'),$conditionReject);
+		$lotteryRejectList = DBResultToArray($lotteryReject,true);
+		$this->UpdateDataToTableByQuery($this->TName('tLottery'),['state'=>'GET'],$condition);
+		$this->UpdateDataToTableByQuery($this->TName('tLottery'),['state'=>'MISS'],$conditionReject);
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['award'] = $awardList;
 		$backMsg['lList'] = $lotteryList;
+		$backMsg['lListReject'] = $lotteryRejectList;
 		return $backMsg;
 	}
 
