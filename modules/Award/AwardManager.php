@@ -215,8 +215,22 @@ class AwardManager extends DBManager{
 
         }
 
-        $this->UpdateDataToTable($this->TName('tPool'),
-            ['award'=>'YES'],['award'=>'NO','_logic'=>' ']);
+        $this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],
+            self::C_And(
+                self::FieldIsValue('award','NO'),
+                self::ExpressionIsValue(
+                    self::Symbol(
+                        self::SqlField('ptime'),
+                        self::SqlField('duration'),
+                        '+'
+                    ),
+                    PRC_TIME(),
+                    '<'
+                )
+            )
+        );
+        //$this->UpdateDataToTable($this->TName('tPool'),
+        //    ['award'=>'YES'],['award'=>'NO','_logic'=>' ']);
       //  echo json_encode($resultArray);
         /*for($i=0;$i<$pCount;$i++){
             $resultArray[$i][0] = sha1("ghosteum_".$password."_".(1000000+$i));
