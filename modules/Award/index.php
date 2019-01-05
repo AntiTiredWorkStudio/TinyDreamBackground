@@ -12,6 +12,7 @@
         'gawap'=>R('GetUnawardPools'),
 		'gplu'=>R('GetPreviousLuckyByRange',['seek','count']),//获取往期幸运者
 		'cplu'=>R('CountPreviousLucky'),//获取往期幸运者
-        'calc'=>R('GetCalc',['pid'])//获取计算步骤
+        'calc'=>R('GetCalc',['pid']),//获取计算步骤
+        'uplid'=>R('UpdateLottery',['lid']),//更新中奖编号
     ]);
 ?>

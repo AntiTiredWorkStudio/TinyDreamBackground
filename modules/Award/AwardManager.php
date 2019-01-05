@@ -127,6 +127,50 @@ class AwardManager extends DBManager{
         return $Numbers;
     }
 
+    public function UpdateLottery($lotteryId){
+        $result = DBResultToArray($this->SelectDataFromTable($this->TName('tLottery'),['lid'=>$lotteryId,'_logic'=>' '],false,'did,uid'),true);
+        if(empty($result)){
+            return $result;
+        }else{
+            $did = $result[0]['did'];
+            $uid = $result[0]['uid'];
+            $count = DBResultToArray($this->SelectDataByQuery($this->TName('tLottery'),
+                self::C_And(
+                    self::FieldIsValue('did',$did),
+                    self::FieldIsValue('state','GET')
+                ),false,'COUNT(*)'),true)[0]['COUNT(*)'];
+            $result['count'] = $count;
+            if($count>1){
+                $otherDreamID = DBResultToArray($this->SelectDataByQuery($this->TName('tDream'),
+                    self::Limit(
+                        self::C_And(
+                            self::C_And(
+                                self::FieldIsValue('state','SUBMIT|FAILED'),
+                                self::FieldIsValue('did',$did,'!=')
+                            ),
+                            self::FieldIsValue('uid',$uid)
+                        ),
+                        0,1
+                    ),
+                    false,
+                    'did'
+                ),true);
+
+                if(!empty($otherDreamID)){
+                    $otherDreamID = $otherDreamID[0]['did'];
+                    $this->UpdateDataToTableByQuery($this->TName('tLottery'),
+                        ['did'=>$otherDreamID],
+                        self::FieldIsValue('lid',$lotteryId)
+                    );
+                    $result['exchangeDream'] = true;
+                }else{
+                    $result['exchangeDream'] = false;
+                }
+            }
+            return $result;
+        }
+    }
+
     //通过id获取开奖编号信息
     public function GetLottoryInfo($lotteryId){
         $result = DBResultToArray($this->SelectDataFromTable($this->TName('tLottery'),['lid'=>$lotteryId,'_logic'=>' ']),true,false);
@@ -186,6 +230,7 @@ class AwardManager extends DBManager{
                 else {
                     $cResult = $key . '-' . (10000000+ (($DoalBallNum+$item['pid'] ) % $item['pcount']));
 
+                    $this->UpdateLottery($cResult);//更新编号对应梦想
                     $targetLottery = $this->GetLottoryInfo($cResult);
                     if(empty($targetLottery)){
                         $cResult = "没有编号:".$cResult;

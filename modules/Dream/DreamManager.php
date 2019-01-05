@@ -72,6 +72,12 @@ class DreamManager extends DBManager{
     public static function OnDreamFailed($did){
         $DRM = new DreamManager();
         $DRM->UpdateDataToTable($DRM->TName('tDream'),['state'=>'FAILED'],['did'=>$did,'_logic'=>' ']);
+        $DRM->UpdateDataToTableByQuery($DRM->TName('tLottery'),['state'=>'MISS'],
+            self::C_And(
+                self::FieldIsValue('state','GET'),
+                self::FieldIsValue('did',$did)
+            )
+        );
     }
 
 	//生成梦想id号

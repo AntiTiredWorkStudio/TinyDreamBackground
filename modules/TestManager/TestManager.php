@@ -280,5 +280,29 @@ class TestManager extends DBManager {
 
         echo json_encode($rewards,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
+
+    public function TryWrongLottery(){
+        $AWM = new AwardManager();
+        $tryResult = $AWM->SelectDataByQuery($AWM->TName('tDream'),self::FieldIsValue('state','SUBMIT&FAILED','!='));
+        //echo self::FieldIsValue('state','SUBMIT&FAILED','!=');
+        $tryList = DBResultToArray($tryResult);
+        foreach ($tryList as $key => $value) {
+            $lotteryResult = $AWM->SelectDataByQuery($AWM->TName('tLottery'),
+                self::C_And(
+                    self::FieldIsValue('did',$key),
+                    self::FieldIsValue('state','GET')
+                )
+            );
+            $tryList[$key]['lottery'] = DBResultToArray($lotteryResult,true);
+        }
+        return $tryList;
+       /* $AWM->SelectDataByQuery($AWM->TName('tLottery'),['state'=>'MISS'],
+            self::C_And(
+                self::FieldIsValue('state','GET'),
+                self::FieldIsValue('did',$did)
+            )
+        );*/
+
+    }
 }
 ?>
