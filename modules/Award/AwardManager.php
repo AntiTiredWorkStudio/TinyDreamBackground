@@ -81,12 +81,25 @@ class AwardManager extends DBManager{
     //中奖的梦想生效
     public static function AwardedDreamVailid($did){
     $AW = new AwardManager();
-    $awardResult = DBResultToArray($AW->SelectDataFromTable($AW->TName('tAward'),
-        [
-            'did'=>$did,
-            '_logic'=>' '
-        ]
-    ),true);
+
+    $awardResult = DBResultToArray(
+        $AW->SelectDataByQuery($AW->TName('tAward'),
+            self::Limit(
+                self::OrderBy(
+                    self::FieldIsValue('did',$did),
+                    self::SqlField('atime'),
+                    'DESC'
+                ),0,1
+            )
+        )
+
+        /*$AW->SelectDataFromTable($AW->TName('tAward'),
+            [
+                'did'=>$did,
+                '_logic'=>' '
+            ]
+        )*/
+        ,true);
     //$dream = $awardResult;
     if(!empty($awardResult)){
         $dream = $awardResult[0];
