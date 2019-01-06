@@ -87,7 +87,7 @@ class AwardManager extends DBManager{
             self::Limit(
                 self::OrderBy(
                     self::FieldIsValue('did',$did),
-                    self::SqlField('atime'),
+                    'atime',
                     'DESC'
                 ),0,1
             )
