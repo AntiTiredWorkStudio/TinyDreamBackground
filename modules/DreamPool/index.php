@@ -20,5 +20,6 @@
 		'gfmd'=>R('FirstMonthDay'),//获取本月第1天
 		'gid'=>R('gid'),//自动生成id
 		'cpool'=>R('CountPools'),//返回梦想池数量
+        'pinfo'=>R('GetPoolInfo',['pid']),//单独获得梦想池信息
     ]);
 ?>

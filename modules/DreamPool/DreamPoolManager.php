@@ -93,7 +93,6 @@ class DreamPoolManager extends DBManager{
     }
 
 
-
     //查询首页显示的梦想信息
     public static function GetMainPool(){
         $DPM = new DreamPoolManager();
@@ -389,7 +388,20 @@ class DreamPoolManager extends DBManager{
         return DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),$condArray));
     }
 
+    //单独获得梦想池信息
+    public function GetPoolInfo($pid){
+        $info = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),self::FieldIsValue('pid',$pid)),true);
+        if(!empty($info)){
+            $info = $info[0];
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['pool'] = $info;
+            return $backMsg;
+        }else{
+            return RESPONDINSTANCE('5');
+        }
+    }
 
+    //获取梦想池数量
     public function CountPools(){
         $link = $this->DBLink();
 

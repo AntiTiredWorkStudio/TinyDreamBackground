@@ -285,7 +285,7 @@ class TestManager extends DBManager {
     public function TestNotice(){
         NoticeManager::CreateNotice(
             'on8W94tv5jTTiItf1uJCBdLJPyic',
-            NOTICE_GET,
+            NOTICE_BUY,
             [
                 'ptitle'=>'梦想互助20190101期',
                 'lids'=>ConnectArrayByChar(['001','002'],'、')
