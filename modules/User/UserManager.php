@@ -136,7 +136,7 @@ class UserManager extends DBManager{
     public static function IdentifyRealNameUser($uid,$state="SUBMIT"){
         $USM = new UserManager();
 
-        $seleResult = $USM->SelectDataFromTable($USM->TName('tId'),
+        $seleResult = $USM->SelectDataFromTable($USM->TName('tIdx'),
             [
                 'uid'=>$uid,
                 '_logic'=>' '
