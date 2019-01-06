@@ -202,30 +202,6 @@ class UserManager extends DBManager{
         return "asdfasdji2qnwduiqsniqudbnuawxwqjriuog";//需要优化
     }
 
-    //获取某用户的实名认证信息
-    public function GetUserRealNameIdentify($uid){
-        $rNameResult = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
-            [
-                'uid'=>$uid,
-                '_logic'=>' '
-            ]));
-        if(empty($rNameResult)){
-            return RESPONDINSTANCE('12');
-        }else{
-
-            if($rNameResult[$uid]['state'] == 'NONE'){
-                return RESPONDINSTANCE('12');
-            }
-            if($rNameResult[$uid]['state'] == 'FAILED'){
-                return RESPONDINSTANCE('41');
-            }
-
-
-            $backMsg = RESPONDINSTANCE('0');
-            $backMsg['realName'] = $rNameResult;
-            return $backMsg;
-        }
-    }
 	
 	//快速获取用户信息
 	public static function GetUsersInfoByString($uidStr){
@@ -360,7 +336,256 @@ class UserManager extends DBManager{
     public function GenerateFileName($uid,$type){
         return $type.sha1($uid.'_'.PRC_TIME());
     }
+    /*-----------------------------------新版实名认证-----------------------------------*/
 
+    //获取某用户的实名认证信息（新版）
+    public function GetUserRealNameIdentifyx($uid){
+        $rNameResult = DBResultToArray($this->SelectDataFromTable($this->TName('tIdx'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]));
+        if(empty($rNameResult)){
+            return RESPONDINSTANCE('12');
+        }else{
+
+            if($rNameResult[$uid]['state'] == 'NONE'){
+                return RESPONDINSTANCE('12');
+            }
+            if($rNameResult[$uid]['state'] == 'FAILED'){
+                return RESPONDINSTANCE('41');
+            }
+
+
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['realName'] = $rNameResult;
+            return $backMsg;
+        }
+    }
+
+    //开始实名认证（新版）
+    public function RealNameIdentifyStartx($uid){
+
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tIdx'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]),true);
+        if(!empty($tIdentify)){
+            if($tIdentify[0]['state'] != 'FAILED' && $tIdentify[0]['state'] != 'NONE'){
+                $backMsg = RESPONDINSTANCE('37');
+                $backMsg['state'] = $tIdentify[0]['state'];
+                return $backMsg;//实名认证提交或审核
+                //实名认证审核成功:只有在中奖时才会审核实名认证
+            }else{
+                $this->DeletDataFromTable($this->TName('tIdx'),[
+                    'uid'=>$uid,
+                    '_logic'=>' '
+                ]);
+            }
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        //未实现
+        $auth = new Auth($this->CloudOptions['ak'], $this->CloudOptions['sk']);
+        $token = $auth->uploadToken($this->CloudOptions['bucket']);
+        $timeStamp = PRC_TIME();
+        $backMsg['uptoken']=$token;
+        $backMsg['upurl']= $this->uploadURLFromRegionCode($this->CloudOptions['region']);
+        $backMsg['domain']=$this->CloudOptions['domain'];
+        /*$backMsg['filename'][CARD_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,CARD_FRONT);
+         $backMsg['filename'][ID_FRONT]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_FRONT);
+         $backMsg['filename'][ID_BACK]=$this->CloudOptions['domain'].'/'.$this->GenerateFileName($uid,ID_BACK);*/
+        $backMsg['timeStamp']=$timeStamp;
+
+       // $backMsg['filename'][CARD_FRONT]=$this->GenerateFileName($uid,CARD_FRONT);
+        $backMsg['filename'][ID_FRONT]=$this->GenerateFileName($uid,ID_FRONT);
+        //$backMsg['filename'][ID_BACK]=$this->GenerateFileName($uid,ID_BACK);
+
+
+        $this->InsertDataToTable($this->TName('tIdx'),
+            [
+                "uid"=>$uid,
+                "realname"=>"",
+                "icardnum"=>0,
+                "ccardnum"=>0,
+                "bank"=>"",
+                "openbank"=>"",
+                "icardfurl"=>$this->CloudOptions['domain'].'/'.$backMsg['filename'][ID_FRONT],
+                "ftime"=>$timeStamp,
+                "state"=>"NONE"
+            ]
+        );
+
+        return $backMsg;
+    }
+
+    //实名认证提交成功(signal签名为用户id和时间戳字符串连接后的sha1值)（新版）
+    public function RealNameIdentifyFinishedx($uid,$realname,$ccardnum,$icardnum,$bank,$openbank,$signal){
+        //未实现
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tIdx'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]),true);
+        if(!empty($tIdentify)){
+            if(sha1($uid.$tIdentify[0]['ftime']) != $signal){
+                return RESPONDINSTANCE('40');//签名不正确
+            }
+
+            if($tIdentify[0]['state'] != 'NONE'){
+                $backMsg = RESPONDINSTANCE('39');
+                $backMsg['state'] = $tIdentify[0]['state'];
+                return $backMsg;
+            }else{
+                $this->UpdateDataToTable($this->TName('tIdx'),
+                    [
+                        "realname"=>$realname,
+                        'ccardnum'=>$ccardnum,
+                        'icardnum'=>$icardnum,
+                        "bank"=>$bank,
+                        "openbank"=>$openbank,
+                        'state'=>'SUBMIT',//修改为提交状态,前台提示已提交
+                        'ftime'=>PRC_TIME()//修改时间,禁止签名复用
+                    ]
+                    ,
+                    [
+                        'uid'=>$uid,
+                        '_logic'=>' '
+                    ]);
+                return RESPONDINSTANCE('0');
+            }
+        }else{
+            $backMsg = RESPONDINSTANCE('39');
+        }
+
+        return $backMsg;
+    }
+
+    //实名认证审核（新版）
+    public function RealNameAuditx($uid,$state){
+        //未实现
+        $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tIdx'),
+            [
+                'uid'=>$uid,
+                'state'=>'SUBMIT',
+                '_logic'=>'AND'
+            ]),true);
+        if(!empty($tIdentify)) {
+            if($state == 'FAILED' || $state=='SUCCESS'){
+
+                $this->UpdateDataToTable($this->TName('tIdx'),['state'=>$state],[
+                    'uid'=>$uid,
+                    'state'=>'SUBMIT',
+                    '_logic'=>'AND'
+                ]);
+
+                if($state== 'FAILED'){
+                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[]);
+                }
+                return RESPONDINSTANCE('0');
+            }else{
+                return RESPONDINSTANCE('43');
+            }
+        }else{
+            return RESPONDINSTANCE('42');//必须是SUBMIT状态的实名认证信息才可通过
+        }
+    }
+
+    //显示所有需要认证信息（新版）
+    public function ViewAllVerifyInfox(){
+        //未实现
+
+        //有中标梦想并提交了实名认证的用户在此查询并获取
+
+        //提交了实名认证但无中标梦想的用户的实名认证不在此显示
+
+        $array = DBResultToArray(
+            $this->SelectDataByQuery($this->TName('tDream'),
+                self::C_Or(
+                    self::FieldIsValue('state','VERIFY'),
+                    self::C_And(
+                        self::FieldIsValue('state','SUCCESS'),
+                        self::FieldIsValue('payment','0')
+                    )
+                )
+            //$this->SelectDataFromTable($this->TName('tDream'),['state'=>'VERIFY']
+            ));
+
+
+        $cond = '';
+
+        $resultArray = [];
+        foreach ($array as $key => $item) {
+            /*if(!empty($item['videourl'])){
+                $finishUser[$item['uid']] = [$item['videourl']];
+            }*/
+            $resultArray[$item['uid']]['dream'] = $item;
+            $resultArray[$item['uid']]['identity'] = [];
+            $cond = $cond.$item['uid'].'|';
+        }
+
+        $infoArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tUser'),
+            ['uid'=>$cond]));
+        foreach ($infoArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['info'] =$item;
+            }
+        }
+
+        $awardArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tAward'),
+            ['uid'=>$cond]));
+
+        foreach ($awardArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['award'] =$item;
+            }
+        }
+
+
+        $idArray = DBResultToArray($this->SelectDatasFromTable($this->TName('tIdx'),
+            ['uid'=>$cond,
+                'state'=>'SUBMIT|SUCCESS|FAILED']
+        ));
+
+        foreach ($idArray as $key=>$item) {
+            if(array_key_exists($item['uid'],$resultArray)){
+                $resultArray[$item['uid']]['identity'] =$item;
+            }
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['verify'] = $resultArray;
+        //$backMsg['dream'] = $finishUser;
+        return $backMsg;
+    }
+
+
+    /*-----------------------------------旧版实名认证-----------------------------------*/
+
+    //获取某用户的实名认证信息
+    public function GetUserRealNameIdentify($uid){
+        $rNameResult = DBResultToArray($this->SelectDataFromTable($this->TName('tId'),
+            [
+                'uid'=>$uid,
+                '_logic'=>' '
+            ]));
+        if(empty($rNameResult)){
+            return RESPONDINSTANCE('12');
+        }else{
+
+            if($rNameResult[$uid]['state'] == 'NONE'){
+                return RESPONDINSTANCE('12');
+            }
+            if($rNameResult[$uid]['state'] == 'FAILED'){
+                return RESPONDINSTANCE('41');
+            }
+
+
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['realName'] = $rNameResult;
+            return $backMsg;
+        }
+    }
 
     //开始实名认证
     public function RealNameIdentifyStart($uid){

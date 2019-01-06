@@ -196,7 +196,11 @@ $tables = [
     ],
     'tId'=>[
         'name'=>'identity',
-        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
+    ],
+    'tIdx'=>[
+        'name'=>'identityx',
+        'command'=>"CREATE TABLE `#DBName#` (`uid` TEXT NOT NULL COMMENT '用户id' ,`realname` TEXT NOT NULL COMMENT '真实姓名' , `icardnum` TEXT NOT NULL COMMENT '身份证号' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `bank` TEXT NOT NULL COMMENT '银行类别' , `openbank` TEXT NOT NULL COMMENT '开户行' , `icardfurl` TEXT NOT NULL COMMENT '手持证件正面照片地址' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息(新)';"
     ],
     'tBehave'=>[
         'name'=>'behaviour',

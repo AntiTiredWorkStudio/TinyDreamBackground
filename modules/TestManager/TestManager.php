@@ -281,6 +281,31 @@ class TestManager extends DBManager {
         echo json_encode($rewards,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
+    //将旧版实名认证转换位新版本数据
+    public function ConvertRealNameToNewVersion(){
+        $aResult = DBResultToArray($this->SelectDataByQuery($this->TName('tId'),'1'),true);
+        foreach($aResult as $key=>$value){
+            $result = $this->InsertDataToTable($this->TName('tIdx'),
+                [
+                    "uid"=>$value['uid'],
+                    "realname"=>'缺省',
+                    "icardnum"=>$value['icardnum'],
+                    "ccardnum"=>$value['ccardnum'],
+                    "bank"=>'缺省',
+                    "openbank"=>'缺省',
+                    "icardfurl"=>$value['icardfurl'],
+                    "ftime"=>$value['ftime'],
+                    "state"=>$value['state'],
+                ]
+            );
+            if($result){
+                echo '已更新'.$value['uid'].'</br>';
+            }else{
+                echo '已存在'.$value['uid'].',无需更新</br>';
+            }
+        }
+    }
+
     public function TryWrongLottery(){
         $AWM = new AwardManager();
         $tryResult = $AWM->SelectDataByQuery($AWM->TName('tDream'),self::FieldIsValue('state','SUBMIT&FAILED','!='));

@@ -18,5 +18,6 @@
 		'rl'=>R('RebuildLotteryState'),//重新建立梦想编号状态
 		'rd'=>R('RebuildDreamState'),//重新建立梦想状态
         'twl'=>R('TryWrongLottery'),//测试状态错误的中奖编号
+        'cvr'=>R('ConvertRealNameToNewVersion'),//将旧版实名认证转换位新版本数据
     ],PERMISSION_LOCAL);
 ?>
