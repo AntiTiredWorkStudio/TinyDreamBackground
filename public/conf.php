@@ -45,7 +45,9 @@ $modules = [
 	,'ub' => ['rq'=>'modules/UserBehaviourManager/index.php',//UserBehaviourManager
 			'lib'=>'modules/UserBehaviourManager/UserBehaviourManager.php']
 	,'no' => ['rq'=>'modules/NoticeManager/index.php',//NoticeManager
-			'lib'=>'modules/NoticeManager/NoticeManager.php']#NEW_MODULES#
+			'lib'=>'modules/NoticeManager/NoticeManager.php']
+	,'cs' => ['rq'=>'modules/ConciseManager/index.php',//ConciseManager
+			'lib'=>'modules/ConciseManager/ConciseManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -209,6 +211,11 @@ $tables = [
     'tNotice'=>[
         'name'=>'notice',
         'command'=>"CREATE TABLE `#DBName#` ( `nid` TEXT NOT NULL COMMENT '通知id' , `uid` TEXT NOT NULL COMMENT '用户id' , `content` TEXT NOT NULL COMMENT '消息内容' , `action` TEXT NOT NULL COMMENT '命令标识符' , `ptime` INT NOT NULL COMMENT '生成时间' , `state` ENUM('READ','UNREAD') NOT NULL COMMENT '阅读状态' , PRIMARY KEY (`nid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '通知表';"
+    ],
+    /***********小梦想互助简约版************/
+    'dServer'=>[
+        'name'=>'demo_server',
+        'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '简约版服务列表';"
     ]
 ];
 

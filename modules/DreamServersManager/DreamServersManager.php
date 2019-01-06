@@ -756,7 +756,6 @@ class DreamServersManager extends DBManager {
     //统一下单
     public function WxPay($oid,$bill,$uid){
         include 'init.php';
-        //$payResult = require(__DIR__ . '/test/wxpay-miniapp.php');
 
         $config = [
             // 微信支付参数
@@ -803,8 +802,6 @@ class DreamServersManager extends DBManager {
 
         try {
             $result = $pay->driver('wechat')->gateway('miniapp')->apply($options);
-            //echo '<pre>';
-            //var_export($result);
             $backMsg = RESPONDINSTANCE('0');
             foreach ($result as $key=>$item) {
                 $backMsg[$key] = $item;
@@ -812,23 +809,10 @@ class DreamServersManager extends DBManager {
             return $backMsg;
 
         } catch (Exception $e) {
-//            echo $e->getMessage();
             $backMsg = RESPONDINSTANCE('58');
             $backMsg['error'] = $e->getMessage();
             return $backMsg;
         }
-       // echo $oid.' '.$bill.' '.$uid;
-        //return (new WechatPay($oid, $bill))->getPayResponse($oid,$uid);
-
-       /* $payObject = new WeixinPay(
-            $GLOBALS['options']['APP_ID'],
-            $uid,
-            $GLOBALS['options']['MCH_ID'],
-            $GLOBALS['options']['MCH_KEY'],
-            $oid,
-            '小梦想互助-购买一个梦想',
-            $bill,$_SERVER["REMOTE_ADDR"]);
-        return $payObject->pay();*/
     }
 
 
