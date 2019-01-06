@@ -480,7 +480,11 @@ class UserManager extends DBManager{
                 ]);
 
                 if($state== 'FAILED'){
-                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[]);
+                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[],
+                        NoticeManager::CreateAction('auth',
+                            []
+                        )
+                    );
                 }
                 return RESPONDINSTANCE('0');
             }else{

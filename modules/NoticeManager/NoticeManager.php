@@ -30,22 +30,22 @@ class NoticeManager extends DBManager {
         'buy'=>[
             'pars'=>['ptitle','lids'],
             'context'=>'感谢您参与了{ptitle}，您本期的编号为{lids}。',
-            'action'=>'view'
+            'action'=>[]
         ],
         'miss'=>[
             'pars'=>['ptitle'],
             'context'=>'很遗憾，您参与的{ptitle}未成为幸运者。',
-            'action'=>'view'
+            'action'=>[]
         ],
         'get'=>[
             'pars'=>['ptitle','lid'],
             'context'=>'恭喜您！您参与的{ptitle}成为幸运者，幸运编号为{lid}。',
-            'action'=>'lucky'
+            'action'=>[]
         ],
         'fail'=>[
             'pars'=>[],
             'context'=>'很抱歉，您提交的资料（小梦想/认证资料）审核未通过，请您重新完善提交',
-            'action'=>'lucky'
+            'action'=>[]
         ],
         'paid'=>[
             'pars'=>[],
@@ -87,10 +87,19 @@ class NoticeManager extends DBManager {
         ]);
     }
 
+    public static function CreateAction($type,$pars){
+        $action = [];
+        $action['type'] = $type;
+        foreach ($pars as $key => $value) {
+            $action[$key] = $value;
+        }
+        return json_encode($action);
+    }
+
     //创建通知
-    public static function CreateNotice($uid,$noticeKey,$pars){
+    public static function CreateNotice($uid,$noticeKey,$pars,$action='{"type":view}'){
         $NOM = new NoticeManager();
-        $NOM->NoticeUser($uid,$noticeKey,$pars);
+        $NOM->NoticeUser($uid,$noticeKey,$pars,$action);
     }
 
 
@@ -145,7 +154,7 @@ class NoticeManager extends DBManager {
     }
 
 
-	public function NoticeUser($uid,$noticeKey,$pars){
+	public function NoticeUser($uid,$noticeKey,$pars,$action="view"){
         if(!isset($this->template[$noticeKey])){
 	        return;//没有通知模板
         }
@@ -163,7 +172,7 @@ class NoticeManager extends DBManager {
                 "nid"=>self::GenerateNoticeID(),
                 "uid"=>$uid,
                 "content"=>$content,
-                "action"=>$notice['action'],
+                "action"=>$action,
                 "ptime"=>time(),
                 "state"=>'UNREAD',
             ]);
@@ -171,7 +180,7 @@ class NoticeManager extends DBManager {
                 "nid"=>self::GenerateNoticeID(),
                 "uid"=>$uid,
                 "content"=>$content,
-                "action"=>$notice['action'],
+                "action"=>$action,
                 "ptime"=>time(),
                 "state"=>'UNREAD',
             ]));

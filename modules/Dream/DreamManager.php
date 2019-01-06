@@ -329,7 +329,9 @@ class DreamManager extends DBManager{
 
             if($setArray['payment']=='1'){
                 $uid = $this->GetDreamUid($did);
-                NoticeManager::CreateNotice($uid,NOTICE_PAID,[]);
+                NoticeManager::CreateNotice($uid,NOTICE_PAID,[],
+                    NoticeManager::CreateAction('view',[])
+                );
             }
         }
         $this->UpdateDataToTable($this->TName('tDream'),
