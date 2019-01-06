@@ -53,8 +53,8 @@
       <file leaf-file-name="ConciseManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            <state relative-caret-position="714">
+              <caret line="51" column="24" lean-forward="false" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -64,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/modules/ConciseManager/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="11" />
+              <caret line="7" column="45" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -462,12 +462,12 @@
       <workItem from="1546594814085" duration="1199000" />
       <workItem from="1546659666528" duration="2556000" />
       <workItem from="1546668405239" duration="14026000" />
-      <workItem from="1546749095708" duration="23859000" />
+      <workItem from="1546749095708" duration="24575000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="506669000" />
+    <option name="totallyTimeSpent" value="507385000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -915,15 +915,15 @@
     <entry file="file://$PROJECT_DIR$/modules/ConciseManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="11" />
+          <caret line="7" column="45" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        <state relative-caret-position="714">
+          <caret line="51" column="24" lean-forward="false" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
           <folding />
         </state>
       </provider>

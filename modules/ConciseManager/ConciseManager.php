@@ -47,7 +47,9 @@ class ConciseManager extends DBManager{
             ]
         );
         $DSM = new DreamServersManager();
-        return $DSM->WxPay($hid,$bill,$uid);
+        $backMsg = $DSM->WxPay($hid,$bill,$uid);
+        $backMsg['hid'] = $hid;
+        return $backMsg;
     }
 
 
