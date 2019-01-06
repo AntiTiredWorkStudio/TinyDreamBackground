@@ -93,7 +93,7 @@ class NoticeManager extends DBManager {
         foreach ($pars as $key => $value) {
             $action[$key] = $value;
         }
-        return json_encode($action);
+        return str_replace('"',"'",json_encode($action));
     }
 
     //创建通知
@@ -151,6 +151,15 @@ class NoticeManager extends DBManager {
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['msgs'] = $result;
         return $backMsg;
+    }
+
+    public function TestAction(){
+        echo  NoticeManager::CreateAction(
+            'buy',
+            [
+                'pid'=>'20190102'
+            ]
+        );
     }
 
 

@@ -8,5 +8,6 @@
         'nc'=>R('NoticeCount',['uid']),//获取用户的未读消息数量
         'ng'=>R('GetUserUnReadNotice',['uid','seek','count']),//获取用户未读消息
         'nr'=>R('ReadNotice',['nid']),//阅读消息
+        'ta'=>R('TestAction')
     ]);
 ?>

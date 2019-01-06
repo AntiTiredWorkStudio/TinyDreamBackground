@@ -696,7 +696,8 @@ class DreamServersManager extends DBManager {
                     'ptitle'=>'梦想互助'.$actionList['pay']['pid'].'期',
                     'lids'=>ConnectArrayByChar($numArray,'、')
                 ],
-                NoticeManager::CreateAction('buy',
+                NoticeManager::CreateAction(
+                    'buy',
                     [
                         'pid'=>$actionList['pay']['pid']
                     ]
