@@ -281,6 +281,24 @@ class TestManager extends DBManager {
         echo json_encode($rewards,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
+
+    public function TestNotice(){
+        NoticeManager::CreateNotice(
+            'on8W94tv5jTTiItf1uJCBdLJPyic',
+            NOTICE_GET,
+            [
+                'ptitle'=>'梦想互助20190101期',
+                'lids'=>ConnectArrayByChar(['001','002'],'、')
+            ],
+            NoticeManager::CreateAction(
+                'buy',
+                [
+                    'pid'=>'20190101'
+                ]
+            )
+        );
+    }
+
     //将旧版实名认证转换位新版本数据
     public function ConvertRealNameToNewVersion(){
         $aResult = DBResultToArray($this->SelectDataByQuery($this->TName('tId'),'1'),true);
