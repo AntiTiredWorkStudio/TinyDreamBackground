@@ -33,6 +33,12 @@ class ConciseManager extends DBManager{
 
 	public function SubmitDreamAndRequestPayment($uid,$title,$content,$server,$bill){
         $hid = self::GenerateConciseServerID();
+        $this->DeletDataByQuery($this->TName('dServer'),
+            self::C_And(
+                self::FieldIsValue('state','SUBMIT'),
+                self::FieldIsValue('uid',$uid)
+            )
+        );
         $this->InsertDataToTable($this->TName('dServer'),
             [
                 "hid"=>$hid,
