@@ -800,6 +800,8 @@ class UserManager extends DBManager{
         $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['openid'] = $result['openid'];
+        $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
+        $backMsg['version'] = $version;
         return $backMsg;
     }
 

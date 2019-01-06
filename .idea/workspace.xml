@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
-      <change beforePath="$PROJECT_DIR$/modules/User/index.php" afterPath="$PROJECT_DIR$/modules/User/index.php" />
-      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="807" column="34" lean-forward="false" selection-start-line="807" selection-start-column="20" selection-end-line="807" selection-end-column="34" />
+            <state relative-caret-position="526">
+              <caret line="802" column="97" lean-forward="true" selection-start-line="802" selection-start-column="97" selection-end-line="802" selection-end-column="97" />
               <folding>
                 <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#RealNameIdentifyStartx#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -85,17 +83,16 @@
                 <element signature="n#RealNameIdentifyStart#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#RealNameIdentifyFinished#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#ViewAllVerifyInfo#0;n#UserManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/User/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="12" />
+            <state relative-caret-position="374">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -453,12 +450,12 @@
       <workItem from="1546594814085" duration="1199000" />
       <workItem from="1546659666528" duration="2556000" />
       <workItem from="1546668405239" duration="14026000" />
-      <workItem from="1546749095708" duration="22460000" />
+      <workItem from="1546749095708" duration="22624000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="505270000" />
+    <option name="totallyTimeSpent" value="505434000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -895,10 +892,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="807" column="34" lean-forward="false" selection-start-line="807" selection-start-column="20" selection-end-line="807" selection-end-column="34" />
+        <state relative-caret-position="526">
+          <caret line="802" column="97" lean-forward="true" selection-start-line="802" selection-start-column="97" selection-end-line="802" selection-end-column="97" />
           <folding>
             <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#RealNameIdentifyStartx#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -907,16 +912,7 @@
             <element signature="n#RealNameIdentifyStart#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#RealNameIdentifyFinished#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#ViewAllVerifyInfo#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
