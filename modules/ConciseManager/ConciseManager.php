@@ -21,12 +21,19 @@ class ConciseManager extends DBManager{
 		
 	}
 
+	public $ServerPrice=[
+	    'book'=>0.01,
+        'teacher'=>0.01,
+        'report'=>0.01,
+    ];
+
 	public function UserDream($uid){
         $dream = DBResultToArray($this->SelectDataByQuery($this->TName('dServer'),
             self::FieldIsValue('uid',$uid)
             ),true);
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['dream'] = $dream;
+        $backMsg['prices']=$this->ServerPrice;
         return $backMsg;
     }
 
