@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php" afterPath="$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConciseManager.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConciseManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="23" />
+            <state relative-caret-position="544">
+              <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -63,14 +63,14 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/ConciseManager/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+            <state relative-caret-position="238">
+              <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="526">
@@ -171,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>temp</find>
       <find>RealNameAudit</find>
       <find>SetDreamStateByJson</find>
       <find>NoticeCount</find>
@@ -201,6 +200,7 @@
       <find>SubmitDreamToVerify</find>
       <find>WxPay</find>
       <find>PlaceOrderInADreamPoolPay</find>
+      <find>SubmitDreamAndRequestPayment</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -252,11 +252,11 @@
         <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
         <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
-        <option value="$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php" />
         <option value="$PROJECT_DIR$/modules/ConciseManager/index.php" />
         <option value="$PROJECT_DIR$/modules/User/index.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
+        <option value="$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php" />
       </list>
     </option>
   </component>
@@ -330,6 +330,18 @@
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="DreamServersManager" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="NoticeManager" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="TestManager" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
@@ -450,12 +462,12 @@
       <workItem from="1546594814085" duration="1199000" />
       <workItem from="1546659666528" duration="2556000" />
       <workItem from="1546668405239" duration="14026000" />
-      <workItem from="1546749095708" duration="22624000" />
+      <workItem from="1546749095708" duration="23859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="505434000" />
+    <option name="totallyTimeSpent" value="506669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -845,22 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/ConciseManager/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/lib.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="672">
@@ -913,6 +909,22 @@
             <element signature="n#RealNameIdentifyFinished#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#ViewAllVerifyInfo#0;n#UserManager#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ConciseManager/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ConciseManager/ConciseManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>

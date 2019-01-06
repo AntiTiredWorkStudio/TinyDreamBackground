@@ -14,7 +14,7 @@ class ConciseManager extends DBManager{
     public static function GenerateConciseServerID(){
         $CCM = new ConciseManager();
         $count = $CCM->CountTableRow($CCM->TName('dServer'));
-        return 'dSrv_'.(1000000000+$count);
+        return 'dSrv_'.(100000+$count).rand(10000,99999);
     }
 
 	public function ConciseManager(){
