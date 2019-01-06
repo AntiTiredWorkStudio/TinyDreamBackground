@@ -802,5 +802,14 @@ class UserManager extends DBManager{
         $backMsg['openid'] = $result['openid'];
         return $backMsg;
     }
+
+
+    //获取进入的版本入口
+    public function VersionControl(){
+        $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['version'] = $version;
+        return $backMsg;
+    }
 }
 ?>

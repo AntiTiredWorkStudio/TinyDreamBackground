@@ -25,5 +25,6 @@
         'rnamefx'=>R('RealNameIdentifyFinishedx',['uid','realname','ccardnum','icardnum','bank','openbank','signal']),//实名认证提交
         'rnameax'=>R('RealNameAuditx',['uid','state']),//实名认证审核
         'verifyx'=>R('ViewAllVerifyInfox'),//显示所有需要审核的信息
+        'ver'=>R('VersionControl'),//获取要进入的版本
     ]);
 ?>
