@@ -160,6 +160,14 @@ EOT;
 								</td>
 								<?php
 							}
+						}else{
+							?>
+								<td style="color:red">
+									<?php
+									echo $value['dream']['state'];
+									?>
+								</td>
+							<?php
 						}
                     }
                     if ($value['dream']['payment'] == 1) {
