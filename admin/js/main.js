@@ -207,7 +207,7 @@ var VerfModule = {
         }else {
             tstate = "FAILED";
         }
-        TD_Request('us','rnamea',{uid:tuid,state:tstate}
+        TD_Request('us','rnameax',{uid:tuid,state:tstate}
         ,function (code, data) {
                 console.log(data);
                 LoadWorkSpace('a_verify');
