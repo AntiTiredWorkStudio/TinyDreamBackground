@@ -89,7 +89,7 @@
                     <td>{$value['identity']['openbank']}</td>
                     <td>{$value['dream']['title']}</td>
                     <td>
-					<div style="display: block;white-space: normal;word-break:break-all;word-wrap:break-word;">
+					<div style="display: block;white-space: normal;word-break:break-all;word-wrap:break-word;width:300px;">
 					{$value['dream']['content']}
 					</div>
 					</td> 
