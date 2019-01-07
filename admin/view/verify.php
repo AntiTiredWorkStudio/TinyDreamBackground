@@ -88,7 +88,11 @@
                     <td>{$value['identity']['bank']}</td>
                     <td>{$value['identity']['openbank']}</td>
                     <td>{$value['dream']['title']}</td>
-                    <td>{$value['dream']['content']}</td> 
+                    <td>
+					<div style="display: block;white-space: normal;word-break:break-all;word-wrap:break-word;">
+					{$value['dream']['content']}
+					</div>
+					</td> 
                     <td><a href="{$value['dream']['videourl']}">$look</a></td>               
                            
 EOT;
