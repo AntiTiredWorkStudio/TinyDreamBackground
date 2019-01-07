@@ -140,11 +140,19 @@ EOT;
                             </td>
                             <?php
                     } else {
+						if(!$hasSubmitVerify){
                         ?>
                         <td style="color:red">
                             用户未通过实名认证
                         </td>
                         <?php
+						}else if(!$hasVerifySuccess || $value['dream']['state'] != "SUCCESS"){
+                        ?>
+                        <td style="color:blue">
+                            还未审核
+                        </td>
+                        <?php
+						}
                     }
                     if ($value['dream']['payment'] == 1) {
                         ?>
