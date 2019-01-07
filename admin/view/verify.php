@@ -146,12 +146,20 @@ EOT;
                             用户未通过实名认证
                         </td>
                         <?php
-						}else if(!$hasVerifySuccess || $value['dream']['state'] != "SUCCESS"){
-                        ?>
-                        <td style="color:blue">
-                            还未审核
-                        </td>
-                        <?php
+						}else if(!$hasVerifySuccess){
+							if($value['dream']['state'] == "FAILED"){
+								?>
+								<td style="color:red">
+									完成失败
+								</td>
+								<?php
+							}else{
+								?>
+								<td style="color:blue">
+									还未审核
+								</td>
+								<?php
+							}
 						}
                     }
                     if ($value['dream']['payment'] == 1) {
