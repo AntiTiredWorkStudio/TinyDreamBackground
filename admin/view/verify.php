@@ -156,18 +156,24 @@ EOT;
 							}else{
 								?>
 								<td style="color:blue">
-									还未审核
+									未提交审核
 								</td>
 								<?php
 							}
 						}else{
-							?>
+							if($value['dream']['state'] == "FAILED"){
+								?>
 								<td style="color:red">
-									<?php
-									echo $value['dream']['state'];
-									?>
+									完成失败
 								</td>
-							<?php
+								<?php
+							}else{
+								?>
+								<td style="color:blue">
+									未提交审核
+								</td>
+								<?php
+							}
 						}
                     }
                     if ($value['dream']['payment'] == 1) {
