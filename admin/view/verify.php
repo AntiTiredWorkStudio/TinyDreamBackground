@@ -40,10 +40,10 @@
                     <th  style="text-align: center; vertical-align: middle; margin: 0; padding: 0; width: 100px;">手机号码</th>
                     <th>梦想池名称</th>
                     <th>身份证号码</th>
-                    <th>身份证正面</th>
-                    <th>身份证反面</th>
+                    <th>手持身份证照片</th>
                     <th>银行卡号</th>
-                    <th>银行照片</th>
+                    <th>银行</th>
+                    <th>开户行</th>
                     <th>梦想标题</th>
                     <th>梦想内容</th>
                     <th>互助公函</th>
@@ -68,11 +68,11 @@
                     $hasVerifySuccess = $hasSubmitVerify ? ($value['identity']['state'] == "SUCCESS") : false;
 					//echo $hasVerifySuccess.'</br>';
                     if (!$hasSubmitVerify ) {
-                        $value['identity']['icardnum'] = "未提交";
                         $value['identity']['icardfurl'] = "#";
-                        $value['identity']['icardburl'] = "#";
+                        $value['identity']['icardnum'] = "未提交";
+                        $value['identity']['bank'] = "未提交";
+                        $value['identity']['openbank'] = "未提交";
                         $value['identity']['ccardnum'] = "未提交";
-                        $value['identity']['ccardfurl'] = "#";
                         $look = "未提交";
                     }
                     $index = 1 + ($seek++);
@@ -84,9 +84,9 @@
                     <td>梦想池{$value['award']['pid']}期</td>
                     <td>{$value['identity']['icardnum']}</td>
                     <td><a href="{$value['identity']['icardfurl']}">$look</a></td>
-                    <td><a href="{$value['identity']['icardburl']}">$look</a></td>
                     <td>{$value['identity']['ccardnum']}</td>
-                    <td><a href="{$value['identity']['ccardfurl']}">$look</a></td>
+                    <td>{$value['identity']['bank']}</td>
+                    <td>{$value['identity']['openbank']}</td>
                     <td>{$value['dream']['title']}</td>
                     <td>{$value['dream']['content']}</td> 
                     <td><a href="{$value['dream']['videourl']}">$look</a></td>               
