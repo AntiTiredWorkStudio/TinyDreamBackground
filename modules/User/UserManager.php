@@ -494,9 +494,22 @@ class UserManager extends DBManager{
             return RESPONDINSTANCE('42');//必须是SUBMIT状态的实名认证信息才可通过
         }
     }
-
+	
     //显示所有需要认证信息（新版）
-    public function ViewAllVerifyInfox(){
+    public function ViewAllVerifyInfox($type='submit'){
+		$sqlConditions = [
+			'submit'=>self::C_Or(
+                    self::FieldIsValue('state','VERIFY'),
+                    self::C_And(
+                        self::FieldIsValue('state','SUCCESS'),
+                        self::FieldIsValue('payment','0')
+                    )
+                ),
+			'unsubmit'=>self::FieldIsValue('state','DOING'),
+			'lose'=>self::FieldIsValue('state','FAILED')
+		];
+		
+		
         //未实现
 
         //有中标梦想并提交了实名认证的用户在此查询并获取
@@ -505,13 +518,7 @@ class UserManager extends DBManager{
 
         $array = DBResultToArray(
             $this->SelectDataByQuery($this->TName('tDream'),
-                self::C_Or(
-                    self::FieldIsValue('state','VERIFY'),
-                    self::C_And(
-                        self::FieldIsValue('state','SUCCESS'),
-                        self::FieldIsValue('payment','0')
-                    )
-                )
+                $sqlConditions[$type]
             //$this->SelectDataFromTable($this->TName('tDream'),['state'=>'VERIFY']
             ));
 

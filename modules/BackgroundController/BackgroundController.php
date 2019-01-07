@@ -8,9 +8,9 @@ define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
     public $pages = [
-        'postDream'=>['id'=>'post','title'=>'发布梦想池','path'=>'admin/postdream.php'],
-        'verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/verify.php'],
-        'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/navagator.php'],
+        'postDream'=>['id'=>'post','title'=>'发布梦想池','path'=>'admin/view/postdream.php'],
+        'verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
+        'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/view/navagator.php'],
     ];
     public function info()
     {
@@ -41,12 +41,45 @@ class BackgroundController extends DBManager {
     //审核结果
     public function BuildVerify(){
         $pageData = $this->pages['verify'];
+		
+		
+		$btn_submit_style = 'btn disable';
+		$btn_unsubmit_style = 'btn disable';
+		$btn_lose_style = 'btn disable';
+		$tab = 'submit';
+		if(isset($_REQUEST['tab'])){
+			$tab = $_REQUEST['tab'];
+			switch($_REQUEST['tab']){
+				case 'submit':
+					$btn_submit_style = 'btn btn-primary';
+					break;
+				case 'unsubmit':
+					$btn_unsubmit_style = 'btn btn-primary';
+					break;
+				case 'lose':
+					$btn_lose_style = 'btn btn-primary';
+					break;
+				default:
+					$btn_submit_style = 'btn btn-primary';
+					break;
+			}
+		}else{
+			$btn_submit_style = 'btn btn-primary';
+		}
+		$pageData['btnStyle'] = [
+			'submit'=>$btn_submit_style,
+			'unsubmit'=>$btn_unsubmit_style,
+			'lose'=>$btn_lose_style
+		];
+		
+		
         $USM = new UserManager();
-        $result = $USM->ViewAllVerifyInfo();
+        $result = $USM->ViewAllVerifyInfox($tab);
 
         if($result['result'] == 'true'){
             $pageData['verify'] = $result['verify'];
         }
+		
         require ($pageData['path']);
     }
 

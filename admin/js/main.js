@@ -178,8 +178,27 @@ var VerfModule = {
         $("#dream_success").click(module.dreamVerify);
         $("#dream_failed").click(module.dreamVerify);
         $("#dream_payment").click(module.dreamPayment);
+        $("#btn_type_submit").click(module.switchInfoType);
+        $("#btn_type_unsubmit").click(module.switchInfoType);
+        $("#btn_type_lose").click(module.switchInfoType);
     },
     verifyInfo:null,
+	switchInfoType : function(res){
+		console.log(res.currentTarget.id);
+		switch(res.currentTarget.id){
+			case "btn_type_submit":
+				LoadWorkSpace('a_verify',{tab:'submit'});
+				break;
+			case "btn_type_unsubmit":
+				LoadWorkSpace('a_verify',{tab:'unsubmit'});
+				break;
+			case "btn_type_lose":
+				LoadWorkSpace('a_verify',{tab:'lose'});
+				break;
+			default:
+				break;
+		}
+	},
     idVerify:function (res) {
         var tuid = $(res.currentTarget).attr('uid');
         var tstate = "";

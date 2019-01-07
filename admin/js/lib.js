@@ -1,6 +1,6 @@
 
 var Options = {
-    Url : "https://tinydream.antit.top"//"http://localhost:8003"
+    Url : "https://tinydream.antit.top"//http://localhost:8003 , https://tinydream.antit.top
 };
 
 var Page_Builder = function (module, action, paras, fResult,fFailed) {
