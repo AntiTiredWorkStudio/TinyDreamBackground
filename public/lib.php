@@ -361,9 +361,9 @@ function Responds($action, $manager, $actionArray,$permission='all'){
         $paras = array_values($paras);
 
         if(empty($fieldCheck)){
-            if(method_exists($manager,$actionArray[$_REQUEST[$action]]['func'])) {
+            if(method_exists($manager,$actionArray[$_REQUEST[$action]]['func'])) {//请求方法
                 $result = $manager->$actionArray[$_REQUEST[$action]]['func'](...$paras);//调用功能
-            }else{
+            }else{//无请求方法
                 echo json_encode(RESPONDINSTANCE('100',"请求模块'".$action."'未定义方法 '".$actionArray[$_REQUEST[$action]]['func']."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
                 die();
             }
@@ -372,7 +372,7 @@ function Responds($action, $manager, $actionArray,$permission='all'){
                 return;
             }
 
-            if(is_null($result)){
+            if(is_null($result)){//无返回值
                 echo '<h3>执行结果</h3><p>'.json_encode(
                     [
                         '模块'=>$action,
@@ -383,7 +383,7 @@ function Responds($action, $manager, $actionArray,$permission='all'){
                     ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
                 ).'</p>';//请求无返回值
 
-            }else{
+            }else{//返回正确消息
 
                 echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求正确
             }
