@@ -267,7 +267,7 @@ class DBManager extends Manager{
         }
         //echo $sql;
         $result = mysql_query($sql,$con);
-
+		$result = mysql_affected_rows();
         if($closeDBLink){
             mysql_close($con);
         }

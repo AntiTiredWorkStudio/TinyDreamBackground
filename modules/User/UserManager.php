@@ -10,6 +10,7 @@ LIB('dp');
 LIB('ds');
 LIB('va');
 LIB('no');
+LIB('auth');
 
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
@@ -790,7 +791,7 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
-    //获取AccessToken
+    //获取AccessToken（鉴权入口,获取openid）
     public function GetAccessToken($code){
         /*wx.request({//获取用户的openid
             url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + C.conf.appid + '&secret=' + C.conf.secret+'&js_code='+res.code+'&grant_type=authorization_code',
@@ -809,6 +810,10 @@ class UserManager extends DBManager{
         $backMsg['openid'] = $result['openid'];
         $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
         $backMsg['version'] = $version;
+		if($GLOBALS['options']['auth']){//如若需要验证auth_token,生成api_secret
+			$auth = AuthManager::GenerateOrUpdateAuthToken($result['openid']);
+			$backMsg['auth'] = $auth;
+		}
         return $backMsg;
     }
 

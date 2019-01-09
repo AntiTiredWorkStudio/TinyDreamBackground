@@ -119,6 +119,10 @@ $tables = [
             ]
         ]
 	],*/
+	'tAuth'=>[
+		'name'=>'auth',
+		'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `secret` INT NOT NULL COMMENT '密钥' , `time` INT NOT NULL COMMENT '时间戳' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB  DEFAULT CHARSET=UTF8 COMMENT = '密钥管理';"
+	],
 	'tUser'=>[
 	    'name'=>'user',
         'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共奖励数量' , `totalJoin` INT NOT NULL COMMENT '总共参与数量' ,  `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('USER','OWNER','ADMIN') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='用户管理';"
@@ -217,7 +221,7 @@ $tables = [
     /***********小梦想互助简约版************/
     'dServer'=>[
         'name'=>'demo_server',
-        'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40))), PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '简约版服务列表';"
+        'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40) ,`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '简约版服务列表'"
     ]
 ];
 
