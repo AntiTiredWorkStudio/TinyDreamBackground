@@ -3,7 +3,15 @@
 //引用请求接口
 
 
-define('PERMISSION_LOCAL','localhost');
+define('PERMISSION_LOCAL',1);//只允许用过localhost请求
+define('PERMISSION_AUTH_FREE',2);//强制无需校验签名
+define('PERMISSION_AUTH_FORCE',4);//强制无需校验签名
+define('PERMISSION_USER_ADMIN',8);//超级管理员权限
+define('PERMISSION_USER_OWNER',16);//管理员/池主权限
+define('PERMISSION_USER_USER',32);//用户权限
+define('PERMISSION_ALL','all');//无需权限可访问
+
+
 define('MONITOR_COMMAND','moi');
 define('TIME_ZONE',8);
 
@@ -339,19 +347,76 @@ function GetFirstMonthDayStamp(){
 	return strtotime("$m/$d/$y");
 }
 
-//设置模块的响应动作
-function Responds($action, $manager, $actionArray,$permission='all'){
-    if($permission!='all'){
-        if($permission == 'localhost' && $_SERVER['SERVER_NAME'] != 'localhost') {
-            die("无此权限");
-        }
+class PermissionManager{
+    public static function CheckPermissions($permission,$targetPermission){
+        return ($targetPermission & $permission) == $permission;
     }
+
+    public $permission_free = true;
+
+    public $targetPermission = PERMISSION_ALL;
+    public function PermissionManager($tPermission){
+        $this->targetPermission = $tPermission;
+        $this->permission_free = $this->targetPermission == PERMISSION_ALL;
+    }
+
+    public function CheckServerName($serverName){
+        if($this->permission_free){
+           return true;
+        }
+
+        return !self::CheckPermissions(PERMISSION_LOCAL,$this->targetPermission) || $serverName=='localhost';
+    }
+
+    public function AuthFree($auth_option){
+        if($this->permission_free && !$auth_option){
+            return true;
+        }
+
+        return (!$auth_option && !self::CheckPermissions(PERMISSION_AUTH_FORCE,$this->targetPermission)) || self::CheckPermissions(PERMISSION_AUTH_FREE,$this->targetPermission);
+    }
+
+    public function UserAuth(){
+        if($this->permission_free){
+            return true;
+        }
+        $admin = self::CheckPermissions(PERMISSION_USER_ADMIN,$this->targetPermission);
+        $owner = self::CheckPermissions(PERMISSION_USER_OWNER,$this->targetPermission);
+        $user = self::CheckPermissions(PERMISSION_USER_USER,$this->targetPermission);
+        return Adapter::UserPermissionMethord($admin,$owner,$user);
+    }
+}
+
+
+
+//设置模块的响应动作
+function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//此处permission可被R中权限覆盖
+    $targetPermission = $permission;
+    if(isset($actionArray[$_REQUEST[$action]]['permission']) && $actionArray[$_REQUEST[$action]]['permission']!=PERMISSION_ALL){
+        $targetPermission = $actionArray[$_REQUEST[$action]]['permission'];
+    }
+
+    $PM = new PermissionManager($targetPermission);
+
+
+    if(!$PM->CheckServerName($_SERVER['SERVER_NAME']) || !$PM->UserAuth()){
+        die("无此权限");
+    }
+
+
 	if(empty($_REQUEST[$action]) || $_REQUEST[$action] ==''){
 		die(json_encode($actionArray));
 	}
     if(!array_key_exists($_REQUEST[$action],$actionArray)){
         die(json_encode(RESPONDINSTANCE('99',"请求模块'".$action."'不包含动作 '".$_REQUEST[$action]."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
+
+
+    if(!$PM->AuthFree($GLOBALS['options']['auth'])){//请求签名校验
+        Adapter::AuthMethord($action,$_REQUEST[$action],$_REQUEST);
+    }
+
+
     if(array_key_exists('pars',$actionArray[$_REQUEST[$action]])
         && array_key_exists('func',$actionArray[$_REQUEST[$action]])
     ){
@@ -396,7 +461,7 @@ function Responds($action, $manager, $actionArray,$permission='all'){
 }
 
 //创建响应结构
-function R($funcName, $pars = null,$permission = 'all',$return=true){
+function R($funcName, $pars = null,$permission = PERMISSION_ALL,$return=true){//此处permission若填写可覆盖Respond中定义的权限
     return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission,'backMsg'=>$return];
 }
 

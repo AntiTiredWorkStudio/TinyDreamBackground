@@ -95,6 +95,16 @@ class UserManager extends DBManager{
 		return 5-($result[0]['dayBuy']);
     }
 
+
+    public static function GetUserIdentity($uid){
+        $USM = new UserManager();
+        $result = DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),self::FieldIsValue('uid',$uid),false,'identity'),true);
+        if(!empty($result)){
+            $result = $result[0];
+        }
+        return $result;
+    }
+
     //检查身份
     public static function CheckIdentity($uid,$identity){
         $USM = new UserManager();

@@ -6,6 +6,7 @@
 
 	include_once("public/conf.php");//加载配置文件
 	include_once("public/lib.php");//加载公有库
+    include_once ("public/adapter.php");//加载适配器
 
 	$requestArray = [];
 

@@ -5,7 +5,7 @@
 
     Responds($_GET['act'],(new UserManager()),
     [
-        'inf'=>R('info'),//模块信息
+        'inf'=>R('info',null,PERMISSION_USER_OWNER),//模块信息
         /*--------------------有关用户个人信息--------------------*/
         'enter'=>R('EnterApp',['uid','nickname','headicon']),//进入小程序
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
