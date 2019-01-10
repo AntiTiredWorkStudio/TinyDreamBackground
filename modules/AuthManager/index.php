@@ -4,6 +4,6 @@
 
 	Responds($_GET['act'],(new AuthManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info',null,PERMISSION_AUTH_FREE)//模块信息
     ]);
 ?>

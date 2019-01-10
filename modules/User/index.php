@@ -9,7 +9,7 @@
         /*--------------------有关用户个人信息--------------------*/
         'enter'=>R('EnterApp',['uid','nickname','headicon']),//进入小程序
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
-        'gakt'=>R('GetAccessToken',['code']),
+        'gakt'=>R('GetAccessToken',['code'],PERMISSION_AUTH_FREE),//获取access_token
         /*--------------------后台登录--------------------*/
         'blogin'=>R('OnGetLoginCode',['tele']),//后台用户登录
         'ologin'=>R('OnBackgroundLogin',['tele','code']),//后台登录，校验验证码

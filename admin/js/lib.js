@@ -38,7 +38,14 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
     for(var k in paras){
         postInfo[k] = paras[k];
     }
-
+	
+	if(window.localStorage.getItem("auth") != "undefined"){
+		var auth = JSON.parse(window.localStorage.getItem("auth"));
+		var secret = auth.secret;
+		var openid = auth.openid;
+		var timeStamp = auth.timeStamp;
+		var signal = "";
+	}
 
     var ajaxObject ={
         url: Options.Url,
@@ -46,6 +53,11 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
         dataType: "json",
         data: postInfo,
         success: function (data) {
+			if(data.hasOwnProperty("auth") && data.hasOwnProperty("openid")){
+				var authData = data.auth;
+				authData.openid = data.openid;
+				window.localStorage.setItem("auth",JSON.stringify(authData));
+			}
             if(data["result"] == "true" || data['code']=="0"){
                 fSuccess(data['code'],data);
             }else{

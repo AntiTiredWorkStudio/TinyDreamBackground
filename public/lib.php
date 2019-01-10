@@ -5,7 +5,7 @@
 
 define('PERMISSION_LOCAL',1);//只允许用过localhost请求
 define('PERMISSION_AUTH_FREE',2);//强制无需校验签名
-define('PERMISSION_AUTH_FORCE',4);//强制无需校验签名
+define('PERMISSION_AUTH_FORCE',4);//强制校验签名
 define('PERMISSION_USER_ADMIN',8);//超级管理员权限
 define('PERMISSION_USER_OWNER',16);//管理员/池主权限
 define('PERMISSION_USER_USER',32);//用户权限
@@ -518,5 +518,21 @@ function ConnectArrayByChar($numsArray,$char){
         $str = $str.$num.$char;
     }
     return rtrim($str,$char);
+}
+
+function HttpGet($url){
+    $curl = curl_init();
+        //设置抓取的url
+    curl_setopt($curl, CURLOPT_URL, $url);
+        //设置头文件的信息作为数据流输出
+    curl_setopt($curl, CURLOPT_HEADER, 0);
+        //设置获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        //执行命令
+    $data = curl_exec($curl);
+        //关闭URL请求
+    curl_close($curl);
+        //显示获得的数据
+    return $data;
 }
 ?>

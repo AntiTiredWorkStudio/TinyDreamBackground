@@ -817,6 +817,11 @@ class UserManager extends DBManager{
         $result = file_get_contents($url);
         $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
+		if(!isset($result['openid'])){
+			$backMsg = RESPONDINSTANCE('63');
+			$backMsg['err'] = $result;
+			return $backMsg;
+		}
         $backMsg['openid'] = $result['openid'];
         $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
         $backMsg['version'] = $version;
