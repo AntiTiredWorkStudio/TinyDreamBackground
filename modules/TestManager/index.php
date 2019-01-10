@@ -20,5 +20,5 @@
         'twl'=>R('TryWrongLottery'),//测试状态错误的中奖编号
         'cvr'=>R('ConvertRealNameToNewVersion'),//将旧版实名认证转换位新版本数据
         'tn'=>R('TestNotice'),// 测试通知
-    ],PERMISSION_LOCAL);
+    ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 ?>

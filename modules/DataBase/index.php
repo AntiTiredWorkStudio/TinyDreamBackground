@@ -9,6 +9,6 @@
             'getf'=>R('GetTableFields',['tname']),//获取数据库字段
             'template'=>R('DBPHPTemplate'),
             //'test'=>R('FIV'),
-        ],PERMISSION_LOCAL);
+        ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 
 ?>
