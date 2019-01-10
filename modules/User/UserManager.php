@@ -203,6 +203,8 @@ class UserManager extends DBManager{
             $VAM = new ValidateManager();
             $backMsg = $VAM->ConfirmCode($tele, $code);
             $backMsg['access_token'] = $this->GenerateAccessToken();
+            $backMsg['openid'] = $uid;
+            $backMsg['auth'] = AuthManager::GenerateOrUpdateAuthToken($uid);
             return $backMsg;
         }else{
             return RESPONDINSTANCE('61');

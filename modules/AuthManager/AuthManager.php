@@ -51,7 +51,7 @@ class AuthManager extends DBManager{
 
         $tStamp = $authResult['time'];
 
-		$checkSignal = self::GetSignalByRequestArray($module,$secret,$requestArray,$tStamp,$action);
+		$checkSignal = self::GetSignalByRequestArray($secret,$requestArray,$tStamp,$action);
 
 		if($signal == $checkSignal){
             return ["result"=>true];
@@ -61,7 +61,7 @@ class AuthManager extends DBManager{
 	}
 
 	//计算签名
-	public static function GetSignalByRequestArray($module,$secret,$requestArray,$tStamp,$action){
+	public static function GetSignalByRequestArray($secret,$requestArray,$tStamp,$action){
         if(isset($requestArray['signal'])){
             unset($requestArray['signal']);
         }
@@ -78,5 +78,33 @@ class AuthManager extends DBManager{
 		$str = substr($str, 0, -1);
 		return $str;
 	}
+
+
+	public function CheckAuthToken($secret,$time,$openid){
+        $authResult = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tAuth'),
+                self::C_And(
+                    self::FieldIsValue('uid',$openid),
+                    self::FieldIsValue('secret',$secret)
+                )
+            ),
+            true
+        );
+
+        if(!empty($authResult)){
+            $authResult = $authResult[0];
+            if(PRC_TIME() - $authResult['time']>86400*3){
+                return RESPONDINSTANCE('65');
+            }
+            return RESPONDINSTANCE('0');
+        }else{
+            return self::C_And(
+                self::FieldIsValue('uid',$openid),
+                self::FieldIsValue('secret',$secret)
+            );
+            return RESPONDINSTANCE('64');
+        }
+    }
 }
 ?>

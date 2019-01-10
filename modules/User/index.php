@@ -11,8 +11,8 @@
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
         'gakt'=>R('GetAccessToken',['code'],PERMISSION_AUTH_FREE),//获取access_token
         /*--------------------后台登录--------------------*/
-        'blogin'=>R('OnGetLoginCode',['tele']),//后台用户登录
-        'ologin'=>R('OnBackgroundLogin',['tele','code']),//后台登录，校验验证码
+        'blogin'=>R('OnGetLoginCode',['tele'],PERMISSION_AUTH_FREE),//后台用户登录
+        'ologin'=>R('OnBackgroundLogin',['tele','code'],PERMISSION_AUTH_FREE),//后台登录，校验验证码
         /*--------------------旧版实名认证请求--------------------*/
         'rnameg'=>R('GetUserRealNameIdentify',['uid']),//获取单一用户的实名认证信息
         'rnames'=>R('RealNameIdentifyStart',['uid']),//实名认证准备

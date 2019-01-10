@@ -5,9 +5,9 @@
 	Responds($_GET['act'],(new BackgroundController()),
     [
         'inf'=>R('info'),//模块信息
-        'bnav'=>R('BuildNavigator',null,'all',false),//创建导航栏
-        'a_post'=>R('BuildPostDream',null,'all',false),//引用发布梦想池
-        'a_verify'=>R('BuildVerify',null,'all',false),//引用审核
-		'a_data'=>R('BuildDatas',null,'all',false),//引用审核
+        'bnav'=>R('BuildNavigator',null,PERMISSION_AUTH_FORCE,false),//创建导航栏
+        'a_post'=>R('BuildPostDream',null,PERMISSION_AUTH_FORCE,false),//引用发布梦想池
+        'a_verify'=>R('BuildVerify',null,PERMISSION_AUTH_FORCE,false),//引用审核
+		'a_data'=>R('BuildDatas',null,PERMISSION_AUTH_FORCE,false),//引用审核
     ]);
 ?>

@@ -1,32 +1,35 @@
 var main = function () {
+
+    $("#logout").click(Logout);
     if(!HasLogin()){
         window.location.href= "index.html";
     }else {
-
+        CheckAuthEnable(
+            function (res) {
+                if(res){
+                    BuildNavigator();
+                }
+            }
+        );
     }
-    BuildNavigator();
 }
-var accessToken = "NONE";
-window.onbeforeunload = function (e) {
-    // For Safari
-    SaveStorage("login",accessToken);
-};
 
-var HasLogin = function () {
-    if(!ExistStorage("login")){
-        return false;
-    }
+var Logout = function(){
+    Options.Auth = null;
+    SwitchPage('index.html');
+}
 
-    accessToken = GetStorage("login");
-
-    if(accessToken == "NONE"){
-        return false;
-    }
-
-    RemoveStorage("login");
-    //校验AccessToken  (自己的身份信息)
-    // sha1(tele+"-"+dayTime) == accessToken
-    return true;
+var CheckAuthEnable = function(resfunc){
+    TD_Request('auth','au',JSON.parse(Options.Auth),
+        function (code, data) {
+            resfunc(true);
+        } ,
+        function (code, data) {
+            console.log(data);
+            resfunc(false);
+        }
+    )
+    //Options.Auth;
 }
 
 
@@ -54,7 +57,6 @@ var LoadWorkSpace = function (id,pars) {
 }
 
 document.OnPartLoad = function (data) {
-    console.log(data.id);
     switch(data.id){
         case "nav":
             NavigatorModule.init(data);
@@ -256,6 +258,10 @@ var VerfModule = {
             }
         )
     }
+}
+
+Page.OnSignalFailed = function () {
+    window.location.href = "index.html";
 }
 
 

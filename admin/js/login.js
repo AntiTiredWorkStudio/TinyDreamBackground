@@ -2,6 +2,9 @@
 var login= function(){
     $("#code_submit").click(onSubmit);
     $("#generate").click(onGenerate);
+    if(HasLogin()){
+        SwitchPage('main.html');
+    }
 }
 
 
@@ -30,8 +33,9 @@ var onSubmit = function (res) {
         },
         function (code, data) {
             alert("登录成功");
-            SaveStorage('login',data.access_token);
-            window.location.href = "main.html";
+            SwitchPage('main.html');
+            //SaveStorage('login',data.access_token);
+            //window.location.href = "main.html";
         },
         function (code, data) {
             alert(data.context);
@@ -53,6 +57,8 @@ var onGenerate = function (res) {
         }
     );
 }
-
+Page.OnSignalFailed = function () {
+    window.location.href = "index.html";
+}
 
 login();
