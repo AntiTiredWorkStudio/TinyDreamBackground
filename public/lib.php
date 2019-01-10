@@ -188,7 +188,7 @@ function MonitorBuilder($key){
             'run'=>R('RunMonitor',['duration','default']),
             'cday'=>R('CheckDay'),//检查天
             'task'=>R('AddTask',['confName','dayTime','module','action','pars'])//增加任务
-        ],PERMISSION_LOCAL);
+        ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 }
 
 function REQUEST($key){
