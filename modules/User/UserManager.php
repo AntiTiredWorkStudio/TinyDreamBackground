@@ -202,7 +202,6 @@ class UserManager extends DBManager{
         if(self::CheckIdentity($uid,'OWNER') && self::CheckIdentity($uid,'ADMIN')) {
             $VAM = new ValidateManager();
             $backMsg = $VAM->ConfirmCode($tele, $code);
-            $backMsg['access_token'] = $this->GenerateAccessToken();
             $backMsg['openid'] = $uid;
             $backMsg['auth'] = AuthManager::GenerateOrUpdateAuthToken($uid);
             return $backMsg;
@@ -211,11 +210,6 @@ class UserManager extends DBManager{
         }
     }
 
-    public function GenerateAccessToken(){
-        return "asdfasdji2qnwduiqsniqudbnuawxwqjriuog";//需要优化
-    }
-
-	
 	//快速获取用户信息
 	public static function GetUsersInfoByString($uidStr){
 		$USM = (new UserManager());

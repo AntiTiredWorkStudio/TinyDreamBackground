@@ -7,7 +7,7 @@ define('DEFDOWNLOAD','http://fitchain.pro');
 $options = [
     'debug'  => false,//调试模式
     'token'  => 'konglf',
-    'version'=> 'concise',// 显示版本 可选值: concise/full
+    'version'=> 'full',// 显示版本 可选值: concise/full
     'auth'=>true,//是否校验签名
     // 'aes_key' => null, // 可选
 	'server' => '127.0.0.1',	//网站/数据库ip

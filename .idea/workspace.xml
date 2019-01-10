@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/modules/DataBase/index.php" afterPath="$PROJECT_DIR$/modules/DataBase/index.php" />
-      <change beforePath="$PROJECT_DIR$/modules/TestManager/index.php" afterPath="$PROJECT_DIR$/modules/TestManager/index.php" />
+      <change beforePath="$PROJECT_DIR$/buff.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/User/index.php" afterPath="$PROJECT_DIR$/modules/User/index.php" />
+      <change beforePath="$PROJECT_DIR$/public/conf.php" afterPath="$PROJECT_DIR$/public/conf.php" />
+      <change beforePath="$PROJECT_DIR$/unifiedorder01.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/unifiedorder02.txt" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,13 +32,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lib.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="lib.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="2" column="38" lean-forward="false" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+            <state relative-caret-position="1842">
+              <caret line="101" column="23" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
               <folding>
-                <element signature="e#390#620#0" expanded="false" />
                 <element signature="e#691#1970#0" expanded="false" />
                 <element signature="e#3659#3821#0" expanded="false" />
                 <element signature="e#3861#4025#0" expanded="false" />
@@ -57,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/TestManager/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="748">
@@ -67,11 +70,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/DataBase/DBManager.php">
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="13" column="30" lean-forward="false" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+            <state relative-caret-position="529">
+              <caret line="204" column="28" lean-forward="false" selection-start-line="204" selection-start-column="22" selection-end-line="204" selection-end-column="28" />
+              <folding>
+                <element signature="n#CheckDayBoughtLimit#0;n#UserManager#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/User/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="728">
+              <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -87,12 +102,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/AuthManager/index.php">
+      <file leaf-file-name="conf.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/conf.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="306">
+              <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+              <folding>
+                <marker date="1547143641787" expanded="true" signature="4195:4410" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="4470:4911" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="4985:5556" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="5627:6046" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="6117:6621" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="6700:6993" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="7656:7963" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="8704:8874" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="8946:9341" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="9412:9860" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="9931:10414" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="10487:11000" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="11076:11371" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="11444:11797" ph="CREATE TABLE... ##DBName##" />
+                <marker date="1547143641787" expanded="true" signature="11913:12398" ph="CREATE TABLE... ##DBName##" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,38 +138,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/main.html">
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/js/login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="59" column="49" lean-forward="false" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
+            <state relative-caret-position="322">
+              <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="37" selection-end-column="49" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conf.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/conf.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="96" column="20" lean-forward="true" selection-start-line="96" selection-start-column="20" selection-end-line="97" selection-end-column="19" />
-              <folding>
-                <marker date="1547140870994" expanded="true" signature="4198:4413" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="4473:4914" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="4988:5559" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="5630:6049" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="6120:6624" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="6703:6996" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="7659:7966" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="8707:8877" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="8949:9344" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="9415:9863" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="9934:10417" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="10490:11003" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="11079:11374" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="11447:11800" ph="CREATE TABLE... ##DBName##" />
-                <marker date="1547140870994" expanded="true" signature="11916:12401" ph="CREATE TABLE... ##DBName##" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -166,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Update</find>
       <find>Delet</find>
       <find>EnterApp</find>
       <find>GetJoinedPoolInfoByRange</find>
@@ -192,10 +196,11 @@
       <find>GenerateDayID</find>
       <find>AuthFree</find>
       <find>LIB</find>
-      <find>OnBackgroundLogin</find>
       <find>SaveStorage</find>
       <find>Page_Builder</find>
       <find>&lt;</find>
+      <find>GenerateAccessToken</find>
+      <find>OnBackgroundLogin</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -243,11 +248,8 @@
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/public/adapter.php" />
         <option value="$PROJECT_DIR$/admin/demo.html" />
-        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
-        <option value="$PROJECT_DIR$/modules/User/index.php" />
         <option value="$PROJECT_DIR$/modules/BackgroundController/index.php" />
         <option value="$PROJECT_DIR$/admin/js/login.js" />
-        <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/AuthManager/AuthManager.php" />
         <option value="$PROJECT_DIR$/modules/AuthManager/index.php" />
         <option value="$PROJECT_DIR$/admin/main.html" />
@@ -255,6 +257,9 @@
         <option value="$PROJECT_DIR$/admin/js/lib.js" />
         <option value="$PROJECT_DIR$/modules/DataBase/index.php" />
         <option value="$PROJECT_DIR$/modules/TestManager/index.php" />
+        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
+        <option value="$PROJECT_DIR$/modules/User/index.php" />
+        <option value="$PROJECT_DIR$/public/conf.php" />
       </list>
     </option>
   </component>
@@ -488,12 +493,12 @@
       <workItem from="1546749095708" duration="26267000" />
       <workItem from="1546954574116" duration="3102000" />
       <workItem from="1547041483295" duration="11010000" />
-      <workItem from="1547113549070" duration="13339000" />
+      <workItem from="1547113549070" duration="14713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="536528000" />
+    <option name="totallyTimeSpent" value="537902000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -527,7 +532,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="57" />
+      <option name="time" value="58" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -784,24 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="14" column="76" lean-forward="false" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6921">
-          <caret line="206" column="42" lean-forward="false" selection-start-line="206" selection-start-column="31" selection-end-line="206" selection-end-column="42" />
-          <folding>
-            <element signature="n#CheckDayBoughtLimit#0;n#UserManager#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/view/postdream.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -818,38 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/conf.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="96" column="20" lean-forward="true" selection-start-line="96" selection-start-column="20" selection-end-line="97" selection-end-column="19" />
-          <folding>
-            <marker date="1547140870994" expanded="true" signature="4198:4413" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="4473:4914" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="4988:5559" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="5630:6049" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="6120:6624" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="6703:6996" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="7659:7966" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="8707:8877" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="8949:9344" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="9415:9863" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="9934:10417" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="10490:11003" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="11079:11374" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="11447:11800" ph="CREATE TABLE... ##DBName##" />
-            <marker date="1547140870994" expanded="true" signature="11916:12401" ph="CREATE TABLE... ##DBName##" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/AuthManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -863,57 +818,6 @@
         <state relative-caret-position="693">
           <caret line="59" column="49" lean-forward="false" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/AuthManager/AuthManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="38" lean-forward="false" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-          <folding>
-            <element signature="e#390#620#0" expanded="false" />
-            <element signature="e#691#1970#0" expanded="false" />
-            <element signature="e#3659#3821#0" expanded="false" />
-            <element signature="e#3861#4025#0" expanded="false" />
-            <element signature="e#4066#4236#0" expanded="false" />
-            <element signature="e#4288#4457#0" expanded="false" />
-            <element signature="e#4498#4545#0" expanded="false" />
-            <element signature="e#4582#4626#0" expanded="false" />
-            <element signature="e#4660#4717#0" expanded="false" />
-            <element signature="e#4749#4797#0" expanded="false" />
-            <element signature="e#4826#4879#0" expanded="false" />
-            <element signature="e#4937#4973#0" expanded="false" />
-            <element signature="e#5031#5068#0" expanded="false" />
-            <element signature="e#5423#5477#0" expanded="false" />
-            <element signature="e#5516#6119#0" expanded="false" />
-            <element signature="e#6155#6584#0" expanded="false" />
-            <element signature="e#6615#7187#0" expanded="false" />
-            <element signature="e#7212#8957#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -938,6 +842,106 @@
         <state relative-caret-position="748">
           <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="37" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/AuthManager/AuthManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="204" column="28" lean-forward="false" selection-start-line="204" selection-start-column="22" selection-end-line="204" selection-end-column="28" />
+          <folding>
+            <element signature="n#CheckDayBoughtLimit#0;n#UserManager#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/conf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <folding>
+            <marker date="1547143641787" expanded="true" signature="4195:4410" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="4470:4911" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="4985:5556" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="5627:6046" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="6117:6621" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="6700:6993" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="7656:7963" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="8704:8874" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="8946:9341" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="9412:9860" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="9931:10414" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="10487:11000" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="11076:11371" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="11444:11797" ph="CREATE TABLE... ##DBName##" />
+            <marker date="1547143641787" expanded="true" signature="11913:12398" ph="CREATE TABLE... ##DBName##" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1842">
+          <caret line="101" column="23" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
+          <folding>
+            <element signature="e#691#1970#0" expanded="false" />
+            <element signature="e#3659#3821#0" expanded="false" />
+            <element signature="e#3861#4025#0" expanded="false" />
+            <element signature="e#4066#4236#0" expanded="false" />
+            <element signature="e#4288#4457#0" expanded="false" />
+            <element signature="e#4498#4545#0" expanded="false" />
+            <element signature="e#4582#4626#0" expanded="false" />
+            <element signature="e#4660#4717#0" expanded="false" />
+            <element signature="e#4749#4797#0" expanded="false" />
+            <element signature="e#4826#4879#0" expanded="false" />
+            <element signature="e#4937#4973#0" expanded="false" />
+            <element signature="e#5031#5068#0" expanded="false" />
+            <element signature="e#5423#5477#0" expanded="false" />
+            <element signature="e#5516#6119#0" expanded="false" />
+            <element signature="e#6155#6584#0" expanded="false" />
+            <element signature="e#6615#7187#0" expanded="false" />
+            <element signature="e#7212#8957#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
