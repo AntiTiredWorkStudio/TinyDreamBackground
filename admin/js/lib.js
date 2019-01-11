@@ -371,9 +371,21 @@ var HasLogin = function () {
 }
 
 var WebApp = {
-  GetCode:function (web_appid,complete) {
-      var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=1#wechat_redirect";
-    Http_Get_Request(
+  GetCode:function (web_appid) {
+      var redirect = {
+          appid:web_appid,
+          redirect_uri:'https://tinydream.antit.top/admin/test.php',
+          response_type:'code',
+          scope:'snsapi_base',
+          state:'1'
+      }
+      /*
+      *
+      * https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx**********f&redirect_uri=http://1223.applinzi.com/wx_jiaj.php&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+      * */
+      var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+redirect.appid+"&redirect_uri="+redirect.redirect_uri+"&response_type="+redirect.response_type+"&scope="+redirect.scope+"&state="+redirect.state+"#wechat_redirect";
+        window.location.href = url;
+    /*Http_Get_Request(
         'https://open.weixin.qq.com/connect/oauth2/authorize',
         {
             appid:web_appid,
@@ -390,7 +402,7 @@ var WebApp = {
             complete(res);
             console.log(res);
         }
-    )
+    )*/
   }  
 };
 
