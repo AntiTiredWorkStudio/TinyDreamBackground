@@ -10,6 +10,7 @@
         'enter'=>R('EnterApp',['uid','nickname','headicon']),//进入小程序
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
         'gakt'=>R('GetAccessToken',['code'],PERMISSION_AUTH_FREE),//获取access_token【小程序入口,返回secret及openid】
+        'gpbk'=>R('GetPublicCode',null,PERMISSION_AUTH_FREE),//获取公众号code
         /*--------------------后台登录--------------------*/
         'blogin'=>R('OnGetLoginCode',['tele'],PERMISSION_AUTH_FREE),//后台用户登录
         'ologin'=>R('OnBackgroundLogin',['tele','code'],PERMISSION_AUTH_FREE),//后台登录，校验验证码【后台入口,返回secret及openid】

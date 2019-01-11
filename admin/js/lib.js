@@ -81,7 +81,7 @@ var GetSignalString = function(secret,timeStamp,requestArray){
     return sha1(requestString.substring(0, requestString.length - 1)+"&secret="+secret+"&time="+timeStamp);
 }
 
-//调用请求
+//后台通用请求模板
 var TD_Request = function(module,action,paras,fSuccess,fFailed) {
 
     var postInfo = {};
@@ -126,6 +126,20 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
         error: function (e) {
             fFailed('-1',e);
         }
+    };
+    $.ajax(ajaxObject);
+}
+
+//http get请求
+var Http_Get_Request = function(url,datas,fSuccess,fFailed) {
+
+    var ajaxObject ={
+        url: url,
+        type: "get",
+        dataType: "json",
+        data: datas,
+        success: fSuccess,
+        error: fFailed
     };
     $.ajax(ajaxObject);
 }
@@ -352,11 +366,33 @@ window.onbeforeunload = function (e) {
     }
 };
 
-
 var HasLogin = function () {
     return Options.Auth!=null;
 }
 
+var WebApp = {
+  GetCode:function (web_appid,complete) {
+      var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=1#wechat_redirect";
+    Http_Get_Request(
+        'https://open.weixin.qq.com/connect/oauth2/authorize',
+        {
+            appid:web_appid,
+            redirect_uri:'https://tinydream.antit.top/demo.html',
+            response_type:'code',
+            scope:'SCOPE',
+            state:'1#wechat_redirect'
+        },
+        function (res) {
+            complete(res);
+            console.log(res);
+        },
+        function (res) {
+            complete(res);
+            console.log(res);
+        }
+    )
+  }  
+};
 
 var InitOptions = function () {
     if(ExistStorage("auth")){

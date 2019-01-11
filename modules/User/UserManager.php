@@ -797,6 +797,18 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
+    //获取公众号code
+    public function GetPublicCode(){
+        $appid = $GLOBALS['options']['WEB_APP_ID'];
+        $appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
+        //$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=1#wechat_redirect";
+        //echo $url;
+        //echo HttpGet($url);
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['appid'] = $appid;
+        return $backMsg;
+    }
+
     //获取AccessToken（鉴权入口,获取openid）
     public function GetAccessToken($code){
         /*wx.request({//获取用户的openid
