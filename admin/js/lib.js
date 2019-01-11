@@ -90,7 +90,6 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
     for(var k in paras){
         postInfo[k] = paras[k];
     }
-    //console.log(postInfo);
     //console.log(GetSignalString(postInfo));
     //console.log(window.localStorage.getItem("auth"));
 	if(Options.Auth != null){
@@ -123,10 +122,11 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
                 fFailed(data['code'],data);
             }
         },
-        error: function (e) {
-            fFailed('-1',e);
+        error: function (err) {
+            fFailed('-1',err);
         }
     };
+	console.log(ajaxObject);
     $.ajax(ajaxObject);
 }
 
@@ -370,40 +370,45 @@ var HasLogin = function () {
     return Options.Auth!=null;
 }
 
+var SetCookie = function(name,value)
+{
+    var Days = 30; //此 cookie 将被保存 30 天
+    var exp = new Date();    //new Date("December 31, 9998");
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+var getCookie =function(name)
+{
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+    if(arr != null) return unescape(arr[2]); return null;
+}
+
+var delCookie = function(name)
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
 var WebApp = {
   GetCode:function (web_appid) {
       var redirect = {
           appid:web_appid,
-          redirect_uri:'https://tinydream.antit.top/admin/test.php',
+          redirect_uri:'https://tinydream.antit.top/index.php',
           response_type:'code',
-          scope:'snsapi_base',
+          scope:'snsapi_userinfo',
           state:'1'
       }
-      /*
-      *
-      * https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx**********f&redirect_uri=http://1223.applinzi.com/wx_jiaj.php&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
-      * */
       var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+redirect.appid+"&redirect_uri="+redirect.redirect_uri+"&response_type="+redirect.response_type+"&scope="+redirect.scope+"&state="+redirect.state+"#wechat_redirect";
         window.location.href = url;
-    /*Http_Get_Request(
-        'https://open.weixin.qq.com/connect/oauth2/authorize',
-        {
-            appid:web_appid,
-            redirect_uri:'https://tinydream.antit.top/demo.html',
-            response_type:'code',
-            scope:'SCOPE',
-            state:'1#wechat_redirect'
-        },
-        function (res) {
-            complete(res);
-            console.log(res);
-        },
-        function (res) {
-            complete(res);
-            console.log(res);
-        }
-    )*/
-  }  
+  },
+  GetAuthInfo:function(){
+	var codeData = getCookie("code");
+	delCookie("code");
+	return codeData;
+  }
 };
 
 var InitOptions = function () {

@@ -12,7 +12,23 @@
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/lib.js"></script>
 <script>
-WebApp.GetCode('wxdca9f5edc034c1a0');
+var codeData = WebApp.GetAuthInfo();
+if(codeData==null){
+	WebApp.GetCode('wxdca9f5edc034c1a0');
+}else{
+	codeData = JSON.parse(codeData);
+	console.log(codeData);
+	TD_Request('us','gakt',
+		{code:codeData.code},
+		function(code,data){
+			console.log(data);
+		},
+		function(code,data){
+			console.log(code,data);
+		}
+	);
+	//alert(codeData);
+}
 </script>
 </body>
 </html>

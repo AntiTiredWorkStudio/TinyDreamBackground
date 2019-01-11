@@ -13,7 +13,7 @@
 	foreach($_REQUEST as $key=>$value){
 		array_push($requestArray,$key);
 	}
-
+	
 	if(empty($requestArray)){
 	    if(isset($GLOBALS['options']['ManageIndex'])){
             header('Location:'.$GLOBALS['options']['ManageIndex']);//进入管理后台

@@ -14,6 +14,7 @@ define('PERMISSION_ALL','all');//无需权限可访问
 
 define('MONITOR_COMMAND','moi');
 define('WECHAT_COMBINE_COMMAND','signature');
+define('WECHAT_GETUSERINFO_COMMAND','code');
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -211,16 +212,30 @@ function CombineWechatServer(){
 	}
 }
 
+//微信公众号方法处理
+$WebApp = [
+	WECHAT_COMBINE_COMMAND=>function(){
+		if(CombineWechatServer()){
+			echo $_REQUEST['echostr'];
+			return;
+		}},
+	WECHAT_GETUSERINFO_COMMAND =>function(){
+		//echo json_encode($_REQUEST);
+		setcookie('code',json_encode($_REQUEST));
+		Header("https://tinydream.antit.top/admin/demo.html");
+		return;
+	},
+];
+
 function REQUEST($key){
     if($key==MONITOR_COMMAND) {
         MonitorBuilder($key);
         return;
     }
-	if($key==WECHAT_COMBINE_COMMAND){
-		if(CombineWechatServer()){
-			echo $_REQUEST['echostr'];
-			return;
-		}
+	
+	if(isset($GLOBALS['WebApp'][$key])){
+		$GLOBALS['WebApp'][$key]();
+		return;
 	}
 	try{
 		if(!isset($GLOBALS['modules'][$key])){
