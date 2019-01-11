@@ -797,15 +797,24 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
-    //获取公众号code
-    public function GetPublicCode(){
-        $appid = $GLOBALS['options']['WEB_APP_ID'];
-        $appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
-        //$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=1#wechat_redirect";
-        //echo $url;
-        //echo HttpGet($url);
+    //获取AccessToken（公众号鉴权入口,获取openid）
+    public function GetAccessTokenWeb($code){
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$GLOBALS['options']['WEB_APP_ID'].'&secret='.$GLOBALS['options']['WEB_APP_SECRET'].'&js_code='.$code.'&grant_type=authorization_code';
+        $result = file_get_contents($url);
+        $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['appid'] = $appid;
+        if(!isset($result['openid'])){
+            $backMsg = RESPONDINSTANCE('63');
+            $backMsg['err'] = $result;
+            return $backMsg;
+        }
+        $backMsg['openid'] = $result['openid'];
+        $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
+        $backMsg['version'] = $version;
+        if($GLOBALS['options']['auth']){//如若需要验证auth_token,生成api_secret
+            $auth = AuthManager::GenerateOrUpdateAuthToken($result['openid']);
+            $backMsg['auth'] = $auth;
+        }
         return $backMsg;
     }
 
