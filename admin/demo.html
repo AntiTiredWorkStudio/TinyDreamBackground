@@ -17,8 +17,8 @@ if(codeData==null){
 	WebApp.GetCode('wxdca9f5edc034c1a0');
 }else{
 	codeData = JSON.parse(codeData);
-	console.log(codeData);
-	TD_Request('us','gakt',
+	console.log(codeData.code);
+	TD_Request('us','gawt',
 		{code:codeData.code},
 		function(code,data){
 			console.log(data);

@@ -370,12 +370,11 @@ var HasLogin = function () {
     return Options.Auth!=null;
 }
 
-var SetCookie = function(name,value)
-{
-    var Days = 30; //此 cookie 将被保存 30 天
-    var exp = new Date();    //new Date("December 31, 9998");
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
 var getCookie =function(name)
@@ -384,13 +383,16 @@ var getCookie =function(name)
     if(arr != null) return unescape(arr[2]); return null;
 }
 
-var delCookie = function(name)
-{
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
+function delCookie(name) 
+{ 
+	console.log('删除 cookie');
+    var exp = new Date(); 
+    exp.setTime(exp.getTime() - 1); 
+    var cval=getCookie(name); 
+    if(cval!=null) {
+		document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
+	}
+} 
 
 var WebApp = {
   GetCode:function (web_appid) {
@@ -406,7 +408,11 @@ var WebApp = {
   },
   GetAuthInfo:function(){
 	var codeData = getCookie("code");
-	delCookie("code");
+	if(codeData != null){
+		//console.log('准被删除');
+		//delCookie("code");
+		setCookie('code','','-1');
+	}
 	return codeData;
   }
 };

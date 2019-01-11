@@ -799,7 +799,7 @@ class UserManager extends DBManager{
 
     //获取AccessToken（公众号鉴权入口,获取openid）
     public function GetAccessTokenWeb($code){
-        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$GLOBALS['options']['WEB_APP_ID'].'&secret='.$GLOBALS['options']['WEB_APP_SECRET'].'&js_code='.$code.'&grant_type=authorization_code';
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$GLOBALS['options']['WEB_APP_ID'].'&secret='.$GLOBALS['options']['WEB_APP_SECRET'].'&code='.$code.'&grant_type=authorization_code';
         $result = file_get_contents($url);
         $result = json_decode($result,true);
         $backMsg = RESPONDINSTANCE('0');
@@ -808,6 +808,12 @@ class UserManager extends DBManager{
             $backMsg['err'] = $result;
             return $backMsg;
         }
+		/*access_token	网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
+		expires_in	access_token接口调用凭证超时时间，单位（秒）
+		refresh_token	用户刷新access_token*/
+		$backMsg['access_token'] = $result['access_token'];
+		$backMsg['expires_in'] = $result['expires_in'];
+		$backMsg['refresh_token'] = $result['refresh_token'];
         $backMsg['openid'] = $result['openid'];
         $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
         $backMsg['version'] = $version;

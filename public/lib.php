@@ -221,8 +221,8 @@ $WebApp = [
 		}},
 	WECHAT_GETUSERINFO_COMMAND =>function(){
 		//echo json_encode($_REQUEST);
-		setcookie('code',json_encode($_REQUEST));
-		Header("https://tinydream.antit.top/admin/demo.html");
+		Header("Location:https://tinydream.antit.top/admin/demo.html");
+		setcookie('code',json_encode($_REQUEST,JSON_UNESCAPED_UNICODE),PRC_TIME()+3600);
 		return;
 	},
 ];
