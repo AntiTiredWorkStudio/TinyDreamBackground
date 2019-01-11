@@ -198,8 +198,8 @@ function CombineWechatServer(){
 	$echostr = $_REQUEST['echostr'];
 	$timestamp = $_REQUEST['timestamp'];
 	$nonce = $_REQUEST['nonce'];
-	
-	$tmpArr = array($timestamp, $nonce);
+	$token = 'konglf';
+	$tmpArr = array($token,$timestamp, $nonce);
 	sort($tmpArr, SORT_STRING);
 	$tmpStr = implode($tmpArr);
 	$tmpStr = sha1($tmpStr);
@@ -218,7 +218,7 @@ function REQUEST($key){
     }
 	if($key==WECHAT_COMBINE_COMMAND){
 		if(CombineWechatServer()){
-			return $_REQUEST['echostr'];
+			echo $_REQUEST['echostr'];
 		}
 	}
 	try{
