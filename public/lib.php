@@ -219,6 +219,7 @@ function REQUEST($key){
 	if($key==WECHAT_COMBINE_COMMAND){
 		if(CombineWechatServer()){
 			echo $_REQUEST['echostr'];
+			return;
 		}
 	}
 	try{
