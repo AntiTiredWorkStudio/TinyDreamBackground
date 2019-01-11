@@ -13,6 +13,7 @@ define('PERMISSION_ALL','all');//无需权限可访问
 
 
 define('MONITOR_COMMAND','moi');
+define('WECHAT_COMBINE_COMMAND','signature');
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -191,11 +192,35 @@ function MonitorBuilder($key){
         ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 }
 
+function CombineWechatServer(){
+	//{"signature":"083289d5f4f57622dec53bbffeeb84492a7125cc","echostr":"3749999956182686711","timestamp":"1547194837","nonce":"1203941899"}
+	$signature = $_REQUEST['signature'];
+	$echostr = $_REQUEST['echostr'];
+	$timestamp = $_REQUEST['timestamp'];
+	$nonce = $_REQUEST['nonce'];
+	
+	$tmpArr = array($timestamp, $nonce);
+	sort($tmpArr, SORT_STRING);
+	$tmpStr = implode($tmpArr);
+	$tmpStr = sha1($tmpStr);
+
+	if($signature == $tmpStr){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function REQUEST($key){
     if($key==MONITOR_COMMAND) {
         MonitorBuilder($key);
         return;
     }
+	if($key==WECHAT_COMBINE_COMMAND){
+		if(CombineWechatServer()){
+			return $_REQUEST['echostr'];
+		}
+	}
 	try{
 		if(!isset($GLOBALS['modules'][$key])){
 			die(json_encode(RESPONDINSTANCE('99','不存在模块:'.$key),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
