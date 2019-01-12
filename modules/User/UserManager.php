@@ -824,6 +824,14 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
+	//获取用户资料(公众号)
+	public function GetUserInfoWeb($atoken,$uid){
+		$url = "https://api.weixin.qq.com/sns/userinfo?access_token=$atoken&openid=$uid&lang=zh_CN";
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['info'] = HttpGet($url);
+		return $backMsg;
+	}
+	
     //获取AccessToken（鉴权入口,获取openid）
     public function GetAccessToken($code){
         /*wx.request({//获取用户的openid

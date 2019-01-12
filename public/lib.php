@@ -15,6 +15,7 @@ define('PERMISSION_ALL','all');//无需权限可访问
 define('MONITOR_COMMAND','moi');
 define('WECHAT_COMBINE_COMMAND','signature');
 define('WECHAT_GETUSERINFO_COMMAND','code');
+define('WECHAT_WEB_COMMAND','webchatweb');
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -221,8 +222,12 @@ $WebApp = [
 		}},
 	WECHAT_GETUSERINFO_COMMAND =>function(){
 		//echo json_encode($_REQUEST);
-		Header("Location:https://tinydream.antit.top/admin/demo.html");
-		setcookie('code',json_encode($_REQUEST,JSON_UNESCAPED_UNICODE),PRC_TIME()+3600);
+		Header("Location:https://tinydream.antit.top/admin/demo.html?code=".$_REQUEST['code']."&state=".$_REQUEST['state']);
+		//setcookie('code',json_encode($_REQUEST,JSON_UNESCAPED_UNICODE),PRC_TIME()+3600);
+		return;
+	},
+	WECHAT_WEB_COMMAND=>function(){
+		Header("Location:".$GLOBALS['options']['web_url']);
 		return;
 	},
 ];

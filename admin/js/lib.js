@@ -1,7 +1,12 @@
 
 var Options = {
     Url : "https://tinydream.antit.top",//http://localhost:8003 , https://tinydream.antit.top
-    Auth:null
+    Auth:null,
+	AccessToken:null,
+	UserInfo:null,
+	GetUserInfo:function(){
+		return this.UserInfo!=null?JSON.parse(this.UserInfo):null;
+	}
 };
 var Page = {
     OnSignalFailed : function (data) {
@@ -9,9 +14,6 @@ var Page = {
     }
 };
 var SwitchPage = function (url) {
-    /*if(Options.Auth!=null) {
-        SaveStorage("auth", Options.Auth);
-    }*/
     window.location.href = url;
 }
 
@@ -20,6 +22,14 @@ var CheckAndSetAuthInfo = function (requestData) {
         var authData = requestData.auth;
         authData.openid = requestData.openid;
         Options.Auth = JSON.stringify(authData);
+		if(requestData.hasOwnProperty("access_token") && requestData.hasOwnProperty("refresh_token") && requestData.hasOwnProperty("expires_in")){
+			Options.AccessToken = JSON.stringify({
+				access_token:requestData.access_token,
+				refresh_token:requestData.refresh_token,
+				expires_in:requestData.expires_in,
+				timeStamp : JSTimeToPHPTime(PRC_TIME())
+			})
+		}
     }
 }
 
@@ -90,8 +100,6 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
     for(var k in paras){
         postInfo[k] = paras[k];
     }
-    //console.log(GetSignalString(postInfo));
-    //console.log(window.localStorage.getItem("auth"));
 	if(Options.Auth != null){
 		var auth = JSON.parse(Options.Auth);
 		var secret = auth.secret;
@@ -126,7 +134,6 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
             fFailed('-1',err);
         }
     };
-	console.log(ajaxObject);
     $.ajax(ajaxObject);
 }
 
@@ -136,13 +143,14 @@ var Http_Get_Request = function(url,datas,fSuccess,fFailed) {
     var ajaxObject ={
         url: url,
         type: "get",
-        dataType: "json",
+		dataType:"json",
         data: datas,
         success: fSuccess,
         error: fFailed
     };
     $.ajax(ajaxObject);
 }
+
 
 //检查验证码格式
 var IsValidateCode = function(target){
@@ -360,11 +368,6 @@ var sha1 = function(s) {
     return hex;
 }
 
-window.onbeforeunload = function (e) {
-    if(Options.Auth!=null) {
-        SaveStorage("auth", Options.Auth);
-    }
-};
 
 var HasLogin = function () {
     return Options.Auth!=null;
@@ -385,36 +388,46 @@ var getCookie =function(name)
 
 function delCookie(name) 
 { 
-	console.log('删除 cookie');
     var exp = new Date(); 
-    exp.setTime(exp.getTime() - 1); 
+    exp.setTime(exp.getTime() - 864000); 
     var cval=getCookie(name); 
+	console.log('get:',cval);
     if(cval!=null) {
-		document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
+		if(getCookie(name)!=null){
+			console.log('删除 cookie',name + "="+cval+";expires="+exp.toUTCString());
+			console.log(document.cookie);
+			document.cookie= name + "="+cval+";expires="+exp.toUTCString()+";path=12345"; 
+		}
 	}
 } 
 
-var WebApp = {
-  GetCode:function (web_appid) {
-      var redirect = {
-          appid:web_appid,
-          redirect_uri:'https://tinydream.antit.top/index.php',
-          response_type:'code',
-          scope:'snsapi_userinfo',
-          state:'1'
-      }
-      var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+redirect.appid+"&redirect_uri="+redirect.redirect_uri+"&response_type="+redirect.response_type+"&scope="+redirect.scope+"&state="+redirect.state+"#wechat_redirect";
-        window.location.href = url;
-  },
-  GetAuthInfo:function(){
-	var codeData = getCookie("code");
-	if(codeData != null){
-		//console.log('准被删除');
-		//delCookie("code");
-		setCookie('code','','-1');
+var $_GET = (function(){
+    var url = window.document.location.href.toString();
+    var u = url.split("?");
+    if(typeof(u[1]) == "string"){
+        u = u[1].split("&");
+        var get = {};
+        for(var i in u){
+            var j = u[i].split("=");
+            get[j[0]] = j[1];
+        }
+        return get;
+    } else {
+        return {};
+    }
+})();
+
+window.onbeforeunload = function (e) {
+    if(Options.Auth!=null) {
+        SaveStorage("auth", Options.Auth);
+    }
+	if(Options.AccessToken != null){
+		SaveStorage("AccessToken",Options.AccessToken);
 	}
-	return codeData;
-  }
+	
+	if(Options.UserInfo != null){
+		SaveStorage("UserInfo",Options.UserInfo);
+	}
 };
 
 var InitOptions = function () {
@@ -422,7 +435,20 @@ var InitOptions = function () {
         var auth = GetStorage("auth");
         RemoveStorage("auth");
         Options.Auth = auth;
-        console.log('init auth');
+        //console.log('init auth');
     }
+	if(ExistStorage("AccessToken")){
+        var accesstoken = GetStorage("AccessToken");
+        RemoveStorage("AccessToken");
+        Options.AccessToken = accesstoken;
+        //console.log('init AccessToken');
+	}
+	
+	if(ExistStorage("UserInfo")){
+        var userinfo = GetStorage("UserInfo");
+        RemoveStorage("UserInfo");
+        Options.UserInfo = userinfo;
+        //console.log('init UserInfo');
+	}
 }
 InitOptions();
