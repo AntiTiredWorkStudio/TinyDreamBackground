@@ -29,7 +29,7 @@ var WebApp = {
 	}else{
 		WebApp.GetUserInfo(
 			function(result,data){
-				console.log(result,data);
+				//console.log(result,data);
 				if(complete){
 					if(result){
 						complete(result,JSON.parse(data));
