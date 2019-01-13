@@ -19,6 +19,7 @@
         'sver'=>R('SubmitDreamToVerify',['uid','did']),//完善梦想后将中奖梦想提交审核
         'pdetial'=>R('ShowPoolDetails',['uid','pid']),//获取编号
         'wxpay'=>R('WxPay',['oid','bill','uid']),//统一下单
+        'wxpayweb'=>R('WxPayWeb',['oid','bill','uid']),//统一下单公众号
         'plistr'=>R('GetRunningPoolInfoByRange',['seek','count']),//用户获取进行中的梦想池
         'plistf'=>R('GetFinishedPoolInfoByRange',['seek','count']),//用户获取结束的梦想池
         'plistj'=>R('GetJoinedPoolInfoByRange',['uid','seek','count']),//用户获取参与中的梦想池

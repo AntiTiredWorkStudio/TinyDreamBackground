@@ -753,6 +753,67 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+    //统一下单公众号
+    public function WxPayWeb($oid,$bill,$uid){
+        include 'init.php';
+
+        // 加载配置参数
+        $config = [
+            'wechat'=>[
+                // 沙箱模式
+                'debug'      => false,
+                // 应用ID
+                'app_id'     => $GLOBALS['options']['WEB_APP_ID'],
+                // 微信支付商户号
+                'mch_id'     => $GLOBALS['options']['MCH_ID'],
+                /*
+                 // 子商户公众账号ID
+                 'sub_appid'  => '子商户公众账号ID，需要的时候填写',
+                 // 子商户号
+                 'sub_mch_id' => '子商户号，需要的时候填写',
+                */
+                // 微信支付密钥
+                'mch_key'    => $GLOBALS['options']['MCH_KEY'],
+                // 微信证书 cert 文件
+                'ssl_cer'    => __DIR__ . '/cert/apiclient_cert.pem',
+                // 微信证书 key 文件
+                'ssl_key'    => __DIR__ . '/cert/apiclient_key.pem',
+                // 缓存目录配置
+                'cache_path' => '',
+                // 支付成功通知地址
+                'notify_url' => '',
+                // 网页支付回跳地址
+                'return_url' => '',
+            ]
+        ];
+
+// 支付参数
+        $options = [
+            'out_trade_no'     => $oid, // 订单号
+            'total_fee'        => $bill, // 订单金额，**单位：分**
+            'body'             => '小梦想互助-购买梦想', // 订单描述
+            'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], // 支付人的 IP
+            'openid'           => $uid, // 支付人的 openID
+            'notify_url'       => 'http://localhost/notify.php', // 定义通知URL
+        ];
+
+
+// 实例支付对象
+        $pay = new \Pay\Pay($config);
+        try {
+            $result = $pay->driver('wechat')->gateway('mp')->apply($options);
+            $backMsg = RESPONDINSTANCE('0');
+            foreach ($result as $key=>$item) {
+                $backMsg[$key] = $item;
+            }
+            return $backMsg;
+        } catch (Exception $e) {
+            $backMsg = RESPONDINSTANCE('58');
+            $backMsg['error'] = $e->getMessage();
+            return $backMsg;
+        }
+    }
+
     //统一下单
     public function WxPay($oid,$bill,$uid){
         include 'init.php';
