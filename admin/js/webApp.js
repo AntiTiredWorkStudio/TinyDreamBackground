@@ -101,5 +101,55 @@ var WebApp = {
 		window.localStorage.setItem('state',getArr['state']);
 	}
 	return codeData;
-  }
+  },
+  InitUpload:function(){
+      document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
+  },
+  UploadWithSDK :  function (token, putExtra, config, domain,tfile,filename,OnQiniuComplete) {
+		var file = tfile;
+        var suffix = tfile.name.split(".")[1];
+        var finishedAttr = [];
+        var compareChunks = [];
+        var observable;
+        if (file) {
+            var key = filename;
+            putExtra.fname = key+"."+suffix;
+            console.log(putExtra["fname"] );
+            putExtra.mimeType = ["image/png", "image/jpeg", "image/gif"];
+
+            // 设置next,error,complete对应的操作，分别处理相应的进度信息，错误信息，以及完成后的操作
+            var error = function(err) {
+                console.log(err);
+                //alert("上传出错");
+            };
+
+            var next = function(response) {
+                var chunks = response.chunks||[];
+                var total = response.total;
+                // 这里对每个chunk更新进度，并记录已经更新好的避免重复更新，同时对未开始更新的跳过
+                for (var i = 0; i < chunks.length; i++) {
+                    if (chunks[i].percent === 0 || finishedAttr[i]){
+                        continue;
+                    }
+                    if (compareChunks[i].percent === chunks[i].percent){
+                        continue;
+                    }
+                    if (chunks[i].percent === 100){
+                        finishedAttr[i] = true;
+                    }
+                }
+                compareChunks = chunks;
+            };
+
+            var subObject = {
+                next: next,
+                error: error,
+                complete: OnQiniuComplete
+            };
+            var subscription;
+            observable = qiniu.upload(file, key, token, putExtra, config);
+
+            subscription = observable.subscribe(subObject);
+        }
+    }
 };
