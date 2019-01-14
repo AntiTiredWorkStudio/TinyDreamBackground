@@ -47,7 +47,7 @@ var WebApp = {
 	TD_Request('us','guif',
 		{
 			atoken:accessTokenObject.access_token,
-			uid:authObject.openid
+			uid:accessTokenObject.openid
 		},
 		function(code,data){
 			if(data.hasOwnProperty("info")){
