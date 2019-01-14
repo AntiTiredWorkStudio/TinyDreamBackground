@@ -105,7 +105,18 @@ var WebApp = {
   InitUpload:function(){
       document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
   },
-  UploadWithSDK :  function (token, putExtra, config, domain,tfile,filename,OnQiniuComplete) {
+  UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
+		  var config = {
+			  useCdnDomain: true,
+			  disableStatisticsReport: false,
+			  retryCount: 6,
+			  region: qiniu.region.z0
+		  };
+		  var putExtra = {
+			  fname: "",
+			  params: {},
+			  mimeType: null
+		  };
 		var file = tfile;
         var suffix = tfile.name.split(".")[1];
         var finishedAttr = [];
@@ -144,7 +155,13 @@ var WebApp = {
             var subObject = {
                 next: next,
                 error: error,
-                complete: OnQiniuComplete
+                complete: function(res){
+                	if(res.hasOwnProperty("hash") && res.hasOwnProperty("key")) {
+                        OnQiniuComplete({result:true,imgName:res.key});
+                    }else{
+                        OnQiniuComplete({result:false,msg:res});
+					}
+				}
             };
             var subscription;
             observable = qiniu.upload(file, key, token, putExtra, config);
