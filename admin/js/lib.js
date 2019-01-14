@@ -22,15 +22,15 @@ var CheckAndSetAuthInfo = function (requestData) {
         var authData = requestData.auth;
         authData.openid = requestData.openid;
         Options.Auth = JSON.stringify(authData);
-		if(requestData.hasOwnProperty("access_token") && requestData.hasOwnProperty("refresh_token") && requestData.hasOwnProperty("expires_in")){
-			Options.AccessToken = JSON.stringify({
-				access_token:requestData.access_token,
-				refresh_token:requestData.refresh_token,
-				expires_in:requestData.expires_in,
-				timeStamp : JSTimeToPHPTime(PRC_TIME())
-			})
-		}
     }
+	if(requestData.hasOwnProperty("access_token") && requestData.hasOwnProperty("refresh_token") && requestData.hasOwnProperty("expires_in")){
+		Options.AccessToken = JSON.stringify({
+			access_token:requestData.access_token,
+			refresh_token:requestData.refresh_token,
+			expires_in:requestData.expires_in,
+			timeStamp : JSTimeToPHPTime(PRC_TIME())
+		})
+	}
 }
 
 var Page_Builder = function (module, action, paras, fResult,fFailed) {

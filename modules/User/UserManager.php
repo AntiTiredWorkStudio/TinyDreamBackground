@@ -427,7 +427,7 @@ class UserManager extends DBManager{
     }
 
     //实名认证提交成功(signal签名为用户id和时间戳字符串连接后的sha1值)（新版）
-    public function RealNameIdentifyFinishedx($uid,$realname,$ccardnum,$icardnum,$bank,$openbank,$signal){
+    public function RealNameIdentifyFinishedx($uid,$realname,$ccardnum,$icardnum,$bank,$openbank){
         //未实现
         $tIdentify = DBResultToArray($this->SelectDataFromTable($this->TName('tIdx'),
             [
@@ -435,9 +435,9 @@ class UserManager extends DBManager{
                 '_logic'=>' '
             ]),true);
         if(!empty($tIdentify)){
-            if(sha1($uid.$tIdentify[0]['ftime']) != $signal){
+            /*if(sha1($uid.$tIdentify[0]['ftime']) != $signal){
                 return RESPONDINSTANCE('40');//签名不正确
-            }
+            }*/
 
             if($tIdentify[0]['state'] != 'NONE'){
                 $backMsg = RESPONDINSTANCE('39');
