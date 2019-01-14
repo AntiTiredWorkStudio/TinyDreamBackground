@@ -113,8 +113,8 @@
       <file leaf-file-name="webApp.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1509">
-              <caret line="158" column="20" lean-forward="false" selection-start-line="158" selection-start-column="20" selection-end-line="158" selection-end-column="20" />
+            <state relative-caret-position="474">
+              <caret line="161" column="64" lean-forward="true" selection-start-line="161" selection-start-column="64" selection-end-line="161" selection-end-column="64" />
               <folding>
                 <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
                 <element signature="n#!!block;n#GetUserInfo#0;n#GetUserInfo#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
@@ -504,12 +504,12 @@
       <workItem from="1547318618228" duration="798000" />
       <workItem from="1547364243216" duration="20957000" />
       <workItem from="1547460988888" duration="694000" />
-      <workItem from="1547464706367" duration="3077000" />
+      <workItem from="1547464706367" duration="3383000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="583567000" />
+    <option name="totallyTimeSpent" value="583873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -962,8 +962,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1509">
-          <caret line="158" column="20" lean-forward="false" selection-start-line="158" selection-start-column="20" selection-end-line="158" selection-end-column="20" />
+        <state relative-caret-position="474">
+          <caret line="161" column="64" lean-forward="true" selection-start-line="161" selection-start-column="64" selection-end-line="161" selection-end-column="64" />
           <folding>
             <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#GetUserInfo#0;n#GetUserInfo#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />

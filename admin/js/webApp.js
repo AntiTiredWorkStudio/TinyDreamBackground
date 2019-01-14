@@ -125,7 +125,7 @@ var WebApp = {
         if (file) {
             var key = filename;
             putExtra.fname = key+"."+suffix;
-            console.log(putExtra["fname"] );
+           // console.log(putExtra["fname"] );
             putExtra.mimeType = ["image/png", "image/jpeg", "image/gif"];
 
             // 设置next,error,complete对应的操作，分别处理相应的进度信息，错误信息，以及完成后的操作
