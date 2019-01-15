@@ -190,7 +190,7 @@ var WebApp = {
 
   			TD_Request('view','builds',requestData,
 				function(code,data){
-					console.log(data);
+					//console.log(data);
 					if(data.hasOwnProperty('snippet')) {
 
 						for(var key in data.snippet){
