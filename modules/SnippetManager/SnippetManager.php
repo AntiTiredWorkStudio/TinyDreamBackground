@@ -44,7 +44,7 @@ class SnippetManager extends Manager{
 		foreach($data as $seek=>$index){
 			$current = $template;
 			foreach($index as $key=>$value){
-				$current = str_replace("{\{$key\}}",$value,$current);
+				$current = str_replace("{{{$key}}}",$value,$current);
 			}
 			$result = $result.$current;
 		}
