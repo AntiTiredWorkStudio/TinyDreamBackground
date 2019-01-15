@@ -168,5 +168,13 @@ var WebApp = {
 
             subscription = observable.subscribe(subObject);
         }
-    }
+    },
+	View:{
+		BuildView:function(){
+			//未实现完成
+			var str = "";
+			str.replace("#LB#","<");
+			str.replace("#RB#",">");
+		}
+	}
 };
