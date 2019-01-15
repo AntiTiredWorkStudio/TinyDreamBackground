@@ -52,7 +52,9 @@ $modules = [
 	,'no' => ['rq'=>'modules/NoticeManager/index.php',//NoticeManager
 			'lib'=>'modules/NoticeManager/NoticeManager.php']
 	,'cs' => ['rq'=>'modules/ConciseManager/index.php',//ConciseManager
-			'lib'=>'modules/ConciseManager/ConciseManager.php']#NEW_MODULES#
+			'lib'=>'modules/ConciseManager/ConciseManager.php']
+	,'view' => ['rq'=>'modules/SnippetManager/index.php',//SnippetManager
+			'lib'=>'modules/SnippetManager/SnippetManager.php']#NEW_MODULES#
 ];
 
 //错误配置
