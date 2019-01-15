@@ -28,6 +28,7 @@ var CheckAndSetAuthInfo = function (requestData) {
 			access_token:requestData.access_token,
 			refresh_token:requestData.refresh_token,
 			expires_in:requestData.expires_in,
+            openid:requestData.openid,
 			timeStamp : JSTimeToPHPTime(PRC_TIME())
 		})
 	}
