@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/js/webApp.js" afterPath="$PROJECT_DIR$/admin/js/webApp.js" />
-      <change beforePath="$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php" afterPath="$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.2661147">
+    <splitter split-orientation="horizontal" split-proportion="0.6918983">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
@@ -30,11 +28,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserBehaviourManager.php" pinned="false" current-in-tab="true">
+          <file leaf-file-name="UserBehaviourManager.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1068">
-                  <caret line="91" column="27" lean-forward="true" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
+                <state relative-caret-position="768">
+                  <caret line="91" column="27" lean-forward="false" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
                   <folding>
                     <marker date="1546013642915" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
                     <marker date="1546013642915" expanded="true" signature="1934:1988" ph="SELECT COUNT... ${$table}" />
@@ -69,7 +67,7 @@
           <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-34">
+                <state relative-caret-position="68">
                   <caret line="407" column="31" lean-forward="false" selection-start-line="407" selection-start-column="31" selection-end-line="408" selection-end-column="31" />
                   <folding />
                 </state>
@@ -86,14 +84,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="webApp.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="webApp.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="501">
-                  <caret line="201" column="46" lean-forward="false" selection-start-line="201" selection-start-column="46" selection-end-line="201" selection-end-column="46" />
+                <state relative-caret-position="-3116">
+                  <caret line="45" column="18" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="18" />
                   <folding>
                     <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#GetUserInfo#0;n#GetUserInfo#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#GetAccessToken#0;n#GetAccessToken#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#GetCode#0;n#GetCode#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
                   </folding>
@@ -115,7 +112,7 @@
             <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="374">
-                  <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+                  <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -125,11 +122,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="SnippetManager.php" pinned="false" current-in-tab="true">
+          <file leaf-file-name="SnippetManager.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="552">
-                  <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="43" />
+                <state relative-caret-position="642">
+                  <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="50" />
                   <folding />
                 </state>
               </provider>
@@ -139,7 +136,27 @@
             <entry file="file://$PROJECT_DIR$/modules/SnippetManager/index.php">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="544">
-                  <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+                  <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="lib.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="144">
+                  <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="15" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/lib.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -160,7 +177,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>paid</find>
       <find>SubmitDreamToVerify</find>
       <find>PlaceOrderInADreamPoolPay</find>
       <find>SubmitDreamAndRequestPayment</find>
@@ -190,6 +206,7 @@
       <find>OnEditingDream</find>
       <find>PrepareEditDream</find>
       <find>RealNameIdentifyFinishedx</find>
+      <find>UserInfo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -307,89 +324,6 @@
             <path>
               <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
               <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="AuthManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Award" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="BackgroundController" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="ConciseManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="DataBase" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Dream" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="DreamPool" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="DreamServersManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="SnippetManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TestManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="User" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="UserBehaviourManager" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Validate" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TinyDreamBackground" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TinyDreamBackground" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -411,6 +345,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="F:/TinydreamWeb" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -513,12 +448,12 @@
       <workItem from="1547364243216" duration="20957000" />
       <workItem from="1547460988888" duration="694000" />
       <workItem from="1547464706367" duration="6614000" />
-      <workItem from="1547546284033" duration="4588000" />
+      <workItem from="1547546284033" duration="8307000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="591692000" />
+    <option name="totallyTimeSpent" value="595411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -557,13 +492,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-wap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-bank.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-510">
@@ -770,6 +698,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="849">
           <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="37" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -859,14 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/js/qiniu.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -912,7 +833,7 @@
     <entry file="file://$PROJECT_DIR$/modules/Dream/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -943,37 +864,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/SnippetManager/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="201" column="46" lean-forward="false" selection-start-line="201" selection-start-column="46" selection-end-line="201" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#GetUserInfo#0;n#GetUserInfo#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#GetAccessToken#0;n#GetAccessToken#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#GetCode#0;n#GetCode#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
+        <state relative-caret-position="68">
           <caret line="407" column="31" lean-forward="false" selection-start-line="407" selection-start-column="31" selection-end-line="408" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="642">
+          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1068">
-          <caret line="91" column="27" lean-forward="true" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
+        <state relative-caret-position="768">
+          <caret line="91" column="27" lean-forward="false" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
           <folding>
             <marker date="1546013642915" expanded="true" signature="548:629" ph="UPDATE `${$table}`... " />
             <marker date="1546013642915" expanded="true" signature="1934:1988" ph="SELECT COUNT... ${$table}" />
@@ -982,11 +906,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php">
+    <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="43" />
+        <state relative-caret-position="144">
+          <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3116">
+          <caret line="45" column="18" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="18" />
+          <folding>
+            <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#GetAccessToken#0;n#GetAccessToken#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#GetCode#0;n#GetCode#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
