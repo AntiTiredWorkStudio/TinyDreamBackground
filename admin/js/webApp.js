@@ -170,11 +170,53 @@ var WebApp = {
         }
     },
 	View:{
-		BuildView:function(){
+  		AddViewData:function (view,pars) {
+  			var viewData = view.data;
+            viewData.push(pars);
+            view.data = viewData;
+			return view;
+        },
+  		CreateSingleView:function(templateName,pars){
+			if(pars == null){
+				return {name:templateName,data:[]};
+			}
+			return {name:templateName,data:pars};
+		},
+		BuildsView:function(viewData,url,onCreated){
+  			var requestData = {datas:JSON.stringify(viewData)};
+  			if(url != null){
+                requestData['url'] = url;
+			}
+
+  			TD_Request('view','builds',requestData,
+				function(code,data){
+					console.log(data);
+					if(data.hasOwnProperty('snippet')) {
+
+						for(var key in data.snippet){
+                            var snippetStr = data.snippet[key];
+
+                            var LB = new RegExp("#LB#","g");
+							var RB = new RegExp("#RB#","g");
+
+                            snippetStr = snippetStr.replace(LB,"<");
+                            snippetStr = snippetStr.replace(RB,">");
+                            data.snippet[key] = snippetStr;
+						}
+                        onCreated(true, data.snippet);
+                    }else{
+                        onCreated(false,data);
+					}
+				},
+				function (code, data) {
+                    console.log(data);
+                    onCreated(false,data);
+                }
+  			)
 			//未实现完成
-			var str = "";
+			/*var str = "";
 			str.replace("#LB#","<");
-			str.replace("#RB#",">");
+			str.replace("#RB#",">");*/
 		}
 	}
 };
