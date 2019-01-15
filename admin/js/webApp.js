@@ -209,7 +209,7 @@ var WebApp = {
 					}
 				},
 				function (code, data) {
-                    console.log(data);
+                    //console.log(data);
                     onCreated(false,data);
                 }
   			)
