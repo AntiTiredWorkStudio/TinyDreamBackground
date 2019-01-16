@@ -441,7 +441,6 @@ $(window).scroll(function () {
         //浏览器窗口高度
         windowHeight = parseFloat($(this).height()),
         totalHeight = scrollTop + windowHeight;
-
     //此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
     if (scrollTop + windowHeight >= scrollHeight - 0.7) {
         if(typeof OnReachBottom === "function"){
