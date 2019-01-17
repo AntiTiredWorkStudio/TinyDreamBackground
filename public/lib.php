@@ -305,7 +305,7 @@ $WebApp = [
 			  {
 					"name":"立刻参与互助",
 					"type":"view",
-					"url":"http://tinydream.antit.top/TinydreamWeb/"
+					"url":"'.$GLOBALS['options']['web_url'].'"
 			   }]
 		 }';
 			

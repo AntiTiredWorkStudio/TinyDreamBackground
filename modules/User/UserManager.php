@@ -824,6 +824,7 @@ class UserManager extends DBManager{
         return $backMsg;
     }
 
+
 	//获取用户资料(公众号)
 	public function GetUserInfoWeb($atoken,$uid){
 		$url = "https://api.weixin.qq.com/sns/userinfo?access_token=$atoken&openid=$uid&lang=zh_CN";
@@ -869,6 +870,82 @@ class UserManager extends DBManager{
         $version = (isset($GLOBALS['options']['version'])?$GLOBALS['options']['version']:'full');
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['version'] = $version;
+        return $backMsg;
+    }
+
+    //获取JSAPI 配置参数
+    public function GetJSConfig(){
+
+        $appid = $GLOBALS['options']['WEB_APP_ID'];
+        $appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
+        $accessToken = "";
+        $ticket = "";
+        $timeStamp = PRC_TIME();
+        $accessFile = "access.json";
+        $file = [];
+        $GetAccessToken = true;
+        $GetTicket = true;
+        $atExpires_in = 7200;
+        $ticketExpires_in = 7200;
+
+        $accessExist = file_exists($accessFile);
+        if($accessExist){
+            $file = json_decode(file_get_contents($accessFile),true);
+            $GetAccessToken = ($file['timeStamp'] + $file['ac_expires_in'])<$timeStamp;
+            $GetTicket = ($file['timeStamp'] + $file['ti_expires_in'])<$timeStamp;
+            $accessToken = $file['access_token'];
+            $ticket = $file['ticket'];
+            $atExpires_in = $file['ac_expires_in'];
+            $ticketExpires_in = $file['ti_expires_in'];
+        }
+
+        if((!$accessExist || $GetAccessToken) && $GetTicket) {
+
+            $aturl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+            $atResult = file_get_contents($aturl);
+            $atResult = json_decode($atResult, true);
+            $atExpires_in = $atResult['expires_in'];
+            $accessToken = $atResult['access_token'];
+        }
+
+        if((!$accessExist || $GetTicket)) {
+            $ticketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" . $accessToken . "&type=jsapi";
+            $ticketResult = file_get_contents($ticketUrl);
+            $ticketResult = json_decode($ticketResult, true);
+            $ticket = $ticketResult['ticket'];
+            $ticketExpires_in = $ticketResult['expires_in'];
+        }
+
+
+        $nonce = sha1($timeStamp);
+        $fullUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $signStr = "jsapi_ticket=$ticket&noncestr=$nonce&timestamp=$timeStamp&url=$fullUrl";
+
+        $config = [
+            'debug'=>true,
+            'appid'=>$appid,
+            'timestamp'=> $timeStamp,
+            'nonceStr' => $nonce,
+            'signature'=> sha1($signStr),
+            'jsApiList'=> [
+                'updateAppMessageShareData',
+                'updateTimelineShareData'
+            ]
+        ];
+
+        $file['access_token'] = $accessToken;
+        $file['ticket'] = $ticket;
+        $file['timeStamp'] = $timeStamp;
+        $file['ac_expires_in'] = $atExpires_in;
+        $file['ti_expires_in'] = $ticketExpires_in;
+
+        file_put_contents('access.json',json_encode($file,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['fullUrl'] = $fullUrl;
+        $backMsg['signStr'] = $signStr;
+        $backMsg['config'] = $config;
         return $backMsg;
     }
 }

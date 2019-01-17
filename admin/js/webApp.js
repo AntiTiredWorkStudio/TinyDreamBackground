@@ -16,8 +16,7 @@ var WebApp = {
 									complete(result,JSON.parse(data));
 								}else{
 									console.log(result,data);
-									Options.Clear();
-									window.location.href = window.location.href;
+									app.ClearAndReloadPage();
 								}
 							}
 						}
@@ -37,13 +36,16 @@ var WebApp = {
 						complete(result,JSON.parse(data));
 					}else{
 						console.log(result,data);
-						Options.Clear();
-						window.location.href = window.location.href;
+                        app.ClearAndReloadPage();
 					}
 				}
 			}
 		);
 	}
+  },
+  ClearAndReloadPage:function () {
+      Options.Clear();
+      window.location.href = window.location.href;
   },
   GetUserInfo:function(res){
 	var accessTokenObject = JSON.parse(Options.AccessToken);
