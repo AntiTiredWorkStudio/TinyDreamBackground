@@ -935,7 +935,11 @@ class UserManager extends DBManager{
 
         $file['access_token'] = $accessToken;
         $file['ticket'] = $ticket;
-        $file['timeStamp'] = $timeStamp;
+        if($GetTicket || $GetAccessToken) {
+            $file['timeStamp'] = $timeStamp;
+        }else{
+            $file['timeStamp'] = $file['timeStamp'];
+        }
         $file['ac_expires_in'] = $atExpires_in;
         $file['ti_expires_in'] = $ticketExpires_in;
 
