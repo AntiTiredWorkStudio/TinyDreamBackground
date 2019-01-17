@@ -244,14 +244,14 @@ var DescriptionTime = function(sec) {
         return sec + "秒";
     }
     if (sec < 3600) {
-        return Math.floor(sec / 60) + "分钟";
+        return parseInt(Math.floor(sec / 60)) + "分钟";
     }
     if (sec < 86400) {
-        return Math.floor(sec / 3600) + "小时";
+        return parseInt(Math.floor(sec / 3600)) + "小时";
     }
 
     if (sec < 86400 * 30) {
-        return Math.floor(sec / 86400) + "天";
+        return parseInt(Math.floor(sec / 86400)) + "天";
     }
 }
 
