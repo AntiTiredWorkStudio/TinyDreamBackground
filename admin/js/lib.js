@@ -305,6 +305,35 @@ var BillExchange = function(bill) {
     return result;
 }
 
+var DreamPoolAnalysis = function(pool) {
+    var billResult = BillExchange(pool.cbill);
+    pool.realBill = billResult.value;
+    pool.realUnit = billResult.unit;
+    pool.percentVal = Math.floor((pool.cbill / pool.tbill) * 10000) / 100
+    pool.rubill = pool.ubill * 0.01
+    pool.day = Math.floor(pool.duration / 86400)
+    var rtbill = BillExchange(pool.tbill);
+    pool.rtbillValue = rtbill.value;
+    pool.rtbillUnit = rtbill.unit;
+    var rubill = BillExchange(pool.ubill);
+    pool.rubillValue = rubill.value;
+    pool.rubillUnit = rubill.unit;
+    pool.rduration = DescriptionTime(pool.duration);
+    var timeLess = (parseInt(pool.ptime) + parseInt(pool.duration)) - JSTimeToPHPTime(PRC_TIME());
+    pool.timeLess = DescriptionTime(timeLess);
+    if(pool.ubill >0){
+        pool.joincount = pool.cbill / pool.ubill
+    }else{
+        pool.joincount = pool.pcount
+    }
+    if (pool.state == 'RUNNING') {
+        pool.billHint = "目前互助金"
+    } else if (pool.state == 'FINISHED') {
+        pool.billHint = "最终互助金"
+    }
+    return pool
+}
+
 var encodeUTF8 = function(s) {
     var i, r = [],
         c, x;
