@@ -14,6 +14,11 @@
 		array_push($requestArray,$key);
 	}
 	
+	//$postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+    //$postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+	//file_put_contents("request.txt",json_encode($_REQUEST).json_encode($postObj));
+	
 	if(empty($requestArray)){
 	    if(isset($GLOBALS['options']['ManageIndex'])){
             header('Location:'.$GLOBALS['options']['ManageIndex']);//进入管理后台
@@ -22,8 +27,6 @@
             die(FAILED('98'));
         }
 	}
-
-
 
 	REQUEST($requestArray[0]);
 ?>

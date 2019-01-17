@@ -16,6 +16,7 @@ define('MONITOR_COMMAND','moi');
 define('WECHAT_COMBINE_COMMAND','signature');
 define('WECHAT_GETUSERINFO_COMMAND','code');
 define('WECHAT_WEB_COMMAND','webchatweb');
+define('WECHAT_MENU_COMMAND','wechatmenu');
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -213,11 +214,69 @@ function CombineWechatServer(){
 	}
 }
 
+//转码函数
+function unicode2utf8($str) { // unicode编码转化，用于显示emoji表情
+$str = '{"result_str":"' . $str . '"}'; // 组合成json格式
+$strarray = json_decode ( $str, true ); // json转换为数组，利用 JSON 对 \uXXXX 的支持来把转义符恢复为 Unicode 字符
+return $strarray ['result_str'];
+}
+
+
+function AutoBack($postObj){
+	file_put_contents("WECHAT_COMBINE_COMMAND.txt", json_encode($postObj));
+	if (strtolower($postObj->MsgType) == 'text') {
+		$toUser = $postObj->FromUserName;
+        $fromUser = $postObj->ToUserName;
+        $time = time();
+        $msgType = 'text';
+        $content = unicode2utf8("\ue14c");
+		$template = "<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            </xml>";
+        $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
+        echo $info;
+	}
+	if (strtolower($postObj->MsgType) == 'event') {
+        //如果是关注 subscribe事件
+        if (strtolower($postObj->Event) == 'subscribe') {
+            $toUser = $postObj->FromUserName;
+            $fromUser = $postObj->ToUserName;
+            $time = time();
+            $msgType = 'text';
+            $content = '欢迎关注小梦想互助！';
+			
+			
+			
+ 
+			
+            $template = "<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            </xml>";
+            $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
+            echo $info;
+        }
+    }
+}
+
 //微信公众号方法处理
 $WebApp = [
 	WECHAT_COMBINE_COMMAND=>function(){
+		$postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+		if(!empty($postObj)){
+			//file_put_contents("WECHAT_COMBINE_COMMAND.txt",json_encode($postObj));
+			AutoBack($postObj);
+			return;
+		}
 		if(CombineWechatServer()){
-			echo $_REQUEST['echostr'];
 			return;
 		}},
 	WECHAT_GETUSERINFO_COMMAND =>function(){
@@ -230,6 +289,35 @@ $WebApp = [
 		Header("Location:".$GLOBALS['options']['web_url']);
 		return;
 	},
+	WECHAT_MENU_COMMAND=>function(){
+		$appid = $GLOBALS['options']['WEB_APP_ID'];
+		$appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
+		$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+		
+		$output = https_request($url);
+		$jsoninfo = json_decode($output, true);
+		$access_token = $jsoninfo["access_token"];
+		
+		if($_REQUEST[WECHAT_MENU_COMMAND] == ''){
+		//定义菜单的格式
+		$jsonmenu = '{
+			  "button":[
+			  {
+					"name":"立刻参与互助",
+					"type":"view",
+					"url":"http://tinydream.antit.top/TinydreamWeb/"
+			   }]
+		 }';
+			
+		}else{
+			$jsonmenu = $_REQUEST[WECHAT_MENU_COMMAND];
+		}
+		 
+		$url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
+		$result = https_request($url, $jsonmenu);
+		echo $result;
+		return;
+	}
 ];
 
 function REQUEST($key){
@@ -564,6 +652,22 @@ function ConnectArrayByChar($numsArray,$char){
         $str = $str.$num.$char;
     }
     return rtrim($str,$char);
+}
+
+
+function https_request($url,$data = null){
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    if (!empty($data)){
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    }
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($curl);
+    curl_close($curl);
+    return $output;
 }
 
 function HttpGet($url){
