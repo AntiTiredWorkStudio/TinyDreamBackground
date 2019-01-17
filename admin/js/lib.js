@@ -5,7 +5,13 @@ var Options = {
 	AccessToken:null,
 	UserInfo:null,
 	GetUserInfo:function(){
+		//alert(this.UserInfo!=null?this.UserInfo:null);
 		return this.UserInfo!=null?JSON.parse(this.UserInfo):null;
+	},
+	Clear:function(){
+		this.Auth = null;
+		this.AccessToken = null;
+		this.UserInfo = null;
 	}
 };
 var Page = {
@@ -458,8 +464,21 @@ window.onbeforeunload = function (e) {
 	if(Options.UserInfo != null){
 		SaveStorage("UserInfo",Options.UserInfo);
 	}
+	
 };
-
+window.onpagehide = function (e) {
+    if(Options.Auth!=null) {
+        SaveStorage("auth", Options.Auth);
+    }
+	if(Options.AccessToken != null){
+		SaveStorage("AccessToken",Options.AccessToken);
+	}
+	
+	if(Options.UserInfo != null){
+		SaveStorage("UserInfo",Options.UserInfo);
+	}
+	
+};
 
 
 $(window).scroll(function () {
@@ -486,6 +505,7 @@ var InitOptions = function () {
         Options.Auth = auth;
         //console.log('init auth');
     }
+	
 	if(ExistStorage("AccessToken")){
         var accesstoken = GetStorage("AccessToken");
         RemoveStorage("AccessToken");

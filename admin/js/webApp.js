@@ -16,6 +16,8 @@ var WebApp = {
 									complete(result,JSON.parse(data));
 								}else{
 									console.log(result,data);
+									Options.Clear();
+									window.location.href = window.location.href;
 								}
 							}
 						}
@@ -35,6 +37,8 @@ var WebApp = {
 						complete(result,JSON.parse(data));
 					}else{
 						console.log(result,data);
+						Options.Clear();
+						window.location.href = window.location.href;
 					}
 				}
 			}
@@ -51,6 +55,10 @@ var WebApp = {
 		},
 		function(code,data){
 			if(data.hasOwnProperty("info")){
+				if(JSON.parse(data.info).hasOwnProperty("errcode")){
+					res(false,data.info);
+					return;
+				}
 				Options.UserInfo = data.info;
 				res(true,data.info);
 			}else{
