@@ -139,10 +139,14 @@ class NoticeManager extends DBManager {
     public function GetUserUnReadNotice($uid,$seek,$count){
         $result = $this->SelectDataByQuery($this->TName('tNotice'),
             self::Limit(
-                self::C_And(
-                    self::FieldIsValue('uid',$uid),
-                    self::FieldIsValue('state','UNREAD')
-                ),
+				self::OrderBy(
+					self::C_And(
+						self::FieldIsValue('uid',$uid),
+						self::FieldIsValue('state','UNREAD')
+					),
+					'ptime',
+					'DESC'
+				),
                 $seek,
                 $count
             )
