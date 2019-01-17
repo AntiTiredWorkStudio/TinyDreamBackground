@@ -86,7 +86,7 @@ var WebApp = {
           appid:web_appid,
           redirect_uri:window.location.href,
           response_type:'code',
-          scope:'snsapi_base',
+          scope:'snsapi_userinfo',
           state:'1'
       }
       var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+redirect.appid+"&redirect_uri="+redirect.redirect_uri+"&response_type="+redirect.response_type+"&scope="+redirect.scope+"&state="+redirect.state+"#wechat_redirect";
