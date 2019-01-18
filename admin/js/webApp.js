@@ -228,5 +228,56 @@ var WebApp = {
 			str.replace("#LB#","<");
 			str.replace("#RB#",">");*/
 		}
+	},
+	JSAPI:{
+  		Init:function () {
+            document.write('<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js "></script>');
+			var shareObject = this;
+            TD_Request('us','gjsc',{},
+				function (code, data) {
+					console.log(data);
+                    shareObject.WxConfig(data.config);
+            	},
+				function (code, data) {
+                    console.log(data);
+            	}
+            )
+        },
+		WxConfig:function (config) {
+            var shareObject = this;
+            wx.config(config);
+            wx.ready(function(){
+            	console.log("wx jsapi ready");
+                shareObject.OnAPIReady();
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            });
+            wx.error(function(res){
+                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                console.log("wx jsapi fail",res);
+            });
+        },
+		OnAPIReady:function () {
+            wx.updateAppMessageShareData({
+						title: '小梦想互助', // 分享标题
+						desc: '我刚刚参与互助了一份小梦想', // 分享描述
+						link: 'http://tinydream.antit.top/TinydreamWeb', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						imgUrl: 'http://tdream.antit.top/image/titleLogo.png', // 分享图标
+						success: function () {
+							// 设置成功
+							console.log("Data Share Success");
+						}
+            });
+            wx.updateTimelineShareData(
+                {
+                    title: '小梦想互助', // 分享标题
+                    link: 'http://tinydream.antit.top/TinydreamWeb', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: 'http://tdream.antit.top/image/titleLogo.png', // 分享图标
+                    success: function () {
+                        // 设置成功
+                        console.log("Data Share Success");
+                    }
+                }
+            );
+        }
 	}
 };

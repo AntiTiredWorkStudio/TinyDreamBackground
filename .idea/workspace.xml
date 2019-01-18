@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/admin/demo.html" afterPath="$PROJECT_DIR$/admin/demo.html" />
+      <change beforePath="$PROJECT_DIR$/admin/js/webApp.js" afterPath="$PROJECT_DIR$/admin/js/webApp.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,7 +21,7 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/User/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
+            <state relative-caret-position="476">
               <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
               <folding />
             </state>
@@ -40,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="940" column="17" lean-forward="false" selection-start-line="940" selection-start-column="12" selection-end-line="940" selection-end-column="17" />
+            <state relative-caret-position="544">
+              <caret line="890" column="48" lean-forward="true" selection-start-line="890" selection-start-column="48" selection-end-line="890" selection-end-column="48" />
               <folding>
                 <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
               </folding>
@@ -52,12 +54,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webApp.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="webApp.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="33" />
-              <folding />
+            <state relative-caret-position="566">
+              <caret line="276" column="48" lean-forward="false" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+              <folding>
+                <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,7 +79,7 @@
       <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
+            <state relative-caret-position="15096">
               <caret line="672" column="16" lean-forward="false" selection-start-line="672" selection-start-column="9" selection-end-line="672" selection-end-column="16" />
               <folding>
                 <element signature="n#Manager#0;n#!!top" expanded="false" />
@@ -85,8 +89,6 @@
                 <element signature="n#CombineWechatServer#0;n#!!top" expanded="false" />
                 <element signature="n#unicode2utf8#0;n#!!top" expanded="false" />
                 <element signature="n#AutoBack#0;n#!!top" expanded="false" />
-                <marker date="1547745904075" expanded="true" signature="7771:8126" ph="..." />
-                <marker date="1547745904075" expanded="true" signature="8606:8961" ph="..." />
               </folding>
             </state>
           </provider>
@@ -121,7 +123,7 @@
       <file leaf-file-name="lib.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1717">
+            <state relative-caret-position="850">
               <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="23" />
               <folding />
             </state>
@@ -245,11 +247,11 @@
         <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/admin/js/lib.js" />
         <option value="$PROJECT_DIR$/modules/SnippetManager/SnippetManager.php" />
-        <option value="$PROJECT_DIR$/admin/js/webApp.js" />
         <option value="$PROJECT_DIR$/admin/js/shareApp.js" />
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/User/index.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
+        <option value="$PROJECT_DIR$/admin/js/webApp.js" />
       </list>
     </option>
   </component>
@@ -281,6 +283,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -337,8 +341,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -450,12 +452,13 @@
       <workItem from="1547460988888" duration="694000" />
       <workItem from="1547464706367" duration="6614000" />
       <workItem from="1547546284033" duration="8997000" />
-      <workItem from="1547745492469" duration="5069000" />
+      <workItem from="1547745492469" duration="5170000" />
+      <workItem from="1547840172386" duration="1410000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="601170000" />
+    <option name="totallyTimeSpent" value="602681000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -489,7 +492,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="60" />
+      <option name="time" value="63" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -692,7 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="849">
           <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="37" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,7 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -840,7 +840,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/js/lib.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1717">
+        <state relative-caret-position="850">
           <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="23" />
           <folding />
         </state>
@@ -870,17 +870,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/lib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
+        <state relative-caret-position="15096">
           <caret line="672" column="16" lean-forward="false" selection-start-line="672" selection-start-column="9" selection-end-line="672" selection-end-column="16" />
           <folding>
             <element signature="n#Manager#0;n#!!top" expanded="false" />
@@ -890,8 +882,6 @@
             <element signature="n#CombineWechatServer#0;n#!!top" expanded="false" />
             <element signature="n#unicode2utf8#0;n#!!top" expanded="false" />
             <element signature="n#AutoBack#0;n#!!top" expanded="false" />
-            <marker date="1547745904075" expanded="true" signature="7771:8126" ph="..." />
-            <marker date="1547745904075" expanded="true" signature="8606:8961" ph="..." />
           </folding>
         </state>
       </provider>
@@ -904,20 +894,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
+    <entry file="file://$PROJECT_DIR$/modules/User/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="476">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="940" column="17" lean-forward="false" selection-start-line="940" selection-start-column="12" selection-end-line="940" selection-end-column="17" />
+        <state relative-caret-position="544">
+          <caret line="890" column="48" lean-forward="true" selection-start-line="890" selection-start-column="48" selection-end-line="890" selection-end-column="48" />
           <folding>
             <element signature="n#GetAccessToken#0;n#UserManager#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="276" column="48" lean-forward="false" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!block;n#Init#0;n#Init#0;n#!!block;n#WebApp#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
