@@ -874,7 +874,7 @@ class UserManager extends DBManager{
     }
 
     //获取JSAPI 配置参数
-    public function GetJSConfig(){
+    public function GetJSConfig($url){
 
         $appid = $GLOBALS['options']['WEB_APP_ID'];
         $appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
@@ -918,12 +918,12 @@ class UserManager extends DBManager{
 
 
         $nonce = sha1($timeStamp);
-        $fullUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $fullUrl = $url;//"http://tinydream.antit.top/TinydreamWeb/demo.html";//'http://'.$_SERVER['HTTP_HOST'].'/TinydreamWeb/demo.html';
         $signStr = "jsapi_ticket=$ticket&noncestr=$nonce&timestamp=$timeStamp&url=$fullUrl";
 
         $config = [
-            'debug'=>true,
-            'appid'=>$appid,
+            'debug'=>false,
+            'appId'=>$appid,
             'timestamp'=> $timeStamp,
             'nonceStr' => $nonce,
             'signature'=> sha1($signStr),

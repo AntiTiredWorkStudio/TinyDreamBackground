@@ -12,7 +12,7 @@
         'gakt'=>R('GetAccessToken',['code'],PERMISSION_AUTH_FREE),//获取access_token【小程序入口,返回secret及openid】
         'gawt'=>R('GetAccessTokenWeb',['code'],PERMISSION_AUTH_FREE),//获取AccessToken（公众号鉴权入口,获取openid）
 		'guif'=>R('GetUserInfoWeb',['atoken','uid']),//获取用户资料(公众号)
-        'gjsc'=>R('GetJSConfig'),//获取JSAPI 配置参数
+        'gjsc'=>R('GetJSConfig',['url'],PERMISSION_AUTH_FREE),//获取JSAPI 配置参数
         /*--------------------后台登录--------------------*/
         'blogin'=>R('OnGetLoginCode',['tele'],PERMISSION_AUTH_FREE),//后台用户登录
         'ologin'=>R('OnBackgroundLogin',['tele','code'],PERMISSION_AUTH_FREE),//后台登录，校验验证码【后台入口,返回secret及openid】

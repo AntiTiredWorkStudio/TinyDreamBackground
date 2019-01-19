@@ -231,20 +231,24 @@ var WebApp = {
 	},
 	JSAPI:{
   		Init:function () {
-            document.write('<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js "></script>');
-			var shareObject = this;
-            TD_Request('us','gjsc',{},
-				function (code, data) {
-					console.log(data);
-                    shareObject.WxConfig(data.config);
-            	},
-				function (code, data) {
-                    console.log(data);
-            	}
-            )
+			document.write('<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>');
+           	var shareObject = this;
+			setTimeout(function(){
+				TD_Request('us','gjsc',{url:window.location.href},
+					function (code, data) {
+						console.log(data);
+						//alert(JSON.stringify(data))
+						shareObject.WxConfig(data.config);
+					},
+					function (code, data) {
+						console.log(data);
+					}
+				)
+				},1000);
         },
 		WxConfig:function (config) {
             var shareObject = this;
+			
             wx.config(config);
             wx.ready(function(){
             	console.log("wx jsapi ready");
@@ -257,27 +261,45 @@ var WebApp = {
             });
         },
 		OnAPIReady:function () {
+			this.OnSettingShare(this.ShareDefaultConfig);
+        },
+		ShareDefaultConfig:{
+			title:"小梦想互助",
+			desc:"我刚刚参与互助了一份小梦想，你也一起来吧！",
+			link:"http://tinydream.antit.top/TinydreamWeb",
+			imgUrl:"http://tdream.antit.top/image/titleLogo.png"
+		},
+		OnSettingShare:function(config){
+			var shareObject = this;
             wx.updateAppMessageShareData({
-						title: '小梦想互助', // 分享标题
-						desc: '我刚刚参与互助了一份小梦想', // 分享描述
-						link: 'http://tinydream.antit.top/TinydreamWeb', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-						imgUrl: 'http://tdream.antit.top/image/titleLogo.png', // 分享图标
-						success: function () {
+						title: config.title, // 分享标题
+						desc: config.desc, // 分享描述
+						link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						imgUrl: config.imgUrl, // 分享图标
+						success: function (result) {
 							// 设置成功
 							console.log("Data Share Success");
+							if(shareObject.OnShareFriend != null){
+								shareObject.OnShareFriend(result);
+							}
 						}
             });
             wx.updateTimelineShareData(
                 {
-                    title: '小梦想互助', // 分享标题
-                    link: 'http://tinydream.antit.top/TinydreamWeb', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: 'http://tdream.antit.top/image/titleLogo.png', // 分享图标
-                    success: function () {
+                    title: config.title, // 分享标题
+                    link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: config.imgUrl, // 分享图标
+                    success: function (result) {
                         // 设置成功
                         console.log("Data Share Success");
+						if(shareObject.OnShareTimeLine != null){
+							shareObject.OnShareTimeLine(result);
+						}
                     }
                 }
             );
-        }
+		},
+		OnShareTimeLine:null,
+		OnShareFriend:null
 	}
 };
