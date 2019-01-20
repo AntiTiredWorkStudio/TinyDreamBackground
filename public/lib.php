@@ -247,7 +247,7 @@ function AutoBack($postObj){
             $fromUser = $postObj->ToUserName;
             $time = time();
             $msgType = 'text';
-            $content = '欢迎关注小梦想互助！';
+            $content = '欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“首页”进入平台，了解小梦想互助玩法点击“新手指引”。';
 			
 			
 			
