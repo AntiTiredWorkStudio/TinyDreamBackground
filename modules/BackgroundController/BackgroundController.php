@@ -95,7 +95,11 @@ class BackgroundController extends DBManager {
 	}
 	
 	public function BuildDatas(){
-        $pageData = $this->pages['verify'];
+        $pageData = $this->pages['datas'];
+		
+		
+		
+        require ($pageData['path']);
 	}
 
 	public function BackgroundController(){
