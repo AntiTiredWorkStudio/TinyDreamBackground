@@ -81,8 +81,18 @@ document.OnPartLoad = function (data) {
 
 var NavigatorModule = {
     init: function () {
-        $("#a_post").click(SwitchTab);
-        $("#a_verify").click(SwitchTab);
+//        $("#a_post").click(SwitchTab);
+//        $("#a_verify").click(SwitchTab);
+		var aList =  $('#navigator').find('a');
+		//console.log(aList);
+		aList.each(function(){
+			console.log($(this));
+			$(this).click(SwitchTab);
+		});
+		/*for(var key in aList){
+			console.log(aList[key]);
+		}*/
+		//console.log($('a'));
     },
 }
 
