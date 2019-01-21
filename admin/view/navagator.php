@@ -8,6 +8,7 @@
     $navigators = [
         'a_post'=>['title'=>'发布梦想池','class'=>'lnr lnr-home'],
         'a_verify'=>['title'=>'中标用户审核','class'=>'lnr lnr-pencil'],
+		'a_data'=>['title'=>'访问数据统计','class'=>'"lnr lnr-dice'],
     ];
     foreach ($navigators as $key=>$value) {
 ?>
