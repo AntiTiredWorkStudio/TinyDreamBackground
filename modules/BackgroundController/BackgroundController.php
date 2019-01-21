@@ -12,6 +12,7 @@ class BackgroundController extends DBManager {
         'verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
         'datas'=>['id'=>'data','title'=>'数据','path'=>'admin/view/data.php'],
         'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/view/navagator.php'],
+		'personalinfo'=>['id'=>'pinf','title'=>'个人信息块','path'=>'admin/view/personalinfo.php'],
     ];
     public function info()
     {
@@ -83,6 +84,10 @@ class BackgroundController extends DBManager {
 		
         require ($pageData['path']);
     }
+	
+	public function BuildPersonalInfo(){
+        $pageData = $this->pages['personalinfo'];
+	}
 	
 	public function BuildDatas(){
         $pageData = $this->pages['verify'];

@@ -4,6 +4,7 @@ var main = function () {
     if(!HasLogin()){
         window.location.href= "index.html";
     }else {
+		console.log(Options.Auth);
         CheckAuthEnable(
             function (res) {
                 if(res){
