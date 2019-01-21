@@ -4,6 +4,7 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 LIB('db');
 LIB('dp');
+LIB('us');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {

@@ -1,3 +1,7 @@
+<?php
+	//echo json_encode($pageData);
+
+?>
 <ul class="nav navbar-nav navbar-right">
   <!--<li class="dropdown">
   <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
@@ -11,8 +15,8 @@
   </li>-->
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      <img src="assets/img/user.png" class="img-circle" alt="Avatar">
-      <span>master Kong</span>
+      <img src="<?php echo $pageData['selfInfo']['headicon'];?>" class="img-circle" alt="Avatar">
+      <span><?php echo $pageData['selfInfo']['nickname'];?></span>
       <em class="icon-submenu lnr lnr-chevron-down"></em>
     </a>
     <ul class="dropdown-menu">

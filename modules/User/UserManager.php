@@ -218,7 +218,7 @@ class UserManager extends DBManager{
 	}
 	//快速获取用户信息
 	public static function GetUserInfo($uid){
-		return (new UserManager())->SelfInfo('uid')['selfinfo'];
+		return (new UserManager())->SelfInfo($uid)['selfinfo'];
 	}
 
 

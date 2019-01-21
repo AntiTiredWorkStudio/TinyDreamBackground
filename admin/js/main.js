@@ -1,10 +1,8 @@
 var main = function () {
 
-    $("#logout").click(Logout);
     if(!HasLogin()){
         window.location.href= "index.html";
     }else {
-		console.log(Options.Auth);
         CheckAuthEnable(
             function (res) {
                 if(res){
@@ -43,6 +41,7 @@ var BuildNavigator = function () {
 	
 	Page_Builder('admin','pinfo',{uid:JSON.parse(Options.Auth).openid},function(data){
 		$('#navbar-menu').html(data);
+		$("#logout").click(Logout);
 	},function(code,data){
 		console.log(code,data);
 	});

@@ -264,6 +264,7 @@ html.fullscreen-bg #wrapper {
     top: 2px; }
   .navbar-nav > li > a img {
     width: 22px;
+	height: 22px;
     margin-right: 2px; }
 
 .navbar-nav > li > .dropdown-menu {
