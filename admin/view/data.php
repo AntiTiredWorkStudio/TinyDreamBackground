@@ -6,11 +6,21 @@
  * Time: 上午 12:28
  */
 
-
+?>
+<h1>近20天互助、支付记录</h1>
+<?php
     //$verifyArray = $pageData['verify'];
     //$btnStyle = $pageData['btnStyle'];
-	echo json_encode($pageData);
+	foreach($pageData['recs'] as $key=>$value){
+		
 ?>
+<h4>
+<?php 
+	echo '20'.$value['date'].': 参与互助 ['.$value['join'].']人次，支付 ['.$value['paid'].']人次</br>';
+?>
+</h4>
+
+<?php }?>
 <script>
     if(document.OnPartLoad){
         document.OnPartLoad(<?php echo json_encode($pageData);?>);
