@@ -39,7 +39,13 @@ var BuildNavigator = function () {
         $("#navigator").html(data);
     },function (code, data) {
         console.log(code, data);
-    })
+    });
+	
+	Page_Builder('admin','pinfo',{uid:JSON.parse(Options.Auth).openid},function(data){
+		$('#navbar-menu').html(data);
+	},function(code,data){
+		console.log(code,data);
+	});
 }
 
 var SwitchTab = function (res) {

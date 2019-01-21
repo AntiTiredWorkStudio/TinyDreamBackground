@@ -85,8 +85,12 @@ class BackgroundController extends DBManager {
         require ($pageData['path']);
     }
 	
-	public function BuildPersonalInfo(){
+	public function BuildPersonalInfo($uid){
         $pageData = $this->pages['personalinfo'];
+        $USM = new UserManager();
+		$selfInfo = UserManager::GetUserInfo($uid);
+		$pageData['selfInfo'] = $selfInfo;
+        require ($pageData['path']);
 	}
 	
 	public function BuildDatas(){
