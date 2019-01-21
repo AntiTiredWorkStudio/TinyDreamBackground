@@ -136,6 +136,24 @@ class NoticeManager extends DBManager {
         return RESPONDINSTANCE('0');
     }
 
+    public function GetUserAllNotice($uid,$seek,$count){
+        $result = $this->SelectDataByQuery($this->TName('tNotice'),
+            self::Limit(
+                self::OrderBy(
+                    self::FieldIsValue('uid',$uid),
+                    'ptime',
+                    'DESC'
+                ),
+                $seek,
+                $count
+            )
+        );
+        $result = DBResultToArray($result,true);
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['msgs'] = $result;
+        return $backMsg;
+    }
+
     public function GetUserUnReadNotice($uid,$seek,$count){
         $result = $this->SelectDataByQuery($this->TName('tNotice'),
             self::Limit(
