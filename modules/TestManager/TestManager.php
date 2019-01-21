@@ -347,5 +347,9 @@ class TestManager extends DBManager {
         );*/
 
     }
+	
+	public function TestBat(){
+		file_put_contents(time().'.txt',time());
+	}
 }
 ?>
