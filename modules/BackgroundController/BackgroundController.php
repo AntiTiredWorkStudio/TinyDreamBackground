@@ -5,6 +5,7 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 LIB('db');
 LIB('dp');
 LIB('us');
+LIB('ub');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
@@ -97,7 +98,8 @@ class BackgroundController extends DBManager {
 	public function BuildDatas(){
         $pageData = $this->pages['datas'];
 		
-		
+		$uBehaviour = new UserBehaviourManager();
+        $pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
 		
         require ($pageData['path']);
 	}
