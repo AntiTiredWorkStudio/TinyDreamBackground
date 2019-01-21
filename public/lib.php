@@ -248,7 +248,7 @@ function AutoBack($postObj){
             $time = time();
             $msgType = 'text';
             //<a href="http://tinydream.antit.top/TinydreamWeb">首页</a>
-            $content = "欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb\">首页</a>"."”进入平台，了解小梦想互助玩法点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb/html/rules.html\">新手指引</a>"."”。";
+            $content = "欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb\">首页</a>"."”进入平台，了解小梦想互助玩法点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb/html/question.html\">新手指引</a>"."”。";
 			
 			
             $template = "<xml>
