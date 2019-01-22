@@ -91,27 +91,52 @@ class UserBehaviourManager extends DBManager{
     public function GetSingleDayRecordsAddUp($day){
         $PAY = self::SqlField(PAY);
         $JOIN = self::SqlField(JOIN);
-        $fieldPay = "SUM($PAY)";
-        $fieldJoin = "SUM($JOIN)";
-        $table = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
+        $fieldPay = "COUNT($PAY)";
+        $fieldJoin = "COUNT($JOIN)";
+        $joinTable = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
             self::C_And(
-                self::FieldIsValue('date',$day),
-                self::FieldIsValue('typeid',STAT,'!=')
-            ),
+				self::C_And(
+					self::FieldIsValue('date',$day),
+					self::FieldIsValue('typeid',STAT,'!=')
+				),
+				self::FieldIsValue('join',0,'>')
+			)
+			,
             false,
-            $fieldPay.",".$fieldJoin
+            $fieldJoin
         ),true);
-
+		
+		
+        $payTable = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
+            self::C_And(
+				self::C_And(
+					self::FieldIsValue('date',$day),
+					self::FieldIsValue('typeid',STAT,'!=')
+				),
+				self::FieldIsValue('paid',0,'>')
+			)
+			,
+            false,
+            $fieldPay
+        ),true);
+		
         $backMsg = RESPONDINSTANCE('0');
-        if(empty($table)){
-            $backMsg['stat']['paid'] = 0;
+		
+		if(empty($joinTable)){
             $backMsg['stat']['join'] = 0;
-        }else{
-            $table = $table[0];
-            $backMsg['stat']['paid'] = $table[$fieldPay]==null?0:$table[$fieldPay];
-            $backMsg['stat']['join'] = $table[$fieldJoin]==null?0:$table[$fieldJoin];
+		}else{
+			 $joinTable =  $joinTable[0];
+            $backMsg['stat']['join'] = $joinTable[$fieldJoin]==null?0:$joinTable[$fieldJoin];
+		}
+		
+		if(empty($payTable)){
+            $backMsg['stat']['paid'] = 0;
+		}else{
+			 $payTable =  $payTable[0];
+            $backMsg['stat']['paid'] = $payTable[$fieldPay]==null?0:$payTable[$fieldPay];
+		}
+		
 
-        }
         return $backMsg;
     }
 

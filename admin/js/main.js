@@ -75,6 +75,9 @@ document.OnPartLoad = function (data) {
         case "verf":
             VerfModule.init(data);
             break;
+		case "data":
+			DataModule.init(data);
+			break;
         default:
             break;
     }
@@ -276,6 +279,36 @@ var VerfModule = {
             }
         )
     }
+}
+
+var DataModule = {
+	init:function(option){
+		console.log(option);
+		var module = this;
+		for(var key in option.recs){
+			console.log(option.recs[key].date);
+			$("#btn_"+option.recs[key].date).click(module.OnPersonCountView);
+		}
+	},
+	OnPersonCountView:function (res){
+		console.log(res.currentTarget.id);
+		var targetID = res.currentTarget.id.replace("btn_","");
+		TD_Request("ub","gad",
+			{date:targetID},
+			function(code,data){
+				console.log(data);
+				console.log("#day_join_"+targetID);
+				console.log("#day_paid_"+targetID);
+				$("#day_join_"+targetID).html(data.stat.join);
+				$("#day_paid_"+targetID).html(data.stat.paid);
+				$("#day_btn_"+targetID).html("已加载");
+			},
+			function(code,data){
+				console.log(data);
+				alert("查看失败:"+data.context);
+			}
+		);
+	}
 }
 
 Page.OnSignalFailed = function () {

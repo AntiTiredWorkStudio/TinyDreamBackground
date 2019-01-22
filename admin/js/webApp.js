@@ -1,5 +1,6 @@
 var WebApp = {
   Init:function(appid,complete){
+	  
 	var app = this;
 	if(app.GetAccessToken() == null){
 		var codeData = app.GetAuthInfo();
