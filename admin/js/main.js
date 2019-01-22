@@ -7,7 +7,9 @@ var main = function () {
             function (res) {
                 if(res){
                     BuildNavigator();
-                }
+                }else{
+					Logout();
+				}
             }
         );
     }
