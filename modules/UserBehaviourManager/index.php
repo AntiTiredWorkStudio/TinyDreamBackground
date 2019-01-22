@@ -10,5 +10,6 @@
         'join'=>R('joined',null,PERMISSION_LOCAL),//记录参与互助
         'gc'=>R('GetRecordsCount'),//获取记录数量
         'gr'=>R('GetRecordsRecordsByRange',['seek','count']),//通过范围获取记录
+        'gad'=>R('GetSingleDayRecordsAddUp',['date']),//按天数提取当天人次
     ]);
 ?>

@@ -16,7 +16,7 @@
 ?>
 <h4>
 <?php 
-	echo '20'.$value['date'].': 参与互助 ['.$value['join'].']人次，支付 ['.$value['paid'].']人次</br>';
+	echo '20'.$value['date'].': 参与互助 ['.$value['join'].']人次，支付 ['.$value['paid'].']人次<button type="button">查看人数</button></br>';
 ?>
 </h4>
 

@@ -88,6 +88,33 @@ class UserBehaviourManager extends DBManager{
         return $backMsg;
     }
 
+    public function GetSingleDayRecordsAddUp($day){
+        $PAY = self::SqlField(PAY);
+        $JOIN = self::SqlField(JOIN);
+        $fieldPay = "SUM($PAY)";
+        $fieldJoin = "SUM($JOIN)";
+        $table = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
+            self::C_And(
+                self::FieldIsValue('date',$day),
+                self::FieldIsValue('typeid',STAT,'!=')
+            ),
+            false,
+            $fieldPay.",".$fieldJoin
+        ),true);
+
+        $backMsg = RESPONDINSTANCE('0');
+        if(empty($table)){
+            $backMsg['stat']['paid'] = 0;
+            $backMsg['stat']['join'] = 0;
+        }else{
+            $table = $table[0];
+            $backMsg['stat']['paid'] = $table[$fieldPay]==null?0:$table[$fieldPay];
+            $backMsg['stat']['join'] = $table[$fieldJoin]==null?0:$table[$fieldJoin];
+
+        }
+        return $backMsg;
+    }
+
 
     public function paid(){
         self::OnBehave('a01',PAY);
