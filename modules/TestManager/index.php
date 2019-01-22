@@ -21,5 +21,6 @@
         'cvr'=>R('ConvertRealNameToNewVersion'),//将旧版实名认证转换位新版本数据
         'tn'=>R('TestNotice'),// 测试通知
 		'time'=>R('TestBat'),//测试批处理文件
+        'ref'=>R('RefreashFunc',null,PERMISSION_AUTH_FREE|PERMISSION_ALL),
     ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 ?>

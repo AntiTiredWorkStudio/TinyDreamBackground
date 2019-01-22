@@ -347,6 +347,20 @@ class TestManager extends DBManager {
         );*/
 
     }
+
+    public function RefreashFunc(){
+        /*
+         * UPDATE `dream` SET `uid`="MissUser" WHERE `uid`="oSORf5kkXvHNxhIx8lQVe3DFRFvw"
+         * UPDATE `user` SET `totalJoin` = '0' WHERE `user`.`uid` = 'oSORf5kkXvHNxhIx8lQVe3DFRFvw';
+         * UPDATE `user` SET `tele` = '' WHERE `user`.`uid` = 'oSORf5kkXvHNxhIx8lQVe3DFRFvw';
+         *
+         * */
+
+        $this->UpdateDataToTableByQuery($this->TName('tDream'),['uid'=>'MissUser'],self::FieldIsValue('uid',"oSORf5kkXvHNxhIx8lQVe3DFRFvw"));
+        $this->UpdateDataToTableByQuery($this->TName('tUser'),['totalJoin'=>'0','tele'=>''],self::FieldIsValue('uid',"oSORf5kkXvHNxhIx8lQVe3DFRFvw"));
+
+        return RESPONDINSTANCE('0');
+    }
 	
 	public function TestBat(){
 		file_put_contents(time().'.txt',time());
