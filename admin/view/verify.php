@@ -76,9 +76,13 @@
                         $look = "未提交";
                     }
                     $index = 1 + ($seek++);
+					$expection = $index;
+					if(!isset($value['info']) || !isset($value['award'])){
+						continue;
+					}
                     print <<<EOT
                 <tr>
-                    <td>{$index}</td>
+                    <td>{$expection}</td>
                     <td>{$value['info']['nickname']}</td>
                     <td>{$value['info']['tele']}</td>
                     <td>梦想池{$value['award']['pid']}期</td>
