@@ -17,6 +17,37 @@ define('ID_FRONT','id_f');
 define('ID_BACK','id_b');
 define('PUB_LETTER','letter_');
 
+class UserIdentifier{
+	public $uid;
+	public $nickname;
+	public $tele;
+	public $totalReward;
+	public $totalJoin;
+	public $dayBuy;
+	
+    public function UserIdentifier(){}
+	
+	public function LoadDatas($array){
+		if(	array_key_exists('uid',$array) &&
+			array_key_exists('nickname',$array) &&
+			array_key_exists('tele',$array) &&
+			array_key_exists('totalReward',$array) &&
+			array_key_exists('totalJoin',$array) &&
+			array_key_exists('dayBuy',$array)
+		){
+			$this->uid = $array['uid'];
+			$this->nickname = $array['nickname'];
+			$this->tele = $array['tele'];
+			$this->totalReward = $array['totalReward'];
+			$this->totalJoin = $array['totalJoin'];
+			$this->dayBuy = $array['dayBuy'];
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+
 class UserManager extends DBManager{
     public static function UserExist($uid){
         $USM = new UserManager();
@@ -95,6 +126,25 @@ class UserManager extends DBManager{
 		return 5-($result[0]['dayBuy']);
     }
 
+	//通过手机号查找用户信息
+	public static function GetUserByTele($tele){
+		$USM = new UserManager();
+		$result = DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),self::FieldIsValue('tele',$tele),false,"`uid`,`nickname`,`tele`,`totalReward`,`totalJoin`,`dayBuy`"),false);
+		$return = [];
+		foreach($result as $key=>$value){
+			$uObject = new UserIdentifier();
+			$uObject->LoadDatas($value);
+			array_push($return,$uObject);
+		}
+		return $return;
+	}
+	
+	//通过手机号查找用户信息(外联接口)
+	public function GetUserByTelephone($tele){
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['userinfo'] = self::GetUserByTele($tele);
+		return $backMsg;
+	}
 
     public static function GetUserIdentity($uid){
         $USM = new UserManager();

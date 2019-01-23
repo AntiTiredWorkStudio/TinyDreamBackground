@@ -29,5 +29,6 @@
         'rnameax'=>R('RealNameAuditx',['uid','state']),//实名认证审核
         'verifyx'=>R('ViewAllVerifyInfox'),//显示所有需要审核的信息
         'ver'=>R('VersionControl'),//获取要进入的版本
+		'gubt'=>R('GetUserByTelephone',['tele']),//通过手机号查找用户信息
     ]);
 ?>

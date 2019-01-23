@@ -24,5 +24,7 @@
         'plistf'=>R('GetFinishedPoolInfoByRange',['seek','count']),//用户获取结束的梦想池
         'plistj'=>R('GetJoinedPoolInfoByRange',['uid','seek','count']),//用户获取参与中的梦想池
         'pcount'=>R('GetPoolsCountInfo',['uid']),
+		'oitc'=>R('GetOrderCountByTeleORDate'),//根据电话或日期获取订单数量
+		'oitd'=>R('GetOrdersByTeleORDate',['seek','count']),//根据电话或日期获取范围订单
     ]);
 ?>
