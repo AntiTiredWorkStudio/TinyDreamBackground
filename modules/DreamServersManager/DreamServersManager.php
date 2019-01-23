@@ -781,7 +781,7 @@ class DreamServersManager extends DBManager {
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址
-                'notify_url' => '',
+                'notify_url' => 'https://tinydream.antit.top/paid.php',
                 // 网页支付回跳地址
                 'return_url' => '',
             ]
@@ -794,7 +794,7 @@ class DreamServersManager extends DBManager {
             'body'             => '小梦想互助-购买梦想', // 订单描述
             'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], // 支付人的 IP
             'openid'           => $uid, // 支付人的 openID
-            'notify_url'       => 'http://localhost/notify.php', // 定义通知URL
+            'notify_url'       => 'https://tinydream.antit.top/paid.php', // 定义通知URL
         ];
 
 
@@ -842,7 +842,7 @@ class DreamServersManager extends DBManager {
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址
-                'notify_url' => '',
+                'notify_url' => 'https://tinydream.antit.top/paid.php',
                 // 网页支付回跳地址
                 'return_url' => '',
             ]
@@ -855,7 +855,7 @@ class DreamServersManager extends DBManager {
             'body'             => '小梦想互助-购买梦想', // 订单描述
             'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], // 支付人的 IP
             'openid'           => $uid , // 支付人的 openID
-            'notify_url'       => 'http://localhost/notify.php', // 定义通知URL
+            'notify_url'       => 'https://tinydream.antit.top/paid.php', // 定义通知URL
         ];
 
 // 实例支付对象

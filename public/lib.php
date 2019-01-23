@@ -223,7 +223,7 @@ return $strarray ['result_str'];
 
 
 function AutoBack($postObj){
-	file_put_contents("WECHAT_COMBINE_COMMAND.txt", json_encode($postObj));
+	//file_put_contents("WECHAT_COMBINE_COMMAND.txt", json_encode($postObj));
 	if (strtolower($postObj->MsgType) == 'text') {
 		$toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;

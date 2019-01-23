@@ -355,7 +355,6 @@ class TestManager extends DBManager {
          * UPDATE `user` SET `tele` = '' WHERE `user`.`uid` = 'oSORf5kkXvHNxhIx8lQVe3DFRFvw';
          *
          * */
-
         $this->UpdateDataToTableByQuery($this->TName('tDream'),['uid'=>'MissUser'],self::FieldIsValue('uid',"oSORf5kkXvHNxhIx8lQVe3DFRFvw"));
         $this->UpdateDataToTableByQuery($this->TName('tUser'),['totalJoin'=>'0','tele'=>''],self::FieldIsValue('uid',"oSORf5kkXvHNxhIx8lQVe3DFRFvw"));
 
