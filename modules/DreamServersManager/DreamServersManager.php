@@ -1165,18 +1165,92 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+
+    //根据电话或日期获取范围订单
+    public function GetOrderCountByTeleORDate(){
+        if(isset($_REQUEST['tele']) && $_REQUEST['tele'] != ""){
+            $tele = $_REQUEST['tele'];
+            $userObject = UserManager::GetUserByTele($tele);
+
+            $userCondition = "";
+            foreach ($userObject as $key=>$value){
+                $userCondition = $userCondition.$value->uid.'|';
+            }
+            $userCondition = rtrim($userCondition, "|");
+            $userCondition = self::FieldIsValue('uid',$userCondition);
+            $condStr = $userCondition;
+        }else{
+            $condStr = "1";
+        }
+
+        if(isset($_REQUEST['date']) && $_REQUEST['date'] != ""){
+            $timeMin = strtotime($_REQUEST['date']);
+            if(isset($_REQUEST['datemax']) && $_REQUEST['datemax'] != ""){
+                $timeMax = strtotime($_REQUEST['datemax']);
+            }else {
+                $timeMax = strtotime($_REQUEST['date']) + 86400;
+            }
+            $timeCond = self::C_And(
+                self::FieldIsValue('ctime',$timeMin,'>'),
+                self::FieldIsValue('ctime',$timeMax,'<')
+            );
+            if($condStr =="1"){
+                $condStr = $timeCond;
+            }else {
+                $condStr = self::C_And($condStr, $timeCond);
+            }
+        }
+        $orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr,false,"COUNT(*)"),true);
+        if(!empty($orders)){
+            $orders = $orders[0]['COUNT(*)'];
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['ordCount'] = $orders;
+        return $backMsg;
+    }
+
 	//根据电话或日期获取范围订单
 	public function GetOrdersByTeleORDate($seek,$count){
-		
-		if(isset($_REQUEST['tele'])){
+		if(isset($_REQUEST['tele']) && $_REQUEST['tele'] != ""){
 			$tele = $_REQUEST['tele'];
-			echo $tele;
-		}
-		if(isset($_REQUEST['date'])){
-			$timeMin = strtotime($_REQUEST['date']);
-			$timeMax = strtotime($_REQUEST['date'])+86400;
-//			echo $timeMin.'|'.$timeMax;
-		}
+			$userObject = UserManager::GetUserByTele($tele);
+
+			$userCondition = "";
+			foreach ($userObject as $key=>$value){
+                $userCondition = $userCondition.$value->uid.'|';
+            }
+            $userCondition = rtrim($userCondition, "|");
+            $userCondition = self::FieldIsValue('uid',$userCondition);
+            $condStr = $userCondition;
+		}else{
+            $condStr = "1";
+        }
+
+		if(isset($_REQUEST['date']) && $_REQUEST['date'] != ""){
+            $timeMin = strtotime($_REQUEST['date']);
+
+            if(isset($_REQUEST['datemax']) && $_REQUEST['datemax'] != ""){
+                $timeMax = strtotime($_REQUEST['datemax']);
+            }else {
+                $timeMax = strtotime($_REQUEST['date']) + 86400;
+            }
+            $timeCond = self::C_And(
+                self::FieldIsValue('ctime',$timeMin,'>'),
+                self::FieldIsValue('ctime',$timeMax,'<')
+            );
+            if($condStr =="1"){
+                $condStr = $timeCond;
+            }else {
+                $condStr = self::C_And($condStr, $timeCond);
+            }
+        }
+
+		$condStr = self::Limit($condStr,$seek,$count);
+        //echo $condStr;
+		$orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr),false);
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['orders'] = $orders;
+		return $backMsg;
 	}
 
     public function subtext($text, $length)
