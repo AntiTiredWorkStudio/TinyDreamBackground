@@ -1165,6 +1165,19 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+	//根据电话或日期获取范围订单
+	public function GetOrdersByTeleORDate($seek,$count){
+		
+		if(isset($_REQUEST['tele'])){
+			$tele = $_REQUEST['tele'];
+			echo $tele;
+		}
+		if(isset($_REQUEST['date'])){
+			$timeMin = strtotime($_REQUEST['date']);
+			$timeMax = strtotime($_REQUEST['date'])+86400;
+//			echo $timeMin.'|'.$timeMax;
+		}
+	}
 
     public function subtext($text, $length)
     {
