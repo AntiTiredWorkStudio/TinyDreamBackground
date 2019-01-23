@@ -10,5 +10,6 @@
         'a_post'=>R('BuildPostDream',null,PERMISSION_AUTH_FORCE,false),//引用发布梦想池
         'a_verify'=>R('BuildVerify',null,PERMISSION_AUTH_FORCE,false),//引用审核
 		'a_data'=>R('BuildDatas',null,PERMISSION_AUTH_FORCE,false),//引用审核
+		'a_order'=>R('BuildOrders',null,PERMISSION_AUTH_FORCE,false),//引用订单
     ]);
 ?>

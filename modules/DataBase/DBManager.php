@@ -28,6 +28,16 @@ class DBManager extends Manager{
     public static function Symbol($parseA,$parseB,$symbol='+'){
         return '('.$parseA.$symbol.$parseB.')';
     }
+	
+	//创建逻辑表达式
+	public static function LogicString($array,$logic='|'){
+		$result = "";
+		foreach($array as $key=>$value){
+			$result = $result.$value.$logic;
+		}
+		$result = rtrim($result, $logic);
+		return $result;
+	}
 
     //判断表达式的值是否等于value(支持| & 字符)
     public static function ExpressionIsValue($field,$value,$symbol='='){

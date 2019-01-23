@@ -78,6 +78,9 @@ document.OnPartLoad = function (data) {
 		case "data":
 			DataModule.init(data);
 			break;
+		case "ord":
+			OrderModule.init(data);
+			break;
         default:
             break;
     }
@@ -303,6 +306,58 @@ var DataModule = {
 			function(code,data){
 				console.log(data);
 				alert("查看失败:"+data.context);
+			}
+		);
+	}
+}
+
+var OrderModule = {
+	seek:0,
+	count:0,
+	size:10,
+	init:function(option){
+		var module = this;
+		console.log(option.ordCount,option.seek,option.count);
+		console.log(option);
+		this.seek = option.seek;
+		this.count = option.count;
+		$("#startDayTime").datetimepicker({
+			minView: "month", //选择日期后，不会再跳转去选择时分秒 
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			todayBtn:  1,
+			autoclose: 1,
+		});
+		$("#endDayTime").datetimepicker({
+			minView: "month", //选择日期后，不会再跳转去选择时分秒 
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			todayBtn:  1,
+			autoclose: 1,
+		});
+		$("#search").click(function(){
+			/*console.log($("#input_tele").val());
+			console.log($("#startDayTime").val());
+			console.log($("#endDayTime").val());*/
+			LoadWorkSpace('a_order',
+			{
+				tele:$("#input_tele").val(),
+				startTime:$("#startDayTime").val(),
+				endTime:$("#endDayTime").val()
+			});
+		});
+		$("[seek]").click(
+            module.switchPage
+        );
+	},
+	switchPage:function(page){
+		//console.log(page);
+        LoadWorkSpace('a_order',
+			{
+				tele:$("#input_tele").val(),
+				startTime:$("#startDayTime").val(),
+				endTime:$("#endDayTime").val(),
+				seek:$(page.currentTarget).attr('seek')
 			}
 		);
 	}

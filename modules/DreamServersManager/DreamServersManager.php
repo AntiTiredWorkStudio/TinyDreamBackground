@@ -1200,12 +1200,18 @@ class DreamServersManager extends DBManager {
                 $condStr = self::C_And($condStr, $timeCond);
             }
         }
-        $orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr,false,"COUNT(*)"),true);
+		$condStr = self::C_And($condStr,self::FieldIsValue('state','SUCCESS'));
+		
+        $orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr,false,"COUNT(*),SUM(`bill`)"),true);
+		$orderCount = 0;
+		$totalBill = 0;
         if(!empty($orders)){
-            $orders = $orders[0]['COUNT(*)'];
+            $orderCount = $orders[0]['COUNT(*)'];
+            $totalBill = $orders[0]['SUM(`bill`)']*0.01;
         }
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['ordCount'] = $orders;
+        $backMsg['ordCount'] = $orderCount;
+		$backMsg['totalBill'] = $totalBill;
         return $backMsg;
     }
 
@@ -1245,9 +1251,43 @@ class DreamServersManager extends DBManager {
             }
         }
 
-		$condStr = self::Limit($condStr,$seek,$count);
+		$condStr = self::Limit(self::C_And($condStr,self::FieldIsValue('state','SUCCESS')),$seek,$count);
         //echo $condStr;
-		$orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr),false);
+		$orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr,false,
+		self::LogicString(
+			[
+				self::SqlField('oid'),
+				self::SqlField('uid'),
+				self::SqlField('pid'),
+				self::SqlField('bill'),
+				self::SqlField('ctime'),
+				self::SqlField('ptime'),
+			],',')
+		),false);
+		
+		$useridList = [];
+		foreach($orders as $key=>$value){
+			$orders[$key]['ctime'] = date('Y-m-s h:i:s',$orders[$key]['ctime']);
+			$orders[$key]['ptime'] = date('Y-m-s h:i:s',$orders[$key]['ptime']);
+			$orders[$key]['bill'] = $orders[$key]['bill']*0.01;
+			if(!in_array($value['uid'],$useridList)){
+				array_push($useridList,$value['uid']);
+			}
+		}
+		$users = DBResultToArray($this->SelectDataByQuery($this->TName('tUser'),self::FieldIsValue('uid',self::LogicString($useridList)),false,
+		self::LogicString([self::SqlField('uid'),self::SqlField('nickname'),self::SqlField('tele')],',')));
+		
+		//echo json_encode($users);
+		
+		
+		foreach($orders as $key=>$value){
+			if(array_key_exists($value['uid'],$users)){
+				foreach($users[$value['uid']] as $key01=>$info){
+					$orders[$key][$key01] = $info;
+				}
+			}
+		}
+		
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['orders'] = $orders;
 		return $backMsg;
