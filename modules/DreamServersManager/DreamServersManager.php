@@ -1251,8 +1251,8 @@ class DreamServersManager extends DBManager {
             }
         }
 
-		$condStr = self::Limit(self::C_And($condStr,self::FieldIsValue('state','SUCCESS')),$seek,$count);
-        //echo $condStr;
+		$condStr = self::Limit(self::OrderBy(self::C_And($condStr,self::FieldIsValue('state','SUCCESS')),"ctime","DESC"),$seek,$count);
+       // echo $condStr;
 		$orders = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),$condStr,false,
 		self::LogicString(
 			[
@@ -1267,8 +1267,8 @@ class DreamServersManager extends DBManager {
 		
 		$useridList = [];
 		foreach($orders as $key=>$value){
-			$orders[$key]['ctime'] = date('Y-m-s h:i:s',$orders[$key]['ctime']);
-			$orders[$key]['ptime'] = date('Y-m-s h:i:s',$orders[$key]['ptime']);
+			$orders[$key]['ctime'] = date('Y-m-d h:i:s',$orders[$key]['ctime']);
+			$orders[$key]['ptime'] = date('Y-m-d h:i:s',$orders[$key]['ptime']);
 			$orders[$key]['bill'] = $orders[$key]['bill']*0.01;
 			if(!in_array($value['uid'],$useridList)){
 				array_push($useridList,$value['uid']);
