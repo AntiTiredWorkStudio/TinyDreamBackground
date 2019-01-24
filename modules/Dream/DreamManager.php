@@ -208,6 +208,7 @@ class DreamManager extends DBManager{
             }
         }
         if(empty($fixArray)){
+			//file_put_contents('updateLog.txt','empty array');
             return RESPONDINSTANCE('44');//梦想更新失败
         }
         //echo json_encode($fixArray,JSON_UNESCAPED_UNICODE);
@@ -216,6 +217,7 @@ class DreamManager extends DBManager{
 
 
         if(!$updateResult){
+			//file_put_contents('updateLog.txt','update Faild');
             return RESPONDINSTANCE('44');//梦想更新失败
         }else{
 
@@ -317,7 +319,10 @@ class DreamManager extends DBManager{
                 if(!empty($lottery)){
                     $pool = DreamPoolManager::Pool($lottery['pid']);
                     $dreamArray[$key]['pool'] = $pool;
-                }
+                }else{
+					$dreamArray[$key]['pool'] = ["ptitle"=>'测试梦想池(仅用于测试)',"tbill"=>'100',"cbill"=>'100'];
+					$dreamArray[$key]['lottery'] = ['lid'=>'测试中奖id'];
+				}
             }
         }
 

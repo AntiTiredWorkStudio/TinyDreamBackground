@@ -275,6 +275,7 @@ class DBManager extends Manager{
         }else{
             $sql = $sql.$val.' WHERE '.$conString;
         }
+		//file_put_contents('updateByQuery.txt',$sql);
         //echo $sql;
         $result = mysql_query($sql,$con);
 		$result = mysql_affected_rows();
