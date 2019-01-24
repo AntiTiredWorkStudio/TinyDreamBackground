@@ -35,8 +35,26 @@ class DreamManager extends DBManager{
         $result = [];
         if(!empty($dArray)){
             $dArray = $dArray[0];
+			
+			$AWM = new AwardManager();
+			$aresult = DBResultToArray($AWM->SelectDataByQuery($DRM->TName('tAward'),
+				self::LogicString(
+					[
+						self::FieldIsValue('uid',$uid),
+						self::FieldIsValue('did',$dArray['did'])
+					],
+					'AND'
+				)
+			));
+			
+			
             $result['result'] = true;
             $result['dtitle'] = $dArray['title'];
+			if(!empty($aresult)){
+				$result['pid'] = $aresult['pid'];
+			}else{
+				$result['pid'] = '100001';//测试梦想池;
+			}
         }else{
             $result['result'] = false;
         }
