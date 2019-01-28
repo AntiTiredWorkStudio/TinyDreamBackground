@@ -352,7 +352,7 @@ class DreamManager extends DBManager{
 
             if($setArray['payment']=='1'){
                 $uid = $this->GetDreamUid($did);
-                NoticeManager::CreateNotice($uid,NOTICE_PAID,[],
+                NoticeManager::CreateNotice($uid,NOTICE_PAID,[],//创建通知——打款
                     NoticeManager::CreateAction('view',[])
                 );
             }

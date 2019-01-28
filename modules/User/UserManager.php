@@ -537,7 +537,7 @@ class UserManager extends DBManager{
                 ]);
 
                 if($state== 'FAILED'){
-                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[],
+                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[],//创建通知——实名认证审核失败
                         NoticeManager::CreateAction('auth',
                             []
                         )
@@ -768,7 +768,7 @@ class UserManager extends DBManager{
                 ]);
 
                 if($state== 'FAILED'){
-                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[]);
+                    NoticeManager::CreateNotice($uid,NOTICE_FAIL.[]);//创建通知——实名认证（旧版）审核失败
                 }
                 return RESPONDINSTANCE('0');
             }else{

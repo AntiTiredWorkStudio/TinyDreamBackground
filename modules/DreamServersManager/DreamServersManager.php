@@ -690,7 +690,7 @@ class DreamServersManager extends DBManager {
             foreach ($NumberArray as $key => $value) {
                 array_push($numArray,$value['lid']);
             }
-            NoticeManager::CreateNotice($uid,
+            NoticeManager::CreateNotice($uid,//创建通知——购买梦想
                 NOTICE_BUY,
                 [
                     'ptitle'=>'梦想互助'.$actionList['pay']['pid'].'期',

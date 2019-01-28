@@ -264,7 +264,7 @@ class AwardManager extends DBManager{
                     $resultArray[$count][6] = $time;//开奖时间
                     $resultArray[$count][7] = $targetLottery['did'];//中奖梦想id
                     $resultArray[$count][8] = $item['cbill'];//金额
-                    NoticeManager::CreateNotice(
+                    NoticeManager::CreateNotice(//创建通知——开奖
                         $targetLottery['uid'],NOTICE_GET,
                         [
                             'ptitle'=>'梦想互助'.$item['pid'].'期',
