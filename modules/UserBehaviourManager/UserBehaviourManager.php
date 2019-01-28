@@ -50,6 +50,7 @@ class UserBehaviourManager extends DBManager{
             'ubid'=>self::GenerateDayID($typeid),
             'date'=>date('y-m-d',PRC_TIME()),
             'typeid'=>$typeid,
+            'visit'=>0,
             'join'=>0,
             'paid'=>0
         ];
