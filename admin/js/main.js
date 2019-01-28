@@ -285,30 +285,62 @@ var VerfModule = {
 }
 
 var DataModule = {
+	autoListID:[],
 	init:function(option){
 		console.log(option);
 		var module = this;
 		for(var key in option.recs){
 			console.log(option.recs[key].date);
 			$("#btn_"+option.recs[key].date).click(module.OnPersonCountView);
+			module.autoListID.push("#btn_"+option.recs[key].date);
+			
+		}
+		console.log(module.autoListID);
+		this.AutoLoad();
+	},
+	AutoLoad:function(){
+		var module = this;
+		if(module.autoListID!=[]){
+			var targetID = module.autoListID[0];
+			if(!targetID){
+				return;
+			}
+			
+			var targetID = targetID.replace("#btn_","");
+			console.log(targetID);
+			module.GetPersonCount(targetID,function(id,result){
+				if(result){
+					module.autoListID.splice(0, 1);
+					module.AutoLoad();
+				}
+			});
 		}
 	},
-	OnPersonCountView:function (res){
-		console.log(res.currentTarget.id);
-		var targetID = res.currentTarget.id.replace("btn_","");
+	GetPersonCount(id,result){
 		TD_Request("ub","gad",
-			{date:targetID},
+			{date:id},
 			function(code,data){
-				$("#day_visit_"+targetID).html(data.stat.visit);
-				$("#day_join_"+targetID).html(data.stat.join);
-				$("#day_paid_"+targetID).html(data.stat.paid);
-				$("#day_btn_"+targetID).html("已加载");
+				$("#day_visit_"+id).html(data.stat.visit);
+				$("#day_join_"+id).html(data.stat.join);
+				$("#day_paid_"+id).html(data.stat.paid);
+				$("#day_btn_"+id).html("已加载");
+				result(id,true);
 			},
 			function(code,data){
 				console.log(data);
-				alert("查看失败:"+data.context);
+				result(id,false);
 			}
 		);
+	},
+	OnPersonCountView:function (res){
+		console.log(res.currentTarget.id);
+		var module = this;
+		var targetID = res.currentTarget.id.replace("btn_","");
+		DataModule.GetPersonCount(targetID,function(id,result){
+			if(!result){
+				alert("查看失败:"+data.context);
+			}
+		});
 	}
 }
 
