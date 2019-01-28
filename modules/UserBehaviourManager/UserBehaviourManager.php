@@ -91,10 +91,24 @@ class UserBehaviourManager extends DBManager{
     }
 
     public function GetSingleDayRecordsAddUp($day){
+        $VISIT = self::SqlField(VISI);
         $PAY = self::SqlField(PAY);
         $JOIN = self::SqlField(JOIN);
+        $fieldVisit = "COUNT($VISIT)";
         $fieldPay = "COUNT($PAY)";
         $fieldJoin = "COUNT($JOIN)";
+        $visitTable = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
+            self::C_And(
+                self::C_And(
+                    self::FieldIsValue('date',$day),
+                    self::FieldIsValue('typeid',STAT,'!=')
+                ),
+                self::FieldIsValue('visit',0,'>')
+            ),false,
+            $fieldVisit
+            ),true);
+
+
         $joinTable = DBResultToArray($this->SelectDataByQuery($this->TName('tBehave'),
             self::C_And(
 				self::C_And(
@@ -123,7 +137,14 @@ class UserBehaviourManager extends DBManager{
         ),true);
 		
         $backMsg = RESPONDINSTANCE('0');
-		
+
+        if(empty($visitTable)){
+            $backMsg['stat']['visit'] = 0;
+        }else{
+            $visitTable =  $visitTable[0];
+            $backMsg['stat']['visit'] = $visitTable[$fieldVisit]==null?0:$visitTable[$fieldVisit];
+        }
+
 		if(empty($joinTable)){
             $backMsg['stat']['join'] = 0;
 		}else{

@@ -357,7 +357,7 @@ class UserManager extends DBManager{
         }
 
         UserBehaviourManager::OnBehave($uid,VISI);
-        
+
         unset($userArray['nickname']);
 
         unset($userArray['headicon']);
