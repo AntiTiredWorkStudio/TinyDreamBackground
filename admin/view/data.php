@@ -12,8 +12,10 @@
    <thead> 
     <tr> 
      <th>日期</th> 
+     <th>访问人次</th> 
      <th>参与人次</th> 
      <th>支付人次</th> 
+     <th>访问人数</th> 
      <th>参与人数</th> 
      <th>支付人数</th> 
      <th>加载人数</th> 
@@ -29,8 +31,10 @@
 ?>
  <tr> 
      <td><?php echo "20".$value['date'];?></td> 
+     <td><?php echo $value['visit'];?></td> 
      <td><?php echo $value['join'];?></td> 
      <td><?php echo $value['paid'];?></td> 
+     <td id="<?php echo "day_visit_".$value['date'];?>">未加载</td> 
      <td id="<?php echo "day_join_".$value['date'];?>">未加载</td> 
      <td id="<?php echo "day_paid_".$value['date'];?>">未加载</td> 
      <td id="<?php echo "day_btn_".$value['date'];?>"><button id="<?php echo 'btn_'.$value['date'];?>" type="button">查看人数</button></td> 

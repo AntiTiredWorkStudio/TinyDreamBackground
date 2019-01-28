@@ -299,6 +299,7 @@ var DataModule = {
 		TD_Request("ub","gad",
 			{date:targetID},
 			function(code,data){
+				$("#day_visit_"+targetID).html(data.stat.visit);
 				$("#day_join_"+targetID).html(data.stat.join);
 				$("#day_paid_"+targetID).html(data.stat.paid);
 				$("#day_btn_"+targetID).html("已加载");
