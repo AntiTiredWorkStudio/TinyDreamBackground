@@ -11,6 +11,7 @@ LIB('ds');
 LIB('va');
 LIB('no');
 LIB('auth');
+LIB('ub');
 
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
@@ -355,6 +356,8 @@ class UserManager extends DBManager{
             }
         }
 
+        UserBehaviourManager::OnBehave($uid,VISI);
+        
         unset($userArray['nickname']);
 
         unset($userArray['headicon']);

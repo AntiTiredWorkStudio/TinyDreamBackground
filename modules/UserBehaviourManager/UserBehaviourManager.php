@@ -6,6 +6,7 @@ LIB('db');
 define('STAT','total');
 define('PAY','paid');
 define('JOIN','join');
+define('VISI','visit');
 
 class UserBehaviourManager extends DBManager{
 
