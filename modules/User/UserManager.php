@@ -27,7 +27,7 @@ class UserIdentifier{
 	public $dayBuy;
 	
     public function UserIdentifier(){}
-	
+
 	public function LoadDatas($array){
 		if(	array_key_exists('uid',$array) &&
 			array_key_exists('nickname',$array) &&
@@ -58,6 +58,25 @@ class UserManager extends DBManager{
                 '_logic'=>' '
             ]
         )));
+    }
+
+
+    public static function GetUserTele($uid){
+        $USM = new UserManager();
+        return DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),
+            self::FieldIsValue('uid',$uid),
+            false,
+            'tele'
+        ),true)[0]['tele'];
+    }
+
+    public static function GetTelesByUidList($uidlist){
+        $USM = new UserManager();
+        return DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),
+            self::FieldIsValue('uid',self::LogicString($uidlist)),
+            false,
+            'tele'
+        ),true);
     }
 
 

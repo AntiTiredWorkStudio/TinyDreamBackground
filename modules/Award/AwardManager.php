@@ -7,6 +7,7 @@ LIB('dp');
 LIB('dr');
 LIB('us');
 LIB('no');
+LIB('va');
 
 class AwardManager extends DBManager{
 
@@ -223,8 +224,55 @@ class AwardManager extends DBManager{
     }
 
 
-    public static function SendShortMsgToUser(){
+    public function SendShortMsgToUser($pid,$awardUid,$awardLid){
+        $list = DBResultToArray($this->SelectDataByQuery($this->TName('tLottery'),
+            self::C_And(
+                self::FieldIsValue('pid',$pid),
+                self::C_And(
+                    self::FieldIsValue('uid',$awardUid,'!='),
+                    self::FieldIsValue('lid',$awardLid,'!=')
+                )
+            ),
+            false,'`uid`')
+            ,true
+        );
+        $key = [];
+        $uidlist = [];
+        foreach ($list as $value) {
+            if(isset($key[$value['uid']])){
+                continue;
+            }
+            $key[$value['uid']] = true;
+            array_push($uidlist,$value['uid']);
+        }
+        $teleResultlist = UserManager::GetTelesByUidList($uidlist);
+        $telekey = [];
+        $telelist = [];
+        $index = 0;
+        $seek = 0;
+        $telelist[$seek] = [];
+        foreach ($teleResultlist as $value) {
+            if(isset($telekey[$value['tele']])){
+                continue;
+            }
+            $key[$value['tele']] = true;
+            if($index>98){
+                $seek++;
+                $telelist[$seek] = [];
+                $index = 0;
+            }else{
+                array_push($telelist[$seek],$value['tele']);
+            }
+            $index++;
+        }
 
+        $awardTele = UserManager::GetUserTele($awardUid);
+        $awardTeleBack = ValidateManager::SendAwardMsg([$awardTele],$pid,$awardLid);
+        $missTeleBack = [];
+        foreach ($telelist as $key => $value) {
+            $missTeleBack[$key] = ValidateManager::SendMissMsg($value,$pid);
+        }
+        return ['teles'=>$telelist,'awardTeleBack'=>$awardTeleBack,'missTeleBack'=>$missTeleBack];
     }
 
     //梦想池开奖
@@ -259,7 +307,7 @@ class AwardManager extends DBManager{
                     DreamManager::OnDreamDoing($targetLottery['did']);//更新梦想表——梦想实现
                     UserManager::OnUserReward($targetLottery['uid'],$item['cbill']);//更新用户表——用户中奖总额修改
                     $this->SetPoolsAwardLottery($item['pid'],$targetLottery['lid']);//更新编号信息（中奖/未中奖）
-
+                    $this->SendShortMsgToUser($item['pid'],$targetLottery['uid'],$targetLottery['lid']);
                     $resultArray[$count][0] = $item['pid'];//梦想池id
                     $resultArray[$count][1] = $targetLottery['uid'];//中奖用户id
                     $resultArray[$count][2] = $targetLottery['lid'];//开奖编号

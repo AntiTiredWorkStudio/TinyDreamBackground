@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/modules/Award/AwardManager.php" afterPath="$PROJECT_DIR$/modules/Award/AwardManager.php" />
-      <change beforePath="$PROJECT_DIR$/modules/Validate/ValidateManager.php" afterPath="$PROJECT_DIR$/modules/Validate/ValidateManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Award/index.php" afterPath="$PROJECT_DIR$/modules/Award/index.php" />
+      <change beforePath="$PROJECT_DIR$/modules/User/UserManager.php" afterPath="$PROJECT_DIR$/modules/User/UserManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,30 +18,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserBehaviourManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php">
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1292">
-              <caret line="81" column="28" lean-forward="false" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+            <state relative-caret-position="653">
+              <caret line="69" column="25" lean-forward="false" selection-start-line="69" selection-start-column="25" selection-end-line="69" selection-end-column="25" />
               <folding>
-                <element signature="n#Instance#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetAddRecordSql#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <element signature="n#OnBehave#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <element signature="n#GenerateDayInfo#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetRecordsCount#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <element signature="n#GetSingleDayRecordsAddUp#0;n#UserBehaviourManager#0;n#!!top" expanded="false" />
-                <marker date="1548701091155" expanded="true" signature="2429:2510" ph="SELECT * FRO... ${$table}" />
+                <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
+                <marker date="1548744710523" expanded="true" signature="4534:34062" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/main.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2006">
-              <caret line="59" column="49" lean-forward="false" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -56,11 +41,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AuthManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/AuthManager/AuthManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ValidateManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/Validate/ValidateManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+            <state relative-caret-position="561">
+              <caret line="181" column="30" lean-forward="true" selection-start-line="181" selection-start-column="30" selection-end-line="181" selection-end-column="30" />
               <folding>
                 <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
                 <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
@@ -96,13 +91,26 @@
       <file leaf-file-name="AwardManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+            <state relative-caret-position="661">
+              <caret line="274" column="96" lean-forward="false" selection-start-line="274" selection-start-column="96" selection-end-line="274" selection-end-column="96" />
               <folding>
-                <marker date="1548742344188" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
-                <marker date="1548742344188" expanded="true" signature="12481:12530" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
-                <marker date="1548742344188" expanded="true" signature="12896:12981" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
+                <element signature="n#GetUserLottery#0;n#AwardManager#0;n#!!top" expanded="false" />
+                <element signature="n#GetAwardLotteryByDreamID#0;n#AwardManager#0;n#!!top" expanded="false" />
+                <element signature="n#AwardedDreamVailid#0;n#AwardManager#0;n#!!top" expanded="false" />
+                <marker date="1548745043189" expanded="true" signature="579:653" ph="SELECT COUNT... lottery" />
+                <marker date="1548745043189" expanded="true" signature="14281:14330" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+                <marker date="1548745043189" expanded="true" signature="14696:14781" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -131,16 +139,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webApp.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/js/webApp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="849">
-              <caret line="45" column="4" lean-forward="true" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="qiniu.min.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/js/qiniu.min.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -164,7 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;</find>
       <find>Options.UserInfo</find>
       <find>GetUserInfoWeb</find>
       <find>OnDreamList</find>
@@ -194,6 +191,7 @@
       <find>GetSingleDayRecordsAddUp</find>
       <find>$WebApp</find>
       <find>WebApp</find>
+      <find>tele</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -213,7 +211,6 @@
         <option value="$PROJECT_DIR$/admin/assets/css/main.css" />
         <option value="$PROJECT_DIR$/admin/postdream.php" />
         <option value="$PROJECT_DIR$/admin/verify.php" />
-        <option value="$PROJECT_DIR$/modules/Award/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamPool/index.php" />
         <option value="$PROJECT_DIR$/modules/DreamPool/DreamPoolManager.php" />
         <option value="$PROJECT_DIR$/modules/ConciseManager/index.php" />
@@ -247,11 +244,12 @@
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/index.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
-        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php" />
         <option value="$PROJECT_DIR$/admin/js/main.js" />
         <option value="$PROJECT_DIR$/public/lib.php" />
         <option value="$PROJECT_DIR$/modules/Validate/ValidateManager.php" />
+        <option value="$PROJECT_DIR$/modules/Award/index.php" />
+        <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
       </list>
     </option>
@@ -528,17 +526,18 @@
       <workItem from="1548246346991" duration="9314000" />
       <workItem from="1548401699452" duration="2906000" />
       <workItem from="1548686926118" duration="7108000" />
-      <workItem from="1548737201723" duration="3669000" />
+      <workItem from="1548737201723" duration="6355000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="637203000" />
+    <option name="totallyTimeSpent" value="639889000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -566,7 +565,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="70" />
+      <option name="time" value="71" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -798,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/paid.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -827,14 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/AuthManager/AuthManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4896">
@@ -853,16 +837,6 @@
             <marker date="1548402654043" expanded="true" signature="32023:32090" ph="SELECT * FRO... dreampool" />
             <marker date="1548402654043" expanded="true" signature="34957:35030" ph="SELECT COUNT... order" />
             <marker date="1548402654043" expanded="true" signature="35448:35530" ph="SELECT * FRO... order" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12172">
-          <caret line="358" column="41" lean-forward="false" selection-start-line="358" selection-start-column="41" selection-end-line="358" selection-end-column="41" />
-          <folding>
-            <marker date="1548700804853" expanded="true" signature="3964:33492" ph="..." />
           </folding>
         </state>
       </provider>
@@ -972,10 +946,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/AuthManager/AuthManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Award/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/User/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="69" column="25" lean-forward="false" selection-start-line="69" selection-start-column="25" selection-end-line="69" selection-end-column="25" />
+          <folding>
+            <element signature="n#EnterApp#0;n#UserManager#0;n#!!top" expanded="false" />
+            <marker date="1548744710523" expanded="true" signature="4534:34062" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modules/Validate/ValidateManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        <state relative-caret-position="561">
+          <caret line="181" column="30" lean-forward="true" selection-start-line="181" selection-start-column="30" selection-end-line="181" selection-end-column="30" />
           <folding>
             <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
             <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
@@ -989,12 +990,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+        <state relative-caret-position="661">
+          <caret line="274" column="96" lean-forward="false" selection-start-line="274" selection-start-column="96" selection-end-line="274" selection-end-column="96" />
           <folding>
-            <marker date="1548742344188" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
-            <marker date="1548742344188" expanded="true" signature="12481:12530" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
-            <marker date="1548742344188" expanded="true" signature="12896:12981" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
+            <element signature="n#GetUserLottery#0;n#AwardManager#0;n#!!top" expanded="false" />
+            <element signature="n#GetAwardLotteryByDreamID#0;n#AwardManager#0;n#!!top" expanded="false" />
+            <element signature="n#AwardedDreamVailid#0;n#AwardManager#0;n#!!top" expanded="false" />
+            <marker date="1548745043189" expanded="true" signature="579:653" ph="SELECT COUNT... lottery" />
+            <marker date="1548745043189" expanded="true" signature="14281:14330" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+            <marker date="1548745043189" expanded="true" signature="14696:14781" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
           </folding>
         </state>
       </provider>

@@ -14,5 +14,6 @@
 		'cplu'=>R('CountPreviousLucky'),//获取往期幸运者
         'calc'=>R('GetCalc',['pid']),//获取计算步骤
         'uplid'=>R('UpdateLottery',['lid']),//更新中奖编号
+        'tsend'=>R('SendShortMsgToUser',['pid','au','al']),
     ]);
 ?>
