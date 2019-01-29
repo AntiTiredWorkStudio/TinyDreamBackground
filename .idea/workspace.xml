@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/js/main.js" afterPath="$PROJECT_DIR$/admin/js/main.js" />
-      <change beforePath="$PROJECT_DIR$/public/lib.php" afterPath="$PROJECT_DIR$/public/lib.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Award/AwardManager.php" afterPath="$PROJECT_DIR$/modules/Award/AwardManager.php" />
+      <change beforePath="$PROJECT_DIR$/modules/Validate/ValidateManager.php" afterPath="$PROJECT_DIR$/modules/Validate/ValidateManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,8 +59,8 @@
       <file leaf-file-name="ValidateManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/Validate/ValidateManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="682">
-              <caret line="181" column="34" lean-forward="false" selection-start-line="181" selection-start-column="34" selection-end-line="181" selection-end-column="34" />
+            <state relative-caret-position="660">
+              <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
               <folding>
                 <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
                 <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
@@ -68,17 +68,16 @@
                 <element signature="n#BindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
                 <element signature="n#GenerateCode#0;n#ValidateManager#0;n#!!top" expanded="false" />
                 <element signature="n#ValidateManager#0;n#ValidateManager#0;n#!!top" expanded="false" />
-                <element signature="n#nowapi_call#0;n#ValidateManager#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lib.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="333" column="21" lean-forward="false" selection-start-line="333" selection-start-column="21" selection-end-line="333" selection-end-column="21" />
+            <state relative-caret-position="2890">
+              <caret line="278" column="47" lean-forward="false" selection-start-line="278" selection-start-column="47" selection-end-line="278" selection-end-column="47" />
               <folding>
                 <element signature="n#Manager#0;n#!!top" expanded="false" />
                 <element signature="n#TaskSort#0;n#!!top" expanded="false" />
@@ -86,9 +85,23 @@
                 <element signature="n#MonitorBuilder#0;n#!!top" expanded="false" />
                 <element signature="n#CombineWechatServer#0;n#!!top" expanded="false" />
                 <element signature="n#unicode2utf8#0;n#!!top" expanded="false" />
-                <element signature="e#8337#9440#0#PHP" expanded="false" />
-                <marker date="1548740583416" expanded="true" signature="7871:8226" ph="..." />
-                <marker date="1548740583416" expanded="true" signature="8955:9310" ph="..." />
+                <marker date="1548741406340" expanded="true" signature="7920:8286" ph="..." />
+                <marker date="1548741406340" expanded="true" signature="8193:8251" ph="..." />
+                <marker date="1548741406340" expanded="true" signature="9015:9370" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AwardManager.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+              <folding>
+                <marker date="1548742344188" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
+                <marker date="1548742344188" expanded="true" signature="12481:12530" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+                <marker date="1548742344188" expanded="true" signature="12896:12981" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
               </folding>
             </state>
           </provider>
@@ -138,19 +151,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BackgroundController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/BackgroundController/BackgroundController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4250">
-              <caret line="178" column="54" lean-forward="false" selection-start-line="178" selection-start-column="54" selection-end-line="178" selection-end-column="54" />
-              <folding>
-                <element signature="n#BuildPostDream#0;n#BackgroundController#0;n#!!top" expanded="false" />
-                <element signature="n#BuildVerify#0;n#BackgroundController#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -164,8 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GenerateAccessToken</find>
-      <find>OnBackgroundLogin</find>
       <find>&lt;</find>
       <find>Options.UserInfo</find>
       <find>GetUserInfoWeb</find>
@@ -194,6 +192,8 @@
       <find>GenerateDayInfo</find>
       <find>GetRecordsRecordsByRange</find>
       <find>GetSingleDayRecordsAddUp</find>
+      <find>$WebApp</find>
+      <find>WebApp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,7 +206,6 @@
         <option value="$PROJECT_DIR$/modules/DreamServersManager/test/wxpay-miniapp.php" />
         <option value="$PROJECT_DIR$/admin/login.html" />
         <option value="$PROJECT_DIR$/admin/page-login.html" />
-        <option value="$PROJECT_DIR$/modules/Validate/ValidateManager.php" />
         <option value="$PROJECT_DIR$/admin/index.html" />
         <option value="$PROJECT_DIR$/navagator.php" />
         <option value="$PROJECT_DIR$/admin/navagator.php" />
@@ -246,13 +245,14 @@
         <option value="$PROJECT_DIR$/admin/view/navagator.php" />
         <option value="$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" />
         <option value="$PROJECT_DIR$/modules/Dream/DreamManager.php" />
-        <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/index.php" />
         <option value="$PROJECT_DIR$/public/conf.php" />
         <option value="$PROJECT_DIR$/modules/User/UserManager.php" />
         <option value="$PROJECT_DIR$/modules/UserBehaviourManager/UserBehaviourManager.php" />
         <option value="$PROJECT_DIR$/admin/js/main.js" />
         <option value="$PROJECT_DIR$/public/lib.php" />
+        <option value="$PROJECT_DIR$/modules/Validate/ValidateManager.php" />
+        <option value="$PROJECT_DIR$/modules/Award/AwardManager.php" />
       </list>
     </option>
   </component>
@@ -528,18 +528,17 @@
       <workItem from="1548246346991" duration="9314000" />
       <workItem from="1548401699452" duration="2906000" />
       <workItem from="1548686926118" duration="7108000" />
-      <workItem from="1548737201723" duration="2070000" />
+      <workItem from="1548737201723" duration="3669000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="635604000" />
+    <option name="totallyTimeSpent" value="637203000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -567,7 +566,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="67" />
+      <option name="time" value="70" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -754,6 +753,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12036">
           <caret line="354" column="40" lean-forward="false" selection-start-line="354" selection-start-column="40" selection-end-line="354" selection-end-column="40" />
+          <folding>
+            <marker date="1548402673688" expanded="true" signature="1841:1958" ph="SELECT * FRO... ${$DRM-&gt;TName('tDream')}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -761,6 +763,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2618">
           <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+          <folding>
+            <element signature="n#NoticeMiss#0;n#NoticeManager#0;n#!!top" expanded="false" />
+            <element signature="n#BuildContent#0;n#NoticeManager#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -796,13 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="266" column="40" lean-forward="false" selection-start-line="266" selection-start-column="40" selection-end-line="266" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -955,26 +954,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/Validate/ValidateManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="181" column="34" lean-forward="false" selection-start-line="181" selection-start-column="34" selection-end-line="181" selection-end-column="34" />
-          <folding>
-            <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#ConfirmCode#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#BindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#GenerateCode#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#ValidateManager#0;n#ValidateManager#0;n#!!top" expanded="false" />
-            <element signature="n#nowapi_call#0;n#ValidateManager#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/lib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="333" column="21" lean-forward="false" selection-start-line="333" selection-start-column="21" selection-end-line="333" selection-end-column="21" />
+        <state relative-caret-position="2890">
+          <caret line="278" column="47" lean-forward="false" selection-start-line="278" selection-start-column="47" selection-end-line="278" selection-end-column="47" />
           <folding>
             <element signature="n#Manager#0;n#!!top" expanded="false" />
             <element signature="n#TaskSort#0;n#!!top" expanded="false" />
@@ -982,9 +965,36 @@
             <element signature="n#MonitorBuilder#0;n#!!top" expanded="false" />
             <element signature="n#CombineWechatServer#0;n#!!top" expanded="false" />
             <element signature="n#unicode2utf8#0;n#!!top" expanded="false" />
-            <element signature="e#8337#9440#0#PHP" expanded="false" />
-            <marker date="1548740583416" expanded="true" signature="7871:8226" ph="..." />
-            <marker date="1548740583416" expanded="true" signature="8955:9310" ph="..." />
+            <marker date="1548741406340" expanded="true" signature="7920:8286" ph="..." />
+            <marker date="1548741406340" expanded="true" signature="8193:8251" ph="..." />
+            <marker date="1548741406340" expanded="true" signature="9015:9370" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Validate/ValidateManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding>
+            <element signature="n#PrepareBindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
+            <element signature="n#ForceBindTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
+            <element signature="n#ConfirmCode#0;n#ValidateManager#0;n#!!top" expanded="false" />
+            <element signature="n#BindingTele#0;n#ValidateManager#0;n#!!top" expanded="false" />
+            <element signature="n#GenerateCode#0;n#ValidateManager#0;n#!!top" expanded="false" />
+            <element signature="n#ValidateManager#0;n#ValidateManager#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/Award/AwardManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+          <folding>
+            <marker date="1548742344188" expanded="true" signature="568:642" ph="SELECT COUNT... lottery" />
+            <marker date="1548742344188" expanded="true" signature="12481:12530" ph="SELECT COUNT... ${$this-&gt;TName(&quot;tAward&quot;)}" />
+            <marker date="1548742344188" expanded="true" signature="12896:12981" ph="SELECT * FRO... ${$this-&gt;TName('tAward')}" />
           </folding>
         </state>
       </provider>

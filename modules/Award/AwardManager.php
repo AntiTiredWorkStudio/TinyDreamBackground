@@ -222,6 +222,11 @@ class AwardManager extends DBManager{
         return self::DrawTheWinnerLottery();
     }
 
+
+    public static function SendShortMsgToUser(){
+
+    }
+
     //梦想池开奖
     public function DoneAlottery($DoalBallNum,$expect,$code){
 

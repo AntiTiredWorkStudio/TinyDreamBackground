@@ -178,7 +178,97 @@ class ValidateManager extends DBManager{
 		parent::__construct();
 	}
 
-	//发送验证码api
+
+	public static function SendMissMsg($teleList,$pid){
+        $teleString = self::LogicString($teleList,',');
+        $a_parm = [];
+        $a_parm['app']='sms.send';
+        $a_parm['tempid']='51608';
+        $a_parm['param']=urlencode('pid='.$pid);
+        $a_parm['phone']=$teleString;
+        $a_parm['appkey']='16194';
+        $a_parm['sign']='6bafcd948b55092641cb9023fb986359';
+        $a_parm['format']='json';
+
+        if(!is_array($a_parm)){
+            return false;
+        }
+
+        $a_parm['format']=empty($a_parm['format'])?'json':$a_parm['format'];
+        $apiurl=empty($a_parm['apiurl'])?'http://api.k780.com/?':$a_parm['apiurl'].'/?';
+        unset($a_parm['apiurl']);
+        foreach($a_parm as $k=>$v){
+            $apiurl.=($k.'='.$v.'&');
+        }
+        $apiurl=substr($apiurl,0,-1);
+
+        if(!$callapi=file_get_contents($apiurl)){
+            return false;
+        }
+        //format
+        if($a_parm['format']=='base64'){
+            $a_cdata=unserialize(base64_decode($callapi));
+        }elseif($a_parm['format']=='json'){
+            if(!$a_cdata=json_decode($callapi,true)){
+                return false;
+            }
+        }else{
+            return false;
+        }
+        //array
+        if($a_cdata['success']!='1'){
+            //echo $a_cdata['msgid'].' '.$a_cdata['msg'];
+            return false;
+        }
+        return $a_cdata['result'];
+    }
+
+    public static function SendAwardMsg($teleList,$pid,$lid){
+        $teleString = self::LogicString($teleList,',');
+        $a_parm = [];
+        $a_parm['app']='sms.send';
+        $a_parm['tempid']='51609';
+        $a_parm['param']=urlencode('pid='.$pid.'&lid='.$lid);
+        $a_parm['phone']=$teleString;
+        $a_parm['appkey']='16194';
+        $a_parm['sign']='6bafcd948b55092641cb9023fb986359';
+        $a_parm['format']='json';
+
+        if(!is_array($a_parm)){
+            return false;
+        }
+
+        $a_parm['format']=empty($a_parm['format'])?'json':$a_parm['format'];
+        $apiurl=empty($a_parm['apiurl'])?'http://api.k780.com/?':$a_parm['apiurl'].'/?';
+        unset($a_parm['apiurl']);
+        foreach($a_parm as $k=>$v){
+            $apiurl.=($k.'='.$v.'&');
+        }
+        $apiurl=substr($apiurl,0,-1);
+
+        if(!$callapi=file_get_contents($apiurl)){
+            return false;
+        }
+        //format
+        if($a_parm['format']=='base64'){
+            $a_cdata=unserialize(base64_decode($callapi));
+        }elseif($a_parm['format']=='json'){
+            if(!$a_cdata=json_decode($callapi,true)){
+                return false;
+            }
+        }else{
+            return false;
+        }
+        //array
+        if($a_cdata['success']!='1'){
+            //echo $a_cdata['msgid'].' '.$a_cdata['msg'];
+            return false;
+        }
+        return $a_cdata['result'];
+    }
+
+
+    //发送验证码api
 	function nowapi_call($tele,$code){
 		$a_parm = [];
 		$a_parm['app']='sms.send';
