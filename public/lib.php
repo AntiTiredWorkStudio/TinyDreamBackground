@@ -230,16 +230,18 @@ function AutoBack($postObj){
 		$toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         $time = time();
-        $msgType = 'text';
-        $content = unicode2utf8("\ue14c");
+        $msgType = 'image';
+        $mediaId = "2o_EqMfCk-_X6bNAydUVERCZ40EWjODWEglDmdr6z0Y";//unicode2utf8("\ue14c");
 		$template = "<xml>
                             <ToUserName><![CDATA[%s]]></ToUserName>
                             <FromUserName><![CDATA[%s]]></FromUserName>
                             <CreateTime>%s</CreateTime>
                             <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
+							<Image>
+								<MediaId><![CDATA[%s]]></MediaId>
+							</Image>
                             </xml>";
-        $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
+        $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $mediaId);
         echo $info;
 	}
 	if (strtolower($postObj->MsgType) == 'event') {
@@ -330,7 +332,7 @@ $WebApp = [
     WECHAT_IMAGE_COMMAND=>function(){
         $access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
         $url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=$access_token";
-        $result = https_request($url);
+        $result = https_request($url,json_encode(['type'=>'image','offset'=>0,'count'=>10]));
         echo $result;
         return;
     }
