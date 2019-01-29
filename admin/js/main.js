@@ -316,7 +316,7 @@ var DataModule = {
 			});
 		}
 	},
-	GetPersonCount(id,result){
+	GetPersonCount:function(id,result){
 		TD_Request("ub","gad",
 			{date:id},
 			function(code,data){

@@ -13,10 +13,12 @@ define('PERMISSION_ALL','all');//无需权限可访问
 
 
 define('MONITOR_COMMAND','moi');
+define('WECHAT_ACCESSTOKEN_COMMAND','accesstoken');
 define('WECHAT_COMBINE_COMMAND','signature');
 define('WECHAT_GETUSERINFO_COMMAND','code');
 define('WECHAT_WEB_COMMAND','webchatweb');
 define('WECHAT_MENU_COMMAND','wechatmenu');
+define('WECHAT_IMAGE_COMMAND','wechatimage');
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -266,6 +268,15 @@ function AutoBack($postObj){
 
 //微信公众号方法处理
 $WebApp = [
+    WECHAT_ACCESSTOKEN_COMMAND=>function(){
+        $appid = $GLOBALS['options']['WEB_APP_ID'];
+        $appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+
+        $output = https_request($url);
+        $jsoninfo = json_decode($output, true);
+        return $jsoninfo["access_token"];
+    },
 	WECHAT_COMBINE_COMMAND=>function(){
 		$postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -288,24 +299,24 @@ $WebApp = [
 		return;
 	},
 	WECHAT_MENU_COMMAND=>function(){
-		$appid = $GLOBALS['options']['WEB_APP_ID'];
+		/*$appid = $GLOBALS['options']['WEB_APP_ID'];
 		$appsecret = $GLOBALS['options']['WEB_APP_SECRET'];
 		$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
 		
 		$output = https_request($url);
 		$jsoninfo = json_decode($output, true);
-		$access_token = $jsoninfo["access_token"];
-		
+		$access_token = $jsoninfo["access_token"];*/
+        $access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
 		if($_REQUEST[WECHAT_MENU_COMMAND] == ''){
 		//定义菜单的格式
-		$jsonmenu = '{
-			  "button":[
-			  {
-					"name":"立刻参与互助",
-					"type":"view",
-					"url":"'.$GLOBALS['options']['web_url'].'"
-			   }]
-		 }';
+            $jsonmenu = '{
+                  "button":[
+                  {
+                        "name":"立刻参与互助",
+                        "type":"view",
+                        "url":"'.$GLOBALS['options']['web_url'].'"
+                   }]
+             }';
 			
 		}else{
 			$jsonmenu = $_REQUEST[WECHAT_MENU_COMMAND];
@@ -315,7 +326,14 @@ $WebApp = [
 		$result = https_request($url, $jsonmenu);
 		echo $result;
 		return;
-	}
+	},
+    WECHAT_IMAGE_COMMAND=>function(){
+        $access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
+        $url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=$access_token";
+        $result = https_request($url);
+        echo $result;
+        return;
+    }
 ];
 
 function REQUEST($key){
