@@ -231,11 +231,8 @@ var WebApp = {
 		}
 	},
 	JSAPI:{
-  		Init:function () {
-			if(args.para){
-				this.ShareDefaultConfig = args.para;
-			}
-			//this.ShareDefaultConfig = args.para || this.ShareDefaultConfig;
+  		Init:function (para) {
+			this.ShareDefaultConfig = para || this.ShareDefaultConfig;
 			document.write('<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>');
            	var shareObject = this;
 			setTimeout(function(){
