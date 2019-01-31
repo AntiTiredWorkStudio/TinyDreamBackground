@@ -376,7 +376,8 @@ class AwardManager extends DBManager{
                     "index"=>0,
                     "atime"=>PRC_TIME(),
                     "did"=>'无开奖',
-                    "abill"=>0
+                    "abill"=>0,
+                    "imgurl"=>''
                 ]);
         }else {
             $this->InsertDatasToTable($this->TName('tAward'),
