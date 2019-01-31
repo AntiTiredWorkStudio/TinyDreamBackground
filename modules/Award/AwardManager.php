@@ -513,10 +513,14 @@ class AwardManager extends DBManager{
 
     public function ActivityLive(){
         return DBResultToArray($this->SelectDataByQuery($this->TName('tAward'),
-            //self::C_And(
-                self::FieldIsValue('uid','无开奖','!=')//,
-                //self::FieldIsValue('imgurl','')
-           //)
+            self::C_And(
+                self::FieldIsValue('uid','无开奖','!='),
+                self::ExpressionIsValue(
+                    self::SqlValue(PRC_TIME()).'-'.self::SqlField('atime'),
+                    86400*7,
+                    "<"
+                )
+           )
         ),true);
     }
 }
