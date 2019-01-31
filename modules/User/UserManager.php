@@ -17,6 +17,7 @@ define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
 define('ID_BACK','id_b');
 define('PUB_LETTER','letter_');
+define('PUB_ACTIVITY','activity_');
 
 class UserIdentifier{
 	public $uid;
@@ -79,6 +80,19 @@ class UserManager extends DBManager{
         ),true);
     }
 
+    //生成活动照片上传token
+    public static function GenerateActivityPhoto($uid){
+        $USM = new UserManager();
+        $auth = new Auth($USM->CloudOptions['ak'], $USM->CloudOptions['sk']);
+        $token = $auth->uploadToken($USM->CloudOptions['bucket']);
+        $timeStamp = PRC_TIME();
+        $backMsg['uptoken']=$token;
+        $backMsg['upurl']= $USM->uploadURLFromRegionCode($USM->CloudOptions['region']);
+        $backMsg['domain']=$USM->CloudOptions['domain'];
+        $backMsg['timeStamp']=$timeStamp;
+        $backMsg['fileName'] = $USM->GenerateFileName($uid,PUB_LETTER);
+        return $backMsg;
+    }
 
     //生成公函上传token
     public static function GeneratePublicLetter($uid){

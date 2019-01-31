@@ -425,7 +425,7 @@ class AwardManager extends DBManager{
     public function CountPreviousLucky(){
         $link = $this->DBLink();
 
-        $sql = "SELECT COUNT(*) FROM `".$this->TName("tAward")."`";
+        $sql = "SELECT COUNT(*) FROM `".$this->TName("tAward")."` WHERE ".self::FieldIsValue('uid','无开奖','!=');
 
         mysql_query($sql,$link);
 		
@@ -441,7 +441,7 @@ class AwardManager extends DBManager{
         //未实现
         $link = $this->DBLink();
 
-        $sql = "SELECT * FROM `".$this->TName('tAward')."` WHERE 1 ORDER BY `atime` DESC LIMIT $seek,$count";
+        $sql = "SELECT * FROM `".$this->TName('tAward')."` WHERE ".self::FieldIsValue('uid','无开奖','!=')." ORDER BY `atime` DESC LIMIT $seek,$count";
 
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 		
@@ -489,6 +489,22 @@ class AwardManager extends DBManager{
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['awardInfo'] = $awardInfo;
         return $backMsg;
+    }
+
+    public function ActivityStart($pid){
+        $awardResult = DBResultToArray($this->SelectDataByQuery(
+            $this->TName('tAward'),
+            self::FieldIsValue('pid',$pid)
+        ),true);
+        if(empty($awardResult)){
+
+        }else{
+
+        }
+    }
+
+    public function ActivityEnd($pid,$url){
+
     }
 }
 ?>
