@@ -497,14 +497,27 @@ class AwardManager extends DBManager{
             self::FieldIsValue('pid',$pid)
         ),true);
         if(empty($awardResult)){
-
+            return RESPONDINSTANCE('66');
         }else{
-
+            $awardResult = $awardResult[0];
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['token'] = UserManager::GenerateActivityPhoto($awardResult['uid']);
+            return $backMsg;
         }
     }
 
     public function ActivityEnd($pid,$url){
+        $this->UpdateDataToTableByQuery($this->TName('tAward'),['imgurl'=>$url], self::FieldIsValue('pid',$pid));
+        return RESPONDINSTANCE('0');
+    }
 
+    public function ActivityLive(){
+        return DBResultToArray($this->SelectDataByQuery($this->TName('tAward'),
+            self::C_And(
+                self::FieldIsValue('uid','无开奖','!='),
+                self::FieldIsValue('imgurl','')
+            )
+        ),true);
     }
 }
 ?>

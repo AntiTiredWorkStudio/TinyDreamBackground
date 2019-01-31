@@ -17,6 +17,7 @@ class BackgroundController extends DBManager {
         'verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
         'datas'=>['id'=>'data','title'=>'数据','path'=>'admin/view/data.php'],
         'orders'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
+        'activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
     ];
     public function info()
     {
@@ -48,7 +49,8 @@ class BackgroundController extends DBManager {
         'a_post'=>['title'=>'发布梦想池','class'=>'lnr lnr-home'],
         'a_verify'=>['title'=>'中标用户审核','class'=>'lnr lnr-pencil'],
         'a_data'=>['title'=>'访问数据统计','class'=>'lnr lnr-dice'],
-		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store']
+		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store'],
+        'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter']
     ];
     public function BuildNavigatorList(){
         return $this->navigateList;
@@ -173,13 +175,19 @@ class BackgroundController extends DBManager {
 	}
 	
 	public function BuildDatas(){
-        $pageData = $this->pages['datas'];
-		
-		$uBehaviour = new UserBehaviourManager();
-        $pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
+        $pageData = $this->pages['activity'];
+
+        $awardController = new AwardManager();
+        $pageData['activity'] = $awardController->ActivityLive();
+		//$uBehaviour = new UserBehaviourManager();
+        //$pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
 		
         require ($pageData['path']);
 	}
+
+	public function BuildActivity(){
+
+    }
 
 	public function BackgroundController(){
 		
