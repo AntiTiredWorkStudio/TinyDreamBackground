@@ -307,7 +307,9 @@ class AwardManager extends DBManager{
                     DreamManager::OnDreamDoing($targetLottery['did']);//更新梦想表——梦想实现
                     UserManager::OnUserReward($targetLottery['uid'],$item['cbill']);//更新用户表——用户中奖总额修改
                     $this->SetPoolsAwardLottery($item['pid'],$targetLottery['lid']);//更新编号信息（中奖/未中奖）
-                    $this->SendShortMsgToUser($item['pid'],$targetLottery['uid'],$targetLottery['lid']);
+					if(!$GLOBALS['options']['debug']){
+						$this->SendShortMsgToUser($item['pid'],$targetLottery['uid'],$targetLottery['lid']);
+					}
                     $resultArray[$count][0] = $item['pid'];//梦想池id
                     $resultArray[$count][1] = $targetLottery['uid'];//中奖用户id
                     $resultArray[$count][2] = $targetLottery['lid'];//开奖编号

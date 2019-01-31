@@ -7,7 +7,7 @@
         'inf'=>R('info'),//模块信息
         'done'=>R('DoneAlottery',['dnum']),//开奖
         'onums'=>R('GetLotteryByOrder',['oid']),//通过订单获取
-        'anums'=>R('AutoLottery'),//自动开奖
+        'anums'=>R('AutoLottery',null,PERMISSION_AUTH_FREE|PERMISSION_LOCAL),//自动开奖
         'lfromp' => R('GetLotteryFromPid',['pid']),
         'gawap'=>R('GetUnawardPools'),
 		'gplu'=>R('GetPreviousLuckyByRange',['seek','count']),//获取往期幸运者
