@@ -4,11 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/modules/DreamServersManager/DreamServersManager.php" line="826" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/modules/Award/AwardManager.php" afterPath="$PROJECT_DIR$/modules/Award/AwardManager.php" />
-      <change beforePath="$PROJECT_DIR$/modules/Award/index.php" afterPath="$PROJECT_DIR$/modules/Award/index.php" />
-    </list>
+    <list default="true" id="7878abcf-3578-46dc-ac68-f1959b1f0bc0" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -282,7 +278,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="width" value="1619" />
     <option name="height" value="1040" />
@@ -550,15 +546,15 @@
       <workItem from="1548737201723" duration="6788000" />
       <workItem from="1548779644016" duration="1959000" />
       <workItem from="1548868605245" duration="692000" />
-      <workItem from="1548921566456" duration="883000" />
+      <workItem from="1548921566456" duration="1481000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="643856000" />
+    <option name="totallyTimeSpent" value="644454000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16145833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
