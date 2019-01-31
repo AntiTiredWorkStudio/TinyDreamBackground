@@ -90,7 +90,7 @@ class UserManager extends DBManager{
         $backMsg['upurl']= $USM->uploadURLFromRegionCode($USM->CloudOptions['region']);
         $backMsg['domain']=$USM->CloudOptions['domain'];
         $backMsg['timeStamp']=$timeStamp;
-        $backMsg['fileName'] = $USM->GenerateFileName($uid,PUB_LETTER);
+        $backMsg['fileName'] = $USM->GenerateFileName($uid,PUB_ACTIVITY);
         return $backMsg;
     }
 

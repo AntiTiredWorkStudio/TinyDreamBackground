@@ -1,3 +1,5 @@
+WebApp.InitUpload();
+
 var main = function () {
 
     if(!HasLogin()){
@@ -80,6 +82,9 @@ document.OnPartLoad = function (data) {
 			break;
 		case "ord":
 			OrderModule.init(data);
+			break;
+		case "act":
+			ActivityModule.init(data);
 			break;
         default:
             break;
@@ -391,6 +396,50 @@ var OrderModule = {
 				startTime:$("#startDayTime").val(),
 				endTime:$("#endDayTime").val(),
 				seek:$(page.currentTarget).attr('seek')
+			}
+		);
+	}
+}
+
+var ActivityModule = {
+	init:function(option){
+		for(var key in option.act){
+			$("#ok_"+option.act[key].pid).click(this.Upload);
+		}
+       // 
+	},
+	Upload:function(res){
+		var tPid = $(res.currentTarget).attr('pid');
+		
+		console.log("Upload",$("#file_"+tPid)[0].files[0]);
+		var targetFile = $("#file_"+tPid)[0].files[0];
+		if(targetFile == null){
+			alert("未选择文件");
+			return;
+		}
+		TD_Request("aw","astart",{pid:tPid},
+			function(code,data){
+				var realImgUrl = data.token.domain+"/"+data.token.fileName;
+				 WebApp.UploadWithSDK(data.token.uptoken, data.token.upurl,targetFile,data.token.fileName,
+                    function(result)
+                    {
+						if(result.result){
+							TD_Request("aw","aend",{pid:tPid,url:realImgUrl},
+								function(code,data){
+									alert("上传成功!");
+									LoadWorkSpace('a_activity');
+								},function(code,data){
+									alert(data.context);
+								}
+							);
+						}else{
+							alert(JSON.stringify(result));
+						}
+					});
+			},
+			function(code,data){
+				console.log(data);
+				alert(data.context);
 			}
 		);
 	}

@@ -175,18 +175,19 @@ class BackgroundController extends DBManager {
 	}
 	
 	public function BuildDatas(){
-        $pageData = $this->pages['activity'];
+        $pageData = $this->pages['datas'];
 
-        $awardController = new AwardManager();
-        $pageData['activity'] = $awardController->ActivityLive();
-		//$uBehaviour = new UserBehaviourManager();
-        //$pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
+		$uBehaviour = new UserBehaviourManager();
+        $pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
 		
         require ($pageData['path']);
 	}
 
 	public function BuildActivity(){
-
+        $pageData = $this->pages['activity'];
+        $awardController = new AwardManager();
+        $pageData['act'] = $awardController->ActivityLive();
+        require ($pageData['path']);
     }
 
 	public function BackgroundController(){
