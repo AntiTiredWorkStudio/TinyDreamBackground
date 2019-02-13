@@ -45,13 +45,15 @@ class DreamManager extends DBManager{
 					],
 					'AND'
 				)
-			));
+			),true);
 			
 			
             $result['result'] = true;
             $result['dtitle'] = $dArray['title'];
 			if(!empty($aresult)){
-				$result['pid'] = $aresult['pid'];
+				
+				file_put_contents("pid.txt", json_encode($aresult));
+				$result['pid'] = $aresult[0]['pid'];
 			}else{
 				$result['pid'] = '100001';//测试梦想池;
 			}
