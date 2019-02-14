@@ -1097,8 +1097,10 @@ class DreamServersManager extends DBManager {
 
     //进入参与记录页面调用
     public function ShowOrdersInPoolStart($pid){
-        $link = $this->DBLink();http:
+        $link = $this->DBLink();
         $sql = 'SELECT COUNT(*) FROM `order` WHERE `pid`="'.$pid.'" AND `state`="SUCCESS"';
+		
+//        $sql = 'SELECT SUM(`dcount`) FROM `order` WHERE `pid`="'.$pid.'" AND `state`="SUCCESS"';
         $result = mysql_query($sql,$link);
         if(!$result){
             $cResult = [];

@@ -52,7 +52,7 @@ class DreamManager extends DBManager{
             $result['dtitle'] = $dArray['title'];
 			if(!empty($aresult)){
 				
-				file_put_contents("pid.txt", json_encode($aresult));
+				//file_put_contents("pid.txt", json_encode($aresult));
 				$result['pid'] = $aresult[0]['pid'];
 			}else{
 				$result['pid'] = '100001';//测试梦想池;
