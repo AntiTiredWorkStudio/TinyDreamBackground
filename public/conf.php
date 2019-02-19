@@ -131,27 +131,27 @@ $tables = [
 	],*/
 	'tAuth'=>[
 		'name'=>'auth',
-		'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `secret` INT NOT NULL COMMENT '密钥' , `time` INT NOT NULL COMMENT '时间戳' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB  DEFAULT CHARSET=UTF8 COMMENT = '密钥管理';"
+		'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `secret` INT NOT NULL COMMENT '密钥' , `time` INT NOT NULL COMMENT '时间戳' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB  DEFAULT CHARSET=UTF8MB4 COMMENT = '密钥管理';"
 	],
 	'tUser'=>[
 	    'name'=>'user',
-        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共奖励数量' , `totalJoin` INT NOT NULL COMMENT '总共参与数量' ,  `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('USER','OWNER','ADMIN') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='用户管理';"
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT 'openid' , `nickname` TEXT NOT NULL , `headicon` TEXT NOT NULL , `tele` TEXT NOT NULL , `totalReward` INT NOT NULL COMMENT '总共奖励数量' , `totalJoin` INT NOT NULL COMMENT '总共参与数量' ,  `dayBuy` INT NOT NULL COMMENT '当日购买次数' , `identity` ENUM('USER','OWNER','ADMIN') NOT NULL , `ltime` INT NOT NULL COMMENT '最后购买时间' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='用户管理';"
     ],
     'tPool'=>[
         'name'=>'dreampool',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '池id' , `ptitle` TEXT NOT NULL COMMENT '池说明' , `uid` TEXT NOT NULL COMMENT '发布人id' , `state` ENUM('RUNNING','FINISHED') NOT NULL COMMENT '状态' , `tbill` INT NOT NULL COMMENT '目标金额' , `cbill` INT NOT NULL COMMENT '筹得金额' , `ubill` INT NOT NULL COMMENT '每份金额' , `duration` INT NOT NULL COMMENT '持续时间' , `ptime` INT NOT NULL COMMENT '发布时间' , `pcount` INT NOT NULL COMMENT '筹得份数' ,`award` ENUM('NO','YES') NOT NULL DEFAULT 'NO' COMMENT '梦想池开奖状态' , PRIMARY KEY (`pid`(10))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想池';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '池id' , `ptitle` TEXT NOT NULL COMMENT '池说明' , `uid` TEXT NOT NULL COMMENT '发布人id' , `state` ENUM('RUNNING','FINISHED') NOT NULL COMMENT '状态' , `tbill` INT NOT NULL COMMENT '目标金额' , `cbill` INT NOT NULL COMMENT '筹得金额' , `ubill` INT NOT NULL COMMENT '每份金额' , `duration` INT NOT NULL COMMENT '持续时间' , `ptime` INT NOT NULL COMMENT '发布时间' , `pcount` INT NOT NULL COMMENT '筹得份数' ,`award` ENUM('NO','YES') NOT NULL DEFAULT 'NO' COMMENT '梦想池开奖状态' , PRIMARY KEY (`pid`(10))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='梦想池';"
     ],
     'tOrder'=>[
         'name'=>'order',
-        'command'=>"CREATE TABLE `#DBName#` ( `oid` TEXT NOT NULL , `uid` TEXT NOT NULL , `pid` TEXT NOT NULL , `bill` INT NOT NULL COMMENT '订单钱数' , `ctime` INT NOT NULL COMMENT '创建时间' , `ptime` INT NOT NULL COMMENT '支付时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED','CANCEL') NOT NULL , `dcount` INT NOT NULL COMMENT '梦想份数' , `did` TEXT NOT NULL COMMENT '梦想id' , PRIMARY KEY (`oid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='购买订单';"
+        'command'=>"CREATE TABLE `#DBName#` ( `oid` TEXT NOT NULL , `uid` TEXT NOT NULL , `pid` TEXT NOT NULL , `bill` INT NOT NULL COMMENT '订单钱数' , `ctime` INT NOT NULL COMMENT '创建时间' , `ptime` INT NOT NULL COMMENT '支付时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED','CANCEL') NOT NULL , `dcount` INT NOT NULL COMMENT '梦想份数' , `did` TEXT NOT NULL COMMENT '梦想id' , PRIMARY KEY (`oid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='购买订单';"
     ],
     'tDream'=>[
         'name'=>'dream',
-        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','VERIFY','FAILED','SUCCESS') NOT NULL ,`payment` BOOLEAN NOT NULL COMMENT '付款标识' , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='梦想';"
+        'command'=>"CREATE TABLE `#DBName#` ( `did` TEXT NOT NULL COMMENT '梦想id' , `uid` TEXT NOT NULL COMMENT '梦想用户id' , `dtypeid` TEXT NOT NULL COMMENT '梦想类型id' , `dserverid` TEXT NOT NULL COMMENT '梦想规划服务id' , `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `videourl` TEXT NOT NULL COMMENT '梦想小视频地址' , `state` ENUM('SUBMIT','DOING','VERIFY','FAILED','SUCCESS') NOT NULL ,`payment` BOOLEAN NOT NULL COMMENT '付款标识' , PRIMARY KEY (`did`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='梦想';"
     ],
     'tDreamType'=>[
         'name'=>'dreamtype',
-        'command'=>"CREATE TABLE `#DBName#` ( `dtid` TEXT NOT NULL COMMENT '梦想类型id' , `keyword` TEXT NOT NULL COMMENT '梦想简单分类' , `description` TEXT NOT NULL COMMENT '分类描述' , `online` BOOLEAN NOT NULL COMMENT '分类开启状态' , PRIMARY KEY (`dtid`(12), `keyword`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '梦想类型';",
+        'command'=>"CREATE TABLE `#DBName#` ( `dtid` TEXT NOT NULL COMMENT '梦想类型id' , `keyword` TEXT NOT NULL COMMENT '梦想简单分类' , `description` TEXT NOT NULL COMMENT '分类描述' , `online` BOOLEAN NOT NULL COMMENT '分类开启状态' , PRIMARY KEY (`dtid`(12), `keyword`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '梦想类型';",
         'default'=>[
             '梦想类别:创业'=>[
                 'dtid'=>'Enterprise',
@@ -175,7 +175,7 @@ $tables = [
     ],
     'tDreamServer'=>[
         'name'=>'dreamserver',
-        'command'=>"CREATE TABLE `#DBName#` ( `dsid` TEXT NOT NULL COMMENT '梦想服务id' , `cost` INT NOT NULL COMMENT '花费（分）' , `dtid` TEXT NOT NULL COMMENT '梦想服务类别' , `title` TEXT NOT NULL COMMENT '服务标题' , `online` BOOLEAN NOT NULL COMMENT '上线状态' , PRIMARY KEY (`dsid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '梦想规划服务';",
+        'command'=>"CREATE TABLE `#DBName#` ( `dsid` TEXT NOT NULL COMMENT '梦想服务id' , `cost` INT NOT NULL COMMENT '花费（分）' , `dtid` TEXT NOT NULL COMMENT '梦想服务类别' , `title` TEXT NOT NULL COMMENT '服务标题' , `online` BOOLEAN NOT NULL COMMENT '上线状态' , PRIMARY KEY (`dsid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '梦想规划服务';",
         'default'=>[
             '默认创业规划服务'=>[
                 'dsid'=>'ENTSERVER01',
@@ -202,36 +202,36 @@ $tables = [
     ],
 	'tValidate'=>[
 		'name' => 'validate',
-		'command'=> "CREATE TABLE `#DBName#` ( `tele` TEXT NOT NULL , `code` TEXT NOT NULL , `time` INT NOT NULL , PRIMARY KEY (`tele`(11))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='验证码';"
+		'command'=> "CREATE TABLE `#DBName#` ( `tele` TEXT NOT NULL , `code` TEXT NOT NULL , `time` INT NOT NULL , PRIMARY KEY (`tele`(11))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='验证码';"
 	],
     'tLottery'=>[
         'name'=>'lottery',
-        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , `state` ENUM('WAITTING','MISS','GET') NOT NULL COMMENT '梦想号状态'  , PRIMARY KEY (`lid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖号码';"
+        'command'=>"CREATE TABLE `#DBName#` ( `lid` TEXT NOT NULL COMMENT '排序号id' , `pid` TEXT NOT NULL COMMENT '梦想池id' , `uid` TEXT NOT NULL COMMENT '用户id' , `index` INT NOT NULL COMMENT '用户序号' , `oid` TEXT NOT NULL COMMENT '对应订单号' , `did` TEXT NOT NULL COMMENT '对应梦想号' , `state` ENUM('WAITTING','MISS','GET') NOT NULL COMMENT '梦想号状态'  , PRIMARY KEY (`lid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='开奖号码';"
     ],
     'tAward'=>[
         'name'=>'award',
-        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' ,`lid` TEXT NOT NULL COMMENT '开奖编号' ,  `expect` TEXT NOT NULL COMMENT '期号' , `code` TEXT NOT NULL COMMENT '开奖号码' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额', `imgurl` TEXT NOT NULL COMMENT '活动照片' , PRIMARY KEY (`pid`(10))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT='开奖结果';"
+        'command'=>"CREATE TABLE `#DBName#` ( `pid` TEXT NOT NULL COMMENT '开奖梦想池id' , `uid` TEXT NOT NULL COMMENT '中奖用户id' ,`lid` TEXT NOT NULL COMMENT '开奖编号' ,  `expect` TEXT NOT NULL COMMENT '期号' , `code` TEXT NOT NULL COMMENT '开奖号码' , `index` INT NOT NULL COMMENT '开奖排序号' , `atime` INT NOT NULL COMMENT '开奖时间' , `did` TEXT NOT NULL COMMENT '开奖梦想id' , `abill` INT NOT NULL COMMENT '开奖金额', `imgurl` TEXT NOT NULL COMMENT '活动照片' , PRIMARY KEY (`pid`(10))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='开奖结果';"
     ],
     'tId'=>[
         'name'=>'identity',
-        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息';"
+        'command'=>"CREATE TABLE `#DBName#` ( `uid` TEXT NOT NULL COMMENT '用户id' , `ccardfurl` TEXT NOT NULL COMMENT '银行卡正面图片地址' , `icardfurl` TEXT NOT NULL COMMENT '证件正面图片地址' , `icardburl` TEXT NOT NULL COMMENT '证件背面图片地址' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `icardnum` TEXT NOT NULL COMMENT '证件号' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '实名认证信息';"
     ],
     'tIdx'=>[
         'name'=>'identityx',
-        'command'=>"CREATE TABLE `#DBName#` (`uid` TEXT NOT NULL COMMENT '用户id' ,`realname` TEXT NOT NULL COMMENT '真实姓名' , `icardnum` TEXT NOT NULL COMMENT '身份证号' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `bank` TEXT NOT NULL COMMENT '银行类别' , `openbank` TEXT NOT NULL COMMENT '开户行' , `icardfurl` TEXT NOT NULL COMMENT '手持证件正面照片地址' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '实名认证信息(新)';"
+        'command'=>"CREATE TABLE `#DBName#` (`uid` TEXT NOT NULL COMMENT '用户id' ,`realname` TEXT NOT NULL COMMENT '真实姓名' , `icardnum` TEXT NOT NULL COMMENT '身份证号' , `ccardnum` TEXT NOT NULL COMMENT '银行卡号' , `bank` TEXT NOT NULL COMMENT '银行类别' , `openbank` TEXT NOT NULL COMMENT '开户行' , `icardfurl` TEXT NOT NULL COMMENT '手持证件正面照片地址' , `ftime` INT NOT NULL COMMENT '最后修改时间' , `state` ENUM('NONE','SUBMIT','SUCCESS','FAILED') NOT NULL COMMENT '审核状态' , PRIMARY KEY (`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '实名认证信息(新)';"
     ],
     'tBehave'=>[
         'name'=>'behaviour',
-        'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `visit` INT NOT NULL COMMENT '访问数量' ,`join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '行为统计';"
+        'command'=>"CREATE TABLE `#DBName#` ( `ubid` TEXT NOT NULL COMMENT '每天统计id' , `date` TEXT NOT NULL COMMENT '日期' , `typeid` TEXT NOT NULL COMMENT '内容id' , `visit` INT NOT NULL COMMENT '访问数量' ,`join` INT NOT NULL COMMENT '参与数量' , `paid` INT NOT NULL COMMENT '支付数量' , PRIMARY KEY (`ubid`(40))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '行为统计';"
     ],
     'tNotice'=>[
         'name'=>'notice',
-        'command'=>"CREATE TABLE `#DBName#` ( `nid` TEXT NOT NULL COMMENT '通知id' , `uid` TEXT NOT NULL COMMENT '用户id' , `content` TEXT NOT NULL COMMENT '消息内容' , `action` TEXT NOT NULL COMMENT '命令标识符' , `ptime` INT NOT NULL COMMENT '生成时间' , `state` ENUM('READ','UNREAD') NOT NULL COMMENT '阅读状态' , PRIMARY KEY (`nid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '通知表';"
+        'command'=>"CREATE TABLE `#DBName#` ( `nid` TEXT NOT NULL COMMENT '通知id' , `uid` TEXT NOT NULL COMMENT '用户id' , `content` TEXT NOT NULL COMMENT '消息内容' , `action` TEXT NOT NULL COMMENT '命令标识符' , `ptime` INT NOT NULL COMMENT '生成时间' , `state` ENUM('READ','UNREAD') NOT NULL COMMENT '阅读状态' , PRIMARY KEY (`nid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '通知表';"
     ],
     /***********小梦想互助简约版************/
     'dServer'=>[
         'name'=>'demo_server',
-        'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40) ,`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8 COMMENT = '简约版服务列表'"
+        'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40) ,`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '简约版服务列表'"
     ]
 ];
 

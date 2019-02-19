@@ -587,7 +587,7 @@ class DBManager extends Manager{
 	//快速获取数据库链接
 	public function DBLink(){
 		$con = mysql_connect("localhost",$this->C()['admin'],$this->C()['password']);
-		mysql_set_charset('utf8');
+		mysql_set_charset('utf8mb4');
 		if($con){
 			mysql_select_db($this->C()['database']);
 		}

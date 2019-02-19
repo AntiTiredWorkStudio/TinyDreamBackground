@@ -347,6 +347,7 @@ class UserManager extends DBManager{
         $condition);
         $userArray = DBResultToArray($seleResult,true);
         $backMsg = RESPONDINSTANCE('0');
+		//file_put_contents($uid."_nickname.txt",urlencode($nickname));
         if(empty($userArray)){//未注册
             $userArray = [
                 "uid"=>$uid,
