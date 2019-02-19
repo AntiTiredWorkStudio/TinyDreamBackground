@@ -183,7 +183,7 @@ class ValidateManager extends DBManager{
         $teleString = self::LogicString($teleList,',');
         $a_parm = [];
         $a_parm['app']='sms.send';
-        $a_parm['tempid']='51608';
+        $a_parm['tempid']='51610';
         $a_parm['param']=urlencode('pid='.$pid);
         $a_parm['phone']=$teleString;
         $a_parm['appkey']='16194';
@@ -227,7 +227,7 @@ class ValidateManager extends DBManager{
         $teleString = self::LogicString($teleList,',');
         $a_parm = [];
         $a_parm['app']='sms.send';
-        $a_parm['tempid']='51609';
+        $a_parm['tempid']='51611';
         $a_parm['param']=urlencode('pid='.$pid.'&lid='.$lid);
         $a_parm['phone']=$teleString;
         $a_parm['appkey']='16194';
