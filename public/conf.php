@@ -54,7 +54,9 @@ $modules = [
 	,'cs' => ['rq'=>'modules/ConciseManager/index.php',//ConciseManager
 			'lib'=>'modules/ConciseManager/ConciseManager.php']
 	,'view' => ['rq'=>'modules/SnippetManager/index.php',//SnippetManager
-			'lib'=>'modules/SnippetManager/SnippetManager.php']#NEW_MODULES#
+			'lib'=>'modules/SnippetManager/SnippetManager.php']
+	,'rp' => ['rq'=>'modules/RedPackManage/index.php',//RedPackManage
+			'lib'=>'modules/RedPackManage/RedPackManage.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -227,6 +229,23 @@ $tables = [
     'tNotice'=>[
         'name'=>'notice',
         'command'=>"CREATE TABLE `#DBName#` ( `nid` TEXT NOT NULL COMMENT '通知id' , `uid` TEXT NOT NULL COMMENT '用户id' , `content` TEXT NOT NULL COMMENT '消息内容' , `action` TEXT NOT NULL COMMENT '命令标识符' , `ptime` INT NOT NULL COMMENT '生成时间' , `state` ENUM('READ','UNREAD') NOT NULL COMMENT '阅读状态' , PRIMARY KEY (`nid`(20))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '通知表';"
+    ],
+    'tROrder'=>[
+        'name'=>'redpackorder',
+        'command'=>"CREATE TABLE `#DBName#`  (
+  `rid` text NOT NULL COMMENT '红包id',
+  `uid` text NULL COMMENT '用户openid',
+  `bill` int NULL COMMENT '价格',
+  `rcount` int NULL COMMENT '数量',
+  `gcount` int NULL COMMENT '获得的数量',
+  `acontent` int NULL COMMENT '人均份数',
+  `content` text NULL COMMENT '祝福语',
+  `rtype` enum('STANDARD','LUCKY') NULL DEFAULT 'STANDARD' COMMENT '红包类型',
+  `ctime` int NULL COMMENT '创建时间',
+  `ptime` int NULL COMMENT '支付时间',
+  `state` enum('PAYMENT','RUNNING','FINISHED') NULL COMMENT '订单状态',
+  PRIMARY KEY (`rid`(12))
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '红包订单';"
     ],
     /***********小梦想互助简约版************/
     'dServer'=>[
