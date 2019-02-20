@@ -1269,8 +1269,8 @@ class DreamServersManager extends DBManager {
 		
 		$useridList = [];
 		foreach($orders as $key=>$value){
-			$orders[$key]['ctime'] = date('Y-m-d h:i:s',$orders[$key]['ctime']);
-			$orders[$key]['ptime'] = date('Y-m-d h:i:s',$orders[$key]['ptime']);
+			$orders[$key]['ctime'] = date('Y-m-d H:i:s',$orders[$key]['ctime']);
+			$orders[$key]['ptime'] = date('Y-m-d H:i:s',$orders[$key]['ptime']);
 			$orders[$key]['bill'] = $orders[$key]['bill']*0.01;
 			if(!in_array($value['uid'],$useridList)){
 				array_push($useridList,$value['uid']);
