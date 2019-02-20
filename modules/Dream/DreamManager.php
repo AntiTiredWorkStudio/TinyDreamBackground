@@ -50,6 +50,8 @@ class DreamManager extends DBManager{
 			
             $result['result'] = true;
             $result['dtitle'] = $dArray['title'];
+			
+            $result['did'] = $dArray['did'];
 			if(!empty($aresult)){
 				
 				//file_put_contents("pid.txt", json_encode($aresult));
