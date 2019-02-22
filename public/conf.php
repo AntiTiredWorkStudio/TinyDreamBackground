@@ -235,6 +235,7 @@ $tables = [
         'command'=>"CREATE TABLE `#DBName#`  (
   `rid` text NOT NULL COMMENT '红包id',
   `uid` text NULL COMMENT '用户openid',
+  `pid` text NULL COMMENT '梦想互助id',
   `bill` int NULL COMMENT '价格',
   `rcount` int NULL COMMENT '数量',
   `gcount` int NULL COMMENT '获得的数量',
@@ -246,6 +247,20 @@ $tables = [
   `state` enum('PAYMENT','RUNNING','FINISHED') NULL COMMENT '订单状态',
   PRIMARY KEY (`rid`(12))
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '红包订单';"
+    ],
+    'tRReco'=>[
+        'name'=>'redrecord',
+        'command'=>"CREATE TABLE `#DBName#`  (
+  `rpid` text NOT NULL COMMENT '领取序号',
+  `uid` text NULL COMMENT '用户id',
+  `rid` text NULL COMMENT '红包id',
+  `gtime` int NULL COMMENT '领取时间',
+  `pcount` int NULL COMMENT '份数',
+  `oid` text NULL COMMENT '订单号',
+  `pbill` int NULL COMMENT '金额',
+  `index` int NULL COMMENT '序号',
+  PRIMARY KEY (`rpid`(18))
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;"
     ],
     /***********小梦想互助简约版************/
     'dServer'=>[
