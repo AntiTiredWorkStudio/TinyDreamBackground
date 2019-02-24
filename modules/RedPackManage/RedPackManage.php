@@ -1,6 +1,7 @@
 <?php
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
+LIB("aw");//
 LIB("ds");//
 LIB("dr");//
 LIB("dp");//
@@ -45,15 +46,44 @@ class RedPackManage extends DBManager {
             "dcount"=>1,
             "did"=>$did,
         ];
-        $RPM->InsertDataToTable($RPM->TName('tOrder').$orderArray);
+        $RPM->InsertDataToTable($RPM->TName('tOrder'),$orderArray);
+        return $orderArray;
+    }
 
+    //获取红包的领取信息
+    public static function HasUserRedPackageRec($uid,$rid){
+        $RPM = new RedPackManage();
+        $count = DBResultToArray($RPM->SelectDataByQuery( $RPM->TName('tRReco'),
+            self::C_And(
+                self::FieldIsValue('uid',$uid),
+                self::FieldIsValue('rid',$rid)
+            ),false,'COUNT(*)'
+        ),true);
+
+        if(empty($count)){
+            return false;
+        }
+
+        $count = $count[0]['COUNT(*)'];
+
+        return $count>0;
     }
 
     //获取红包的领取信息
     public static function GenerateRedPackageRecInfo($rid){
+        $RPM = new RedPackManage();
+        $count = DBResultToArray($RPM->SelectDataByQuery($RPM->TName('tRReco'),self::FieldIsValue('rid',$rid),false,'COUNT(*)'),true);
+        if(empty($count)){
+            return [
+                "rpid"=>$rid.'_0',
+                "index"=>0,
+            ];
+        }
+        $count = $count[0]['COUNT(*)'];
+
         return [
-            "rpid"=>"",
-            "index"=>0,
+            "rpid"=>$rid.'_'.$count,
+            "index"=>$count,
         ];
     }
 
@@ -73,10 +103,11 @@ class RedPackManage extends DBManager {
         $RPM = new RedPackManage();
         $less = DBResultToArray($RPM->SelectDataByQuery($RPM->TName('tROrder'),
                 self::FieldIsValue('rid',$rid)
-        ));
+        ),true);
         if(empty($less)){
             return 0;
         }
+        $less = $less[0];
         return $less['rcount'] - $less['gcount'];
     }
 
@@ -95,8 +126,11 @@ class RedPackManage extends DBManager {
 
         //梦想互助期号是否存在，未完成互助
             //梦想互助失效，返回失败
-        if(!DreamPoolManager::IsPoolRunning($pid)){
-            return RESPONDINSTANCE('5');
+
+        $RunningResult = DreamPoolManager::IsPoolRunning($pid);
+
+        if($RunningResult['result']=="false"){
+            return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
         }
 
         //rcount小于200，
@@ -215,18 +249,6 @@ class RedPackManage extends DBManager {
     }
     //领取红包 orp
 	public function OpenRedPack($uid,$rid){
-        //判断用户当日购买份数是否到达5次
-        $dayLimit = UserManager::CheckDayBoughtLimit($uid);
-        if($dayLimit<=0){
-            return RESPONDINSTANCE('18');//用户当日购买量超过上限
-        }
-        //判断红包是否有效，红包存在未领取份数，对应的梦想互助未结束
-        $packLess = self::GetRedPackLessCount($rid);
-        if(!$packLess<=0){
-
-            return RESPONDINSTANCE('5');
-        }
-
         //判断用户是否绑定手机号
         if(!UserManager::IdentifyTeleUser($uid)){
             return RESPONDINSTANCE('11');//若未绑定手机即会提示先绑定手机
@@ -238,45 +260,113 @@ class RedPackManage extends DBManager {
             return RESPONDINSTANCE('71');//用户未提交梦想
         }
 
+        if(self::HasUserRedPackageRec($uid,$rid)){
+            $result = DBResultToArray($this->SelectDataByQuery($this->TName('tRReco'),
+                self::C_And(
+                    self::FieldIsValue('rid',$rid),
+                    self::FieldIsValue('uid',$uid)
+                )),true);
+            $result = $result[0];
+            $lid = DBResultToArray($this->SelectDataByQuery($this->TName('tLottery'),
+                self::C_And(
+                    self::FieldIsValue('oid',$result['oid']),
+                    self::FieldIsValue('uid',$uid)
+                )),true);
+            $backMsg = RESPONDINSTANCE('72');//用户已经领取该红包
+            $backMsg['reco'] = $result;
+            if(isset($lid[0]['lid'])){
+                $backMsg['reco']['lid'] = $lid[0]['lid'];
+            }
+            return $backMsg;
+        }
+
+        //判断用户当日购买份数是否到达5次
+        $dayLimit = UserManager::CheckDayBoughtLimit($uid);
+        if($dayLimit<=0){
+            return RESPONDINSTANCE('18');//用户当日购买量超过上限
+        }
+
+        //判断红包是否有效，红包存在未领取份数，对应的梦想互助未结束
+        $packLess = self::GetRedPackLessCount($rid);
+        if($packLess<=0){
+            return RESPONDINSTANCE('5');
+        }
 
         //获取红包信息
         $redInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),self::FieldIsValue('rid',$rid)),true)[0];
 
+        //判断梦想互助是否结束
+        $RunningResult = DreamPoolManager::IsPoolRunning($redInfo['pid']);
+
+        if($RunningResult['result']=="false"){
+            return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
+        }
+
         $unitBill = $redInfo['bill']/$redInfo['rcount'];
 
         //生成红包购买订单
-        self::GenerateRedPackageOrder($uid,$redInfo['pid'],$unitBill,$firstDream['did']);
+        $order = self::GenerateRedPackageOrder($uid,$redInfo['pid'],$unitBill,$firstDream['did']);
+
+        $aCount = $redInfo['acount'];
 
         //用户当日购买份数+1,参与数量+1
         $DSM = new DreamServersManager();
-        UserManager::UpdateUserOrderInfo($uid,$DSM->CountUserJoinedPool($uid),1);
+        UserManager::UpdateUserOrderInfo($uid,$DSM->CountUserJoinedPool($uid),$aCount);
 
-
-        if($packLess-1<=0) {
-            $this->UpdateDataToTableByQuery(
-                $this->TName('tUser'),
-                ['dayBuy'=>'FINISHED'],
-                self::FieldIsValue('uid',$uid));
-        }
 
         //创建编号
+        $PoolResult = DreamPoolManager::BuyPoolPieceSuccess($redInfo['pid'],$aCount);
 
-        $this->UpdateDataToTableByQuery(
+        $startIndex = $PoolResult['PoolInfo']['startIndex'];//开始编号
+
+        $endIndex = $PoolResult['PoolInfo']['endIndex'];//结束编号
+
+        $numbers = AwardManager::PayOrderAndCreateLottery($redInfo['pid'],$uid,$firstDream['did'],$order['oid'],$startIndex,$endIndex);
+
+        //红包订单已领份数+1
+        $this->UpdateDataByQuery($this->TName('tROrder'),"`gcount` = `gcount`+1",self::FieldIsValue('rid',$rid));
+
+        //若红包无剩余量
+        if($packLess-$aCount<=0) {
+            $this->UpdateDataToTableByQuery(
                 $this->TName('tROrder'),
                 ['state'=>"FINISHED"],
                 self::FieldIsValue('rid',$rid)
             );
-        //红包订单已领份数+1
+        }
 
         //生成红包领取记录
-
+        self::OnUserOpenPackage($uid,$rid,$aCount,$order['oid'],$aCount*$unitBill);
 
         //发送通知给用户
 
 
         $backMsg = RESPONDINSTANCE('0');
+        $backMsg['nums'] = $numbers;
+        $backMsg['order'] = $order;
+        $backMsg['pool'] = $PoolResult;
         return $backMsg;
     }
+
+    //用户打开红包记录
+    public static function OnUserOpenPackage($uid,$rid,$pcount,$oid,$pbill){
+        $RPM = new RedPackManage();
+        $infos = self::GenerateRedPackageRecInfo($rid);
+        $redrecordArray = [
+            "rpid"=>$infos['rpid'],
+            "uid"=>$uid,
+            "rid"=>$rid,
+            "gtime"=>PRC_TIME(),
+            "pcount"=>$pcount,
+            "oid"=>$oid,
+            "pbill"=>$pbill,
+            "index"=>$infos['index'],
+        ];
+        $RPM->InsertDataToTable($RPM->TName('tRReco'),$redrecordArray);
+
+    }
+
+
 	public function RedPackManage(){
 
     }

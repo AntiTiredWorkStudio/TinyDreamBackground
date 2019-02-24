@@ -246,13 +246,42 @@ class DBManager extends Manager{
 		$values = substr($values, 0, -1);
 		$result = mysql_query($sqlPart0.$keys.$sqlPart1.$values.$sqlPart2,$con);
 		
-		file_put_contents('testselect.txt',$sqlPart0.$keys.$sqlPart1.$values.$sqlPart2);
+		//file_put_contents('testselect.txt',$sqlPart0.$keys.$sqlPart1.$values.$sqlPart2);
 		//echo $sqlPart0.$keys.$sqlPart1.$values.$sqlPart2;
 		if($closeDBLink){
 			mysql_close($con);
 		}
 		return $result;
 	}
+
+	public function UpdateDataByQuery($tableName,$valString,$conString = null,$closeDBLink = false){
+        $con = $this->DBLink();
+        $sql = 'UPDATE `'.$tableName.'` SET ';
+
+        $val = '';
+
+        if(empty($valString)){
+            return false;
+        }
+
+        $val = $valString;
+
+        if(empty($conString)){
+            $sql = $sql.$val.' WHERE 1';
+        }else{
+            $sql = $sql.$val.' WHERE '.$conString;
+        }
+        //file_put_contents('updateByQuery.txt',$sql);
+        //echo $sql;
+        $result = mysql_query($sql,$con);
+        $result = mysql_affected_rows();
+        if($closeDBLink){
+            mysql_close($con);
+        }
+
+
+        return $result;
+    }
 
 	//通过自定义条件更新表
 	public function UpdateDataToTableByQuery($tableName,$valArray,$conString = null,$closeDBLink = false){

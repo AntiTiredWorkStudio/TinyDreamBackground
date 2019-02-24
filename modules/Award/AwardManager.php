@@ -118,6 +118,16 @@ class AwardManager extends DBManager{
         return ($pid.'-'.(10000000+$index));
     }
 
+    public static function GetPoolLotteryCount($pid){
+        $AWM = new AwardManager();
+        $result = DBResultToArray($AWM->SelectDataByQuery($AWM->TName('tLottery'),self::FieldIsValue('pid',$pid),false,'COUNT(*)'),true);
+        if(empty($result)){
+            return 0;
+        }else{
+            return $result[0]['COUNT(*)'];
+        }
+    }
+
 	//支付后生成的中奖号
 	public static function PayOrderAndCreateLottery($pid,$uid,$did,$oid,$startIndex,$endIndex){
         $AWM = new AwardManager();
