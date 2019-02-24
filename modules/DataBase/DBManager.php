@@ -443,12 +443,12 @@ class DBManager extends Manager{
 	public function SelectDataByQuery($tableName,$query,$closeDBLink=false,$field='*'){
         $con = $this->DBLink();
         $sql = 'SELECT '.$field.' FROM `'.$tableName.'` WHERE '.$query;
-        //echo $sql;
+       // echo $sql;
         $result = mysql_query($sql,$con);
         if($closeDBLink){
-            mysql_close($con);
         }
         return $result;
+        mysql_close($con);
     }
 
     //查找数据

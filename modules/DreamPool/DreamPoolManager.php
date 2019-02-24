@@ -17,8 +17,25 @@ class DreamPoolManager extends DBManager{
         return (100000 + ($DPM->CountTableRow($DPM->TName('tPool'))+1));
     }
 
+    //获取梦想互助剩余编号数量
+    public static function GetLessLotteryCount($pid){
+        $DPM = new DreamPoolManager();
+        $billInfo = DBResultToArray($DPM->SelectDataByQuery($DPM->TName('tPool'),self::FieldIsValue('pid',$pid),'false',
+            self::LogicString([
+                self::SqlField('tbill'),
+                self::SqlField('cbill'),
+                self::SqlField('ubill'),
+            ],','
+            )
+        ),true);
 
-
+        if(!empty($billInfo)){
+            $billInfo = $billInfo[0];
+        }else{
+            return 0;
+        }
+        return ($billInfo['tbill'] - $billInfo['cbill'])/$billInfo['ubill'];
+    }
     //更新所有在进行的梦想池
     public static function UpdateAllRunningPool(){
         $DPM = new DreamPoolManager();
@@ -281,7 +298,7 @@ class DreamPoolManager extends DBManager{
 		
         $pid = self::GeneratePoolIDAuto();
 		$title= POOL_TITLE_PREFIX.$pid.POOL_TITLE_POSTFIX;
-		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
+		$duration = GetDayLessTime()+86400*($day-1)+3600*21;//今天的剩余时间+day天
 		
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
             "pid"=>$pid,
