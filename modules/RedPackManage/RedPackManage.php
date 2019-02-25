@@ -366,11 +366,14 @@ class RedPackManage extends DBManager {
 
         //发送通知给用户
 
+        $userInfo = UserManager::GetUsersInfoByString($redInfo['uid'])[$redInfo['uid']];
 
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['nums'] = $numbers;
         $backMsg['order'] = $order;
         $backMsg['pool'] = $PoolResult;
+        $backMsg['sender']['headicon'] = $userInfo['headicon'];
+        $backMsg['sender']['nickname'] = $userInfo['nickname'];
         return $backMsg;
     }
 
