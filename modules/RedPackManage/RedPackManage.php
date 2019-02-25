@@ -227,24 +227,47 @@ class RedPackManage extends DBManager {
         //从rid获取红包信息，
         $redpack = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),
             self::FieldIsValue('rid',$rid)
-        ),false,self::SqlField('rid'));
+        ),true);
         if(empty($redpack)){
             return RESPONDINSTANCE('70');
         }
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['redpack'] = $redpack;
+        $backMsg['redpack'] = $redpack[0];
         return $backMsg;
     }
     //获取用户红包列表,红包记录页面（发出）gurps
     public function GetUserRedPacksSend($uid,$seek,$count){
         //通过uid获取用户发出的红包信息
+        $redpacks = DBResultToArray(
+			$this->SelectDataByQuery(
+				$this->TName('tROrder'),
+				self::Limit(
+					self::C_And(
+						self::FieldIsValue('state',"PAYMENT","!="),
+						self::FieldIsValue('uid',$uid)
+					),
+					$seek,$count
+				)
+			),true
+		);
         $backMsg = RESPONDINSTANCE('0');
+		$backMsg['packs'] = $redpacks;
         return $backMsg;
     }
     //获取用户红包列表,红包记录页面（收到）gurpr
     public function GetUserRedPacksRecive($uid,$seek,$count){
         //通过uid获取用户收到的红包信息
+        $redpacks = DBResultToArray(
+			$this->SelectDataByQuery(
+				$this->TName('tRReco'),
+				self::Limit(
+					self::FieldIsValue('uid',$uid),
+					$seek,$count
+				)
+			),true
+		);
         $backMsg = RESPONDINSTANCE('0');
+		$backMsg['packs'] = $redpacks;
         return $backMsg;
     }
     //领取红包 orp
