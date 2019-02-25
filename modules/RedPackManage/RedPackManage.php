@@ -233,6 +233,9 @@ class RedPackManage extends DBManager {
         }
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['redpack'] = $redpack[0];
+        $userInfo = UserManager::GetUsersInfoByString($backMsg['redpack']['uid'])[$backMsg['redpack']['uid']];
+        $backMsg['sender']['headicon'] = $userInfo['headicon'];
+        $backMsg['sender']['nickname'] = $userInfo['nickname'];
         return $backMsg;
     }
     //获取用户红包列表,红包记录页面（发出）gurps
