@@ -257,13 +257,10 @@ class RedPackManage extends DBManager {
         $stats = DBResultToArray(
             $this->SelectDataByQuery(
                 $this->TName('tROrder'),
-                self::Limit(
                     self::C_And(
                         self::FieldIsValue('state',"PAYMENT","!="),
                         self::FieldIsValue('uid',$uid)
-                    ),
-                    $seek,$count
-                ),false,"COUNT(*),SUM(`bill`)"
+                    ),false,"COUNT(*),SUM(`bill`)"
             ),true
         );
 
@@ -295,10 +292,8 @@ class RedPackManage extends DBManager {
         $stats = DBResultToArray(
             $this->SelectDataByQuery(
                 $this->TName('tRReco'),
-                self::Limit(
-                    self::FieldIsValue('uid',$uid),
-                    $seek,$count
-                ),false,"COUNT(*),SUM(`pbill`)"
+                self::FieldIsValue('uid',$uid),
+                false,"COUNT(*),SUM(`pbill`)"
             ),true
         );
 
