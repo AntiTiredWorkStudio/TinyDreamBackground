@@ -242,19 +242,41 @@ class RedPackManage extends DBManager {
     public function GetUserRedPacksSend($uid,$seek,$count){
         //通过uid获取用户发出的红包信息
         $redpacks = DBResultToArray(
-			$this->SelectDataByQuery(
-				$this->TName('tROrder'),
-				self::Limit(
-					self::C_And(
-						self::FieldIsValue('state',"PAYMENT","!="),
-						self::FieldIsValue('uid',$uid)
-					),
-					$seek,$count
-				)
-			),true
-		);
+            $this->SelectDataByQuery(
+                $this->TName('tROrder'),
+                self::Limit(
+                    self::C_And(
+                        self::FieldIsValue('state',"PAYMENT","!="),
+                        self::FieldIsValue('uid',$uid)
+                    ),
+                    $seek,$count
+                )
+            ),true
+        );
+
+        $stats = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tROrder'),
+                self::Limit(
+                    self::C_And(
+                        self::FieldIsValue('state',"PAYMENT","!="),
+                        self::FieldIsValue('uid',$uid)
+                    ),
+                    $seek,$count
+                ),false,"COUNT(*),SUM(`bill`)"
+            ),true
+        );
+
+        if(!empty($stats)) {
+            $stats = $stats[0];
+            $countPack = $stats['COUNT(*)'];
+            $totalBills = $stats['SUM(`bill`)'];
+            $stats = ['countPack' => $countPack, 'totalBill'=>$totalBills];
+        }
+
         $backMsg = RESPONDINSTANCE('0');
 		$backMsg['packs'] = $redpacks;
+		$backMsg['stats'] = $stats;
         return $backMsg;
     }
     //获取用户红包列表,红包记录页面（收到）gurpr
@@ -269,8 +291,27 @@ class RedPackManage extends DBManager {
 				)
 			),true
 		);
+
+        $stats = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tRReco'),
+                self::Limit(
+                    self::FieldIsValue('uid',$uid),
+                    $seek,$count
+                ),false,"COUNT(*),SUM(`pbill`)"
+            ),true
+        );
+
+        if(!empty($stats)) {
+            $stats = $stats[0];
+            $countPack = $stats['COUNT(*)'];
+            $totalBills = $stats['SUM(`pbill`)'];
+            $stats = ['countPack' => $countPack, 'totalBill'=>$totalBills];
+        }
+
         $backMsg = RESPONDINSTANCE('0');
 		$backMsg['packs'] = $redpacks;
+        $backMsg['stats'] = $stats;
         return $backMsg;
     }
     //领取红包 orp
