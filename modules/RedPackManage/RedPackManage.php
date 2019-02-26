@@ -322,6 +322,13 @@ class RedPackManage extends DBManager {
             return RESPONDINSTANCE('71');//用户未提交梦想
         }
 
+        //获取红包信息
+        $redInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),self::FieldIsValue('rid',$rid)),true);
+        if(empty($redInfo)){
+            return RESPONDINSTANCE('70');//不存在该红包信息
+        }
+        $redInfo = $redInfo[0];
+        $poolTotalBill = DreamPoolManager::Pool($redInfo['pid'])['tbill'];
         if(self::HasUserRedPackageRec($uid,$rid)){
             $result = DBResultToArray($this->SelectDataByQuery($this->TName('tRReco'),
                 self::C_And(
@@ -339,6 +346,8 @@ class RedPackManage extends DBManager {
             if(isset($lid[0]['lid'])){
                 $backMsg['reco']['lid'] = $lid[0]['lid'];
             }
+            $backMsg['pid'] = $redInfo['pid'];
+            $backMsg['totalBill'] = $poolTotalBill;
             return $backMsg;
         }
 
@@ -354,8 +363,6 @@ class RedPackManage extends DBManager {
             return RESPONDINSTANCE('5');
         }
 
-        //获取红包信息
-        $redInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),self::FieldIsValue('rid',$rid)),true)[0];
 
         //判断梦想互助是否结束
         $RunningResult = DreamPoolManager::IsPoolRunning($redInfo['pid']);
@@ -410,6 +417,8 @@ class RedPackManage extends DBManager {
         $backMsg['pool'] = $PoolResult;
         $backMsg['sender']['headicon'] = $userInfo['headicon'];
         $backMsg['sender']['nickname'] = $userInfo['nickname'];
+        $backMsg['pid'] = $redInfo['pid'];
+        $backMsg['totalBill'] = $poolTotalBill;
         return $backMsg;
     }
 
