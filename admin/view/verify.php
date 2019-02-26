@@ -80,6 +80,12 @@
 					if(!isset($value['info']) || !isset($value['award'])){
 						continue;
 					}
+
+					$videourlLook = "未提交";
+					if($value['dream']['videourl'] != ""){
+                        $videourlLook = "查看";
+                    }
+
                     print <<<EOT
                 <tr>
                     <td>{$expection}</td>
@@ -97,7 +103,7 @@
 					{$value['dream']['content']}
 					</div>
 					</td> 
-                    <td><a href="{$value['dream']['videourl']}">$look</a></td>               
+                    <td><a href="{$value['dream']['videourl']}">$videourlLook</a></td>               
                            
 EOT;
                     ?>
