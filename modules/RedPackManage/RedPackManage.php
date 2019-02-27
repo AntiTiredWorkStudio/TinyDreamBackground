@@ -260,13 +260,13 @@ class RedPackManage extends DBManager {
                     self::C_And(
                         self::FieldIsValue('state',"PAYMENT","!="),
                         self::FieldIsValue('uid',$uid)
-                    ),false,"COUNT(*),SUM(`bill`)"
+                    ),false,"SUM(`rcount`),SUM(`bill`)"
             ),true
         );
 
         if(!empty($stats)) {
             $stats = $stats[0];
-            $countPack = $stats['COUNT(*)'];
+            $countPack = $stats['SUM(`rcount`)'];
             $totalBills = $stats['SUM(`bill`)'];
             $stats = ['countPack' => $countPack, 'totalBill'=>$totalBills];
         }
@@ -392,10 +392,11 @@ class RedPackManage extends DBManager {
         }
 
         //判断用户是否提交过梦想
-        $firstDream = DreamManager::UserFirstSubmitedDream($uid)[0];
+        $firstDream = DreamManager::UserFirstSubmitedDream($uid);
         if(empty($firstDream)){
             return RESPONDINSTANCE('71');//用户未提交梦想
         }
+		$firstDream = $firstDream[0];
 
         //获取红包信息
         $redInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),self::FieldIsValue('rid',$rid)),true);
