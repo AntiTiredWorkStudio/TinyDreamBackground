@@ -260,7 +260,7 @@ class RedPackManage extends DBManager {
                     self::C_And(
                         self::FieldIsValue('state',"PAYMENT","!="),
                         self::FieldIsValue('uid',$uid)
-                    ),false,"COUNT(*),SUM(`bill`)"
+                    ),false,"SUM(`rcount`),SUM(`bill`)"
             ),true
         );
 
