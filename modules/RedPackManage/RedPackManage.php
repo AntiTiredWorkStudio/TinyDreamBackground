@@ -266,7 +266,7 @@ class RedPackManage extends DBManager {
 
         if(!empty($stats)) {
             $stats = $stats[0];
-            $countPack = $stats['COUNT(*)'];
+            $countPack = $stats['SUM(`rcount`)'];
             $totalBills = $stats['SUM(`bill`)'];
             $stats = ['countPack' => $countPack, 'totalBill'=>$totalBills];
         }
