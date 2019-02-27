@@ -28,7 +28,12 @@ class DBManager extends Manager{
     public static function Symbol($parseA,$parseB,$symbol='+'){
         return '('.$parseA.$symbol.$parseB.')';
     }
-	
+
+    //在某值两端添加括号
+    public static function Brackets($value){
+        return '('.$value.')';
+    }
+
 	//创建逻辑表达式
 	public static function LogicString($array,$logic='|'){
 		$result = "";

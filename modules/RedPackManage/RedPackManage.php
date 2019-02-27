@@ -289,6 +289,81 @@ class RedPackManage extends DBManager {
 			),true
 		);
 
+        $ridList = [];
+
+        foreach ($redpacks as $index=>$pack){
+            array_push($ridList,self::FieldIsValue('rid',$pack['rid']));
+        }
+
+
+
+        $tRedPackages = DBResultToArray(
+            $this->SelectDataByQuery($this->TName('tROrder'),
+                self::C_And(
+                    self::FieldIsValue('state',"PAYMENT","!="),
+                    self::Brackets(self::LogicString($ridList,' OR '))
+                ),
+                false,self::LogicString(
+                    [
+                        self::SqlField('rid'),
+                        self::SqlField('uid')
+                    ],',')),false);
+
+        //echo '999:'.json_encode($tRedPackages);
+
+        $userCondition = self::Brackets(
+            self::LogicString(
+                EachFunction(ListAttributeToArray($tRedPackages,'uid'),
+                    function ($item){
+                        return self::FieldIsValue('uid',$item);
+                    }
+                ),
+                ' OR '
+            )
+        );
+
+        $userInfo = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tUser'),
+                $userCondition,
+                false,
+                self::LogicString(
+                    [
+                        self::SqlField('uid'),
+                        self::SqlField('nickname')
+                    ],
+                    ','
+                )
+            ),
+            false
+        );
+
+
+        $nicknameArray = [];
+        foreach ($tRedPackages as $rid=>$item) {
+            //$uid = $item['uid'];
+            $nicknameArray[$rid] = $userInfo[$item['uid']]['nickname'];
+        }
+       // echo json_encode($nicknameArray);
+
+
+        /*$redpacks = EachFunction($redpacks,function ($packs){
+            if(isset($nicknameArray[$packs['rid']])){
+                //$packs['nickname'] = $nicknameArray[$packs['rid']]['nickname'];
+            }
+            return $packs;
+        });*/
+
+        $res = [];
+        foreach ($redpacks as $item) {
+            if(isset($nicknameArray[$item['rid']])){
+
+                $item['nickname'] = $nicknameArray[$item['rid']];
+                array_push($res,$item);
+            }
+        }
+        // json_encode($res);
+
         $stats = DBResultToArray(
             $this->SelectDataByQuery(
                 $this->TName('tRReco'),
@@ -305,7 +380,7 @@ class RedPackManage extends DBManager {
         }
 
         $backMsg = RESPONDINSTANCE('0');
-		$backMsg['packs'] = $redpacks;
+		$backMsg['packs'] = $res;//$redpacks;
         $backMsg['stats'] = $stats;
         return $backMsg;
     }

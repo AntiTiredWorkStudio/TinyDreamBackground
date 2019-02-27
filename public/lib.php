@@ -703,4 +703,30 @@ function HttpGet($url){
         //显示获得的数据
     return $data;
 }
+
+
+function ListAttributeToArray($objectList,$attribute){
+    $result = [];
+    foreach ($objectList as $item) {
+        array_push($result,AttributeToArray($item,$attribute));
+    }
+    return $result;
+}
+
+function AttributeToArray($obejct,$attribute){
+    if(isset($obejct[$attribute])){
+        return $obejct[$attribute];
+    }else{
+        return "";
+    }
+}
+
+function EachFunction($array,$func){
+    $resultList = [];
+    foreach ($array as $item) {
+        array_push($resultList,$func($item));
+    }
+    return $resultList;
+}
+
 ?>
