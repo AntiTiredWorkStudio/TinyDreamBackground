@@ -7,6 +7,7 @@ LIB('dp');
 LIB('ds');
 LIB('us');
 LIB('ub');
+LIB('rp');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
@@ -30,7 +31,7 @@ class BackgroundController extends DBManager {
         'a_data'=>['title'=>'访问数据统计','class'=>'lnr lnr-dice'],
 		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store'],
         'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter'],
-        'a_activity'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left']
+        'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left']
     ];
 	
 	//创建目录导航
@@ -195,6 +196,13 @@ class BackgroundController extends DBManager {
         $pageData['act'] = $awardController->ActivityLive();
         require ($pageData['path']);
     }
+	
+	public function BuildRefund(){
+		$pageData = $this->pages['redRefund'];
+		$redOrderController = new RedPackManage();
+		$pageData['packs'] = $redOrderController->CollectRefundInfo('20180208');
+		require ($pageData['path']);
+	}
 
 	
     public function info()

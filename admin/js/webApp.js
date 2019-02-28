@@ -239,7 +239,21 @@ var WebApp = {
 				TD_Request('us','gjsc',{url:window.location.href},
 					function (code, data) {
 						console.log(data);
-						//alert(JSON.stringify(data))
+						shareObject.WxConfig(data.config);
+					},
+					function (code, data) {
+						console.log(data);
+					}
+				)
+				},1000);
+        },
+  		InitShare:function (para) {
+			this.ShareDefaultConfig = para || this.ShareDefaultConfig;
+           	var shareObject = this;
+			setTimeout(function(){
+				TD_Request('us','gjsc',{url:window.location.href},
+					function (code, data) {
+						console.log(data);
 						shareObject.WxConfig(data.config);
 					},
 					function (code, data) {
@@ -280,6 +294,7 @@ var WebApp = {
 						imgUrl: config.imgUrl, // 分享图标
 						success: function (result) {
 							// 设置成功
+							//alert("Data Share Success(updateAppMessageShareData)"+JSON.stringify(result));
 							console.log("Data Share Success");
 							if(shareObject.OnShareFriend != null){
 								shareObject.OnShareFriend(result);
@@ -293,6 +308,7 @@ var WebApp = {
                     imgUrl: config.imgUrl, // 分享图标
                     success: function (result) {
                         // 设置成功
+						//alert("Data Share Success(updateTimelineShareData)"+JSON.stringify(result));
                         console.log("Data Share Success");
 						if(shareObject.OnShareTimeLine != null){
 							shareObject.OnShareTimeLine(result);

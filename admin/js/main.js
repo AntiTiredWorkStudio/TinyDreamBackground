@@ -65,7 +65,7 @@ var LoadWorkSpace = function (id,pars) {
             console.log(code, data);
         })
 }
-
+//创建页面控制器
 document.OnPartLoad = function (data) {
     switch(data.id){
         case "nav":

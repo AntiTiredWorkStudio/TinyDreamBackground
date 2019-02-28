@@ -5,7 +5,7 @@
  * Date: 2018-12-20
  * Time: 上午 12:28
  */
-	//echo $pageData['startTime'].'</br>';
+	echo json_encode($pageData).'</br>';
 	//echo $pageData['lastTime'].'</br>';
 ?>
 
@@ -16,35 +16,15 @@
                 <div class="col-md-12">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">筛选条件</h3>
+                            <h3 class="panel-title">梦想互助查询</h3>
                         </div>
                         <div class="panel-body">
 
                             <div class="row">
                                 <div class="col-lg-7">
                                     <div class="input-group">
-                                        <span class="input-group-addon">查询手机号</span>
-                                        <input id="input_tele"  maxlength='11'  type="text" class="form-control" value="<?php echo $pageData['tele'];?>" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding: 10px"></div>
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">开始日期</span>
-										<input id='startDayTime' size="16" type="text" value="<?php echo $pageData['startTime'];?>" readonly class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding: 10px"></div>
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">结束日期</span>
-										<input id='endDayTime' size="16" type="text" value="<?php echo $pageData['lastTime'];?>" readonly class="form-control">
-										<script type="text/javascript">
-										</script>
+                                        <span class="input-group-addon">梦想互助期号</span>
+                                        <input id="input_tele"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
                                     </div>
                                 </div>
                             </div>

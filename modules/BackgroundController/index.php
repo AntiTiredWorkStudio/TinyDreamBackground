@@ -12,5 +12,6 @@
 		'a_data'=>R('BuildDatas',null,PERMISSION_AUTH_FORCE,false),//引用审核
 		'a_order'=>R('BuildOrders',null,PERMISSION_AUTH_FORCE,false),//引用订单
 		'a_activity'=>R('BuildActivity',null,PERMISSION_AUTH_FORCE,false),//引用订单
+		'a_refund'=>R('BuildRefund',null,PERMISSION_AUTH_FORCE,false),//引用退款
     ]);
 ?>
