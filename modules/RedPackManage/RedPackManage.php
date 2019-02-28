@@ -505,9 +505,58 @@ class RedPackManage extends DBManager {
         return $backMsg;
     }
 	
-	//整理退款记录
-	public function CollectRefundInfo(){
+	//整理退款记录(以梦想互助为单位)
+	public function CollectRefundInfo($pid){//参数一定要为互助结束的梦想互助
+		$poolStatus = DreamPoolManager::IsPoolRunning($pid);
+		if($poolStatus['code']!="0" && $poolStatus['code']!="5"){
+			return RESPONDINSTANCE('5');
+		}
 		
+		$backMsg = RESPONDINSTANCE('0');
+		if(isset($poolStatus['poolInfo']) && $poolStatus['poolInfo']['state'] == "RUNNING"){
+			$backMsg = RESPONDINSTANCE('73');
+			$backMsg['refund'] = [];
+			return $backMsg;
+		}
+		$BackRefund = DBResultToArray($this->SelectDataByQuery(
+				$this->TName("tROrder"),
+				self::C_And(
+					self::FieldIsValue('pid',$pid),
+					"`rcount`>`gcount`"
+				)
+			),true
+		);
+		$refundList = [];
+		$userIndex = [];
+		foreach($BackRefund as $refund){
+			$unitBill = $refund['bill']/$refund['rcount'];
+			if(!isset($userIndex[$refund['uid']])){
+				$userIndex[$refund['uid']] = true;
+			}
+			$refundList[$refund['rid']] = 
+			[
+				'uid'=>$refund['uid'],
+				'less'=> $refund['rcount'] - $refund['gcount'],
+				'lbill'=> $refund['bill']- $refund['gcount']*$unitBill
+			];
+		}
+		
+		$userinfo = [];
+		foreach($userIndex as $uid=>$result){
+			$userinfo[$uid]=UserManager::GetUsersInfoByString($uid)[$uid];
+		}
+		
+		$result = $refundList;
+		foreach($refundList as $rid=>$refund){
+			if(isset($userinfo[$refund['uid']])){
+				$result[$rid]['nickname'] = $userinfo[$refund['uid']]['nickname'];
+				$result[$rid]['tele'] = $userinfo[$refund['uid']]['tele'];
+			}
+		}
+		
+		
+		$backMsg['refund'] = $result;
+		return $backMsg;
 	}
 
     //用户打开红包记录
