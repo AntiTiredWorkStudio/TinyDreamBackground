@@ -214,7 +214,14 @@ class RedPackManage extends DBManager {
             [
                 'state'=>"RUNNING",
                 'ptime'=>PRC_TIME()
-            ]
+            ],
+			self::C_And(
+                self::FieldIsValue('uid',$uid),
+                self::C_And(
+                    self::FieldIsValue('rid',$rid),
+                    self::FieldIsValue('state','PAYMENT')
+                )
+            )
         );
 
         //订单状态修改为RUNNINNG
@@ -497,6 +504,11 @@ class RedPackManage extends DBManager {
         $backMsg['totalBill'] = $poolTotalBill;
         return $backMsg;
     }
+	
+	//整理退款记录
+	public function CollectRefundInfo(){
+		
+	}
 
     //用户打开红包记录
     public static function OnUserOpenPackage($uid,$rid,$pcount,$oid,$pbill){
