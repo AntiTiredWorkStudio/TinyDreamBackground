@@ -5,7 +5,7 @@
  * Date: 2018-12-20
  * Time: 上午 12:28
  */
-	echo json_encode($pageData).'</br>';
+	//echo json_encode($pageData).'</br>';
 	//echo $pageData['lastTime'].'</br>';
 ?>
 
@@ -24,7 +24,7 @@
                                 <div class="col-lg-7">
                                     <div class="input-group">
                                         <span class="input-group-addon">梦想互助期号</span>
-                                        <input id="input_tele"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
+                                        <input id="input_pid"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -41,19 +41,19 @@
 					<!-- BASIC TABLE -->
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title">订单列表： <span style="padding-left:25px;color:red;font-weight:bold;">总互助金额<?php echo $pageData['totalBill']."元";?></span></h3>
+							<h3 class="panel-title">退款需求列表：<span style="padding-left:25px;color:red;font-weight:bold;">梦想互助<?php echo $pageData['packs']['pid']; ?>期</span></h3>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered ">
 								<thead> 
 									<tr> 
-									 <th>订单号</th> 
-									 <th>梦想互助期号</th> 
-									 <th>互助金额（元）</th> 
-									 <th>创建时间</th> 
-									 <th>支付时间</th> 
-									 <th>昵称</th> 
+									 <th>红包id</th> 
+									 <th>发出人</th> 
 									 <th>手机号</th> 
+									 <th>单价(元)</th> 
+									 <th>领取状态</th> 
+									 <th>未领份数</th> 
+									 <th>应该退金额(元)</th> 
 									</tr> 
 								   </thead> 
 								   <tbody> 
@@ -61,54 +61,21 @@
 								<?php
 									//$verifyArray = $pageData['verify'];
 									//$btnStyle = $pageData['btnStyle'];
-									foreach($pageData['orders'] as $key=>$value){
+									foreach($pageData['packs']['refund'] as $key=>$value){
 										
 								?>
 								 <tr> 
-									 <td><?php echo $value['oid'];?></td> 
-									 <td><?php echo $value['pid'];?></td> 
-									 <td><?php echo $value['bill'];?></td> 
-									 <td><?php echo $value['ctime'];?></td> 
-									 <td><?php echo $value['ptime'];?></td> 
+									 <td><?php echo $key;?></td> 
 									 <td><?php echo $value['nickname'];?></td> 
 									 <td><?php echo $value['tele'];?></td> 
+									 <td><?php echo $value['unit']*0.01;?></td> 
+									 <td><?php echo $value['rcount'].'/'.$value['gcount'];?></td> 
+									 <td><?php echo $value['less'];?></td> 
+									 <td><?php echo $value['lbill']*0.01;?></td> 
 								 </tr> 
 								<?php }?>
 								   </tbody> 
 							</table>
-							<div class="desc" style="float: left;margin: 25px 0;">
-								<p>每页显示<?php echo $pageData['size'];?>条记录，总计<?php echo $pageData['ordCount'];?>条记录 当前第<?php echo $pageData['index']['current']+1;?>页</p>
-							</div>
-							<div class="pagination" style="float: right;display: block;">
-                                <?php if($pageData['index']['allowLast']){ ?>
-                                <li>
-									<a seek="<?php echo ($pageData['index']['current']-1)*$pageData['size'];?>" size="<?php echo $pageData['size'];?>" href="#">&laquo;</a>
-								</li>
-                                <?php }?>
-                                <?php
-								if(isset($pageData['index']['list'])){
-                                $indexList = $pageData['index']['list'];
-								$pageSeek = $pageData['index']['current'];
-									foreach($indexList as $key=>$value) {
-										?>
-										<li>
-											<a
-												<?php if($key == $pageSeek){ ?>
-												style="font-weight:bold;color:#d43f3a"
-												<?php  }  ?>
-												seek="<?php echo $value;?>" size="<?php echo $pageData['size'];?>" href="#"><?php echo ($key+1);?>
-											</a>
-										</li>
-										<?php
-									}
-								}
-                                ?>
-                                <?php if($pageData['index']['allowNext']){ ?>
-                                <li>
-									<a seek="<?php echo ($pageData['index']['current']+1)*$pageData['size'];?>" size="<?php echo $pageData['size'];?>" href="#">&raquo;</a>
-								</li>
-                                <?php }?>
-							</div>
 						</div>
 
 					</div>

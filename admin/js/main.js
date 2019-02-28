@@ -86,6 +86,8 @@ document.OnPartLoad = function (data) {
 		case "act":
 			ActivityModule.init(data);
 			break;
+		case "refund":
+			RefundModule.init(data);
         default:
             break;
     }
@@ -442,6 +444,26 @@ var ActivityModule = {
 				alert(data.context);
 			}
 		);
+	}
+}
+
+var RefundModule = {
+	init :function(option){
+		var module = this;
+		console.log(option);
+		$("#search").click(function(){
+			/*console.log($("#input_tele").val());
+			console.log($("#startDayTime").val());
+			console.log($("#endDayTime").val());*/
+			if($("#input_pid").val() == ""){
+				alert("请输入要查询的梦想互助期号");
+				return;
+			}
+			LoadWorkSpace('a_refund',
+			{
+				pid:$("#input_pid").val()
+			});
+		});
 	}
 }
 

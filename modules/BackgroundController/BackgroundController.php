@@ -198,9 +198,10 @@ class BackgroundController extends DBManager {
     }
 	
 	public function BuildRefund(){
+		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'20190208';
 		$pageData = $this->pages['redRefund'];
 		$redOrderController = new RedPackManage();
-		$pageData['packs'] = $redOrderController->CollectRefundInfo('20180208');
+		$pageData['packs'] = $redOrderController->CollectRefundInfo($pid);
 		require ($pageData['path']);
 	}
 

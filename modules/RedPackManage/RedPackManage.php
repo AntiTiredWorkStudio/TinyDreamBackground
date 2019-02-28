@@ -509,15 +509,22 @@ class RedPackManage extends DBManager {
 	public function CollectRefundInfo($pid){//参数一定要为互助结束的梦想互助
 		$poolStatus = DreamPoolManager::IsPoolRunning($pid);
 		if($poolStatus['code']!="0" && $poolStatus['code']!="5"){
+			$backMsg = RESPONDINSTANCE('5');
+			$backMsg['pid'] = $pid;
 			return RESPONDINSTANCE('5');
 		}
 		
 		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['pid'] = $pid;
 		if(isset($poolStatus['poolInfo']) && $poolStatus['poolInfo']['state'] == "RUNNING"){
 			$backMsg = RESPONDINSTANCE('73');
+			$backMsg['pid'] = $pid;
 			$backMsg['refund'] = [];
 			return $backMsg;
 		}
+		
+		
+		
 		$BackRefund = DBResultToArray($this->SelectDataByQuery(
 				$this->TName("tROrder"),
 				self::C_And(
@@ -526,6 +533,7 @@ class RedPackManage extends DBManager {
 				)
 			),true
 		);
+		
 		$refundList = [];
 		$userIndex = [];
 		foreach($BackRefund as $refund){
@@ -536,6 +544,9 @@ class RedPackManage extends DBManager {
 			$refundList[$refund['rid']] = 
 			[
 				'uid'=>$refund['uid'],
+				'unit'=>$unitBill,
+				'rcount'=>$refund['rcount'],
+				'gcount'=>$refund['gcount'],
 				'less'=> $refund['rcount'] - $refund['gcount'],
 				'lbill'=> $refund['bill']- $refund['gcount']*$unitBill
 			];
