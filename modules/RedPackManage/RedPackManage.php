@@ -260,6 +260,24 @@ class RedPackManage extends DBManager {
                 )
             ),true
         );
+		$pidList= [];
+		foreach($redpacks as $pack){
+			$query = self::FieldIsValue('pid',$pack['pid']);
+			if(in_array($query,$pidList)){
+				continue;
+			}
+			array_push($pidList,$query);
+		}
+		
+		$pools = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),self::LogicString($pidList,' OR ')),false);
+		
+		
+		foreach($redpacks as $key=>$pack){
+			if(isset($pools[$pack['pid']])){
+				$redpacks[$key]['pstate'] = $pools[$pack['pid']]['state'];
+//				echo $key.'=>'.$pools[$pack['pid']]['state'];
+			}
+		}
 
         $stats = DBResultToArray(
             $this->SelectDataByQuery(
