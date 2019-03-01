@@ -490,9 +490,25 @@ class RedPackManage extends DBManager {
         //生成红包领取记录
         self::OnUserOpenPackage($uid,$rid,$aCount,$order['oid'],$aCount*$unitBill);
 
-        //发送通知给用户
 
         $userInfo = UserManager::GetUsersInfoByString($redInfo['uid'])[$redInfo['uid']];
+		
+		
+        //发送通知给用户'sender','lid','pid'
+		NoticeManager::CreateNotice($uid,//创建通知——购买梦想
+                NOTICE_RED_BUY,
+                [
+					'sender'=>$userInfo['nickname'],
+					'lid'=>key($numbers),
+					'pid'=>$redInfo['pid']
+                ],
+                NoticeManager::CreateAction(
+                    'redpack',
+                    [
+                        'pid'=>$redInfo['pid']
+                    ]
+                )
+        );
 
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['nums'] = $numbers;

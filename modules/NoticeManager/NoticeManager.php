@@ -8,6 +8,7 @@ define('NOTICE_MISS','miss');
 define('NOTICE_GET','get');
 define('NOTICE_FAIL','fail');
 define('NOTICE_PAID','paid');
+define('NOTICE_RED_BUY','redbuy');
 class NoticeManager extends DBManager {
     public function info()
     {
@@ -51,7 +52,12 @@ class NoticeManager extends DBManager {
             'pars'=>[],
             'context'=>'温馨提醒，您的梦想互助金已转款，注意查收，如有问题请联系客服。',
             'action'=>'view'
-        ]
+        ],
+		'redbuy'=>[
+			'pars'=>['sender','lid','pid'],
+			'context'=>'您已成功领取{sender}发的红包，得到抓阄编号{lid}，该编号自动参与梦想互助{pid}期的幸运者抓阄。',
+			'action'=>[]
+		]
     ];
 
 
