@@ -1016,7 +1016,9 @@ class UserManager extends DBManager{
             'signature'=> sha1($signStr),
             'jsApiList'=> [
                 'updateAppMessageShareData',
-                'updateTimelineShareData'
+                'updateTimelineShareData',
+				'onMenuShareAppMessage',
+				'onMenuShareTimeline'
             ]
         ];
 

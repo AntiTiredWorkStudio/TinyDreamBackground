@@ -252,10 +252,11 @@ class RedPackManage extends DBManager {
             $this->SelectDataByQuery(
                 $this->TName('tROrder'),
                 self::Limit(
+				self::OrderBy(
                     self::C_And(
                         self::FieldIsValue('state',"PAYMENT","!="),
                         self::FieldIsValue('uid',$uid)
-                    ),
+                    ),"ctime","DESC"),
                     $seek,$count
                 )
             ),true
@@ -308,7 +309,11 @@ class RedPackManage extends DBManager {
 			$this->SelectDataByQuery(
 				$this->TName('tRReco'),
 				self::Limit(
-					self::FieldIsValue('uid',$uid),
+					self::OrderBy(
+						self::FieldIsValue('uid',$uid),
+						"gtime",
+						"DESC"
+					),
 					$seek,$count
 				)
 			),true

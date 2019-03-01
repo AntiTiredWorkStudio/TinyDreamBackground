@@ -287,6 +287,48 @@ var WebApp = {
 		},
 		OnSettingShare:function(config){
 			var shareObject = this;
+			wx.onMenuShareTimeline({
+				title : config.title, // 分享标题
+				link : config.link, // 分享链接,将当前登录用户转为puid,以便于发展下线
+				imgUrl : config.imgUrl, // 分享图标
+				success : function () {
+					// 用户确认分享后执行的回调函数
+					alert('分享成功');
+					if(shareObject.OnShareTimeLine != null){
+						shareObject.OnShareTimeLine(true);
+					}
+				},
+				cancel : function () {
+					// 用户取消分享后执行的回调函数
+					alert('取消分享');
+					if(shareObject.OnShareTimeLine != null){
+						shareObject.OnShareTimeLine(false);
+					}
+				}
+			});
+
+			wx.onMenuShareAppMessage({
+				title : config.title, // 分享标题
+				desc : config.desc, // 分享描述
+				link : config.link, // 分享链接
+				imgUrl : config.imgUrl, // 分享图标
+				type : "link", // 分享类型,music、video或link，不填默认为link
+				success : function () {
+					// 用户确认分享后执行的回调函数
+					alert('分享成功');
+					if(shareObject.OnShareFriend != null){
+						shareObject.OnShareFriend(true);
+					}
+				},
+				cancel : function () {
+					// 用户取消分享后执行的回调函数
+					alert('取消分享');
+					if(shareObject.OnShareFriend != null){
+						shareObject.OnShareFriend(false);
+					}
+				}
+			});
+			return;
             wx.updateAppMessageShareData({
 						title: config.title, // 分享标题
 						desc: config.desc, // 分享描述
