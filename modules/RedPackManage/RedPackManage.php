@@ -430,7 +430,8 @@ class RedPackManage extends DBManager {
                 self::LogicString(
                     [
                         self::SqlField('uid'),
-                        self::SqlField('nickname')
+                        self::SqlField('nickname'),
+                        self::SqlField('headicon')
                     ],
                     ','
                 )
@@ -442,7 +443,8 @@ class RedPackManage extends DBManager {
         $nicknameArray = [];
         foreach ($tRedPackages as $rid=>$item) {
             //$uid = $item['uid'];
-            $nicknameArray[$rid] = $userInfo[$item['uid']]['nickname'];
+            $nicknameArray[$rid]['nickname'] = $userInfo[$item['uid']]['nickname'];
+            $nicknameArray[$rid]['headicon'] = $userInfo[$item['uid']]['headicon'];
         }
        // echo json_encode($nicknameArray);
 
@@ -458,7 +460,8 @@ class RedPackManage extends DBManager {
         foreach ($redpacks as $item) {
             if(isset($nicknameArray[$item['rid']])){
 
-                $item['nickname'] = $nicknameArray[$item['rid']];
+                $item['nickname'] = $nicknameArray[$item['rid']]['nickname'];
+                $item['headicon'] = $nicknameArray[$item['rid']]['headicon'];
                 array_push($res,$item);
             }
         }
