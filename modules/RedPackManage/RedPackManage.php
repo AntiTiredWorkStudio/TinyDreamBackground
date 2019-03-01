@@ -444,7 +444,7 @@ class RedPackManage extends DBManager {
         foreach ($tRedPackages as $rid=>$item) {
             //$uid = $item['uid'];
             $nicknameArray[$rid]['nickname'] = $userInfo[$item['uid']]['nickname'];
-            $nicknameArray[$rid]['headicon'] = $userInfo[$item['uid']]['headicon'];
+            //$nicknameArray[$rid]['headicon'] = $userInfo[$item['uid']]['headicon'];
         }
        // echo json_encode($nicknameArray);
 
@@ -461,7 +461,7 @@ class RedPackManage extends DBManager {
             if(isset($nicknameArray[$item['rid']])){
 
                 $item['nickname'] = $nicknameArray[$item['rid']]['nickname'];
-                $item['headicon'] = $nicknameArray[$item['rid']]['headicon'];
+                //$item['headicon'] = $nicknameArray[$item['rid']]['headicon'];
                 array_push($res,$item);
             }
         }
