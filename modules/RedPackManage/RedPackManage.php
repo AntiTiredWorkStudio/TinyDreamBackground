@@ -305,6 +305,21 @@ class RedPackManage extends DBManager {
 
     //获取红包的领取记录(领取),grpr
     public function GetRedPackrecive($rid,$seek,$count){
+        $redpack = DBResultToArray($this->SelectDataByQuery(
+            $this->TName('tROrder'),
+            self::FieldIsValue('rid',$rid),
+            false,
+            self::LogicString(
+                [
+                    self::SqlField('rcount'),
+                    self::SqlField('gcount')
+                ],","
+            )
+        ),true);
+        if(empty($redpack)){
+            return RESPONDINSTANCE('70');
+        }
+
         $pack = DBResultToArray(
             $this->SelectDataByQuery(
                 $this->TName('tRReco'),
@@ -338,8 +353,11 @@ class RedPackManage extends DBManager {
                 self::LogicString($uidList,' OR '),
                 false,
                 self::LogicString(
-                    [self::SqlField('uid'),
-                    self::SqlField('nickname')],","
+                    [
+                        self::SqlField('uid'),
+                        self::SqlField('nickname'),
+                        self::SqlField('headicon')
+                    ],","
                 )
             ),false
         );
@@ -361,6 +379,7 @@ class RedPackManage extends DBManager {
         foreach ($pack as $key=>$item) {
             if(isset($userInfo[$item['uid']])){
                 $pack[$key]['nickname'] = $userInfo[$item['uid']]['nickname'];
+                $pack[$key]['headicon'] = $userInfo[$item['uid']]['headicon'];
             }
             if(isset($lotteryInfo[$item['oid']])){
                 $pack[$key]['lid'] = $lotteryInfo[$item['oid']]['lid'];
@@ -368,6 +387,7 @@ class RedPackManage extends DBManager {
         }
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['reco'] = $pack;
+        $backMsg['redpack'] = $redpack[0];
         return $backMsg;
     }
 
