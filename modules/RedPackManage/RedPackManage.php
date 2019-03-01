@@ -443,7 +443,7 @@ class RedPackManage extends DBManager {
         //判断红包是否有效，红包存在未领取份数，对应的梦想互助未结束
         $packLess = self::GetRedPackLessCount($rid);
         if($packLess<=0){
-            return RESPONDINSTANCE('5');
+            return RESPONDINSTANCE('74');
         }
 
 
