@@ -302,6 +302,76 @@ class RedPackManage extends DBManager {
 		$backMsg['stats'] = $stats;
         return $backMsg;
     }
+
+    //获取红包的领取记录(领取),grpr
+    public function GetRedPackrecive($rid,$seek,$count){
+        $pack = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tRReco'),
+                self::Limit(
+                    self::OrderBy(
+                        self::FieldIsValue('rid',$rid),
+                        "gtime",
+                        "DESC"
+                    ),
+                    $seek,$count
+                )
+            ),true
+        );
+
+        $uidList = [];
+        $oidList = [];
+        foreach ($pack as $item) {
+            $uidSql = self::FieldIsValue('uid',$item['uid']);
+            if(!in_array($uidSql,$uidList)){
+                array_push($uidList,$uidSql);
+            }
+
+            $oidSql = self::FieldIsValue('oid',$item['oid']);
+            if(!in_array($oidSql,$oidList)){
+                array_push($oidList,$oidSql);
+            }
+        }
+        $userInfo = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tUser'),
+                self::LogicString($uidList,' OR '),
+                false,
+                self::LogicString(
+                    [self::SqlField('uid'),
+                    self::SqlField('nickname')],","
+                )
+            ),false
+        );
+
+
+        $lotteryInfo = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName('tLottery'),
+                self::LogicString($oidList,' OR '),
+                false,
+                self::LogicString(
+                    [self::SqlField('oid'),
+                        self::SqlField('lid')],","
+                )
+            ),false
+        );
+
+
+        foreach ($pack as $key=>$item) {
+            if(isset($userInfo[$item['uid']])){
+                $pack[$key]['nickname'] = $userInfo[$item['uid']]['nickname'];
+            }
+            if(isset($lotteryInfo[$item['oid']])){
+                $pack[$key]['lid'] = $lotteryInfo[$item['oid']]['lid'];
+            }
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['reco'] = $pack;
+        return $backMsg;
+    }
+
+
     //获取用户红包列表,红包记录页面（收到）gurpr
     public function GetUserRedPacksRecive($uid,$seek,$count){
         //通过uid获取用户收到的红包信息
