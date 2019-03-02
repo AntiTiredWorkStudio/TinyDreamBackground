@@ -231,6 +231,7 @@ class RedPackManage extends DBManager {
     }
     //获取红包信息,打开领取红包页面 grp
     public function GetRedPack($rid){
+
         //从rid获取红包信息，
         $redpack = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),
             self::FieldIsValue('rid',$rid)
@@ -238,8 +239,12 @@ class RedPackManage extends DBManager {
         if(empty($redpack)){
             return RESPONDINSTANCE('70');
         }
+
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['redpack'] = $redpack[0];
+
+        $poolTotalBill = DreamPoolManager::Pool($backMsg['redpack']['pid'])['tbill'];
+        $backMsg['redpack']['ptbill'] = $poolTotalBill;
         $userInfo = UserManager::GetUsersInfoByString($backMsg['redpack']['uid'])[$backMsg['redpack']['uid']];
         $backMsg['sender']['headicon'] = $userInfo['headicon'];
         $backMsg['sender']['nickname'] = $userInfo['nickname'];
@@ -509,17 +514,6 @@ class RedPackManage extends DBManager {
     }
     //领取红包 orp
 	public function OpenRedPack($uid,$rid){
-        //判断用户是否绑定手机号
-        if(!UserManager::IdentifyTeleUser($uid)){
-            return RESPONDINSTANCE('11');//若未绑定手机即会提示先绑定手机
-        }
-
-        //判断用户是否提交过梦想
-        $firstDream = DreamManager::UserFirstSubmitedDream($uid);
-        if(empty($firstDream)){
-            return RESPONDINSTANCE('71');//用户未提交梦想
-        }
-		$firstDream = $firstDream[0];
 
         //获取红包信息
         $redInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tROrder'),self::FieldIsValue('rid',$rid)),true);
@@ -569,6 +563,18 @@ class RedPackManage extends DBManager {
         if($RunningResult['result']=="false"){
             return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
         }
+
+        //判断用户是否绑定手机号
+        if(!UserManager::IdentifyTeleUser($uid)){
+            return RESPONDINSTANCE('11');//若未绑定手机即会提示先绑定手机
+        }
+
+        //判断用户是否提交过梦想
+        $firstDream = DreamManager::UserFirstSubmitedDream($uid);
+        if(empty($firstDream)){
+            return RESPONDINSTANCE('71');//用户未提交梦想
+        }
+        $firstDream = $firstDream[0];
 
         $unitBill = $redInfo['bill']/$redInfo['rcount'];
 
