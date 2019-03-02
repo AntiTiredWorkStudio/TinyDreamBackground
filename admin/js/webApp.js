@@ -315,14 +315,14 @@ var WebApp = {
 				type : "link", // 分享类型,music、video或link，不填默认为link
 				success : function () {
 					// 用户确认分享后执行的回调函数
-					alert('分享成功');
+					//alert('分享成功');
 					if(shareObject.OnShareFriend != null){
 						shareObject.OnShareFriend(true);
 					}
 				},
 				cancel : function () {
 					// 用户取消分享后执行的回调函数
-					alert('取消分享');
+					//alert('取消分享');
 					if(shareObject.OnShareFriend != null){
 						shareObject.OnShareFriend(false);
 					}
