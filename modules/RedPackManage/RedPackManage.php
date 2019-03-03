@@ -642,6 +642,52 @@ class RedPackManage extends DBManager {
         $backMsg['totalBill'] = $poolTotalBill;
         return $backMsg;
     }
+
+    //获取红包信息
+    public function GetRedPacksInfo($pid,$seek,$count){
+        $redPack = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName("tROrder"),
+                self::Limit(
+                    self::FieldIsValue('pid',$pid),
+                    $seek,
+                    $count
+                )
+            ),true
+        );
+
+        $userinfo = [];
+        foreach($redPack as $pack) {
+            $userinfo[$pack['uid']]=UserManager::GetUsersInfoByString($pack['uid'])[$pack['uid']];
+        }
+
+        foreach($redPack as $key=>$pack){
+            if(isset($userinfo[$pack['uid']])){
+                $redPack[$key]['nickname'] = $userinfo[$pack['uid']]['nickname'];
+                $redPack[$key]['tele'] = $userinfo[$pack['uid']]['tele'];
+            }
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['redpack'] = $redPack;
+
+        if(isset($_REQUEST['type']) && $_REQUEST['type'] == "listview"){
+            $redPackInfo = DBResultToArray(
+                $this->SelectDataByQuery(
+                    $this->TName("tROrder"),
+                    self::FieldIsValue('pid',$pid),
+                    false,
+                    "COUNT(*)"
+                ),true
+            );
+            if(!empty($redPackInfo)){
+                $backMsg['total'] = $redPackInfo[0]['COUNT(*)'];
+                $backMsg['totalpage'] = intval($backMsg['total']/$count);
+                $backMsg['currentpage'] = intval($seek/$count);
+            }
+        }
+        return $backMsg;
+    }
 	
 	//整理退款记录(以梦想互助为单位)
 	public function CollectRefundInfo($pid){//参数一定要为互助结束的梦想互助

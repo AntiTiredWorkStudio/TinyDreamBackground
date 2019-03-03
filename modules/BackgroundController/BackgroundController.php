@@ -22,6 +22,7 @@ class BackgroundController extends DBManager {
         'orders'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
         'activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
         'redRefund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
+        'redPackage'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php']
     ];
 	
 	//导航栏配置,索引为id,js用
@@ -31,7 +32,8 @@ class BackgroundController extends DBManager {
         'a_data'=>['title'=>'访问数据统计','class'=>'lnr lnr-dice'],
 		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store'],
         'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter'],
-        'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left']
+        'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left'],
+        'a_redpack'=>['title'=>'红包','class'=>'lnr lnr-map']
     ];
 	
 	//创建目录导航
