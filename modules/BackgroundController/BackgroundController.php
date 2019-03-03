@@ -206,6 +206,21 @@ class BackgroundController extends DBManager {
 		$pageData['packs'] = $redOrderController->CollectRefundInfo($pid);
 		require ($pageData['path']);
 	}
+	
+	public function BuildRedPackage(){
+		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
+		$pageData = $this->pages['redPackage'];
+		//$pid = "20190209";
+		if($pid!=''){
+			$redOrderController = new RedPackManage();
+			$seek= isset($_REQUEST['seek'])?$_REQUEST['seek']:0;
+			$count =  isset($_REQUEST['count'])?$_REQUEST['count']:10;
+			$_REQUEST['type'] = "listview";
+			$pageData['packs'] = $redOrderController->GetRedPacksInfo($pid,$seek,$count);
+			$pageData['index'] = self::BuildPageIndex($seek,$pageData['packs']['total'],$count);
+		}
+		require ($pageData['path']);
+	}
 
 	
     public function info()

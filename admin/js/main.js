@@ -67,30 +67,10 @@ var LoadWorkSpace = function (id,pars) {
 }
 //创建页面控制器
 document.OnPartLoad = function (data) {
-    switch(data.id){
-        case "nav":
-            NavigatorModule.init(data);
-            break;
-        case "post":
-            PostModule.init(data);
-            break;
-        case "verf":
-            VerfModule.init(data);
-            break;
-		case "data":
-			DataModule.init(data);
-			break;
-		case "ord":
-			OrderModule.init(data);
-			break;
-		case "act":
-			ActivityModule.init(data);
-			break;
-		case "refund":
-			RefundModule.init(data);
-        default:
-            break;
-    }
+	if(ModuleRegister.hasOwnProperty(data.id)){
+		//console.log(ModuleRegister);
+		ModuleRegister[data.id].init(data);
+	}
 }
 
 
@@ -465,6 +445,60 @@ var RefundModule = {
 			});
 		});
 	}
+}
+
+var RedPackageModule = {
+	seek:0,
+	count:0,
+	size:10,
+	pid:"",
+	init:function(option){
+		var module = this;
+		//this.seek = option.seek;
+		//this.count = option.count;
+		if(option.hasOwnProperty("packs") && option.packs.hasOwnProperty("pid")){
+			module.pid = option.packs.pid;
+		}
+		$("#search").click(function(){
+			/*console.log($("#input_tele").val());
+			console.log($("#startDayTime").val());
+			console.log($("#endDayTime").val());*/
+			//alert($("#input_pid").val());
+			LoadWorkSpace('a_redpack',
+			{
+				pid:$("#input_pid").val(),
+				seek:module.seek,
+				count:module.size,
+				type:"listview"
+			});
+		});
+		$("[seek]").click(
+            module.switchPage
+        );
+	},
+	switchPage:function(page){
+		//console.log(page.currentTarget.attributes[0].value,page.currentTarget.attributes[1].value);
+		//return;
+		//var module = this;
+			LoadWorkSpace('a_redpack',
+			{
+				pid:RedPackageModule.pid,
+				seek:page.currentTarget.attributes[0].value,
+				count:page.currentTarget.attributes[1].value,
+				type:"listview",
+			});
+	}
+}
+
+var ModuleRegister = {
+	"nav":NavigatorModule,
+	"post":PostModule,
+	"verf":VerfModule,
+	"data":DataModule,
+	"ord":OrderModule,
+	"act":ActivityModule,
+	"refund":RefundModule,
+	"redpack":RedPackageModule,
 }
 
 Page.OnSignalFailed = function () {

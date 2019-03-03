@@ -670,6 +670,7 @@ class RedPackManage extends DBManager {
 
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['redpack'] = $redPack;
+        $backMsg['pid'] = $pid;
 
         if(isset($_REQUEST['type']) && $_REQUEST['type'] == "listview"){
             $redPackInfo = DBResultToArray(
@@ -684,6 +685,7 @@ class RedPackManage extends DBManager {
                 $backMsg['total'] = $redPackInfo[0]['COUNT(*)'];
                 $backMsg['totalpage'] = intval($backMsg['total']/$count);
                 $backMsg['currentpage'] = intval($seek/$count);
+                $backMsg['size'] = $count;
             }
         }
         return $backMsg;

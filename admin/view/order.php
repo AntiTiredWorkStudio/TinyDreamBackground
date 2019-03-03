@@ -96,6 +96,7 @@
 								<?php }?>
 								   </tbody> 
 							</table>
+					<!-- 页面切换导航 -->
 							<div class="desc" style="float: left;margin: 25px 0;">
 								<p>每页显示<?php echo $pageData['size'];?>条记录，总计<?php echo $pageData['ordCount'];?>条记录 当前第<?php echo $pageData['index']['current']+1;?>页</p>
 							</div>
@@ -129,6 +130,7 @@
 								</li>
                                 <?php }?>
 							</div>
+					<!-- 页面切换导航 -->
 						</div>
 
 					</div>
