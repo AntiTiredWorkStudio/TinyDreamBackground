@@ -19,6 +19,7 @@ define('WECHAT_GETUSERINFO_COMMAND','code');
 define('WECHAT_WEB_COMMAND','webchatweb');
 define('WECHAT_MENU_COMMAND','wechatmenu');
 define('WECHAT_IMAGE_COMMAND','wechatimage');
+define('WECHAT_CUSTOMER_COMMAND','wechatcustomer'); 
 define('TIME_ZONE',8);
 
 //控制器基类
@@ -289,7 +290,8 @@ $WebApp = [
 		}
 		if(CombineWechatServer()){
 			return;
-		}},
+		}
+	},
 	WECHAT_GETUSERINFO_COMMAND =>function(){
 		//echo json_encode($_REQUEST);
 		Header("Location:https://tinydream.antit.top/admin/demo.html?code=".$_REQUEST['code']."&state=".$_REQUEST['state']);
@@ -335,7 +337,25 @@ $WebApp = [
         $result = https_request($url,json_encode(['type'=>'image','offset'=>0,'count'=>10]));
         echo $result;
         return;
-    }
+    },
+	WECHAT_CUSTOMER_COMMAND=>function(){
+        $access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=$access_token";
+        $result = https_request($url,json_encode(['touser'=>'oSORf5kn6hr_H5ZSRyYSHFUzyBd4','msgtype'=>"text",'text'=>["content"=>"hahahaha"]]));
+		/*
+		{
+			"touser":"OPENID",
+			"msgtype":"text",
+			"text":
+			{
+				 "content":"Hello World"
+			}
+		}
+		发送文本消
+		*/
+        echo $result;
+        return;
+	}
 ];
 
 function REQUEST($key){
