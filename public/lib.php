@@ -341,7 +341,28 @@ $WebApp = [
 	WECHAT_CUSTOMER_COMMAND=>function(){
         $access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
         $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=$access_token";
-        $result = https_request($url,json_encode(['touser'=>'oSORf5kn6hr_H5ZSRyYSHFUzyBd4','msgtype'=>"text",'text'=>["content"=>"hahahaha"]]));
+		
+		$testJson = '{
+		  "touser": "oSORf5kn6hr_H5ZSRyYSHFUzyBd4"
+		  "msgtype": "msgmenu",
+		  "msgmenu": {
+			"head_content": "您对本次服务是否满意呢? "
+			"list": [
+			  {
+				"id": "101",
+				"content": "满意"
+			  },
+			  {
+				"id": "102",
+				"content": "不满意"
+			  }
+			],
+			"tail_content": "欢迎再次光临"
+		  }
+		}';
+		
+        $result = https_request($url,$testJson/*json_encode(['touser'=>'oSORf5kn6hr_H5ZSRyYSHFUzyBd4','msgtype'=>"text",'text'=>["content"=>"hahahaha"]])*/);
+		
 		/*
 		{
 			"touser":"OPENID",
