@@ -336,6 +336,63 @@ class UserManager extends DBManager{
         $backMsg['selfinfo'] = $userArray;
         return $backMsg;
     }
+	
+	
+	public function EnterAppInRedPackage($uid,$nickname,$headicon){
+		 $condition = [
+            'uid'=>$uid,
+            '_logic'=>' '
+        ];
+        $seleResult = $this->SelectDataFromTable($this->TName('tUser'),
+        $condition);
+        $userArray = DBResultToArray($seleResult,true);
+        $backMsg = RESPONDINSTANCE('0');
+		//file_put_contents($uid."_nickname.txt",urlencode($nickname));
+        if(empty($userArray)){//未注册
+            $userArray = [
+                "uid"=>$uid,
+                "nickname"=>$nickname,
+                "headicon"=>$headicon,
+                "tele"=>"",
+                "totalReward"=>0,
+                "totalJoin"=>0,
+                "dayBuy"=>0,
+                "identity"=>"USER",
+                "ltime"=>0,
+            ];
+            $insResult = $this->InsertDataToTable($this->TName('tUser'),$userArray);
+            if(!$insResult){
+                return RESPONDINSTANCE('9');
+            }else{
+                $backMsg['description'] = '注册成功';
+            }
+            //注册
+        }else{//已经注册
+            $userArray = $userArray[0];
+            //检查更新信息
+            $updateList = [];
+            if($userArray['nickname'] != $nickname){
+                $updateList['nickname'] = $nickname;
+            }
+            if($userArray['headicon'] != $headicon){
+                $updateList['headicon'] = $headicon;
+            }
+
+            if(!empty($updateList)){
+                $updateResult = $this->UpdateDataToTable($this->TName('tUser'),$updateList,$condition);
+                if(!$updateResult){
+                    return RESPONDINSTANCE('10');
+                }else{
+                    $backMsg['description'] = '信息更新,登录成功';
+                }
+            }else{
+                $backMsg['description'] = '登录成功';
+            }
+        }
+
+        UserBehaviourManager::OnBehave($uid,VISI);
+        return $backMsg;
+	}
 
     //微信登录返回用户openid,昵称,头像地址后调用 进入小程序验证身份
 	public function EnterApp($uid,$nickname,$headicon){
