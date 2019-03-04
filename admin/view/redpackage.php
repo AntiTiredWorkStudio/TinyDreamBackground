@@ -5,7 +5,7 @@
  * Date: 2018-12-20
  * Time: 上午 12:28
  */
-	//echo $pageData['lastTime'].'</br>';
+	echo json_encode($pageData).'</br>';
 ?>
 
 

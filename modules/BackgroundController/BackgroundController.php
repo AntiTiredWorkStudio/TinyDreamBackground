@@ -54,6 +54,8 @@ class BackgroundController extends DBManager {
 			$pageIndex['list'][$i] = $i*$size;
 		}
 		$pageIndex['current'] = $currentPage;
+		$pageIndex['count'] = $count;
+		$pageIndex['size'] = $size;
 		return $pageIndex;
 	}
     

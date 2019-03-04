@@ -160,6 +160,7 @@ class ValidateManager extends DBManager{
 		$result = $this->InsertDataToTable($GLOBALS['tables']['tValidate']['name'],$content);
 
 		if(!$GLOBALS['options']['debug']){
+			//$GLOBALS['WebApp'][WECHAT_CUSTOMER_COMMAND]("当前验证码【".$code."】发送到【".$tele.'】');
 			$sresult = $this->nowapi_call($tele,$code);//发送验证码
 		}else{
 			$sresult = true;
