@@ -649,7 +649,11 @@ class RedPackManage extends DBManager {
             $this->SelectDataByQuery(
                 $this->TName("tROrder"),
                 self::Limit(
-                    self::FieldIsValue('pid',$pid),
+					self::OrderBy(
+						self::FieldIsValue('pid',$pid),
+						"ctime",
+						"DESC"
+					),
                     $seek,
                     $count
                 )
@@ -711,11 +715,16 @@ class RedPackManage extends DBManager {
 		
 		
 		
-		$BackRefund = DBResultToArray($this->SelectDataByQuery(
-				$this->TName("tROrder"),
-				self::C_And(
-					self::FieldIsValue('pid',$pid),
-					"`rcount`>`gcount`"
+		$BackRefund = DBResultToArray(
+			$this->SelectDataByQuery(
+			$this->TName("tROrder"),
+				self::OrderBy(
+					self::C_And(
+						self::FieldIsValue('pid',$pid),
+						"`rcount`>`gcount`"
+					),
+					"ctime",
+					"DESC"
 				)
 			),true
 		);

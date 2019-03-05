@@ -5,7 +5,7 @@
  * Date: 2018-12-20
  * Time: 上午 12:28
  */
-	echo json_encode($pageData).'</br>';
+	//echo json_encode($pageData).'</br>';
 ?>
 
 
@@ -56,6 +56,7 @@
 									 <th>总金额</th> 
 									 <th>单价(元)</th> 
 									 <th>领取状态</th> 
+									 <th>发布时间</th> 
 									 <th>祝福语</th> 
 									 <th>梦想互助期号</th> 
 									</tr> 
@@ -77,6 +78,7 @@
 									 <td><?php echo $value['bill']*0.01;?></td> 
 									 <td><?php echo $value['bill']/$value['rcount']*0.01;?></td> 
 									 <td><?php echo $value['rcount'].'/'.$value['gcount'];?></td> 
+									 <td><?php echo date('Y-m-d H:i:s', $value['ctime']);?></td> 
 									 <td><?php echo $value['content'];?></td> 
 									 <td><?php echo $value['pid'];?></td> 
 								 </tr> 
