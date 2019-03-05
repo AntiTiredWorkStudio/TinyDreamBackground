@@ -56,7 +56,9 @@ $modules = [
 	,'view' => ['rq'=>'modules/SnippetManager/index.php',//SnippetManager
 			'lib'=>'modules/SnippetManager/SnippetManager.php']
 	,'rp' => ['rq'=>'modules/RedPackManage/index.php',//RedPackManage
-			'lib'=>'modules/RedPackManage/RedPackManage.php']#NEW_MODULES#
+			'lib'=>'modules/RedPackManage/RedPackManage.php']
+	,'paid' => ['rq'=>'modules/PaidManager/index.php',//PaidManager
+			'lib'=>'modules/PaidManager/PaidManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -112,10 +114,12 @@ $fallbacks = [
     '72' => "用户已领取该红包",
 	'73' => "梦想互助未结束,红包均未失效问题",
     '74' => "用户已被领完",
+    '75' => "订单已经支付成功",
     '97' => "签名错误:#FALLTEXT#",
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
-	'100' => "参数错误:#FALLTEXT#"
+	'100' => "参数错误:#FALLTEXT#",
+	'101' => "appid不匹配"
 ];
 
 //权限级别定义
