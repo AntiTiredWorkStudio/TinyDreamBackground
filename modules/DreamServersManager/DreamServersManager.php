@@ -441,13 +441,8 @@ class DreamServersManager extends DBManager {
     }
 	
 	//下单动作支付完成,更新订单
-    public static function OrderPaid($uid,$oid,$bill,$pcount,$action)
+    public static function OrderPaid($uid,$oid,$bill,$pcount)
     {
-        //获取用户第一个未完成的梦想
-		
-        if(isset($_REQUEST['did'])){
-            $did = $_REQUEST['did'];
-        }
 
         //更新订单信息
         $condition = [
@@ -466,6 +461,7 @@ class DreamServersManager extends DBManager {
 				'_logic' => 'AND'
 			];
 			if(DBResultExist($this->SelectDataFromTable($this->TName('tOrder'),$conditionSuccess))){
+				//更新梦想did
 				return RESPONDINSTANCE('75');
 			}
             return RESPONDINSTANCE('20');
@@ -749,6 +745,16 @@ class DreamServersManager extends DBManager {
 				'_logic' => 'AND'
 			];
 			if(DBResultExist($this->SelectDataFromTable($this->TName('tOrder'),$conditionSuccess))){
+				//更新梦想did
+				$result = $this->UpdateDataToTable(
+					$this->TName('tOrder'),
+					[
+						'dcount'=>$pcount,
+						'did'=>$did,
+						'ptime'=>PRC_TIME()
+					],
+					$conditionSuccess
+				);
 				return RESPONDINSTANCE('75');
 			}
             return RESPONDINSTANCE('20');
