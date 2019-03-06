@@ -315,11 +315,16 @@ $WebApp = [
 		//定义菜单的格式
             $jsonmenu = '{
                   "button":[
-                  {
-                        "name":"立刻参与互助",
-                        "type":"view",
-                        "url":"'.$GLOBALS['options']['web_url'].'"
-                   }]
+					   {
+							"name":"参与互助",
+							"type":"view",
+							"url":"'.$GLOBALS['options']['web_url'].'"
+					   },{
+							"name":"梦想红包",
+							"type":"view",
+							"url":"'.$GLOBALS['options']['web_url_redpack'].'"
+					   }
+				   ]
              }';
 			
 		}else{
