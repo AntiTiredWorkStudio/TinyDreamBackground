@@ -431,6 +431,9 @@ var RefundModule = {
 	init :function(option){
 		var module = this;
 		console.log(option);
+		for(var key in option.packs.refund){
+			$("#refund_"+key).click(this.refundFunc);
+		}
 		$("#search").click(function(){
 			/*console.log($("#input_tele").val());
 			console.log($("#startDayTime").val());
@@ -444,6 +447,20 @@ var RefundModule = {
 				pid:$("#input_pid").val()
 			});
 		});
+	},
+	refundFunc:function(res){
+		var tRid = $(res.currentTarget).attr('rid');
+		var tPid = $(res.currentTarget).attr('pid');
+		console.log(tRid,tPid);
+		TD_Request("rp","drefund",{rid:tRid,pid:tPid},
+			function(code,data){
+				alert(data.context);
+				$(res.currentTarget).hide();
+			},
+			function(code,data){
+				alert(data.context);
+			}
+		);
 	}
 }
 

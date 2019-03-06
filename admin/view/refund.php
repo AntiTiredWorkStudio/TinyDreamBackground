@@ -54,6 +54,7 @@
 									 <th>领取状态</th> 
 									 <th>未领份数</th> 
 									 <th>应该退金额(元)</th> 
+									 <th>退款状态</th> 
 									</tr> 
 								   </thead> 
 								   <tbody> 
@@ -72,6 +73,13 @@
 									 <td><?php echo $value['rcount'].'/'.$value['gcount'];?></td> 
 									 <td><?php echo $value['less'];?></td> 
 									 <td><?php echo $value['lbill']*0.01;?></td> 
+									 <td><?php if($value['state'] != "REFUND"){ ?>
+									 <button id="refund_<?php echo $key;?>" type="button" rid="<?php echo $key;?>" pid="<?php echo $pageData['packs']['pid'];?>" class="btn btn-success">退款</button
+									 <?php}else{
+										 echo "已退款";
+										?><?php
+									 }
+									 ?></td>
 								 </tr> 
 								<?php }?>
 								   </tbody> 
