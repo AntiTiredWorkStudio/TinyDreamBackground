@@ -397,6 +397,7 @@ function REQUEST($key){
 //判断字段请求是否存在
 function RequestedFields($fields){
     if(!empty($fields)) {
+
         foreach ($fields as $key) {
             if (!isset($_REQUEST[$key])) {
                 return $key;

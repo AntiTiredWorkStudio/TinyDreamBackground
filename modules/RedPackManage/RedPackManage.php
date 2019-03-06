@@ -743,7 +743,8 @@ class RedPackManage extends DBManager {
 				'rcount'=>$refund['rcount'],
 				'gcount'=>$refund['gcount'],
 				'less'=> $refund['rcount'] - $refund['gcount'],
-				'lbill'=> $refund['bill']- $refund['gcount']*$unitBill
+				'lbill'=> $refund['bill']- $refund['gcount']*$unitBill,
+				'state'=> $refund['state']
 			];
 		}
 		
@@ -764,6 +765,50 @@ class RedPackManage extends DBManager {
 		$backMsg['refund'] = $result;
 		return $backMsg;
 	}
+
+	//退款rid,pid
+	public function FinishedRefund($rid,$pid){
+
+        $poolStatus = DreamPoolManager::IsPoolRunning($pid);
+        if($poolStatus['code']!="0" && $poolStatus['code']!="5"){
+            $backMsg = RESPONDINSTANCE('5');
+            $backMsg['pid'] = $pid;
+            return RESPONDINSTANCE('5');
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['pid'] = $pid;
+        if(isset($poolStatus['poolInfo']) && $poolStatus['poolInfo']['state'] == "RUNNING"){
+            $backMsg = RESPONDINSTANCE('73');
+            $backMsg['pid'] = $pid;
+            $backMsg['refund'] = [];
+            return $backMsg;
+        }
+
+        $BackRefund = DBResultToArray(
+            $this->SelectDataByQuery(
+                $this->TName("tROrder"),
+                self::C_And(
+                    self::C_And(
+                        self::FieldIsValue('rid',$rid),
+                        "`rcount`>`gcount`"
+                    ),
+                    self::C_And(
+                        self::FieldIsValue('pid',$pid),
+                        self::FieldIsValue('state',"REFUND","!=")
+                    )
+                )
+            ),true
+        );
+
+        if(empty($BackRefund)){
+           return RESPONDINSTANCE('76');
+        }
+
+        $this->UpdateDataByQuery($this->TName('tROrder'),"`state`='REFUND'",self::FieldIsValue('rid',$rid));
+
+        return RESPONDINSTANCE('0');
+    }
 
     //用户打开红包记录
     public static function OnUserOpenPackage($uid,$rid,$pcount,$oid,$pbill){

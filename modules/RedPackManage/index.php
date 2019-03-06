@@ -14,5 +14,6 @@
         'orp'=>R("OpenRedPack",["uid","rid"]),//获取用户红包列表（收到）
 		'refund'=>R("CollectRefundInfo",['pid']),//整理退款记录(以梦想互助为单位)
         'ginfo'=>R('GetRedPacksInfo',['pid',"seek","count"]),//通过pid获取红包信息
+        'drefund'=>R("FinishedRefund",['rid','pid']),//执行退款
     ]);
 ?>
