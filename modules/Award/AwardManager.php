@@ -287,7 +287,7 @@ class AwardManager extends DBManager{
 
     //梦想池开奖
     public function DoneAlottery($DoalBallNum,$expect,$code){
-        
+
         $result = DreamPoolManager::UpdateAllPools();//更新所有梦想池的状态
         $backMsg = RESPONDINSTANCE('0');
 
@@ -348,6 +348,12 @@ class AwardManager extends DBManager{
             }
 
         }
+
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
 
         $this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],
             self::C_And(
@@ -490,6 +496,13 @@ class AwardManager extends DBManager{
         }else{
 			return RESPONDINSTANCE('62');
 		}
+
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
+
         $pcount = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),
             self::FieldIsValue('pid',$pid),false,'pcount'),true);
         if(!empty($pcount)){

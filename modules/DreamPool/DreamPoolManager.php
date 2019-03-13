@@ -39,6 +39,11 @@ class DreamPoolManager extends DBManager{
     //更新所有在进行的梦想池
     public static function UpdateAllRunningPool(){
         $DPM = new DreamPoolManager();
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         //把该结束的梦想池结束了
         $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),
             ['state'=>'FINISHED'],
@@ -114,6 +119,11 @@ class DreamPoolManager extends DBManager{
     public static function GetMainPool(){
         $DPM = new DreamPoolManager();
         $DPM->UpdateAllRunningPool();//获取前先更新梦想池信息
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $selresult = $DPM->SelectDataFromTable($DPM->TName('tPool'),
             [
                 "state"=>'RUNNING',
@@ -134,6 +144,11 @@ class DreamPoolManager extends DBManager{
     //购买梦想池支付成功后调用
     public static function BuyPoolPieceSuccess($pid,$piece){
         $DPM = new DreamPoolManager();
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $selresult = $DPM->SelectDataFromTable($DPM->TName('tPool'),
             [
                 "pid"=>$pid,
@@ -159,6 +174,11 @@ class DreamPoolManager extends DBManager{
             $DPM->FinishedPool($pid);
             return RESPONDINSTANCE('7');
         }
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $updateresult = $DPM->UpdateDataToTable($DPM->TName('tPool'),
         [
             'pcount'=>($pcount+$piece),
@@ -184,6 +204,11 @@ class DreamPoolManager extends DBManager{
     //刷新所有梦想池,返回被更新的梦想池的全部信息
     public static function UpdateAllPools(){
         $DPM = new DreamPoolManager();
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $poolInfo = DBResultToArray($DPM->SelectDataFromTable($DPM->TName('tPool'),['state'=>'RUNNING','_logic'=>' ']));
         $condition = '';
 
@@ -237,6 +262,11 @@ class DreamPoolManager extends DBManager{
     }
     //更新梦想池
     public function UpdatePool($pid){
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $poolInfo = DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']));
 
         if(!empty($poolInfo)){
@@ -248,6 +278,11 @@ class DreamPoolManager extends DBManager{
 
 
             if(self::HasPoolFinished($ptime,$duration,$cbill,$tbill)){
+                /*
+                 *
+                 * 小生意互助潜在修改位置
+                 *
+                 * */
                 $this->UpdateDataToTable($this->TName('tPool'),['state'=>'FINISHED'],['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']);
                 return RESPONDINSTANCE('5');
             }else{
@@ -270,6 +305,11 @@ class DreamPoolManager extends DBManager{
 
     //梦想池结束生命周期
     public function FinishedPool($pid){
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $updateresult = $this->UpdateDataToTable($this->TName('tPool'),
             [
                 'state'=>'FINISHED',
@@ -299,7 +339,11 @@ class DreamPoolManager extends DBManager{
         $pid = self::GeneratePoolIDAuto();
 		$title= POOL_TITLE_PREFIX.$pid.POOL_TITLE_POSTFIX;
 		$duration = GetDayLessTime()+86400*($day-1)+3600*21;//今天的剩余时间+day天
-		
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
             "pid"=>$pid,
             "ptitle"=>$title,
@@ -331,7 +375,11 @@ class DreamPoolManager extends DBManager{
         $pid = $index;
 		$title= POOL_TITLE_PREFIX.$index.POOL_TITLE_POSTFIX;
 		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
-		
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
             "pid"=>$pid,
             "ptitle"=>$title,
@@ -378,6 +426,11 @@ class DreamPoolManager extends DBManager{
         }
 
         $pid = self::GeneratePoolID();
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
         $insresult = $this->InsertDataToTable($this->TName('tPool'),[
             "pid"=>$pid,
             "ptitle"=>$ptitle,
