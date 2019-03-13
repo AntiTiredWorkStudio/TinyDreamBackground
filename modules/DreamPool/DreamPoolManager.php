@@ -447,5 +447,16 @@ class DreamPoolManager extends DBManager{
         $backMsg['Pools'] = $cResult;
         return $backMsg;
     }
+	
+	//获取近1个月内的梦想互助id号
+	public function PoolIdList(){
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['pids'] = ListAttributeToArray(DBResultToArray($this->SelectDataByQuery($this->TName("tPool"),
+			self::FieldIsValue("ptime",(PRC_TIME()-(86400*30)),">"),
+			false,
+			'`pid`'
+		),true),"pid");
+		return $backMsg;
+	}
 }
 ?>

@@ -21,5 +21,6 @@
 		'gid'=>R('gid'),//自动生成id
 		'cpool'=>R('CountPools'),//返回梦想池数量
         'pinfo'=>R('GetPoolInfo',['pid']),//单独获得梦想池信息
+		'pidm'=>R('PoolIdList'),//获取近一月梦想互助id列表
     ]);
 ?>
