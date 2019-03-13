@@ -441,7 +441,7 @@ class DreamServersManager extends DBManager {
     }
 	
 	//下单动作支付完成,更新订单
-    public static function OrderPaid($uid,$oid,$bill,$pcount)
+    public function OrderPaid($uid,$oid,$bill,$pcount)
     {
 
         //更新订单信息
