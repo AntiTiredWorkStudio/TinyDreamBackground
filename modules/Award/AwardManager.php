@@ -287,7 +287,7 @@ class AwardManager extends DBManager{
 
     //梦想池开奖
     public function DoneAlottery($DoalBallNum,$expect,$code){
-
+        
         $result = DreamPoolManager::UpdateAllPools();//更新所有梦想池的状态
         $backMsg = RESPONDINSTANCE('0');
 
