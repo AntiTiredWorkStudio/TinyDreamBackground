@@ -12,6 +12,9 @@ var Options = {
 		this.Auth = null;
 		this.AccessToken = null;
 		this.UserInfo = null;
+	},
+	SetBackgroundUrl:function(url){
+		this.Url = url;
 	}
 };
 var Page = {
