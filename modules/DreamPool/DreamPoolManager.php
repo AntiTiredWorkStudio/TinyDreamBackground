@@ -218,8 +218,11 @@ class DreamPoolManager extends DBManager{
         $returnMsg = [];
 
         foreach ($poolInfo as $key=>$value){
+            if(!isset($value['ptype'])){
+                $value['ptype'] = "STANDARD";
+            }
             ++$seek;
-            if(self::HasPoolFinished($value['ptime'],$value['duration'],$value['cbill'],$value['tbill'])){
+            if(self::HasPoolFinished($value['ptime'],$value['duration'],$value['cbill'],$value['tbill'],$value['ptype'])){
                 /*if(($seek) >= $length-1){
                     $condition = $condition.'`pid`="'.$value['pid'].'"';
                 }else{*/
@@ -243,8 +246,13 @@ class DreamPoolManager extends DBManager{
     }
 
     //梦想池是否完成
-    static function HasPoolFinished($ptime,$duration,$cbill,$tbill){
-        return (PRC_TIME()>=($ptime + $duration)) || $cbill>=$tbill;
+    static function HasPoolFinished($ptime,$duration,$cbill,$tbill,$ptype="STANDARD"){
+        if($ptype == "STANDARD"){
+            return (PRC_TIME()>=($ptime + $duration)) || $cbill>=$tbill;
+
+        }else{
+            return $cbill >= $tbill;
+        }
     }
 
     public function info()
@@ -275,9 +283,14 @@ class DreamPoolManager extends DBManager{
             $tbill = $poolInfo[$pid]['tbill'];
             $cbill = $poolInfo[$pid]['cbill'];
             $ubill = $poolInfo[$pid]['ubill'];
+            if(!isset($poolInfo[$pid]['ptype'])){
+                $ptype = $poolInfo[$pid]['ptype'] = "STANDARD";
+            }else {
+                $ptype = $poolInfo[$pid]['ptype'];
+            }
 
 
-            if(self::HasPoolFinished($ptime,$duration,$cbill,$tbill)){
+            if(self::HasPoolFinished($ptime,$duration,$cbill,$tbill,$ptype)){
                 /*
                  *
                  * 小生意互助潜在修改位置
