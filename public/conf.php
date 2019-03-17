@@ -59,7 +59,9 @@ $modules = [
 	,'rp' => ['rq'=>'modules/RedPackManage/index.php',//RedPackManage
 			'lib'=>'modules/RedPackManage/RedPackManage.php']
 	,'paid' => ['rq'=>'modules/PaidManager/index.php',//PaidManager
-			'lib'=>'modules/PaidManager/PaidManager.php']#NEW_MODULES#
+			'lib'=>'modules/PaidManager/PaidManager.php']
+	,'tr' => ['rq'=>'modules/TradeManager/index.php',//TradeManager
+			'lib'=>'modules/TradeManager/TradeManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -281,7 +283,7 @@ $tables = [
         'name'=>'demo_server',
         'command'=>"CREATE TABLE `#DBName#` ( `hid` TEXT NOT NULL COMMENT '帮助id' , `uid` TEXT NOT NULL COMMENT '用户id', `title` TEXT NOT NULL COMMENT '梦想标题' , `content` TEXT NOT NULL COMMENT '梦想内容' , `server` TEXT NOT NULL COMMENT '服务类别', `bill` INT NOT NULL COMMENT '订单价格' ,`ctime` INT NOT NULL COMMENT '订单创建时间' , `ptime` INT NOT NULL COMMENT '订单支付时间' , `state` ENUM('SUBMIT','PAYMENT') NOT NULL COMMENT '订单状态' , PRIMARY KEY (`hid`(40) ,`uid`(28))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT = '简约版服务列表'"
     ],
-    'dTrade'=>[
+    'tTrade'=>[
         'name'=>'trade',
         'command'=>"CREATE TABLE `#DBName#` ( `tid` TEXT NOT NULL COMMENT '生意id' , `pid` TEXT NOT NULL COMMENT '梦想互助id' , `title` TEXT NOT NULL COMMENT '生意资料' , `url` TEXT NOT NULL COMMENT '生意资料页面' , `profit` INT NOT NULL COMMENT '利润' , PRIMARY KEY (`tid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '生意信息';"
     ]

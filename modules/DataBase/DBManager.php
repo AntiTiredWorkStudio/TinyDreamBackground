@@ -464,6 +464,7 @@ class DBManager extends Manager{
         if(isset($conArray['_limfrom']) && isset($conArray['_limto'])){
             $sql = $sql.' LIMIT '.$conArray['_limfrom'].','.$conArray['_limto'];
         }
+
 		$result = mysql_query($sql,$con);
 		if($closeDBLink){
 			mysql_close($con);
