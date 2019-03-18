@@ -9,6 +9,7 @@ LIB('dp');
 LIB('aw');
 LIB('ub');
 LIB('no');
+LIB('tr');
 
 class WechatPay{
 
@@ -441,7 +442,7 @@ class DreamServersManager extends DBManager {
     }
 	
 	//下单动作支付完成,更新订单
-    public function OrderPaid($uid,$oid,$bill,$pcount)
+    /*public function OrderPaid($uid,$oid,$bill,$pcount)
     {
 
         //更新订单信息
@@ -518,7 +519,7 @@ class DreamServersManager extends DBManager {
             return $backMsg;
         }
         return RESPONDINSTANCE('20');
-    }
+    }*/
 
     public function ListInfo(){
         $dtid = null;
@@ -621,6 +622,8 @@ class DreamServersManager extends DBManager {
     //下单动作开始【在任意梦想池点击参与互助或继续互助】
     public function PlaceOrderInADreamPoolStart($uid,$pid){
         $RunningResult = DreamPoolManager::IsPoolRunning($pid);
+        $pool = DreamPoolManager::Pool($pid);
+
 
         if($RunningResult['result']=="false"){
             return RESPONDINSTANCE('5');//梦想池失效（完成互助或到时）
@@ -641,24 +644,31 @@ class DreamServersManager extends DBManager {
 
         $backMsg = RESPONDINSTANCE('0');
 		
-
-        if(!DreamManager::HasSubmitedDream($uid)){
-            //跳转至编辑梦想页面
-            $backMsg['actions'] = [
-                'editdream'=>['uid'=>$uid],//编辑梦想
-                //'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless']]//购买互助
-            ];
-        }else {
-			$userFirstDream = DreamManager::UserFirstSubmitedDream($uid);
-			if(!empty($userFirstDream)){
-				$userFirstDream = $userFirstDream[0];
-			}
-            //跳转至选择梦想界面
+        if(isset($pool['ptype']) && $pool['ptype'] == "TRADE"){//小生意互助添加
+            $trade = TradeManager::GetTradeInfoByPid($pid);
             $backMsg['actions'] = [
                 //'selectdream'=>['uid'=>$uid],//选择梦想
-                'buy'=>['uid'=>$uid,'pid'=>$pid,'dayLim'=>$dayLimit,'less'=>$RunningResult['pless'],'dream'=>$userFirstDream]//购买互助
+                'buy' => ['uid' => $uid, 'pid' => $pid, 'dayLim' => $dayLimit, 'less' => $RunningResult['pless'], 'dream' => $trade]//购买互助
             ];
+        }else {//普通梦想互助
+            if (!DreamManager::HasSubmitedDream($uid)) {
+                //跳转至编辑梦想页面
+                $backMsg['actions'] = [
+                    'editdream' => ['uid' => $uid],//编辑梦想
+                    //'selectdream'=>['uid'=>$uid],//选择梦想
+                    'buy' => ['uid' => $uid, 'pid' => $pid, 'dayLim' => $dayLimit, 'less' => $RunningResult['pless']]//购买互助
+                ];
+            } else {
+                $userFirstDream = DreamManager::UserFirstSubmitedDream($uid);
+                if (!empty($userFirstDream)) {
+                    $userFirstDream = $userFirstDream[0];
+                }
+                //跳转至选择梦想界面
+                $backMsg['actions'] = [
+                    //'selectdream'=>['uid'=>$uid],//选择梦想
+                    'buy' => ['uid' => $uid, 'pid' => $pid, 'dayLim' => $dayLimit, 'less' => $RunningResult['pless'], 'dream' => $userFirstDream]//购买互助
+                ];
+            }
         }
         return $backMsg;
     }
@@ -680,18 +690,28 @@ class DreamServersManager extends DBManager {
 
         $pless = $actionList['buy']['less'];
 
-        DreamServersManager::ClearSubmitOrder($actionList['buy']['dream']['uid']);
+        DreamServersManager::ClearSubmitOrder($actionList['buy']['uid']);//修改清除选项
+
+        $did = "";
+        $orderType = "";
+        if(isset($actionList['buy']['dream']['tid'])){//小生意互助添加
+            $did = $actionList['buy']['dream']['tid'];
+            $orderType = "TRADE";
+        }else if(isset($actionList['buy']['dream']['did'])){//小梦想互助
+            $did = $actionList['buy']['dream']['did'];
+            $orderType = "STANDARD";
+        }
 
         $orderArray = [
             "oid"=>self::GenerateOrderID(),
-            "uid"=>$actionList['buy']['dream']['uid'],
+            "uid"=>$actionList['buy']['uid'],
             "pid"=>$actionList['buy']['pid'],
             "bill"=>0,
             "ctime"=>PRC_TIME(),
             "ptime"=>0,
             "state"=>"SUBMIT",
             "dcount"=>0,
-            "did"=>$actionList['buy']['dream']['did']
+            "did"=>$did
         ];
         $insresult = $this->InsertDataToTable($this->TName('tOrder'),$orderArray);
         if($insresult){
@@ -701,6 +721,7 @@ class DreamServersManager extends DBManager {
                     "info"=>[
                         //返回基本商户信息及平台信息（后续配置）
                     ],
+                    "orderType"=>$orderType,
                     "oid"=>$orderArray['oid'],
                     "pid"=>$orderArray['pid'],
                     "did"=>$orderArray['did'],
@@ -724,8 +745,12 @@ class DreamServersManager extends DBManager {
         }
 
         $did = $actionList['pay']['did'];
-        if(isset($_REQUEST['did'])){
-            $did = $_REQUEST['did'];
+        if(isset($actionList['pay']['orderType']) && $actionList['pay']['orderType']=="TRADE"){
+
+        }else{
+            if(isset($_REQUEST['did'])){
+                $did = $_REQUEST['did'];
+            }
         }
 
         //更新订单信息
@@ -1213,6 +1238,10 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+    public static function DidFlag($sources,$flag){
+        return substr($sources,0,strlen($flag)) == $flag;
+    }
+
     //根据范围获取订单及用户信息
     public function GetOrdersInPoolByRange($pid,$min,$max){
         $link = $this->DBLink();
@@ -1227,12 +1256,20 @@ class DreamServersManager extends DBManager {
 
         $dids = "";
 
+        $tids = "";
+
         $i = 0;
 
         foreach ($cResult as $item) {
+            //echo "did:".substr($item['did'], 0,2)."</br>";
             $user[$i++] = $item['uid'];
             $uids = $uids.$item['uid'].'|';
-            $dids = $dids.$item['did'].'|';
+
+            if(self::DidFlag($item['did'],"DR")){
+                $dids = $dids.$item['did'].'|';
+            }else if(self::DidFlag($item['did'],"TR")){
+                $tids = $dids.$item['did'].'|';
+            }
         }
 
        // echo json_encode($user);
@@ -1252,14 +1289,24 @@ class DreamServersManager extends DBManager {
             ,[
                 'did'=>$dids
             ]));
+
+        $tarray = DBResultToArray($this->SelectDatasFromTable($this->TName('tTrade')
+            ,[
+                'tid'=>$tids
+            ]));
         //echo json_encode($darray);
 
 
         foreach ($cResult as $key => $item) {
             //echo 'kkkkkk:'.$key.'=>'.$item.'</br>';
             $cResult[$key]['tele'] = substr_replace($user[$cResult[$key]['uid']],'****',3,4);
-            $cResult[$key]['dtitle'] = $this->subtext($darray[$cResult[$key]['did']]['title'],10);
-        }
+            if(isset($darray[$cResult[$key]['did']])){
+                $cResult[$key]['dtitle'] = $this->subtext($darray[$cResult[$key]['did']]['title'],10);
+            }
+            if(isset($tarray[$cResult[$key]['did']])){
+                $cResult[$key]['dtitle'] = $this->subtext($tarray[$cResult[$key]['did']]['title'],10);
+            }
+    }
 
         $backMsg = RESPONDINSTANCE('0');
 

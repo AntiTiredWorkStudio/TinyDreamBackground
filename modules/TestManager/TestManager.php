@@ -348,6 +348,14 @@ class TestManager extends DBManager {
 
     }
 
+    public function DebugUsers(){
+        $configUserList = json_encode("defaultUser");
+        if(isset($_REQUEST['uconfig'])){
+            $configUserList = file_get_contents($_REQUEST['uconfig']);
+        }
+        echo include_once "userlog.php";
+    }
+
     public function RefreashFunc(){
         /*
          * UPDATE `dream` SET `uid`="MissUser" WHERE `uid`="oSORf5kkXvHNxhIx8lQVe3DFRFvw"

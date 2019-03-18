@@ -8,6 +8,7 @@ LIB('dr');
 LIB('us');
 LIB('no');
 LIB('va');
+LIB('tr');
 
 class AwardManager extends DBManager{
 
@@ -463,13 +464,24 @@ class AwardManager extends DBManager{
 		
 		$condition = "";
 		$dcondition = "";
+		$tcondtion = "";
+
 		foreach($cResult as $key=>$value){
 			$condition = $condition.$value['uid'].'|';
-			$dcondition = $dcondition.$value['did'].'|';
+			if(DreamServersManager::DidFlag($value['did'],"DR")){
+			    $dcondition = $dcondition.$value['did'].'|';
+            }
+            if(DreamServersManager::DidFlag($value['did'],"TR")){
+                $tcondtion = $tcondtion.$value['did'].'|';
+            }
 		}
 		
 		$userInfo = UserManager::GetUsersInfoByString($condition);
+
 		$dreamsInfo = DreamManager::GetDreamsByConditionStr($dcondition);
+
+		$tradesInfo = TradeManager::GetDreamsByConditionStr($tcondtion);
+
 		foreach($cResult as $i=>$value){
 			if(array_key_exists($value['uid'],$userInfo)){
 				$cResult[$i]['nickname'] =  $userInfo[$value['uid']]['nickname'];
@@ -481,6 +493,12 @@ class AwardManager extends DBManager{
 				$cResult[$i]['content'] =  $dreamsInfo[$value['did']]['content'];
 				$cResult[$i]['state'] =  $dreamsInfo[$value['did']]['state'];
 			}
+
+			if(array_key_exists($value['did'],$tradesInfo)){
+                $cResult[$i]['title'] =  $tradesInfo[$value['did']]['title'];
+                $cResult[$i]['content'] =  "小生意互助";
+                $cResult[$i]['state'] =  "SUCCESS";
+            }
 		}
 		
         $backMsg = RESPONDINSTANCE('0');

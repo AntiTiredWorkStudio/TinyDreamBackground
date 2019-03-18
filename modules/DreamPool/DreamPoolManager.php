@@ -166,15 +166,19 @@ class DreamPoolManager extends DBManager{
          * 小生意互助潜在修改位置
          *
          * */
-        $selresult = $DPM->SelectDataFromTable($DPM->TName('tPool'),
-            [
-                "state"=>'RUNNING',
-                "_logic"=>' ',
-                "_orderby"=>MAIN_POOL_ORDER_BY,
-                "_orderrule"=>MAIN_POOL_ORDER_RULE,
-                "_Limfrom"=>0,
-                '_Limto'=>1
-            ]
+        $condition =
+            self::Limit(
+                self::OrderBy(
+                    self::C_And(
+                        self::FieldIsValue('state',"RUNNING"),
+                        self::FieldIsValue('ptype',"STANDARD")
+                    ),
+                    MAIN_POOL_ORDER_BY,
+                    MAIN_POOL_ORDER_RULE
+                ),0,1
+            );
+        $selresult = $DPM->SelectDataByQuery($DPM->TName('tPool'),
+            $condition
         );
         $resultArray = DBResultToArray($selresult,true);
         if(!empty($resultArray) && isset($resultArray[0])){

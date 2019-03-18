@@ -19,6 +19,13 @@ class TradeManager extends DBManager {
 
 	}
 
+    //通过条件字符串批量获取小生意
+    public static function GetDreamsByConditionStr($tidStr){
+        $TM = new TradeManager();
+        $trades = DBResultToArray($TM->SelectDatasFromTable($TM->TName('tTrade'),['tid'=>$tidStr]));
+        return $trades;
+    }
+
 	public static function GetTradeInfoByPid($pid){
         $TM = new TradeManager();
         $result = DBResultToArray(
@@ -48,5 +55,7 @@ class TradeManager extends DBManager {
         DreamPoolManager::AddTradePool($pid,$profit);
         return RESPONDINSTANCE('0');
     }
+
+
 }
 ?>
