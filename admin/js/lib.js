@@ -15,7 +15,8 @@ var Options = {
 	},
 	SetBackgroundUrl:function(url){
 		this.Url = url;
-	}
+	},
+    TestServer : false
 };
 var Page = {
     OnSignalFailed : function (data) {
@@ -61,6 +62,10 @@ var Page_Builder = function (module, action, paras, fResult,fFailed) {
         }
         var signal = GetSignalString(secret,timeStamp,postInfo);
         postInfo['signal'] = signal;
+    }
+
+    if(Options.TestServer){
+        postInfo['dblink'] = 'test';
     }
 
     var ajaxObject ={
@@ -122,6 +127,10 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
 		postInfo['signal'] = signal;
 	}
 
+    if(Options.TestServer){
+        postInfo['dblink'] = 'test';
+    }
+
     var ajaxObject ={
         url: Options.Url,
         type: "post",
@@ -149,6 +158,10 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
 
 //http get请求
 var Http_Get_Request = function(url,datas,fSuccess,fFailed) {
+
+    if(Options.TestServer){
+        datas['dblink'] = 'test';
+    }
 
     var ajaxObject ={
         url: url,

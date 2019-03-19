@@ -621,8 +621,15 @@ class DBManager extends Manager{
 
 	//快速获取数据库链接
 	public function DBLink(){
-		$con = mysql_connect("localhost",$this->C()['admin'],$this->C()['password']);
-		mysql_set_charset('utf8mb4');
+	    //test_server
+        $ipLink = "localhost";
+        if(isset($_REQUEST['dblink']) && $_REQUEST['dblink']=="test"){
+            $ipLink = $this->C()['test_server'];
+        }else{
+            $ipLink = $this->C()['server'];
+        }
+		$con = mysql_connect($ipLink,$this->C()['admin'],$this->C()['password']);
+		mysql_set_charset($this->C()['charset']);
 		if($con){
 			mysql_select_db($this->C()['database']);
 		}
