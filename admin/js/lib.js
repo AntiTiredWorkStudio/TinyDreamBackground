@@ -481,6 +481,8 @@ window.onbeforeunload = function (e) {
 		SaveStorage("UserInfo",Options.UserInfo);
 	}
 	
+	SaveStorage("TestServer",Options.TestServer);
+	
 };
 window.onpagehide = function (e) {
     if(Options.Auth!=null) {
@@ -534,6 +536,12 @@ var InitOptions = function () {
         RemoveStorage("UserInfo");
         Options.UserInfo = userinfo;
         //console.log('init UserInfo');
+	}
+	
+	if(ExistStorage("TestServer")){
+        var testServer = GetStorage("TestServer");
+        RemoveStorage("TestServer");
+        Options.TestServer = testServer;
 	}
 }
 InitOptions();
