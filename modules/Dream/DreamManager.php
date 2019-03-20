@@ -6,6 +6,8 @@ LIB('db');
 LIB('us');
 LIB('aw');
 LIB('dp');
+LIB('ds');
+LIB('tr');
 
 define("MAX_DREAMS_COUNT",5);
 
@@ -266,6 +268,10 @@ class DreamManager extends DBManager{
     //获取用户的单个梦想
     public function GetUserSingleDream($uid,$did){
         $backMsg = RESPONDINSTANCE('0');
+        if(DreamServersManager::DidFlag($did,"TR")){
+            $backMsg['dream'] = TradeManager::GetTradeInfoByTid($did);
+            return $backMsg;
+        }
         $state = 'SUBMIT';
         if(isset($_REQUEST['state'])){
             $state = $_REQUEST['state'];

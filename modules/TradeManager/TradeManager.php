@@ -39,6 +39,19 @@ class TradeManager extends DBManager {
         return $result;
     }
 
+    public static function GetTradeInfoByTid($tid){
+        $TM = new TradeManager();
+        $result = DBResultToArray(
+            $TM->SelectDataByQuery($TM->TName('tTrade'),
+                self::FieldIsValue('tid',$tid)
+            ),true
+        );
+        if(!empty($result)){
+            $result = $result[0];
+        }
+        return $result;
+    }
+
 	//增加小生意信息
 	public function AddTradeInfo($title,$url,$profit){
         $tid = self::GenerateTradeID();//生成生意ID
