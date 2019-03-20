@@ -64,7 +64,7 @@ var Page_Builder = function (module, action, paras, fResult,fFailed) {
         postInfo['signal'] = signal;
     }
 
-    if(Options.TestServer){
+    if(Options.TestServer == true){
         postInfo['dblink'] = 'test';
     }
 
@@ -127,7 +127,7 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
 		postInfo['signal'] = signal;
 	}
 
-    if(Options.TestServer){
+    if(Options.TestServer == true){
         postInfo['dblink'] = 'test';
     }
 
@@ -159,7 +159,7 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
 //http get请求
 var Http_Get_Request = function(url,datas,fSuccess,fFailed) {
 
-    if(Options.TestServer){
+    if(Options.TestServer == true){
         datas['dblink'] = 'test';
     }
 
