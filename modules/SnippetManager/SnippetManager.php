@@ -10,7 +10,8 @@ class SnippetManager extends Manager{
     }
 	
 	public $config = [
-		'viewPath'=>'../TinydreamWeb/view'
+		'viewPath'=>'../TinydreamWeb/view',
+        'templatePath'=>'../TinydreamUConfig',//默认模板路径
 	];
 
 	public function SnippetManager(){
@@ -65,5 +66,27 @@ class SnippetManager extends Manager{
 		$backMsg['snippet'][$name]=$this->SingleSnippet($path,$name,$data);
 		return $backMsg;
 	}
+
+	public function BuildTemplate($turl){
+	    $templatePath = $this->config['templatePath'];
+        if(isset($_REQUEST['turl'])){
+            $templatePath = $_REQUEST['turl'];
+        }
+
+        $fullPath = $templatePath.'/'.$turl.'.php';
+        $data = [];
+
+        if(!file_exists($fullPath)){
+            return RESPONDINSTANCE('77',$turl);
+        }
+
+        include_once ($fullPath);
+
+        foreach ($data as $key=>$value) {
+            
+        }
+        //$template = file_get_contents($fullPath);
+
+    }
 }
 ?>

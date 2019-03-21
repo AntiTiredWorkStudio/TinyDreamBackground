@@ -343,6 +343,11 @@ var DreamPoolAnalysis = function(pool) {
     pool.rduration = DescriptionTime(pool.duration);
     var timeLess = (parseInt(pool.ptime) + parseInt(pool.duration)) - JSTimeToPHPTime(PRC_TIME());
     pool.timeLess = DescriptionTime(timeLess);
+
+    if(pool.hasOwnProperty("ptype") && pool.ptype == "STANDARD"){
+        pool.timeLess = "不限";
+    }
+
     if(pool.ubill >0){
         pool.joincount = pool.cbill / pool.ubill
     }else{
