@@ -344,7 +344,7 @@ var DreamPoolAnalysis = function(pool) {
     var timeLess = (parseInt(pool.ptime) + parseInt(pool.duration)) - JSTimeToPHPTime(PRC_TIME());
     pool.timeLess = DescriptionTime(timeLess);
 
-    if(pool.hasOwnProperty("ptype") && pool.ptype == "STANDARD"){
+    if(pool.hasOwnProperty("ptype") && pool.ptype != "STANDARD"){
         pool.timeLess = "不限";
     }
 
