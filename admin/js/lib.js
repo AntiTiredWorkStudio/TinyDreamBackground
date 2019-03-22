@@ -339,7 +339,7 @@ var DreamPoolAnalysis = function(pool) {
     pool.rtbillUnit = rtbill.unit;
     var rubill = BillExchange(pool.ubill);
     pool.rubillValue = rubill.value;
-    pool.rubillUnit = rubill.unit;
+    pool.rubillUnit = rubill.unit+"/份";
     pool.rduration = DescriptionTime(pool.duration);
     var timeLess = (parseInt(pool.ptime) + parseInt(pool.duration)) - JSTimeToPHPTime(PRC_TIME());
     pool.timeLess = DescriptionTime(timeLess);
@@ -354,7 +354,7 @@ var DreamPoolAnalysis = function(pool) {
         pool.joincount = pool.pcount
     }
     if (pool.state == 'RUNNING') {
-        pool.billHint = "目前互助金"
+        pool.billHint = "目前累计互助金"
     } else if (pool.state == 'FINISHED') {
         pool.billHint = "最终互助金"
     }
