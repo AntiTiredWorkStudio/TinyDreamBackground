@@ -69,11 +69,14 @@ class SnippetManager extends Manager{
 
 	public function BuildTemplate($turl){
 	    $templatePath = $this->config['templatePath'];
-        if(isset($_REQUEST['turl'])){
-            $templatePath = $_REQUEST['turl'];
+
+
+        if(isset($_REQUEST['root'])){
+            $templatePath = $_REQUEST['root'];
         }
 
         $fullPath = $templatePath.'/'.$turl.'.php';
+
         $data = [];
 
         if(!file_exists($fullPath)){
@@ -82,11 +85,31 @@ class SnippetManager extends Manager{
 
         include_once ($fullPath);
 
-        foreach ($data as $key=>$value) {
-            
+        $templateUrl = $templatePath.'/'.$turl.'.html';
+        if(isset($data['template']) && !empty($data['template'])){
+            $templateUrl = $templatePath.'/'.$data['template'];
         }
-        //$template = file_get_contents($fullPath);
 
+        if(!file_exists($templateUrl)){
+            return RESPONDINSTANCE('78',$templateUrl);
+        }
+
+
+        $result = file_get_contents($templateUrl);
+
+        foreach($data as $key=>$value){
+            $result = str_replace("{{{$key}}}",$value,$result);
+        }
+
+        $result = str_replace("<","#LB#",$result);
+
+        $result = str_replace(">","#RB#",$result);
+
+        $backMsg = RESPONDINSTANCE('0');
+
+        $backMsg['layout'] = $result;
+
+        return $backMsg;
     }
 }
 ?>

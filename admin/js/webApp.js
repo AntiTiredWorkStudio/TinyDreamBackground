@@ -200,35 +200,55 @@ var WebApp = {
 			}
 
   			TD_Request('view','builds',requestData,
-				function(code,data){
-					//console.log(data);
-					if(data.hasOwnProperty('snippet')) {
+                function(code,data){
+                    //console.log(data);
+                    if(data.hasOwnProperty('snippet')) {
 
-						for(var key in data.snippet){
+                        for(var key in data.snippet){
                             var snippetStr = data.snippet[key];
 
                             var LB = new RegExp("#LB#","g");
-							var RB = new RegExp("#RB#","g");
+                            var RB = new RegExp("#RB#","g");
 
                             snippetStr = snippetStr.replace(LB,"<");
                             snippetStr = snippetStr.replace(RB,">");
                             data.snippet[key] = snippetStr;
-						}
+                        }
                         onCreated(true, data.snippet);
                     }else{
                         onCreated(false,data);
-					}
-				},
-				function (code, data) {
+                    }
+                },
+                function (code, data) {
                     //console.log(data);
                     onCreated(false,data);
                 }
-  			)
+            )
 			//未实现完成
 			/*var str = "";
 			str.replace("#LB#","<");
 			str.replace("#RB#",">");*/
-		}
+		},
+        BuildLayout:function (templateID,onCreated) {
+            TD_Request('view','build_dt',{turl:templateID},
+                function(code,data){
+                    if(data.hasOwnProperty('layout')) {
+                        var LB = new RegExp("#LB#","g");
+                        var RB = new RegExp("#RB#","g");
+                        data.layout = data.layout.replace(LB,"<");
+                        data.layout = data.layout.replace(RB,">");
+
+                        onCreated(true, data.layout);
+                    }else{
+                        onCreated(false,data);
+                    }
+                },
+                function (code, data) {
+                    //console.log(data);
+                    onCreated(false,data);
+                }
+            )
+        },
 	},
 	JSAPI:{
   		Init:function (para) {
