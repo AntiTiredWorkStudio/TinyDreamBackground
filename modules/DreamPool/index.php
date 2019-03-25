@@ -16,6 +16,7 @@
 		'list'=>R('ListAllPool'),//列出全部梦想池
         'listr'=>R('ListPoolsByRange',['seek','count']),//按范围列出梦想池
         'fua'=>R('ForceUpdateAllPools'),//强制刷新全部梦想池
+		'fup'=>R('UpdatePool',['pid']),//强制更新梦想互助
 		'gdtl'=>R('GetDayTimeLess'),//获取当天剩余时间
 		'gfmd'=>R('FirstMonthDay'),//获取本月第1天
 		'gid'=>R('gid'),//自动生成id
