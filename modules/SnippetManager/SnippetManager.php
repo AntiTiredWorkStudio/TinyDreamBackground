@@ -67,6 +67,27 @@ class SnippetManager extends Manager{
 		return $backMsg;
 	}
 
+	public static function GetAttributeFromData($turl,$key){
+        $templatePath = (new SnippetManager())->config['templatePath'];
+
+        $fullPath = $templatePath.'/'.$turl.'.php';
+
+        $data = [];
+
+        if(isset($_REQUEST['root'])){
+            $templatePath = $_REQUEST['root'];
+        }
+
+
+        if(!file_exists($fullPath)){
+            return RESPONDINSTANCE('77',$turl)['context'];
+        }
+        include_once ($fullPath);
+
+        return $data[$key];
+
+    }
+
 	public function BuildTemplate($turl){
 	    $templatePath = $this->config['templatePath'];
 

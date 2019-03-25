@@ -2,6 +2,7 @@
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
 LIB('dp');
+LIB('view');
 
 class TradeManager extends DBManager {
     public function info()
@@ -26,6 +27,13 @@ class TradeManager extends DBManager {
         return $trades;
     }
 
+    public function GetTradeByPid($pid){
+        return self::GetTradeInfoByPid($pid);
+    }
+    public function GetTradeByTid($tid){
+        return self::GetTradeInfoByTid($tid);
+    }
+
 	public static function GetTradeInfoByPid($pid){
         $TM = new TradeManager();
         $result = DBResultToArray(
@@ -35,6 +43,7 @@ class TradeManager extends DBManager {
         );
         if(!empty($result)){
             $result = $result[0];
+            $result['bannerUrl'] = SnippetManager::GetAttributeFromData($result['url'],"bannerImgUrl");
         }
         return $result;
     }
@@ -48,6 +57,7 @@ class TradeManager extends DBManager {
         );
         if(!empty($result)){
             $result = $result[0];
+            $result['bannerUrl'] = SnippetManager::GetAttributeFromData($result['url'],"bannerImgUrl");
         }
         return $result;
     }
