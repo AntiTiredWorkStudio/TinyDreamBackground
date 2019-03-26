@@ -328,7 +328,9 @@ class UserManager extends DBManager{
             $condition);
         $userArray = DBResultToArray($seleResult,true);
         if(!empty($userArray)){
-            $userArray = $userArray[0];
+            if(count($userArray) == 1) {
+                $userArray = $userArray[0];
+            }
         }
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['selfinfo'] = $userArray;
