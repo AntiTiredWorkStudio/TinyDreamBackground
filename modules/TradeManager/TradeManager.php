@@ -64,6 +64,23 @@ class TradeManager extends DBManager {
         return $result;
     }
 
+    public static function GetTradeProfitPercent($uid,$pid,$lucky = false){
+        $TM = new TradeManager();
+        $result = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::FieldIsValue('uid',$uid),
+                self::FieldIsValue('pid',$pid)
+            ),
+            false,
+            "SUM(`bill`)"
+        ),false);
+        echo json_encode($result);
+    }
+
+    public function GetTradePPer($uid,$pid){
+        return self::GetTradeProfitPercent($uid,$pid);
+    }
+
 	//增加小生意信息
 	public function AddTradeInfo($title,$url,$profit){
         $tid = self::GenerateTradeID();//生成生意ID
@@ -80,7 +97,6 @@ class TradeManager extends DBManager {
         DreamPoolManager::AddTradePool($pid,$profit);
         return RESPONDINSTANCE('0');
     }
-
 
 }
 ?>

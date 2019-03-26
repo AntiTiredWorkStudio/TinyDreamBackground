@@ -18,5 +18,6 @@
         'astart'=>R('ActivityStart',['pid']),
         'aend'=>R('ActivityEnd',['pid','url']),
         'alive'=>R('ActivityLive'),
+        'gtpp'=>R('GetTradePPer',['uid','pid'])
     ]);
 ?>

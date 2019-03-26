@@ -568,5 +568,10 @@ class AwardManager extends DBManager{
            )
         ),true);
     }
+
+    public function GetTradeAwardInfo($pid,$uid,$tuid){
+        $tradeInfo = TradeManager::GetTradeInfoByPid($pid);
+    }
+
 }
 ?>
