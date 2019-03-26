@@ -564,6 +564,11 @@ class DreamServersManager extends DBManager {
         foreach ($array as $key=>$item) {
             $array[$key]['headicon'] = $headIcons[$item['uid']]['headicon'];
             $array[$key]['nickname'] = $headIcons[$item['uid']]['nickname'];
+			if(self::DidFlag($item['did'],"DR")){
+                $array[$key]['ptype'] = "STANDARD";
+            }else if(self::DidFlag($item['did'],"TR")){
+                $array[$key]['ptype'] = "TRADE";
+            }
         }
 
         //echo $sql;
