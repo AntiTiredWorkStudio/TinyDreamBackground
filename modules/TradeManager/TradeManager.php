@@ -44,6 +44,7 @@ class TradeManager extends DBManager {
         if(!empty($result)){
             $result = $result[0];
             $result['bannerUrl'] = SnippetManager::GetAttributeFromData($result['url'],"bannerImgUrl");
+            $result['awardContent'] = SnippetManager::GetAttributeFromData($result['url'],"awardContent");
         }
         return $result;
     }
