@@ -318,6 +318,22 @@ class UserManager extends DBManager{
 	public function test(){
 		return UserManager::CheckDayBoughtLimit("a01");
 	}
+	
+	public function SelfInfoByNickName($nickname){
+        $condition = [
+            'nickname'=>$nickname,
+            '_logic'=>' '
+        ];
+        $seleResult = $this->SelectDataFromTable($this->TName('tUser'),
+            $condition);
+        $userArray = DBResultToArray($seleResult,true);
+        if(!empty($userArray)){
+            $userArray = $userArray[0];
+        }
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['selfinfo'] = $userArray;
+        return $backMsg;
+	}
 
 	//个人信息
 	public function SelfInfo($uid){
@@ -1099,5 +1115,7 @@ class UserManager extends DBManager{
         $backMsg['config'] = $config;
         return $backMsg;
     }
+	
+	
 }
 ?>

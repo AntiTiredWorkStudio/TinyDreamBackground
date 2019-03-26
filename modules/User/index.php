@@ -10,6 +10,7 @@
         'enter'=>R('EnterApp',['uid','nickname','headicon']),//进入小程序
         'enterpack'=>R('EnterAppInRedPackage',['uid','nickname','headicon']),//通过红包进入页面
         'selfinfo'=>R('SelfInfo',['uid']),//获取个人信息
+		'sibynn'=>R('SelfInfoByNickName',['nickname']),//通过昵称获取个人信息
         'gakt'=>R('GetAccessToken',['code'],PERMISSION_AUTH_FREE),//获取access_token【小程序入口,返回secret及openid】
         'gawt'=>R('GetAccessTokenWeb',['code'],PERMISSION_AUTH_FREE),//获取AccessToken（公众号鉴权入口,获取openid）
 		'guif'=>R('GetUserInfoWeb',['atoken','uid']),//获取用户资料(公众号)
