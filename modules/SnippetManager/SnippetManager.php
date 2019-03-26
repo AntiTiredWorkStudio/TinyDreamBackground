@@ -82,8 +82,8 @@ class SnippetManager extends Manager{
         if(!file_exists($fullPath)){
             return RESPONDINSTANCE('77',$turl)['context'];
         }
-        include_once ($fullPath);
-
+        include($fullPath);
+		
         return $data[$key];
 
     }
@@ -104,7 +104,7 @@ class SnippetManager extends Manager{
             return RESPONDINSTANCE('77',$turl);
         }
 
-        include_once ($fullPath);
+        include ($fullPath);
 
         $templateUrl = $templatePath.'/'.$turl.'.html';
         if(isset($data['template']) && !empty($data['template'])){
