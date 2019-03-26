@@ -8,5 +8,6 @@
         'adt'=>R('AddTradeInfo',['title','url','profit']),//增加小生意信息
         'gtp'=>R('GetTradeByPid',['pid']),
         'gtt'=>R('GetTradeByTid',['tid']),
+        'gtpp'=>R('GetTradePPer',['uid','pid']),
     ]);
 ?>
