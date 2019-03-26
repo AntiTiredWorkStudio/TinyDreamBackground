@@ -465,14 +465,17 @@ class AwardManager extends DBManager{
 		$condition = "";
 		$dcondition = "";
 		$tcondtion = "";
-
+		
+		$ptypeList = [];
 		foreach($cResult as $key=>$value){
 			$condition = $condition.$value['uid'].'|';
 			if(DreamServersManager::DidFlag($value['did'],"DR")){
 			    $dcondition = $dcondition.$value['did'].'|';
+				$ptypeList[$key] = "STANDARD";
             }
             if(DreamServersManager::DidFlag($value['did'],"TR")){
                 $tcondtion = $tcondtion.$value['did'].'|';
+				$ptypeList[$key] = "TRADE";
             }
 		}
 		
@@ -499,6 +502,7 @@ class AwardManager extends DBManager{
                 $cResult[$i]['content'] =  "小生意互助";
                 $cResult[$i]['state'] =  "SUCCESS";
             }
+			$cResult[$i]['ptype'] = isset($ptypeList[$i])?$ptypeList[$i]:"STANDARD";
 		}
 		
         $backMsg = RESPONDINSTANCE('0');
