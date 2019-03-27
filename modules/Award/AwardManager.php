@@ -455,7 +455,13 @@ class AwardManager extends DBManager{
     public function CountPreviousLucky(){
         $link = $this->DBLink();
 
-        $sql = "SELECT COUNT(*) FROM `".$this->TName("tAward")."` WHERE ".self::FieldIsValue('uid','无开奖','!=');
+        $condition = self::FieldIsValue('uid','无开奖','!=');
+
+        if(isset($_REQUEST['awardtype'])){
+            $condition = self::C_And($condition,self::SqlField('did')." LIKE '".$_REQUEST['awardtype']."%'");
+        }
+
+        $sql = "SELECT COUNT(*) FROM `".$this->TName("tAward")."` WHERE ".$condition;
 
         mysql_query($sql,$link);
 		
@@ -471,7 +477,15 @@ class AwardManager extends DBManager{
         //未实现
         $link = $this->DBLink();
 
-        $sql = "SELECT * FROM `".$this->TName('tAward')."` WHERE ".self::FieldIsValue('uid','无开奖','!=')." ORDER BY `atime` DESC LIMIT $seek,$count";
+        $condition = self::FieldIsValue('uid','无开奖','!=');
+
+        if(isset($_REQUEST['awardtype'])){
+            $condition = self::C_And($condition,self::SqlField('did')." LIKE '".$_REQUEST['awardtype']."%'");
+        }
+
+        $sql = "SELECT * FROM `".$this->TName('tAward')."` WHERE ".$condition." ORDER BY `atime` DESC LIMIT $seek,$count";
+
+       // echo $sql;
 
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 		
