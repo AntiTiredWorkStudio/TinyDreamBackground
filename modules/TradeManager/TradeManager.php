@@ -1,6 +1,7 @@
 <?php
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
+LIB('aw');
 LIB('dp');
 LIB('view');
 
@@ -64,17 +65,79 @@ class TradeManager extends DBManager {
         return $result;
     }
 
-    public static function GetTradeProfitPercent($uid,$pid,$lucky = false){
+    public static function GetTradeProfitPercent($uid,$pid){
         $TM = new TradeManager();
-        $result = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+        $SumField = "SUM(`bill`)";
+
+        $trade = self::GetTradeInfoByPid($pid);
+
+        $awardUid = AwardManager::GetAwardUserByPid($pid);
+
+        if(empty($awardUid)){
+            return $awardUid;
+        }
+
+        $ownResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
             self::C_And(
                 self::FieldIsValue('uid',$uid),
                 self::FieldIsValue('pid',$pid)
             ),
             false,
-            "SUM(`bill`)"
-        ),false);
-        echo json_encode($result);
+            $SumField
+        ),true);
+
+        $awardResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::FieldIsValue('uid',$awardUid),
+                self::FieldIsValue('pid',$pid)
+            ),
+            false,
+            $SumField
+        ),true);
+
+        $otherResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::C_And(
+                    self::FieldIsValue('uid',$uid,"!="),
+                    self::FieldIsValue('uid',$awardUid,"!=")
+                ),
+                self::FieldIsValue('pid',$pid)
+            ),
+            false,
+            $SumField
+        ),true);
+
+
+        if(!empty($ownResult)){
+            $ownResult = $ownResult[0];
+        }
+        if(!empty($awardResult)){
+            $awardResult = $awardResult[0];
+        }
+        if(!empty($otherResult)){
+            $otherResult = $otherResult[0];
+        }
+
+        $ownTotal = $ownResult[$SumField];
+        $awardTotal = $awardResult[$SumField];
+        $otherTotal = $otherResult[$SumField];
+        $total = $trade['profit'];
+
+        $ownPrecent = 0;
+        $awardPrecent = 0.5;
+        $otherPrecent = 0;
+
+        if($uid != $awardUid){
+            $ownPrecent = round(0.5*($ownTotal/($total - $awardTotal)),4);
+        }
+        $otherPrecent =  round(0.5*($otherTotal/($total - $awardTotal)),4);
+
+        return [
+            "own"=>$ownPrecent,
+            "award"=>$awardPrecent,
+            "other"=>$otherPrecent
+            ];
+
     }
 
     public function GetTradePPer($uid,$pid){

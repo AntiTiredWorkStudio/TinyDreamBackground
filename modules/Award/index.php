@@ -17,6 +17,7 @@
         'tsend'=>R('SendShortMsgToUser',['pid','au','al']),
         'astart'=>R('ActivityStart',['pid']),
         'aend'=>R('ActivityEnd',['pid','url']),
-        'alive'=>R('ActivityLive')
+        'alive'=>R('ActivityLive'),
+        'gtai'=>R('GetTradeAwardInfo',['pid','uid']),//获取幸运者详情页的收益分成信息
     ]);
 ?>
