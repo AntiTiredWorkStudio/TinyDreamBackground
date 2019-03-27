@@ -322,9 +322,11 @@ class DreamPoolManager extends DBManager{
          * 小生意互助潜在修改位置
          *
          * */
-        $poolInfo = DBResultToArray($this->SelectDataFromTable($this->TName('tPool'),['pid'=>$pid,'state'=>'RUNNING','_logic'=>'AND']));
-
+		 
+        $poolInfo = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),self::C_And(self::FieldIsValue('pid',$pid),self::FieldIsValue('state','RUNNING'))));
+		
         if(!empty($poolInfo)){
+			
             $duration = $poolInfo[$pid]['duration'];
             $ptime = $poolInfo[$pid]['ptime'];
             $tbill = $poolInfo[$pid]['tbill'];
