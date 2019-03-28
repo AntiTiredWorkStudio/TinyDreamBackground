@@ -526,6 +526,7 @@ class AwardManager extends DBManager{
 
 			if(array_key_exists($value['did'],$tradesInfo)){
                 $cResult[$i]['title'] =  $tradesInfo[$value['did']]['title'];
+                $cResult[$i]['tinfoid'] =  $tradesInfo[$value['did']]['url'];
                 $cResult[$i]['content'] =  "小生意互助";
                 $cResult[$i]['state'] =  "SUCCESS";
             }
