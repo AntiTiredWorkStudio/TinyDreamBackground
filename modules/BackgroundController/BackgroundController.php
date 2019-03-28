@@ -206,6 +206,8 @@ class BackgroundController extends DBManager {
 		$pageData = $this->pages['redRefund'];
 		$redOrderController = new RedPackManage();
 		$pageData['packs'] = $redOrderController->CollectRefundInfo($pid);
+		$DPM = new DreamPoolManager();
+		$pageData['pids'] = $DPM->PoolIdList()['pids'];
 		require ($pageData['path']);
 	}
 	
@@ -221,6 +223,8 @@ class BackgroundController extends DBManager {
 			$pageData['packs'] = $redOrderController->GetRedPacksInfo($pid,$seek,$count);
 			$pageData['index'] = self::BuildPageIndex($seek,$pageData['packs']['total'],$count);
 		}
+		$DPM = new DreamPoolManager();
+		$pageData['pids'] = $DPM->PoolIdList()['pids'];
 		require ($pageData['path']);
 	}
 
