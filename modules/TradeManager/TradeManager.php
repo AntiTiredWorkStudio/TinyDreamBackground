@@ -135,7 +135,8 @@ class TradeManager extends DBManager {
         return [
             "own"=>$ownPrecent,
             "award"=>$awardPrecent,
-            "other"=>$otherPrecent
+            "other"=>$otherPrecent,
+			"trade"=>$trade
             ];
 
     }
