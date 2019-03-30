@@ -47,7 +47,55 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-7" style="margin: 15px auto;display: block;text-align: center;">
-                                <button id="btn_post" type="button" class="btn btn-primary" style="width: 10%;">发布</button>
+                                <button id="btn_post" type="button" class="btn btn-primary" >发布</button>
+                            </div>
+                        </div>
+                    </div>
+					 <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">发布小生意</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">小生意标题</span>
+                                        <input id="tr_input_day" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding: 10px"></div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">小生意页面id</span>
+                                        <input id="tr_input_tbill" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding: 10px"></div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">互助目标(元)</span>
+                                        <input id="tr_input_tbill" type="number" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding: 10px"></div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">价格(元/份)</span>
+                                        <input id="tr_input_ubill" type="number" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7" style="margin: 15px auto;display: block;text-align: center;">
+                                <button id="tr_btn_post" type="button" class="btn btn-primary" >发布</button>
                             </div>
                         </div>
                     </div>
@@ -57,7 +105,7 @@
 					<!-- BASIC TABLE -->
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title">互助梦想池人员列表</h3>
+							<h3 class="panel-title">梦想池互助列表</h3>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered ">
@@ -69,7 +117,7 @@
 										<th>互助目标（元）</th>
 										<th>价格（元/份）</th>
                                         <th>发布时间</th>
-										<th>操作</th>
+										<!--th>操作</th-->
 									</tr>
 								</thead>
 								<tbody>
@@ -102,15 +150,15 @@
                                                 ?></td>
                                             <td><?php echo $pools['tbill']*0.01;?></td>
                                             <td><?php echo $pools['ubill']*0.01;?></td>
-                                            <td><?php echo date("y-m-d h:i:s",$pools['ptime']);?></td>
-                                            <td>
-                                                <button id="edit" pid="<?php echo $pools['pid'];?>" type="button" class="btn btn-primary btn-sm">
+                                            <td><?php echo date("y-m-d H:i:s",$pools['ptime']);?></td>
+                                            <!--td>
+                                                <button id="edit" pid="<?php //echo $pools['pid'];?>" type="button" class="btn btn-primary btn-sm">
                                                     <span class="lnr lnr-pencil"></span>
                                                 </button>
-                                                <button id="delete" pid="<?php echo $pools['pid'];?>" type="button" class="btn btn-danger btn-sm">
+                                                <button id="delete" pid="<?php //echo $pools['pid'];?>" type="button" class="btn btn-danger btn-sm">
                                                     <span class="lnr lnr-trash"></span>
                                                 </button>
-                                            </td>
+                                            </td-->
                                         </tr>
                                         <?php
                                     }
