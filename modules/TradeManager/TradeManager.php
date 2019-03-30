@@ -35,7 +35,7 @@ class TradeManager extends DBManager {
         ),true);
         if(!empty($awardInfo)){
             $awardInfo = $awardInfo[0];//中奖信息
-            $trade = self::GetTradeByPid($awardInfo['pid']);
+            $trade = self::GetTradeInfoByPid($awardInfo['pid']);
             $awardInfo['trade'] = $trade;//交易信息
             $AWM = new AwardManager();
             $AWM->ActivityEnd($awardInfo['pid'],"true");
