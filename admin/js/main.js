@@ -94,12 +94,16 @@ var NavigatorModule = {
 //梦想池管理模块
 var PostModule = {
     init: function () {
+		//tr_input_day,tr_input_tbill,tr_input_tbill,tr_input_ubill,tr_btn_post
         var module = this;
         $("[seek]").click(
             module.switchPage
         );
 		$("#btn_post").click(
 			module.postDreamPool
+		);
+		$("#tr_btn_post").click(
+			module.postTradePool
 		);
 		$("#edit").click(
 		    module.editDreamPool
@@ -111,6 +115,13 @@ var PostModule = {
 			input_Day:$("#input_day"),
 			input_tBill:$("#input_tbill"),
 			input_uBill:$("#input_ubill")
+		}
+		this.postTradeContent={
+			//tr_input_day,tr_input_tbill,tr_input_tbill,tr_input_ubill
+			input_Title:$("#tr_input_title"),
+			input_tBill:$("#tr_input_tbill"),
+			input_ID:$("#tr_input_id"),
+			input_uBill:$("#tr_input_ubill")
 		}
 		console.log(this.postContent);
     },
@@ -138,6 +149,47 @@ var PostModule = {
         var pid = $(res.currentTarget).attr('pid');
     },
 	postContent:null,
+	postTradeContent:null,
+	postTradePool:function(){
+        var module = PostModule;
+		console.log(module.postTradeContent.input_Title.val(),
+		module.postTradeContent.input_tBill.val(),
+		module.postTradeContent.input_ID.val(),
+		module.postTradeContent.input_uBill.val());
+		if(IsBill(module.postTradeContent.input_tBill.val())!=""){
+			alert("目标金额不符合要求");
+			return;
+		}
+		if(IsBill(module.postTradeContent.input_uBill.val())!=""){
+			alert("单位金额不符合要求");
+			return;
+		}
+		if(module.postTradeContent.input_Title.val()==""){
+			alert("生意标题不符合要求");
+			return;
+		}
+		if(module.postTradeContent.input_ID.val()==""){
+			alert("生意详情模板id不符合要求");
+			return;
+		}
+		TD_Request('tr','adt',
+        {
+			title:module.postTradeContent.input_Title.val(),
+			url:module.postTradeContent.input_ID.val(),
+			profit:module.postTradeContent.input_tBill.val()*100,
+			ubill:module.postTradeContent.input_uBill.val()*100,
+			dblink: "test"//测试代码
+        },
+        function(code,data){
+			console.log(data);
+            alert(data.context);
+			LoadWorkSpace('a_post',{psize:5,seek:0});
+        },
+        function (code,data){
+            console.log(code,data);
+            alert(data.context);
+        });
+	},
 	postDreamPool :function(){
         var module = PostModule;
 		console.log(module.postContent.input_Day.val());

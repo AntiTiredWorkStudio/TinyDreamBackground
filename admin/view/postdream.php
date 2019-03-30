@@ -61,7 +61,7 @@
                                 <div class="col-lg-7">
                                     <div class="input-group">
                                         <span class="input-group-addon">小生意标题</span>
-                                        <input id="tr_input_day" type="text" class="form-control" placeholder="">
+                                        <input id="tr_input_title" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 <div class="col-lg-7">
                                     <div class="input-group">
                                         <span class="input-group-addon">小生意页面id</span>
-                                        <input id="tr_input_tbill" type="text" class="form-control" placeholder="">
+                                        <input id="tr_input_id" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
