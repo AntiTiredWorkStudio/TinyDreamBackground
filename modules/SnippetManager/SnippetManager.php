@@ -94,12 +94,16 @@ class SnippetManager extends Manager{
         $file = scandir($templatePath);
         $list = [];
         foreach ($file as $filename) {
-            $endName = end(explode(".",$file[$filename]));
-            if($endName == '.php' && $filename == "pull.php"){
-                array_push($list,$file[$filename]);
+			$explode = explode(".",$filename);
+			$end = end($explode);
+           /* $endName = end(explode(".",$filename));*/
+            if($end == 'php' && $filename != "pull.php"){
+                array_push($list,array_shift($explode));
             }
         }
-        return $list;
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['list'] = $list;
+        return $backMsg;
     }
 
 	public function BuildTemplate($turl){
