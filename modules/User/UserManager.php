@@ -477,7 +477,7 @@ class UserManager extends DBManager{
         $backMsg['mainpool'] = DreamPoolManager::GetMainPool();//在主页显示的梦想池信息
         $backMsg['maintrade'] = DreamPoolManager::GetMainTrade();//在首页显示的小生意信息
         $backMsg['award'] = DreamManager::UserDreamAwardingInfo($uid);//返回小梦想互助的中奖信息
-        $backMsg['tradeaward'] = TradeManager::TradeAwardingInfo();//返回小生意互助的中奖信息
+        $backMsg['tradeaward'] = TradeManager::TradeAwardingInfo($uid);//返回小生意互助的中奖信息
         return $backMsg;
     }
 

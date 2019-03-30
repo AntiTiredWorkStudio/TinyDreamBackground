@@ -22,12 +22,15 @@ class TradeManager extends DBManager {
 	}
 
 	//获取交易中奖信息
-	public static function TradeAwardingInfo(){
+	public static function TradeAwardingInfo($uid){
         $TM = new TradeManager();
         $awardInfo = DBResultToArray($TM ->SelectDataByQuery($TM->TName('tAward'),
             self::C_And(
-                self::FieldIsValue('imgurl',''),
-                self::FieldLikeValue('did','TR%')
+                self::FieldIsValue('uid',$uid),
+                self::C_And(
+                    self::FieldIsValue('imgurl',''),
+                    self::FieldLikeValue('did','TR%')
+                )
             )
         ),true);
         if(!empty($awardInfo)){
