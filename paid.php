@@ -22,6 +22,7 @@
 		$_REQUEST = [
 						"paid"=> "of",
 						"oid"=>$postStr['out_trade_no'],
+                        "traid"=>$postStr['transaction_id'],
 						"bill"=>$postStr['total_fee'],
 						"state"=>$postStr['result_code']
 					];

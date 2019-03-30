@@ -5,6 +5,6 @@
 	Responds($_GET['act'],(new PaidManager()),
     [
         'inf'=>R('info'),//模块信息
-		'of'=>R('OrderFinished',['oid','bill','state']),//完成订单
+		'of'=>R('OrderFinished',['oid','traid','bill','state']),//完成订单
     ]);
 ?>

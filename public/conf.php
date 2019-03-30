@@ -167,7 +167,7 @@ $tables = [
     ],
     'tOrder'=>[
         'name'=>'order',
-        'command'=>"CREATE TABLE `#DBName#` ( `oid` TEXT NOT NULL , `uid` TEXT NOT NULL , `pid` TEXT NOT NULL , `bill` INT NOT NULL COMMENT '订单钱数' , `ctime` INT NOT NULL COMMENT '创建时间' , `ptime` INT NOT NULL COMMENT '支付时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED','CANCEL') NOT NULL , `dcount` INT NOT NULL COMMENT '梦想份数' , `did` TEXT NOT NULL COMMENT '梦想id' , PRIMARY KEY (`oid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='购买订单';"
+        'command'=>"CREATE TABLE `#DBName#` ( `oid` TEXT NOT NULL , `uid` TEXT NOT NULL , `pid` TEXT NOT NULL , `bill` INT NOT NULL COMMENT '订单钱数' , `ctime` INT NOT NULL COMMENT '创建时间' , `ptime` INT NOT NULL COMMENT '支付时间' , `state` ENUM('SUBMIT','SUCCESS','FAILED','CANCEL') NOT NULL , `dcount` INT NOT NULL COMMENT '梦想份数' , `did` TEXT NOT NULL COMMENT '梦想id', `traid` TEXT NOT NULL COMMENT '微信商户id' , PRIMARY KEY (`oid`(12))) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4 COMMENT='购买订单';"
     ],
     'tDream'=>[
         'name'=>'dream',
