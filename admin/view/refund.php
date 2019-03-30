@@ -34,6 +34,13 @@
                                 <button id="search" type="button" class="btn btn-primary" style="width: 10%;">查询</button>
                             </div>
                         </div>
+						<?php 
+						foreach($pageData['pids'] as $key=>$value){
+						?>
+                        <span><a href=""><?php echo $value;?></a></span>
+						<?php 
+						}
+						?>
                     </div>
                 </div>
 				<!-- 输入框结束 -->

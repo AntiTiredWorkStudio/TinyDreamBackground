@@ -471,6 +471,7 @@ var RedPackageModule = {
 	pid:"",
 	init:function(option){
 		var module = this;
+		console.log("init:",option);
 		//this.seek = option.seek;
 		//this.count = option.count;
 		if(option.hasOwnProperty("packs") && option.packs.hasOwnProperty("pid")){
@@ -494,6 +495,7 @@ var RedPackageModule = {
         );
 	},
 	switchPage:function(page){
+		console.log(RedPackageModule.seek);
 		//console.log(page.currentTarget.attributes[0].value,page.currentTarget.attributes[1].value);
 		//return;
 		//var module = this;
