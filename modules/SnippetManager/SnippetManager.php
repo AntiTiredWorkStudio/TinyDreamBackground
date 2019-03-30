@@ -88,6 +88,13 @@ class SnippetManager extends Manager{
 
     }
 
+    //获取模板列表
+    public function TemplateList(){
+        $templatePath = $this->config['templatePath'];
+        $file = scandir($templatePath);
+        return $file;
+    }
+
 	public function BuildTemplate($turl){
 	    $templatePath = $this->config['templatePath'];
 

@@ -427,7 +427,7 @@ class DreamPoolManager extends DBManager{
 	}
 
     //通过小生意添加梦想池
-	public static function AddTradePool($pid,$tbill){
+	public static function AddTradePool($pid,$tbill,$ubill=500){
         $DPM = new DreamPoolManager();
         $title= POOL_TRADE_TITLE_PREFIX.$pid.POOL_TITLE_POSTFIX;
         $insresult = $DPM->InsertDataToTable($DPM->TName('tPool'),[
@@ -437,7 +437,7 @@ class DreamPoolManager extends DBManager{
             "state"=>'RUNNING',
             "tbill"=>$tbill,
             "cbill"=>0,
-            "ubill"=>500,
+            "ubill"=>$ubill,
             "duration"=>0,
             "ptime"=>PRC_TIME(),
             "pcount"=>0,

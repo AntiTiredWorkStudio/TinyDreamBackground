@@ -8,5 +8,6 @@
 		'build'=>R('BuildSnippet',['name','data'],PERMISSION_ALL),//模块信息
 		'builds'=>R('BuildSnippets',['datas'],PERMISSION_ALL),
         'build_dt'=>R('BuildTemplate',['turl'],PERMISSION_ALL),//数据&模板构建页面
+        'tlist'=>R('TemplateList'),//获取模板列表
     ]);
 ?>

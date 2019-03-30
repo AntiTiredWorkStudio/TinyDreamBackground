@@ -170,7 +170,7 @@ class TradeManager extends DBManager {
     }
 
 	//增加小生意信息
-	public function AddTradeInfo($title,$url,$profit){
+	public function AddTradeInfo($title,$url,$profit,$ubill){
         $tid = self::GenerateTradeID();//生成生意ID
         $pid = DreamPoolManager::GeneratePoolIDAuto();
         $this->InsertDataToTable($this->TName('tTrade'),
@@ -182,7 +182,7 @@ class TradeManager extends DBManager {
                 'profit'=>$profit
             ]
         );
-        DreamPoolManager::AddTradePool($pid,$profit);
+        DreamPoolManager::AddTradePool($pid,$profit,$ubill);
         return RESPONDINSTANCE('0');
     }
 
