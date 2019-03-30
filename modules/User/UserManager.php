@@ -12,6 +12,7 @@ LIB('va');
 LIB('no');
 LIB('auth');
 LIB('ub');
+LIB('tr');
 
 define('CARD_FRONT','card_f');
 define('ID_FRONT','id_f');
@@ -475,7 +476,8 @@ class UserManager extends DBManager{
         $backMsg['buyinfo'] = DreamServersManager::GetMainOrders();//购买滚动栏
         $backMsg['mainpool'] = DreamPoolManager::GetMainPool();//在主页显示的梦想池信息
         $backMsg['maintrade'] = DreamPoolManager::GetMainTrade();//在首页显示的小生意信息
-        $backMsg['award'] = DreamManager::UserDreamAwardingInfo($uid);
+        $backMsg['award'] = DreamManager::UserDreamAwardingInfo($uid);//返回小梦想互助的中奖信息
+        $backMsg['tradeaward'] = TradeManager::TradeAwardingInfo();//返回小生意互助的中奖信息
         return $backMsg;
     }
 

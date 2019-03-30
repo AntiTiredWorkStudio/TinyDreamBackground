@@ -448,9 +448,9 @@ class AwardManager extends DBManager{
         }
         return $backMsg;
     }
-	
-	
-	
+
+
+
 	//获取往期幸运者数量
     public function CountPreviousLucky(){
         $link = $this->DBLink();
@@ -464,14 +464,14 @@ class AwardManager extends DBManager{
         $sql = "SELECT COUNT(*) FROM `".$this->TName("tAward")."` WHERE ".$condition;
 
         mysql_query($sql,$link);
-		
+
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
 
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['count'] = $cResult[0]["COUNT(*)"];
         return $backMsg;
     }
-	
+
 	//获取需往期幸运者
 	public function GetPreviousLuckyByRange($seek,$count){
         //未实现
@@ -488,11 +488,11 @@ class AwardManager extends DBManager{
        // echo $sql;
 
         $cResult = DBResultToArray(mysql_query($sql,$link),true);
-		
+
 		$condition = "";
 		$dcondition = "";
 		$tcondtion = "";
-		
+
 		$ptypeList = [];
 		foreach($cResult as $key=>$value){
 			$condition = $condition.$value['uid'].'|';
@@ -505,7 +505,7 @@ class AwardManager extends DBManager{
 				$ptypeList[$key] = "TRADE";
             }
 		}
-		
+
 		$userInfo = UserManager::GetUsersInfoByString($condition);
 
 		$dreamsInfo = DreamManager::GetDreamsByConditionStr($dcondition);
@@ -517,7 +517,7 @@ class AwardManager extends DBManager{
 				$cResult[$i]['nickname'] =  $userInfo[$value['uid']]['nickname'];
 				$cResult[$i]['headicon'] =  $userInfo[$value['uid']]['headicon'];
 			}
-			
+
 			if(array_key_exists($value['did'],$dreamsInfo)){
 				$cResult[$i]['title'] =  $dreamsInfo[$value['did']]['title'];
 				$cResult[$i]['content'] =  $dreamsInfo[$value['did']]['content'];
@@ -532,7 +532,7 @@ class AwardManager extends DBManager{
             }
 			$cResult[$i]['ptype'] = isset($ptypeList[$i])?$ptypeList[$i]:"STANDARD";
 		}
-		
+
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['awards'] = $cResult;
         return $backMsg;

@@ -21,6 +21,27 @@ class TradeManager extends DBManager {
 
 	}
 
+	//获取交易中奖信息
+	public static function TradeAwardingInfo(){
+        $TM = new TradeManager();
+        $awardInfo = DBResultToArray($TM ->SelectDataByQuery($TM->TName('tAward'),
+            self::C_And(
+                self::FieldIsValue('imgurl',''),
+                self::FieldLikeValue('did','TR%')
+            )
+        ),true);
+        if(!empty($awardInfo)){
+            $awardInfo = $awardInfo[0];//中奖信息
+            $trade = self::GetTradeByPid($awardInfo['pid']);
+            $awardInfo['trade'] = $trade;//交易信息
+            $AWM = new AwardManager();
+            $AWM->ActivityEnd($awardInfo['pid'],"true");
+            return $awardInfo;
+        }else{
+            return [];
+        }
+    }
+
     //通过条件字符串批量获取小生意
     public static function GetDreamsByConditionStr($tidStr){
         $TM = new TradeManager();

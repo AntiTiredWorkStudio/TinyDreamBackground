@@ -78,6 +78,12 @@ class DBManager extends Manager{
         return self::ExpressionIsValue($fieldStr,$value,$symbol);
     }
 
+    //判断字段的值是否与value相似
+    public static function FieldLikeValue($field,$value){
+        $fieldStr = self::SqlField($field);
+        return self::ExpressionIsValue($fieldStr,$value,"LIKE");
+    }
+
     public static function SqlValue($val){
         return "'$val'";
     }
