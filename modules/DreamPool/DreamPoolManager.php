@@ -87,7 +87,7 @@ class DreamPoolManager extends DBManager{
                 ),
             self::FieldIsValue(
                 'ptype',
-                'STANDARD')
+                'TRADE')
         );
         //把该结束的梦想池结束了
         $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),
