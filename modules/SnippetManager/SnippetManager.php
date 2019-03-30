@@ -87,6 +87,12 @@ class SnippetManager extends Manager{
         return $data[$key];
 
     }
+	
+    //获取模板列表
+	public static function GetTemplateList(){
+		$SM = new SnippetManager();
+		return $SM->TemplateList()['list'];
+	}
 
     //获取模板列表
     public function TemplateList(){

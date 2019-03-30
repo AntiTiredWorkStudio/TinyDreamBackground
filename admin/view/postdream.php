@@ -68,11 +68,26 @@
                             <div style="padding: 10px"></div>
                             <div class="row">
                                 <div class="col-lg-7">
-                                    <div class="input-group">
+                                    <div class="input-group" data-toggle="dropdown">
                                         <span class="input-group-addon">小生意页面id</span>
                                         <input id="tr_input_id" type="text" class="form-control" placeholder="">
                                     </div>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+										<?php 
+										foreach($pageData['tlist'] as $id){
+										?>
+										<li class="tID" tid="<?php echo $id;?>"><?php echo $id;?></li>	
+										<?php 
+										}
+										?>
+									</ul>
                                 </div>
+								<!--div class="dropdown">
+								  <a data-toggle="dropdown" href="#">下拉菜单（Dropdown）触发器</a>
+								  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									...
+								  </ul>
+								</div-->
                             </div>
                             <div style="padding: 10px"></div>
                             <div class="row">

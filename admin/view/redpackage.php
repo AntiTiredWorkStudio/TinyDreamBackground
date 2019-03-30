@@ -21,10 +21,20 @@
 
                             <div class="row">
                                 <div class="col-lg-7">
-                                    <div class="input-group">
+                                    <div class="input-group"  data-toggle="dropdown">
                                         <span class="input-group-addon">梦想互助期号</span>
                                         <input id="input_pid"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
                                     </div>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									
+										<?php 
+										foreach($pageData['pids'] as $key=>$value){
+										?>
+										<li class="pid" pid="<?php echo $value;?>"><?php echo $value;?></li>
+										<?php 
+										}
+										?>
+									</ul>
                                 </div>
                             </div>
                         </div>
@@ -33,13 +43,6 @@
                                 <button id="search" type="button" class="btn btn-primary" style="width: 10%;">查询</button>
                             </div>
                         </div>
-						<?php 
-						foreach($pageData['pids'] as $key=>$value){
-						?>
-                        <span><a href=""><?php echo $value;?></a></span>
-						<?php 
-						}
-						?>
                     </div>
                 </div>
 				<!-- 输入框结束 -->

@@ -111,6 +111,9 @@ var PostModule = {
         $("#delete").click(
             module.deleteDreamPool
         );
+		$("[tID]").click(
+            module.onSelectTemplateID
+		);
 		this.postContent={
 			input_Day:$("#input_day"),
 			input_tBill:$("#input_tbill"),
@@ -125,6 +128,9 @@ var PostModule = {
 		}
 		console.log(this.postContent);
     },
+	onSelectTemplateID:function(res){
+		$("#tr_input_id").val($(res.currentTarget).attr('tid'));
+	},
     editDreamPool:function (res) {
         var pid = $(res.currentTarget).attr('pid');
 
@@ -486,6 +492,9 @@ var RefundModule = {
 		for(var key in option.packs.refund){
 			$("#refund_"+key).click(this.refundFunc);
 		}
+		$("[pid]").click(
+            module.onSelectPid
+		);
 		$("#search").click(function(){
 			/*console.log($("#input_tele").val());
 			console.log($("#startDayTime").val());
@@ -499,6 +508,9 @@ var RefundModule = {
 				pid:$("#input_pid").val()
 			});
 		});
+	},
+	onSelectPid:function(res){
+		$("#input_pid").val($(res.currentTarget).attr('pid'));
 	},
 	refundFunc:function(res){
 		var tRid = $(res.currentTarget).attr('rid');
@@ -529,6 +541,9 @@ var RedPackageModule = {
 		if(option.hasOwnProperty("packs") && option.packs.hasOwnProperty("pid")){
 			module.pid = option.packs.pid;
 		}
+		$("[pid]").click(
+            module.onSelectPid
+		);
 		$("#search").click(function(){
 			/*console.log($("#input_tele").val());
 			console.log($("#startDayTime").val());
@@ -545,6 +560,9 @@ var RedPackageModule = {
 		$("[seek]").click(
             module.switchPage
         );
+	},
+	onSelectPid:function(res){
+		$("#input_pid").val($(res.currentTarget).attr('pid'));
 	},
 	switchPage:function(page){
 		console.log(RedPackageModule.seek);

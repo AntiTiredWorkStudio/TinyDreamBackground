@@ -8,6 +8,7 @@ LIB('ds');
 LIB('us');
 LIB('ub');
 LIB('rp');
+LIB('view');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
@@ -125,7 +126,7 @@ class BackgroundController extends DBManager {
 
         $pageData['pages'] = ceil($pageData['count']/$pageData['psize']);
         $pageData['pools'] = $DPM->ListPoolsByRange($pageData['seek'],$pageData['psize'])['Pools'];
-
+		$pageData['tlist'] = SnippetManager::GetTemplateList();
         require ($pageData['path']);
     }
 
