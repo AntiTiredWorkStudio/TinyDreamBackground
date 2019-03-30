@@ -39,6 +39,9 @@ class DreamPoolManager extends DBManager{
         }
         return ($billInfo['tbill'] - $billInfo['cbill'])/$billInfo['ubill'];
     }
+
+
+
     //更新所有在进行的梦想池
     public static function UpdateAllRunningPool(){
         $DPM = new DreamPoolManager();
@@ -71,6 +74,25 @@ class DreamPoolManager extends DBManager{
         $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),
             ['state'=>'FINISHED'],
             $StandardConidtion
+        );
+
+        $TradeCondition =
+        self::C_And(
+            self::C_And(
+                self::FieldIsValue('state','RUNNING'),
+                self::Symbol(
+                    self::SqlField('tbill'),
+                    self::SqlField('cbill'),
+                    '<=')
+                ),
+            self::FieldIsValue(
+                'ptype',
+                'STANDARD')
+        );
+        //把该结束的梦想池结束了
+        $DPM->UpdateDataToTableByQuery($DPM->TName('tPool'),
+            ['state'=>'FINISHED'],
+            $TradeCondition
         );
     }
 	
