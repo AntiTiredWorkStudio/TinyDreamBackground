@@ -13,9 +13,11 @@
 		$postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$postStr = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
 		//$paid['HTTP_RAW_POST_DATA'] = $postStr;
-		file_put_contents("paid.txt",json_encode($postStr));
+		$postStr = json_decode(json_encode($postStr),true);
+		//file_put_contents("paid_info.txt",);
 		
-		if(postStr['appid'] != $GLOBALS['options']['APP_ID']){
+		if($postStr['appid'] != $GLOBALS['options']['WEB_APP_ID']){
+			file_put_contents("paid_failed.txt",postStr['appid']." != ".$GLOBALS['options']['WEB_APP_ID']);
 			return RESPONDINSTANCE('101');
 		}
 		
@@ -26,6 +28,7 @@
 						"bill"=>$postStr['total_fee'],
 						"state"=>$postStr['result_code']
 					];
+		file_put_contents("paid_request.txt",json_encode($_REQUEST));
 		
 		REQUEST("paid");
 	}

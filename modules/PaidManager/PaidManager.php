@@ -16,13 +16,14 @@ class PaidManager extends DBManager{
 	}
 	
 	public function OrderFinished($oid,$traid,$bill,$state){
-        $this->UpdateDataByQuery($this->TName('tOrder'),
+        $res = $this->UpdateDataToTableByQuery($this->TName('tOrder'),
             [
                 'traid'=>$traid,
                 'bill'=>$bill
             ],
             self::FieldIsValue('oid',$oid)
         );
+		
 		return;
 		if($state!= "SUCCESS"){
 			return RESPONDINSTANCE("58");
