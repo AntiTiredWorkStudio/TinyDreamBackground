@@ -92,7 +92,14 @@ class SnippetManager extends Manager{
     public function TemplateList(){
         $templatePath = $this->config['templatePath'];
         $file = scandir($templatePath);
-        return $file;
+        $list = [];
+        foreach ($file as $filename) {
+            $endName = end(explode(".",$filename));
+            if($endName == '.php' && $filename == "pull.php"){
+                array_push($list,$filename);
+            }
+        }
+        return $list;
     }
 
 	public function BuildTemplate($turl){
