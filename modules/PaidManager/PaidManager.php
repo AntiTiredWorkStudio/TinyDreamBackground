@@ -16,13 +16,16 @@ class PaidManager extends DBManager{
 	}
 	
 	public function OrderFinished($oid,$traid,$bill,$state){
-        $res = $this->UpdateDataToTableByQuery($this->TName('tOrder'),
+		
+		file_put_contents($oid.'.txt',$traid);
+		
+       /* $res = $this->UpdateDataToTableByQuery($this->TName('tOrder'),
             [
                 'traid'=>$traid,
                 'bill'=>$bill
             ],
             self::FieldIsValue('oid',$oid)
-        );
+        );*/
 		
 		return;
 		if($state!= "SUCCESS"){

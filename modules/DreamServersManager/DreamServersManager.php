@@ -791,6 +791,12 @@ class DreamServersManager extends DBManager {
 			}
             return RESPONDINSTANCE('20');
         }
+		
+		$traid = "";
+		if(file_exists($oid.'.txt')){
+			$traid = file_get_contents($oid.'.txt');
+			unlink($oid.'.txt');
+		}
 
 		//更新订单信息
         $result = $this->UpdateDataToTable(
@@ -800,7 +806,8 @@ class DreamServersManager extends DBManager {
                 'bill'=>$bill,
                 'dcount'=>$pcount,
                 'did'=>$did,
-                'ptime'=>PRC_TIME()
+                'ptime'=>PRC_TIME(),
+				'traid'=>$traid
             ],
             $condition
         );
