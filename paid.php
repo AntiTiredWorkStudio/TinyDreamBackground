@@ -17,7 +17,6 @@
 		//file_put_contents("paid_info.txt",);
 		
 		if($postStr['appid'] != $GLOBALS['options']['WEB_APP_ID']){
-			file_put_contents("paid_failed.txt",postStr['appid']." != ".$GLOBALS['options']['WEB_APP_ID']);
 			return RESPONDINSTANCE('101');
 		}
 		
@@ -28,7 +27,6 @@
 						"bill"=>$postStr['total_fee'],
 						"state"=>$postStr['result_code']
 					];
-		file_put_contents("paid_request.txt",json_encode($_REQUEST));
 		
 		REQUEST("paid");
 	}
