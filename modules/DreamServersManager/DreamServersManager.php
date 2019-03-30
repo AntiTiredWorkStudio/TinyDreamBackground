@@ -750,12 +750,14 @@ class DreamServersManager extends DBManager {
         }
 
         $did = $actionList['pay']['did'];
+        $noticePrefix = "梦想互助";
         if(isset($actionList['pay']['orderType']) && $actionList['pay']['orderType']=="TRADE"){
-
+            $noticePrefix = "小生意互助";
         }else{
             if(isset($_REQUEST['did'])){
                 $did = $_REQUEST['did'];
             }
+            $noticePrefix = "梦想互助";
         }
 
         //更新订单信息
@@ -824,7 +826,7 @@ class DreamServersManager extends DBManager {
             NoticeManager::CreateNotice($uid,//创建通知——购买梦想
                 NOTICE_BUY,
                 [
-                    'ptitle'=>'梦想互助'.$actionList['pay']['pid'].'期',
+                    'ptitle'=>$noticePrefix.$actionList['pay']['pid'].'期',
                     'lids'=>ConnectArrayByChar($numArray,'、')
                 ],
                 NoticeManager::CreateAction(
