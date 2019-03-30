@@ -94,9 +94,9 @@ class SnippetManager extends Manager{
         $file = scandir($templatePath);
         $list = [];
         foreach ($file as $filename) {
-            $endName = end(explode(".",$filename));
+            $endName = end(explode(".",$file[$filename]));
             if($endName == '.php' && $filename == "pull.php"){
-                array_push($list,$filename);
+                array_push($list,$file[$filename]);
             }
         }
         return $list;
