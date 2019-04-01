@@ -92,6 +92,44 @@ class AwardManager extends DBManager{
         //}
         return $backMsg;
     }
+	
+	//尝试开奖
+    public static function TryWinnerLottery(){
+        $data = json_decode(file_get_contents("http://f.apiplus.net/ssq.json"),true)['data'];
+
+        if(empty($data)){
+            return RESPONDINSTANCE('22');
+        }
+
+        $data = $data[0];
+        $result =[];
+
+        //foreach ($data as $value){
+            $codes = explode(',',$data['opencode']);
+            $tcode = '';
+            if(substr( $codes[0] , 0, 1 ) == '0') {
+                $codes[0] = str_replace(array("0"), "", $codes[0]);
+            }
+            for($i=0;$i<5;$i++){
+                $tcode = $tcode.$codes[$i];
+            }
+
+            $result[$data['expect'].'期']['num'] = $data['expect'] + $tcode;
+            $result[$data['expect'].'期']['expect'] = $data['expect'];
+            $result[$data['expect'].'期']['code'] = $tcode;
+
+            $AW = new AwardManager();
+
+            if(DBResultExist($AW->SelectDataFromTable($AW->TName('tAward'),['expect'=>$data['expect'],'code'=> $tcode,'_logic'=>'OR']))){
+                return RESPONDINSTANCE('23',$data['expect']);//该期双色球已开奖
+            }
+
+            $backMsg = RESPONDINSTANCE('0');
+            $result[$data['expect'].'期']['target'] = $AW->Trylottery($result[$data['expect'].'期']['num'],$data['expect'],$tcode);
+            $backMsg['info'] = $result;
+        //}
+        return $backMsg;
+    }
 
     //中奖的梦想生效
     public static function AwardedDreamVailid($did){
@@ -246,6 +284,11 @@ class AwardManager extends DBManager{
     public function AutoLottery(){
         return self::DrawTheWinnerLottery();
     }
+	
+	//尝试自动开奖
+	public function AutoTryLottery(){
+		return self::TryWinnerLottery();
+	}
 
 
     public function SendShortMsgToUser($pid,$awardUid,$awardLid){
@@ -417,6 +460,120 @@ class AwardManager extends DBManager{
                     "key" => ["pid", "uid", "lid", "expect", "code", "index", "atime", "did", "abill"],
                     "values" => $resultArray
                 ]);
+        }
+        if(!isset($backMsg['DonePools'])){
+            $backMsg['DonePools'] = '无符合条件梦想池';
+        }
+
+        return $backMsg;
+    }
+	
+	public function Trylottery($DoalBallNum,$expect,$code){
+
+        $result = DreamPoolManager::UpdateAllPools();//更新所有梦想池的状态
+        $backMsg = RESPONDINSTANCE('0');
+
+        $resultArray = [];
+        $count = 0;
+        $time = PRC_TIME();
+
+        $pools = DreamPoolManager::GetAllUnAwardPools();
+
+        foreach ($pools as $key => $item) {
+            if($item['state'] == 'FINISHED'){
+                if($item['pcount'] <=0){
+                    $cResult = "未中奖";
+                }
+                else {
+                    $cResult = $key . '-' . (10000000+ (($DoalBallNum+$item['pid'] ) % $item['pcount']));
+					//更新编号对应梦想
+                   /* $this->UpdateLottery($cResult);
+                    
+                    */
+					$targetLottery = $this->GetLottoryInfo($cResult);
+					if(empty($targetLottery)){
+                        $cResult = "没有编号:".$cResult;
+                        $backMsg['DonePools'][$key] = $cResult;
+                        continue;
+                    }
+
+                    //更新梦想表——梦想实现
+                    //更新用户表——用户中奖总额修改
+                    //更新编号信息（中奖/未中奖）
+					//发送中奖消息
+                    $resultArray[$count][0] = $item['pid'];//梦想池id
+                    $resultArray[$count][1] = $targetLottery['uid'];//中奖用户id
+                    $resultArray[$count][2] = $targetLottery['lid'];//开奖编号
+                    $resultArray[$count][3] = $expect;//期号
+                    $resultArray[$count][4] = $code;//球号
+                    $resultArray[$count][5] = $targetLottery['index'];//梦想编号
+                    $resultArray[$count][6] = $time;//开奖时间
+                    $resultArray[$count][7] = $targetLottery['did'];//中奖梦想id
+                    $resultArray[$count][8] = $item['cbill'];//金额
+					//创建通知——开奖
+                }
+                $backMsg['DonePools'][$key] = $cResult;
+                $count++;
+            }
+
+        }
+
+        /*
+         *
+         * 小生意互助潜在修改位置
+         *
+         * */
+
+        /*$this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],
+            self::C_And(
+                self::FieldIsValue('award','NO'),
+                self::ExpressionIsValue(
+                    self::Symbol(
+                        self::SqlField('ptime'),
+                        self::SqlField('duration'),
+                        '+'
+                    ),
+                    PRC_TIME(),
+                    '<'
+                )
+            )
+        );*/
+		//更新梦想池开奖状态
+		
+
+        if(empty($resultArray)){
+			 $backMsg['insertData'] = [
+                    "pid"=>DAY($time),
+                    "uid"=>'无开奖',
+                    "lid"=>'无开奖',
+                    "expect"=>$expect,
+                    "code"=>$code,
+                    "index"=>0,
+                    "atime"=>PRC_TIME(),
+                    "did"=>'无开奖',
+                    "abill"=>0,
+                    "imgurl"=>''
+                ];
+            /*$this->InsertDataToTable($this->TName('tAward'),
+                [
+                    "pid"=>DAY($time),
+                    "uid"=>'无开奖',
+                    "lid"=>'无开奖',
+                    "expect"=>$expect,
+                    "code"=>$code,
+                    "index"=>0,
+                    "atime"=>PRC_TIME(),
+                    "did"=>'无开奖',
+                    "abill"=>0,
+                    "imgurl"=>''
+                ]);*/
+        }else {
+			 $backMsg['insertData'] = $resultArray];
+           /* $this->InsertDatasToTable($this->TName('tAward'),
+                [
+                    "key" => ["pid", "uid", "lid", "expect", "code", "index", "atime", "did", "abill"],
+                    "values" => $resultArray
+                ]);*/
         }
         if(!isset($backMsg['DonePools'])){
             $backMsg['DonePools'] = '无符合条件梦想池';
