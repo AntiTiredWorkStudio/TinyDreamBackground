@@ -79,6 +79,27 @@ class DreamManager extends DBManager{
 		return $uResult;
 	}
 
+
+	//判断梦想是否正在state的状态
+	public static function IsDreamState($did,$state="DOING"){
+        $DRM = new DreamManager();
+        $count = 0;
+        $result = DBResultToArray($DRM->SelectDataByQuery($DRM->TName('tDream'),
+            self::C_And(
+                self::FieldIsValue('did',$did),
+                self::FieldIsValue('state',$state)
+            ),
+            false,
+            'COUNT(*)'
+        ),true);
+
+        if(!empty($result)){
+            $result = $result[0];
+            $count = $result['COUNT(*)'];
+        }
+        return $count>0;
+    }
+
     //梦想完成完善,提交审核
     public static function OnDreamVerify($did){
         $DRM = new DreamManager();
@@ -333,6 +354,13 @@ class DreamManager extends DBManager{
 					$dreamArray[$key]['pool'] = ["ptitle"=>'测试梦想池(仅用于测试)',"tbill"=>'100',"cbill"=>'100'];
 					$dreamArray[$key]['lottery'] = ['lid'=>'测试中奖id'];
 				}
+            }
+        }
+
+        if(isset($_REQUEST['trade']) && $_REQUEST['trade']=="true"){
+            $trades = AwardManager::GetAwardTradeByUid($uid);
+            foreach ($trades as $value){
+                array_push($dreamArray,$value);
             }
         }
 

@@ -1227,6 +1227,9 @@ class DreamServersManager extends DBManager {
             return RESPONDINSTANCE('42');
         }
 
+        if(!DreamManager::IsDreamState($did,'DOING')){
+            return RESPONDINSTANCE('46');
+        }
         //梦想状态需为DOING
         if(!DreamManager::OnDreamVerify($did)){
             return RESPONDINSTANCE('46');
