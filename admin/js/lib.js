@@ -486,7 +486,7 @@ window.onbeforeunload = function (e) {
 		SaveStorage("UserInfo",Options.UserInfo);
 	}
 	
-	SaveStorage("TestServer",Options.TestServer);
+	SaveStorage("TestServer",(Options.TestServer?"test":"running"));
 	
 };
 window.onpagehide = function (e) {
@@ -501,6 +501,7 @@ window.onpagehide = function (e) {
 		SaveStorage("UserInfo",Options.UserInfo);
 	}
 	
+	SaveStorage("TestServer",Options.TestServer);
 };
 
 
@@ -546,7 +547,11 @@ var InitOptions = function () {
 	if(ExistStorage("TestServer")){
         var testServer = GetStorage("TestServer");
         RemoveStorage("TestServer");
-        Options.TestServer = testServer;
+        Options.TestServer = (testServer=="test"?true:false);
+	}
+	
+	if(Options.TestServer){
+		console.log("当前页面在测试服务器！");
 	}
 }
 InitOptions();
