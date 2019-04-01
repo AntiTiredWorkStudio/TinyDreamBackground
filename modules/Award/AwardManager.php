@@ -568,7 +568,7 @@ class AwardManager extends DBManager{
                     "imgurl"=>''
                 ]);*/
         }else {
-			 $backMsg['insertData'] = $resultArray];
+			 $backMsg['insertData'] = $resultArray;
            /* $this->InsertDatasToTable($this->TName('tAward'),
                 [
                     "key" => ["pid", "uid", "lid", "expect", "code", "index", "atime", "did", "abill"],
