@@ -150,6 +150,15 @@ class TradeManager extends DBManager {
         $ownPrecent = 0;
         $awardPrecent = 0.5;
         $otherPrecent = 0;
+        
+        if($total == $awardTotal){
+            return [
+                "own"=>0,
+                "award"=>1,
+                "other"=>0,
+                "trade"=>$trade
+            ];
+        }
 
         if($uid != $awardUid){
             $ownPrecent = round(0.5*($ownTotal/($total - $awardTotal)),4);
