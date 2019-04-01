@@ -501,7 +501,7 @@ window.onpagehide = function (e) {
 		SaveStorage("UserInfo",Options.UserInfo);
 	}
 	
-	SaveStorage("TestServer",Options.TestServer);
+	SaveStorage("TestServer",(Options.TestServer?"test":"running"));
 };
 
 
