@@ -377,7 +377,7 @@ class AwardManager extends DBManager{
                     if(isset($item['ptype']) && $item['ptype'] == "STANDARD")
                         UserManager::OnUserReward($targetLottery['uid'],$item['cbill']);//更新用户表——用户中奖总额修改
                     $this->SetPoolsAwardLottery($item['pid'],$targetLottery['lid']);//更新编号信息（中奖/未中奖）
-					if(!$GLOBALS['options']['debug']){
+					if(!$GLOBALS['options']['debug'] && !isset($_REQUEST['dblink'])){
 						$this->SendShortMsgToUser($item['pid'],$targetLottery['uid'],$targetLottery['lid']);
 					}
                     $resultArray[$count][0] = $item['pid'];//梦想池id
