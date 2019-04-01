@@ -121,7 +121,8 @@ class AwardManager extends DBManager{
             $AW = new AwardManager();
 
             if(DBResultExist($AW->SelectDataFromTable($AW->TName('tAward'),['expect'=>$data['expect'],'code'=> $tcode,'_logic'=>'OR']))){
-                return RESPONDINSTANCE('23',$data['expect']);//该期双色球已开奖
+                $backMsg['done'] = true;
+                //return RESPONDINSTANCE('23',$data['expect']);//该期双色球已开奖
             }
 
             $backMsg = RESPONDINSTANCE('0');
