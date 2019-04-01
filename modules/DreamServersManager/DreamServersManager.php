@@ -1232,7 +1232,12 @@ class DreamServersManager extends DBManager {
             return RESPONDINSTANCE('46');
         }
 
-        return RESPONDINSTANCE('0');
+        $teleInfo = UserManager::GetUserTele($uid);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['tele'] = $teleInfo;
+
+        return $backMsg;
     }
 
     //进入参与记录页面调用

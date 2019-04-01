@@ -20,5 +20,6 @@
         'aend'=>R('ActivityEnd',['pid','url']),
         'alive'=>R('ActivityLive'),
         'gtai'=>R('GetTradeAwardInfo',['pid','uid']),//获取幸运者详情页的收益分成信息
+        'gubp'=>R('AwardUserByPid',['pid']),//通过pid获取中奖用户信息
     ]);
 ?>
