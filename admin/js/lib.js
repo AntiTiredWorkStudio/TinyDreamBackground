@@ -553,5 +553,6 @@ var InitOptions = function () {
 	if(Options.TestServer){
 		console.log("当前页面在测试服务器！");
 	}
+	console.log("当前页面服务器:"+Options.TestServer);
 }
 InitOptions();
