@@ -457,7 +457,11 @@ class AwardManager extends DBManager{
 						self::FieldIsValue('award','NO'),
 						self::C_And(
 							self::FieldIsValue('state','FINISHED'),
-							self::FieldIsValue('tbill','cbill')
+                            self::Symbol(
+                                self::SqlField('tbill'),
+                                self::SqlField('cbill'),
+                                '='
+                            )
 						)
 					)
 				),
@@ -582,7 +586,11 @@ class AwardManager extends DBManager{
 						self::FieldIsValue('award','NO'),
 						self::C_And(
 							self::FieldIsValue('state','FINISHED'),
-							self::FieldIsValue('tbill','cbill')
+                            self::Symbol(
+                                self::SqlField('tbill'),
+                                self::SqlField('cbill'),
+                                '='
+                            )
 						)
 					)
 				),
