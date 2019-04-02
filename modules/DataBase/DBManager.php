@@ -3,7 +3,7 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 class DBManager extends Manager{
-
+	public static $LastSql;
 
     //位数
     public static function Limit($cond,$seek,$count){
@@ -132,6 +132,7 @@ class DBManager extends Manager{
         $con = $this->DBLink();
 		$sql = 'select count(*) as value from `'.$tableName.'`';
 		//file_put_contents('count.txt',$sql);
+		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
 		return mysql_fetch_array($result)[0];
 	}
@@ -183,6 +184,7 @@ class DBManager extends Manager{
 	public function GetTableFields($tableName){
 	    $con = $this->DBLink();
         $sql = 'select column_name from information_schema.columns where table_name="'.$tableName.'" and TABLE_SCHEMA="'.$GLOBALS['options']['database'].'"';
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
         return array_keys(DBResultToArray($result));
     }
@@ -195,6 +197,7 @@ class DBManager extends Manager{
 			$sql = $sql.$key.'= "'.$value['var'].'" '.((isset($value['log']))?$value['log']:'');
 		}
 		//file_put_contents('sql.txt',$sql);
+		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
 		if($closeDBLink){
 			mysql_close($con);
@@ -232,6 +235,7 @@ class DBManager extends Manager{
 
         $sql = $sqlPart0.$keys.$sqlPart1.$targetValues;
         //echo $sql;
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
 
         if($closeDBLink){
@@ -255,6 +259,7 @@ class DBManager extends Manager{
 		}
 		$keys = substr($keys, 0, -1);
 		$values = substr($values, 0, -1);
+		self::$LastSql = $sqlPart0.$keys.$sqlPart1.$values.$sqlPart2;
 		$result = mysql_query($sqlPart0.$keys.$sqlPart1.$values.$sqlPart2,$con);
 		
 		//file_put_contents('testselect.txt',$sqlPart0.$keys.$sqlPart1.$values.$sqlPart2);
@@ -284,6 +289,7 @@ class DBManager extends Manager{
         }
         //file_put_contents('updateByQuery.txt',$sql);
         //echo $sql;
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
         $result = mysql_affected_rows();
         if($closeDBLink){
@@ -317,6 +323,7 @@ class DBManager extends Manager{
         }
 		//file_put_contents('updateByQuery.txt',$sql);
         //echo $sql;
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
 		$result = mysql_affected_rows();
         if($closeDBLink){
@@ -362,6 +369,7 @@ class DBManager extends Manager{
 		}
 		$val = substr($val, 0, -1);
 		$sql = $sql.$val.' WHERE '.$cond;
+		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
 		//echo $sql.'</br>';
 		if($closeDBLink){
@@ -382,6 +390,7 @@ class DBManager extends Manager{
         }else{
             $sql = $sql.' WHERE '.$conString;
         }
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
         if($closeDBLink){
             mysql_close($con);
@@ -416,6 +425,7 @@ class DBManager extends Manager{
 			$cond = substr($cond, 0, (($logic=='AND')?(-4):(-3)));
 		}
 		$sql = $sql.' WHERE '.$cond;
+		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
 		//echo $sql;
 		if($closeDBLink){
@@ -470,6 +480,7 @@ class DBManager extends Manager{
         if(isset($conArray['_limfrom']) && isset($conArray['_limto'])){
             $sql = $sql.' LIMIT '.$conArray['_limfrom'].','.$conArray['_limto'];
         }
+		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
 		if($closeDBLink){
 			mysql_close($con);
@@ -484,6 +495,7 @@ class DBManager extends Manager{
         $con = $this->DBLink();
         $sql = 'SELECT '.$field.' FROM `'.$tableName.'` WHERE '.$query;
        // echo $sql;
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
         if($closeDBLink){
         }
@@ -557,7 +569,7 @@ class DBManager extends Manager{
 		}
        // echo '</br>'.$sql.'</br>';
         //file_put_contents(time().'.txt',$sql);
-
+		self::$LastSql = $sql;
         $result = mysql_query($sql,$con);
         if($closeDBLink){
             mysql_close($con);

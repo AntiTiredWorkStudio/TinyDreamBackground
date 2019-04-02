@@ -413,21 +413,36 @@ class AwardManager extends DBManager{
          * 小生意互助潜在修改位置
          *
          * */
+		 
+		$AwardCondition = self::C_OR(
+				self::C_And(
+					self::FieldIsValue('ptype','TRADE'),
+					self::C_And(
+						self::FieldIsValue('award','NO'),
+						self::C_And(
+							self::FieldIsValue('state','FINISHED'),
+							self::FieldIsValue('tbill','cbill')
+						)
+					)
+				),
+				self::C_And(
+					self::FieldIsValue('ptype','STANDARD'),
+					self::C_And(
+						self::FieldIsValue('award','NO'),
+						self::ExpressionIsValue(
+							self::Symbol(
+								self::SqlField('ptime'),
+								self::SqlField('duration'),
+								'+'
+							),
+							PRC_TIME(),
+							'<'
+						)
+					)
+				)
+			);
 
-        $this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],
-            self::C_And(
-                self::FieldIsValue('award','NO'),
-                self::ExpressionIsValue(
-                    self::Symbol(
-                        self::SqlField('ptime'),
-                        self::SqlField('duration'),
-                        '+'
-                    ),
-                    PRC_TIME(),
-                    '<'
-                )
-            )
-        );
+        $this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],$AwardCondition);
         //$this->UpdateDataToTable($this->TName('tPool'),
         //    ['award'=>'YES'],['award'=>'NO','_logic'=>' ']);
       //  echo json_encode($resultArray);
@@ -523,7 +538,37 @@ class AwardManager extends DBManager{
          * 小生意互助潜在修改位置
          *
          * */
-
+		 
+		 $AwardCondition = self::C_OR(
+				self::C_And(
+					self::FieldIsValue('ptype','TRADE'),
+					self::C_And(
+						self::FieldIsValue('award','NO'),
+						self::C_And(
+							self::FieldIsValue('state','FINISHED'),
+							self::FieldIsValue('tbill','cbill')
+						)
+					)
+				),
+				self::C_And(
+					self::FieldIsValue('ptype','STANDARD'),
+					self::C_And(
+						self::FieldIsValue('award','NO'),
+						self::ExpressionIsValue(
+							self::Symbol(
+								self::SqlField('ptime'),
+								self::SqlField('duration'),
+								'+'
+							),
+							PRC_TIME(),
+							'<'
+						)
+					)
+				)
+			);
+		$AwardIsYes = DBResultToArray($this->SelectDataByQuery($this->TName('tPool'),$AwardCondition),true);
+		//echo self::$LastSql;
+		$backMsg['awardYes'] = $AwardIsYes;
         /*$this->UpdateDataToTableByQuery($this->TName('tPool'),['award'=>'YES'],
             self::C_And(
                 self::FieldIsValue('award','NO'),
