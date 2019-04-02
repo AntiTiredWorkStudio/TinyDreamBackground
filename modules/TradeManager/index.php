@@ -9,5 +9,6 @@
         'gtp'=>R('GetTradeByPid',['pid']),
         'gtt'=>R('GetTradeByTid',['tid']),
         'gtpp'=>R('GetTradePPer',['uid','pid']),
+        'ttp'=>R('TryTradePrecent',['uid','pid']),
     ]);
 ?>

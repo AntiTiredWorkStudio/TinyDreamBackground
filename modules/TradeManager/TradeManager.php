@@ -89,6 +89,119 @@ class TradeManager extends DBManager {
         return $result;
     }
 
+    public function TryTradePrecent($uid,$pid){
+        return self::TryTradeProfitPrecent($uid,$pid);
+    }
+
+    public static function TryTradeProfitPrecent($uid,$pid){
+        $TM = new TradeManager();
+        $SumField = "SUM(`bill`)";
+
+        $trade = self::GetTradeInfoByPid($pid);
+
+        $awardUid = AwardManager::GetAwardUserByPid($pid);
+
+        if(empty($awardUid)){
+            return $awardUid;
+        }
+
+
+        $ownResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::C_And(
+                    self::FieldIsValue('uid',$uid),
+                    self::FieldIsValue('pid',$pid)
+                ),
+                self::FieldIsValue('state','SUCCESS')
+            )
+            ,
+            false,
+            $SumField
+        ),true);
+
+        //echo self::$LastSql;
+
+        $awardResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::C_And(
+                    self::FieldIsValue('uid',$awardUid),
+                    self::FieldIsValue('pid',$pid)
+                ),
+                self::FieldIsValue('state','SUCCESS')
+            ),
+            false,
+            $SumField
+        ),true);
+
+        //echo self::$LastSql;
+
+        $otherResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
+            self::C_And(
+                self::C_And(
+                    self::C_And(
+                        self::FieldIsValue('uid',$uid,"!="),
+                        self::FieldIsValue('uid',$awardUid,"!=")
+                    ),
+                    self::FieldIsValue('state','SUCCESS')
+                ),
+                self::FieldIsValue('pid',$pid)
+            ),
+            false,
+            $SumField
+        ),true);
+
+        //echo self::$LastSql;
+
+
+        if(!empty($ownResult)){
+            $ownResult = $ownResult[0];
+        }
+        if(!empty($awardResult)){
+            $awardResult = $awardResult[0];
+        }
+        if(!empty($otherResult)){
+            $otherResult = $otherResult[0];
+        }
+
+        $ownTotal = $ownResult[$SumField];
+        $awardTotal = $awardResult[$SumField];
+        $otherTotal = $otherResult[$SumField];
+        $total = $ownTotal+$awardTotal+$otherTotal;
+
+        $ownPrecent = 0;
+        $awardPrecent = 0.5;
+        $otherPrecent = 0;
+
+        if($total == $awardTotal){
+            return [
+                "ownTotal"=>$ownTotal,
+                "awardTotal"=>$awardTotal,
+                "otherTotal"=>$otherTotal,
+                "total"=>$total,
+                "own"=>0,
+                "award"=>1,
+                "other"=>0,
+                "trade"=>$trade
+            ];
+        }
+
+        if($uid != $awardUid){
+            $ownPrecent = round(0.5*($ownTotal/($total - $awardTotal)),4);
+        }
+        $otherPrecent =  round(0.5*($otherTotal/($total - $awardTotal)),4);
+
+        return [
+            "ownTotal"=>$ownTotal,
+            "awardTotal"=>$awardTotal,
+            "otherTotal"=>$otherTotal,
+            "total"=>$total,
+            "own"=>$ownPrecent,
+            "award"=>$awardPrecent,
+            "other"=>$otherPrecent,
+            "trade"=>$trade
+        ];
+    }
+
     public static function GetTradeProfitPercent($uid,$pid){
         $TM = new TradeManager();
         $SumField = "SUM(`bill`)";
@@ -103,17 +216,24 @@ class TradeManager extends DBManager {
 
         $ownResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
             self::C_And(
-                self::FieldIsValue('uid',$uid),
-                self::FieldIsValue('pid',$pid)
-            ),
+                self::C_And(
+                    self::FieldIsValue('uid',$uid),
+                    self::FieldIsValue('pid',$pid)
+                ),
+                self::FieldIsValue('state','SUCCESS')
+            )
+            ,
             false,
             $SumField
         ),true);
 
         $awardResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
             self::C_And(
-                self::FieldIsValue('uid',$awardUid),
-                self::FieldIsValue('pid',$pid)
+                self::C_And(
+                    self::FieldIsValue('uid',$awardUid),
+                    self::FieldIsValue('pid',$pid)
+                ),
+                self::FieldIsValue('state','SUCCESS')
             ),
             false,
             $SumField
@@ -122,8 +242,11 @@ class TradeManager extends DBManager {
         $otherResult = DBResultToArray($TM->SelectDataByQuery($TM->TName('tOrder'),
             self::C_And(
                 self::C_And(
-                    self::FieldIsValue('uid',$uid,"!="),
-                    self::FieldIsValue('uid',$awardUid,"!=")
+                    self::C_And(
+                        self::FieldIsValue('uid',$uid,"!="),
+                        self::FieldIsValue('uid',$awardUid,"!=")
+                    ),
+                    self::FieldIsValue('state','SUCCESS')
                 ),
                 self::FieldIsValue('pid',$pid)
             ),
@@ -145,7 +268,7 @@ class TradeManager extends DBManager {
         $ownTotal = $ownResult[$SumField];
         $awardTotal = $awardResult[$SumField];
         $otherTotal = $otherResult[$SumField];
-        $total = $trade['profit'];
+        $total = $ownTotal+$awardTotal+$otherTotal;
 
         $ownPrecent = 0;
         $awardPrecent = 0.5;
