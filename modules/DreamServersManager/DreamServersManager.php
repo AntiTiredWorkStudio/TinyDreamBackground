@@ -1227,12 +1227,20 @@ class DreamServersManager extends DBManager {
             return RESPONDINSTANCE('42');
         }
 
+        if(!DreamManager::IsDreamState($did,'DOING')){
+            return RESPONDINSTANCE('46');
+        }
         //梦想状态需为DOING
         if(!DreamManager::OnDreamVerify($did)){
             return RESPONDINSTANCE('46');
         }
 
-        return RESPONDINSTANCE('0');
+        $teleInfo = UserManager::GetUserTele($uid);
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['tele'] = $teleInfo;
+
+        return $backMsg;
     }
 
     //进入参与记录页面调用
