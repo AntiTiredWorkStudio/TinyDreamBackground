@@ -1069,6 +1069,9 @@ class DreamServersManager extends DBManager {
         $link = $this->DBLink();
 
         $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' ORDER BY `ptime` DESC LIMIT $min,$count";
+        if(isset($_REQUEST['redpack'])) {
+            $sql = "SELECT * FROM `dreampool` WHERE `state`='RUNNING' AND `ptype`='STANDARD' ORDER BY `ptime` DESC LIMIT $min,$count";
+        }
 
         $tResult = DBResultToArray(mysql_query($sql,$link),true);
 
