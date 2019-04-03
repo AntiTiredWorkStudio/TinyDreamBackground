@@ -183,8 +183,8 @@ var PostModule = {
 			title:module.postTradeContent.input_Title.val(),
 			url:module.postTradeContent.input_ID.val(),
 			profit:module.postTradeContent.input_tBill.val()*100,
-			ubill:module.postTradeContent.input_uBill.val()*100,
-			dblink: "test"//测试代码
+			ubill:module.postTradeContent.input_uBill.val()*100
+			/*dblink: "test"测试代码*/
         },
         function(code,data){
 			console.log(data);
