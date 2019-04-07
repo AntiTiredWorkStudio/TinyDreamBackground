@@ -485,6 +485,21 @@ function RESPONDINSTANCE($code = 0,$fallContext='',$infoArray = null){
 	return $result;
 }
 
+
+//计算时间戳开始点的时间戳（向过去取整）
+function DAY_START_FLOOR($tStamp){
+    $fixedtStamp = $tStamp + TIME_ZONE*3600;
+    return $fixedtStamp - $fixedtStamp%86400 - TIME_ZONE*3600;
+}
+
+//计算时间戳开始点的时间戳（向未来取整）
+function DAY_START_CELL($tStamp){
+    //echo $tStamp.'</br>';
+    $fixedtStamp = $tStamp + TIME_ZONE*3600;
+   // echo $fixedtStamp;
+    return $fixedtStamp + (86400 - $fixedtStamp%86400) - TIME_ZONE*3600;
+}
+
 //通过时间戳计算天数
 function DAY($tStamp){
     $fixedtStamp = $tStamp + TIME_ZONE*3600;//时区问题需要在手动计算天数时考虑

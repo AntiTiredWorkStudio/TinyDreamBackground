@@ -63,7 +63,11 @@ $modules = [
 	,'paid' => ['rq'=>'modules/PaidManager/index.php',//PaidManager
 			'lib'=>'modules/PaidManager/PaidManager.php']
 	,'tr' => ['rq'=>'modules/TradeManager/index.php',//TradeManager
-			'lib'=>'modules/TradeManager/TradeManager.php']#NEW_MODULES#
+			'lib'=>'modules/TradeManager/TradeManager.php']
+	,'co' => ['rq'=>'modules/ContractManager/index.php',//ContractManager
+			'lib'=>'modules/ContractManager/ContractManager.php']
+	,'op' => ['rq'=>'modules/OperationManager/index.php',//OperationManager
+			'lib'=>'modules/OperationManager/OperationManager.php']#NEW_MODULES#
 ];
 
 //错误配置
@@ -125,6 +129,9 @@ $fallbacks = [
     '78' => "未找到模板文件:#FALLTEXT#",
     '79' => "数据文件中未配置模板",
     '80' => "不存在有效开奖记录",
+    '81' => "不存在合约:#FALLTEXT#",
+    '82' => "用户已有正在进行的合约",
+    '83' => "行动实例创建失败",
     '97' => "签名错误:#FALLTEXT#",
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
@@ -292,6 +299,42 @@ $tables = [
     'tTrade'=>[
         'name'=>'trade',
         'command'=>"CREATE TABLE `#DBName#` ( `tid` TEXT NOT NULL COMMENT '生意id' , `pid` TEXT NOT NULL COMMENT '梦想互助id' , `title` TEXT NOT NULL COMMENT '生意资料' , `url` TEXT NOT NULL COMMENT '生意资料页面' , `profit` INT NOT NULL COMMENT '利润' , PRIMARY KEY (`tid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '生意信息';"
+    ],
+    'tContract'=>[
+        'name'=>'contract',
+        'command'=>"CREATE TABLE `#DBName#` ( `cid` TEXT NOT NULL COMMENT '合约id' , `title` TEXT NOT NULL COMMENT '标题' , `price` INT NOT NULL COMMENT '合约金额' , `durnation` INT NOT NULL COMMENT '时间周期' , `refund` INT NOT NULL COMMENT '退还金额' , `backrule` ENUM('EVERYDAY','END') NOT NULL COMMENT '退款规则（每日/结束时）' , `description` TEXT NOT NULL COMMENT '规则描述' , PRIMARY KEY (`cid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '合约';",
+        'default'=>[
+            '21天合约'=>[
+                "cid"=>"CO0000000001",
+                "title"=>"21天行动合约",
+                "price"=>9800,
+                "durnation"=>21,
+                "refund"=>9800,
+                "backrule"=>"END",
+                "description"=>"合约金98元，每天打卡，坚持21天，返还98元",
+            ],
+            '100天合约'=>[
+                "cid"=>"CO0000000002",
+                "title"=>"100天行动合约",
+                "price"=>9900,
+                "durnation"=>100,
+                "refund"=>20000,
+                "backrule"=>"END",
+                "description"=>"合约金99元，每天打卡并转发朋友圈，坚持100天，返还200元",
+            ]
+        ]
+    ],
+    'tOperation'=>[
+        'name'=>'operation',
+        'command'=>"CREATE TABLE `#DBName#` ( `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `cid` TEXT NOT NULL COMMENT '合约id' , `starttime` INT NOT NULL COMMENT '开始时间' , `lasttime` INT NOT NULL COMMENT '上次打卡时间' , `theme` TEXT NOT NULL COMMENT '主题字符串' , `alrday` INT NOT NULL COMMENT '已经打卡天数' , `conday` INT NOT NULL COMMENT '连续打卡天数' , `misday` INT NOT NULL COMMENT '漏卡天数' , `menday` INT NOT NULL COMMENT '补卡天数' , `menchance` INT NOT NULL COMMENT '补卡机会' , `invcount` INT NOT NULL COMMENT '邀请人数' , `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' , PRIMARY KEY (`opid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '行动表';"
+    ],
+    'tAttend'=>[
+        'name'=>'attendance',
+        'command'=>"CREATE TABLE `#DBName#` ( `atid` TEXT NOT NULL COMMENT '打卡id' , `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `state` ENUM('RELAY','NOTRELAY','SUPPLY') NOT NULL COMMENT '打卡状态（转发,未转发,补卡）' , PRIMARY KEY (`atid`(12))) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '打卡记录';"
+    ],
+    'tInvite'=>[
+        'name'=>'invite',
+        'command'=>"CREATE TABLE `#DBName#` ( `inid` TEXT NOT NULL COMMENT '邀请id' , `iuid` TEXT NOT NULL COMMENT '邀请者id' , `tuid` TEXT NOT NULL COMMENT '被邀请者id' , `opid` TEXT NOT NULL COMMENT '邀请者行动id' , `time` INT NOT NULL COMMENT '邀请时间' , `date` TEXT NOT NULL COMMENT '邀请日期' , PRIMARY KEY (`inid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '邀请记录表';"
     ]
 ];
 

@@ -533,12 +533,71 @@ class DreamServersManager extends DBManager {
         return DreamServersManager::GetDreamInfo($dtid,$itype);
     }
 
+    //创建未支付订单
+    public static function GenerateEmptyOrder($uid,$pid,$did,$oidType=1,$dcount=0){
+        $DSM = new DreamServersManager();
+        $orderArray = [
+            "oid"=>self::GenerateOrderID($oidType),
+            "uid"=>$uid,
+            "pid"=>$pid,
+            "bill"=>0,
+            "ctime"=>PRC_TIME(),//创建时间
+            "ptime"=>0,
+            "state"=>"SUBMIT",
+            "dcount"=>0,
+            "did"=>$did,
+            "traid"=>""
+        ];
+        $DSM->InsertDataToTable($DSM->TName('tOrder'),$orderArray);
+        return $orderArray;
+    }
+
+    //便捷版统一下单
+    public static function UnifiedOrder($oid,$bill,$uid,$type="web"){
+        $target = [
+            'web'=>function($oid,$bill,$uid){
+                $DSM = new DreamServersManager();
+                return $DSM->WxPayWeb($oid,$bill,$uid);
+            },
+            'miniapp'=>function($oid,$bill,$uid){
+                $DSM = new DreamServersManager();
+                return $DSM->WxPay($oid,$bill,$uid);
+            }
+        ];
+        return $target[$type]($oid,$bill,$uid);
+    }
+
+    //订单完成
+    public static function OrderFinished($oid,$pars=[]){
+        if(file_exists($oid.'.txt')){
+            $traid = file_get_contents($oid.'.txt');
+            unlink($oid.'.txt');
+        }
+        $pars = $pars;
+        $pars['ptime'] = PRC_TIME();
+        $pars['traid'] = $traid;
+        $DSM = new DreamServersManager();
+
+
+        if(DBResultExist($DSM->SelectDataByQuery($DSM->TName('tOrder'),self::FieldIsValue('oid',$oid)))){
+            return false;
+        }
+
+        //更新订单信息
+        $DSM->UpdateDataToTableByQuery(
+            $DSM->TName('tOrder'),
+            $pars,
+            self::FieldIsValue('oid',$oid)
+        );
+        return true;
+    }
+
     //生成订单号
-    public static function GenerateOrderID(){
+    public static function GenerateOrderID($i=1){
         $DSM = new DreamServersManager();
         //生成订单号
         do{
-            $newOrderID = 100000000000+((PRC_TIME()%999999).(rand(10000,99999)));
+            $newOrderID = $i*100000000000+((PRC_TIME()%999999).(rand(10000,99999)));
         }while($DSM->SelectDataFromTable('tOrder',['oid'=>$newOrderID,'_logic'=>' ']));
         return $newOrderID;
     }
