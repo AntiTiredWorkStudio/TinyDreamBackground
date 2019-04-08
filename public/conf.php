@@ -330,7 +330,7 @@ $tables = [
     ],
     'tAttend'=>[
         'name'=>'attendance',
-        'command'=>"CREATE TABLE `#DBName#` ( `atid` TEXT NOT NULL COMMENT '打卡id' , `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `state` ENUM('RELAY','NOTRELAY','SUPPLY') NOT NULL COMMENT '打卡状态（转发,未转发,补卡）' , PRIMARY KEY (`atid`(12))) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '打卡记录';"
+        'command'=>"CREATE TABLE `#DBName#` ( `atid` TEXT NOT NULL COMMENT '打卡id' , `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `time` INT NOT NULL COMMENT '打卡时间' , `date` TEXT NOT NULL COMMENT '打卡日期' , `state` ENUM('RELAY','NOTRELAY','SUPPLY') NOT NULL COMMENT '打卡状态（转发,未转发,补卡）' , PRIMARY KEY (`atid`(12))) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '打卡记录';"
     ],
     'tInvite'=>[
         'name'=>'invite',

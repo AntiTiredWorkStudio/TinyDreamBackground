@@ -18,22 +18,21 @@ class OperationManager extends DBManager{
 	}
 
     public static function GenerateOperationID(){
-        $DSM = new DreamServersManager();
+        $OPM = new OperationManager();
         //生成订单号
         do{
             $newOrderID = 100000000000+((PRC_TIME()%999999).(rand(10000,99999)));
-        }while($DSM->SelectDataFromTable('tOperation',['oid'=>$newOrderID,'_logic'=>' ']));
+        }while($OPM->SelectDataFromTable('tOperation',['oid'=>$newOrderID,'_logic'=>' ']));
         return $newOrderID;
-
     }
 
 	//创建合约实例
-	public static function CreateContractInstance($cid){
+	public static function CreateContractInstance($cid,$uid,$theme){
         $tContract = ContractManager::GetContractInfo($cid);
         if(empty($tContract)){//判断存在合约
             return [];
         }
-
+        $OPM = new OperationManager();
 /*      `opid` TEXT NOT NULL COMMENT '行动id' ,
         `uid` TEXT NOT NULL COMMENT '用户id' ,
         `cid` TEXT NOT NULL COMMENT '合约id' ,
@@ -47,22 +46,24 @@ class OperationManager extends DBManager{
         `menchance` INT NOT NULL COMMENT '补卡机会' ,
         `invcount` INT NOT NULL COMMENT '邀请人数' ,
         `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' */
-
+		$timeStamp = PRC_TIME();
         $operation = [
-            "opid"=>"",
-            "uid"=>"",
-            "cid"=>"",
-            "starttime"=>"",
-            "lasttime"=>"",
-            "theme"=>"",
-            "alrday"=>"",
-            "conday"=>"",
-            "misday"=>"",
-            "menday"=>"",
-            "menchance"=>"",
-            "invcount"=>"",
-            "state"=>"",
+            "opid"=>self::GenerateOperationID(),
+            "uid"=>$uid,
+            "cid"=>$cid,
+            "starttime"=>DAY_START_CELL($timeStamp),
+            "lasttime"=>$timeStamp,
+            "theme"=>$theme,
+            "alrday"=>0,
+            "conday"=>0,
+            "misday"=>0,
+            "menday"=>0,
+            "menchance"=>0,
+            "invcount"=>0,
+            "state"=>"DOING",
         ];
+		$OPM->InsertDataToTable($OPM->TName('tOperation'),$operation);
+		return $operation;
     }
 
 	public static function UserDoingOperation($uid){
@@ -113,8 +114,6 @@ class OperationManager extends DBManager{
 
     //完成支付后成功参与合约，创建行动实例
     public function JoinContractComplete($cid,$oid,$uid,$theme){
-
-
         //完成订单
         if(!DreamServersManager::OrderFinished($oid,['state'=>'SUCCESS'])){
             return RESPONDINSTANCE('20');
@@ -126,8 +125,14 @@ class OperationManager extends DBManager{
         if(empty($operation)){
             return RESPONDINSTANCE('83');
         }
+		
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['operation'] = $operation;
+		return $backMsg;
     }
-
-
+	
+	public function MakeAttendance($opid,$uid){
+		
+	}
 }
 ?>

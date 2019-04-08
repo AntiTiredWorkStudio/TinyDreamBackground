@@ -569,6 +569,7 @@ class DreamServersManager extends DBManager {
 
     //订单完成
     public static function OrderFinished($oid,$pars=[]){
+		$traid = "";
         if(file_exists($oid.'.txt')){
             $traid = file_get_contents($oid.'.txt');
             unlink($oid.'.txt');
@@ -579,7 +580,7 @@ class DreamServersManager extends DBManager {
         $DSM = new DreamServersManager();
 
 
-        if(DBResultExist($DSM->SelectDataByQuery($DSM->TName('tOrder'),self::FieldIsValue('oid',$oid)))){
+        if(!DBResultExist($DSM->SelectDataByQuery($DSM->TName('tOrder'),self::C_And(self::FieldIsValue('oid',$oid),self::FieldIsValue('state',"SUBMIT"))))){
             return false;
         }
 
