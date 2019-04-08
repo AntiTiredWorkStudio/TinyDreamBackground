@@ -132,6 +132,8 @@ $fallbacks = [
     '81' => "不存在合约:#FALLTEXT#",
     '82' => "用户已有正在进行的合约",
     '83' => "行动实例创建失败",
+    '84' => "#FALLTEXT#已经打卡",
+    '85' => "打卡数据错误",
     '97' => "签名错误:#FALLTEXT#",
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
@@ -330,7 +332,7 @@ $tables = [
     ],
     'tAttend'=>[
         'name'=>'attendance',
-        'command'=>"CREATE TABLE `#DBName#` ( `atid` TEXT NOT NULL COMMENT '打卡id' , `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `time` INT NOT NULL COMMENT '打卡时间' , `date` TEXT NOT NULL COMMENT '打卡日期' , `state` ENUM('RELAY','NOTRELAY','SUPPLY') NOT NULL COMMENT '打卡状态（转发,未转发,补卡）' , PRIMARY KEY (`atid`(12))) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '打卡记录';"
+        'command'=>"CREATE TABLE `#DBName#` ( `atid` TEXT NOT NULL COMMENT '打卡id' , `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `time` INT NOT NULL COMMENT '打卡时间' , `date` TEXT NOT NULL COMMENT '打卡日期' , `state` ENUM('RELAY','NOTRELAY','SUPPLY') NOT NULL COMMENT '打卡状态（转发,未转发,补卡）' , PRIMARY KEY (`atid`(15))) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '打卡记录';"
     ],
     'tInvite'=>[
         'name'=>'invite',

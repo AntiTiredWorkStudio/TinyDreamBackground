@@ -25,6 +25,17 @@ class OperationManager extends DBManager{
         }while($OPM->SelectDataFromTable('tOperation',['oid'=>$newOrderID,'_logic'=>' ']));
         return $newOrderID;
     }
+	
+	//生成打卡ID
+    public static function GenerateAttendenceID($opid){
+        $OPM = new OperationManager();
+        //生成订单号
+        $AttendenceID = (999999+($opid%1000000))."-".date("Ymd",DAY_START_FLOOR(PRC_TIME()));
+        if($OPM->SelectDataFromTable('tAttend',['atid'=>$AttendenceID,'_logic'=>' '])){
+			return "";
+		}
+        return $AttendenceID;
+    }
 
 	//创建合约实例
 	public static function CreateContractInstance($cid,$uid,$theme){
@@ -33,19 +44,7 @@ class OperationManager extends DBManager{
             return [];
         }
         $OPM = new OperationManager();
-/*      `opid` TEXT NOT NULL COMMENT '行动id' ,
-        `uid` TEXT NOT NULL COMMENT '用户id' ,
-        `cid` TEXT NOT NULL COMMENT '合约id' ,
-        `starttime` INT NOT NULL COMMENT '开始时间' ,
-        `lasttime` INT NOT NULL COMMENT '上次打卡时间' ,
-        `theme` TEXT NOT NULL COMMENT '主题字符串' ,
-        `alrday` INT NOT NULL COMMENT '已经打卡天数' ,
-        `conday` INT NOT NULL COMMENT '连续打卡天数' ,
-        `misday` INT NOT NULL COMMENT '漏卡天数' ,
-        `menday` INT NOT NULL COMMENT '补卡天数' ,
-        `menchance` INT NOT NULL COMMENT '补卡机会' ,
-        `invcount` INT NOT NULL COMMENT '邀请人数' ,
-        `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' */
+		
 		$timeStamp = PRC_TIME();
         $operation = [
             "opid"=>self::GenerateOperationID(),
@@ -65,18 +64,23 @@ class OperationManager extends DBManager{
 		$OPM->InsertDataToTable($OPM->TName('tOperation'),$operation);
 		return $operation;
     }
-
+	
+	//获取用户正在参加的行动
 	public static function UserDoingOperation($uid){
         $OPM = new OperationManager();
-        return DBResultToArray(
+        $targetOperation = DBResultToArray(
             $OPM->SelectDataByQuery(
                 $OPM->TName('tOperation'),
                 self::C_And(
                     self::FieldIsValue('uid',$uid),
                     self::FieldIsValue('state','DOING')
                 )
-            )
+            ),true
         );
+		if(!empty($targetOperation)){
+			$targetOperation = $targetOperation[0];
+		}
+		return $targetOperation;
     }
 
     //参加合约，点击参加按钮时调用
@@ -131,8 +135,57 @@ class OperationManager extends DBManager{
 		return $backMsg;
     }
 	
+	//打卡
 	public function MakeAttendance($opid,$uid){
+		$currentTimeStamp = PRC_TIME();
+		$dateString = date("Y-m-d",$currentTimeStamp);
 		
+		$currentOperation = self::UserDoingOperation($uid);
+		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
+		$lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);//最后一次打卡当天时间戳
+		$alrday = $currentOperation['alrday'];//已经打卡天数
+		$conday = $currentOperation['conday'];//连续打卡天数
+		$misday = $currentOperation['misday'];//漏卡天数
+		
+		echo $startAttendanceTime.'/'.$lastAttendanceTime;
+		
+		if($currentOperation['opid'] != $opid){//获取并验证行动数据
+			return RESPONDINSTANCE('85');
+		}
+		
+		$attendanceArray = [
+			"atid"=>self::GenerateAttendenceID($opid),
+			"opid"=>$opid,
+			"uid"=>$uid,
+			"time"=>$currentTimeStamp,
+			"date"=>$dateString,
+			"state"=>"NOTRELAY",
+		];
+		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
+		if(!$result){//已经打卡
+			return RESPONDINSTANCE('84',$dateString);
+		}
+		
+/*      `opid` TEXT NOT NULL COMMENT '行动id' ,
+        `uid` TEXT NOT NULL COMMENT '用户id' ,
+        `cid` TEXT NOT NULL COMMENT '合约id' ,
+        `starttime` INT NOT NULL COMMENT '开始时间' ,
+        `lasttime` INT NOT NULL COMMENT '上次打卡时间' ,
+        `theme` TEXT NOT NULL COMMENT '主题字符串' ,
+        `alrday` INT NOT NULL COMMENT '已经打卡天数' ,
+        `conday` INT NOT NULL COMMENT '连续打卡天数' ,
+        `misday` INT NOT NULL COMMENT '漏卡天数' ,
+        `menday` INT NOT NULL COMMENT '补卡天数' ,
+        `menchance` INT NOT NULL COMMENT '补卡机会' ,
+        `invcount` INT NOT NULL COMMENT '邀请人数' ,
+        `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' */
+		//
+		//已经打卡、漏卡、连续打卡
+		
+		
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['attendance'] = $attendanceArray;
+		return $backMsg;
 	}
 }
 ?>

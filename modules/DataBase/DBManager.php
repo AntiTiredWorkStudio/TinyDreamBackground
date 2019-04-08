@@ -137,6 +137,21 @@ class DBManager extends Manager{
 		return mysql_fetch_array($result)[0];
 	}
 
+	//获取表中行号
+	public function CountTableRowByQuery($tableName,$conString = null,$closeDBLink = false){
+        $con = $this->DBLink();
+		$sql = 'select count(*) as value from `'.$tableName.'`';
+		if($conString!=null){
+			$sql = $sql.' where '.$conString;
+		}
+//		$sql=$sql.
+		//file_put_contents('count.txt',$sql);
+		self::$LastSql = $sql;
+		$result = mysql_query($sql,$con);
+		return mysql_fetch_array($result)[0];
+	}
+
+
 	//数据库模板
 	public function DBPHPTemplate(){
         if(isset($_REQUEST['tablename'])){
