@@ -142,13 +142,24 @@ class OperationManager extends DBManager{
 		
 		$currentOperation = self::UserDoingOperation($uid);
 		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
-		$lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);//最后一次打卡当天时间戳
+		$lastAttendanceTime = $currentOperation['lasttime'];
+		//最后一次打卡当天时间戳
+		if($lastAttendanceTime<$startAttendanceTime){
+			$lastAttendanceTime = $startAttendanceTime;
+		}else{
+			$lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);
+		}
+		
 		$alrday = $currentOperation['alrday'];//已经打卡天数
 		$conday = $currentOperation['conday'];//连续打卡天数
 		$misday = $currentOperation['misday'];//漏卡天数
 		
-		echo $startAttendanceTime.'/'.$lastAttendanceTime;
-		
+		$delta = ($currentTimeStamp - $lastAttendanceTime);
+		if($delta>0 && $delta<1){//判断条件
+			$conday++;
+		}
+		$alrday++;
+		return;
 		if($currentOperation['opid'] != $opid){//获取并验证行动数据
 			return RESPONDINSTANCE('85');
 		}
