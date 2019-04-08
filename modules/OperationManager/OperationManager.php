@@ -141,24 +141,38 @@ class OperationManager extends DBManager{
 		$dateString = date("Y-m-d",$currentTimeStamp);
 		
 		$currentOperation = self::UserDoingOperation($uid);
+
+		/*
+		 *
+		 * 从行动中获取数据
+		 *
+		 */
 		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
-		$lastAttendanceTime = $currentOperation['lasttime'];
 		//最后一次打卡当天时间戳
-		if($lastAttendanceTime<$startAttendanceTime){
-			$lastAttendanceTime = $startAttendanceTime;
-		}else{
-			$lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);
-		}
-		
+        $lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);//求上次打卡日期的时间戳
 		$alrday = $currentOperation['alrday'];//已经打卡天数
 		$conday = $currentOperation['conday'];//连续打卡天数
 		$misday = $currentOperation['misday'];//漏卡天数
-		
-		$delta = ($currentTimeStamp - $lastAttendanceTime);
-		if($delta>0 && $delta<1){//判断条件
+
+        $currentTimeStamp = $currentTimeStamp+86400*0;
+
+		$delta = ($currentTimeStamp - DAY_START_FLOOR($lastAttendanceTime));//当前时间和上次打卡日期时间戳做差值
+		if($delta<86400){//小于零是因为未过第一天
+            return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime));
+        }
+		if($delta<=86400*2){//判断条件
 			$conday++;
 		}
+
+		if($delta>86400*2){
+            $misday += floor(($delta-86400)/86400);//计算漏卡天数
+            $conday = 1;
+        }
+
 		$alrday++;
+
+		echo "currentTimeStamp:".$currentTimeStamp.' delta:'.$delta .',alrday:'.$alrday.',conday:'.$conday.',misday:'.$misday;
+
 		return;
 		if($currentOperation['opid'] != $opid){//获取并验证行动数据
 			return RESPONDINSTANCE('85');
