@@ -6,6 +6,7 @@ LIB('db');
 LIB('co');
 LIB('ds');
 LIB('us');
+define("DAY_TIME",86400);
 
 class OperationManager extends DBManager{
     public function info()
@@ -51,7 +52,7 @@ class OperationManager extends DBManager{
             "uid"=>$uid,
             "cid"=>$cid,
             "starttime"=>DAY_START_CELL($timeStamp),
-            "lasttime"=>$timeStamp,
+            "lasttime"=>0,
             "theme"=>$theme,
             "alrday"=>0,
             "conday"=>0,
@@ -154,18 +155,18 @@ class OperationManager extends DBManager{
 		$conday = $currentOperation['conday'];//连续打卡天数
 		$misday = $currentOperation['misday'];//漏卡天数
 
-        $currentTimeStamp = $currentTimeStamp+86400*0;
+        $currentTimeStamp = $currentTimeStamp+DAY_TIME*0;
 
 		$delta = ($currentTimeStamp - DAY_START_FLOOR($lastAttendanceTime));//当前时间和上次打卡日期时间戳做差值
-		if($delta<86400){//小于零是因为未过第一天
+		if($delta<DAY_TIME){//小于1天
             return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime));
         }
-		if($delta<=86400*2){//判断条件
+		if($delta<=DAY_TIME*2){//判断条件
 			$conday++;
 		}
 
-		if($delta>86400*2){
-            $misday += floor(($delta-86400)/86400);//计算漏卡天数
+		if($delta>DAY_TIME*2){
+            $misday += floor(($delta-DAY_TIME)/DAY_TIME);//计算漏卡天数
             $conday = 1;
         }
 
