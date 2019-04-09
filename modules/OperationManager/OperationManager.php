@@ -28,10 +28,10 @@ class OperationManager extends DBManager{
     }
 	
 	//生成打卡ID
-    public static function GenerateAttendenceID($opid){
+    public static function GenerateAttendenceID($opid,$timeStamp){
         $OPM = new OperationManager();
         //生成订单号
-        $AttendenceID = (999999+($opid%1000000))."-".date("Ymd",DAY_START_FLOOR(PRC_TIME()));
+        $AttendenceID = (999999+($opid%1000000)).date("Ymd",DAY_START_FLOOR($timeStamp));
         if($OPM->SelectDataFromTable('tAttend',['atid'=>$AttendenceID,'_logic'=>' '])){
 			return "";
 		}
@@ -138,49 +138,97 @@ class OperationManager extends DBManager{
 	
 	//打卡
 	public function MakeAttendance($opid,$uid){
-		$currentTimeStamp = PRC_TIME();
-		$dateString = date("Y-m-d",$currentTimeStamp);
+		$currentTimeStamp = PRC_TIME()+DAY_TIME*21;//时间戳
+		$dateString = date("Y-m-d",$currentTimeStamp);//时间戳时间
 		
-		$currentOperation = self::UserDoingOperation($uid);
-
-		/*
-		 *
-		 * 从行动中获取数据
-		 *
-		 */
-		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
-		//最后一次打卡当天时间戳
-        $lastAttendanceTime = DAY_START_FLOOR($currentOperation['lasttime']);//求上次打卡日期的时间戳
-		$alrday = $currentOperation['alrday'];//已经打卡天数
-		$conday = $currentOperation['conday'];//连续打卡天数
-		$misday = $currentOperation['misday'];//漏卡天数
-
-        $currentTimeStamp = $currentTimeStamp+DAY_TIME*0;
-
-		$delta = ($currentTimeStamp - DAY_START_FLOOR($lastAttendanceTime));//当前时间和上次打卡日期时间戳做差值
-		if($delta<DAY_TIME){//小于1天
-            return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime));
-        }
-		if($delta<=DAY_TIME*2){//判断条件
-			$conday++;
+		$currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
+		if(empty($currentOperation)){//行动结束或为找到行动
+			return RESPONDINSTANCE('87');
 		}
-
-		if($delta>DAY_TIME*2){
-            $misday += floor(($delta-DAY_TIME)/DAY_TIME);//计算漏卡天数
-            $conday = 1;
-        }
-
-		$alrday++;
-
-		echo "currentTimeStamp:".$currentTimeStamp.' delta:'.$delta .',alrday:'.$alrday.',conday:'.$conday.',misday:'.$misday;
-
-		return;
 		if($currentOperation['opid'] != $opid){//获取并验证行动数据
 			return RESPONDINSTANCE('85');
 		}
 		
+		$currentContract = ContractManager::GetContractInfo($currentOperation['cid']);//获取合约规则
+		$type = $currentContract['backrule'];
+		
+		//echo $currentContract['durnation'];
+		
+		/*
+		 * 从行动中获取数据
+		 */
+		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
+		
+		$endAttendanceTime = $startAttendanceTime+$currentContract['durnation']*DAY_TIME;//结束日期时间戳
+		//echo date("Y-m-d",$startAttendanceTime).'/'.date("Y-m-d H:i:s",$endAttendanceTime);
+		
+		//最后一次打卡当天时间戳
+        $nextAttendanceTime = DAY_START_CELL($currentOperation['lasttime']);//求下一次打卡日期的时间戳
+		$alrday = $currentOperation['alrday'];//已经打卡天数
+		$conday = $currentOperation['conday'];//连续打卡天数
+		$misday = $currentOperation['misday'];//漏卡天数
+		$state = $currentOperation['state'];//行动状态
+		
+		if($currentTimeStamp<$startAttendanceTime){//未到开始打卡时间
+            return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
+		}
+		
+		//计算时间变化量
+		if($currentOperation['lasttime']==0){//未打过卡
+			$deltaTime = $currentTimeStamp - $startAttendanceTime;
+		}else{//打过卡
+			$deltaTime = $currentTimeStamp - $nextAttendanceTime;
+		}
+		
+		//依据变化量判断打卡结果
+		if($deltaTime<0){
+			//echo $deltaTime;
+			//今日已打卡
+			return RESPONDINSTANCE('84',$dateString);
+		}else if($deltaTime <= DAY_TIME){
+			//打卡成功,连续打卡+1
+			$alrday++;//已经打卡天数+1
+			$conday++;//连续打卡天数+1
+			/*依据规则退款*/
+		}else if($deltaTime>DAY_TIME){
+			//打卡成功,中间有漏天
+			$mis = floor($deltaTime/DAY_TIME);
+			$alrday++;//已经打卡天数+1
+			$conday=1;//重置连续打卡天数
+			$misday=$misday+$mis;//增加漏卡天数
+		}
+		
+		/*判断行动是否结束*/
+		$nextWillAttendanceTime = DAY_START_CELL($currentTimeStamp);
+		if($nextWillAttendanceTime >= $endAttendanceTime){//打卡结束下一天的0点>=结束日期的0点
+			$state = "SUCCESS";
+			if($alrday >= $currentContract['durnation'] && $misday<=0){//连续打卡天数达到要求且无漏卡
+				/*依据规则退款*/
+				$state = "SUCCESS";//行动成功
+			}else{
+				$state = "FAILED";//行动失败
+			}
+		}
+		
+		
+		//更新数据
+		$updateInfo = [
+			"alrday"=>$alrday,
+			"conday"=>$conday,
+			"misday"=>$misday,
+			"lasttime"=>$currentTimeStamp,
+			"state"=>$state
+		];
+		
+		//更新行动数据
+		$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
+			self::FieldIsValue('opid',$opid)
+		);
+		
+		$atid = self::GenerateAttendenceID($opid,$currentTimeStamp);
+		//生成打卡记录数据
 		$attendanceArray = [
-			"atid"=>self::GenerateAttendenceID($opid),
+			"atid"=>$atid,
 			"opid"=>$opid,
 			"uid"=>$uid,
 			"time"=>$currentTimeStamp,
@@ -188,29 +236,14 @@ class OperationManager extends DBManager{
 			"state"=>"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
+		//echo self::$LastSql;
 		if(!$result){//已经打卡
-			return RESPONDINSTANCE('84',$dateString);
+			return RESPONDINSTANCE('84',$dateString.",插入问题");
 		}
 		
-/*      `opid` TEXT NOT NULL COMMENT '行动id' ,
-        `uid` TEXT NOT NULL COMMENT '用户id' ,
-        `cid` TEXT NOT NULL COMMENT '合约id' ,
-        `starttime` INT NOT NULL COMMENT '开始时间' ,
-        `lasttime` INT NOT NULL COMMENT '上次打卡时间' ,
-        `theme` TEXT NOT NULL COMMENT '主题字符串' ,
-        `alrday` INT NOT NULL COMMENT '已经打卡天数' ,
-        `conday` INT NOT NULL COMMENT '连续打卡天数' ,
-        `misday` INT NOT NULL COMMENT '漏卡天数' ,
-        `menday` INT NOT NULL COMMENT '补卡天数' ,
-        `menchance` INT NOT NULL COMMENT '补卡机会' ,
-        `invcount` INT NOT NULL COMMENT '邀请人数' ,
-        `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' */
-		//
-		//已经打卡、漏卡、连续打卡
-		
-		
 		$backMsg = RESPONDINSTANCE('0');
-		$backMsg['attendance'] = $attendanceArray;
+		$backMsg['attendance'] = $attendanceArray;//打卡记录数据
+		$backMsg['operation'] = $updateInfo;//行动更新数据
 		return $backMsg;
 	}
 }

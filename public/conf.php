@@ -135,6 +135,7 @@ $fallbacks = [
     '84' => "#FALLTEXT#已经打卡",
     '85' => "打卡数据错误",
     '86' => "未到打卡时间,打卡时间#FALLTEXT#",
+    '87' => "不存在正在进行的行动或行动已结束",
     '97' => "签名错误:#FALLTEXT#",
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
@@ -305,7 +306,7 @@ $tables = [
     ],
     'tContract'=>[
         'name'=>'contract',
-        'command'=>"CREATE TABLE `#DBName#` ( `cid` TEXT NOT NULL COMMENT '合约id' , `title` TEXT NOT NULL COMMENT '标题' , `price` INT NOT NULL COMMENT '合约金额' , `durnation` INT NOT NULL COMMENT '时间周期' , `refund` INT NOT NULL COMMENT '退还金额' , `backrule` ENUM('EVERYDAY','END') NOT NULL COMMENT '退款规则（每日/结束时）' , `description` TEXT NOT NULL COMMENT '规则描述' , PRIMARY KEY (`cid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '合约';",
+        'command'=>"CREATE TABLE `#DBName#` ( `cid` TEXT NOT NULL COMMENT '合约id' , `title` TEXT NOT NULL COMMENT '标题' , `price` INT NOT NULL COMMENT '合约金额' , `durnation` INT NOT NULL COMMENT '时间周期' , `refund` INT NOT NULL COMMENT '退还金额' , `backrule` ENUM('EVERYDAY','END') NOT NULL COMMENT '退款规则（每日/结束时）', `attrule` ENUM('RELAY','NORMAL') NOT NULL COMMENT '打卡规则（转发后生效/打卡生效）' , `description` TEXT NOT NULL COMMENT '规则描述' , PRIMARY KEY (`cid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '合约';",
         'default'=>[
             '21天合约'=>[
                 "cid"=>"CO0000000001",
@@ -314,6 +315,7 @@ $tables = [
                 "durnation"=>21,
                 "refund"=>9800,
                 "backrule"=>"END",
+				"attrule"=>"NORMAL",
                 "description"=>"合约金98元，每天打卡，坚持21天，返还98元",
             ],
             '100天合约'=>[
@@ -322,7 +324,8 @@ $tables = [
                 "price"=>9900,
                 "durnation"=>100,
                 "refund"=>20000,
-                "backrule"=>"END",
+                "backrule"=>"EVERYDAY",
+				"attrule"=>"RELAY",
                 "description"=>"合约金99元，每天打卡并转发朋友圈，坚持100天，返还200元",
             ]
         ]
