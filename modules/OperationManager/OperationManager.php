@@ -180,6 +180,7 @@ class OperationManager extends DBManager{
 			$deltaTime = $currentTimeStamp - $nextAttendanceTime;
 		}
 		
+//		NORMAL类型
 		//依据变化量判断打卡结果
 		if($deltaTime<0){
 			//echo $deltaTime;
