@@ -314,7 +314,7 @@ $tables = [
                 "price"=>9800,
                 "durnation"=>21,
                 "refund"=>9800,
-                "backrule"=>"END",
+                "backrule"=>"EVERYDAY",
 				"attrule"=>"NORMAL",
                 "description"=>"合约金98元，每天打卡，坚持21天，返还98元",
             ],
@@ -324,7 +324,7 @@ $tables = [
                 "price"=>9900,
                 "durnation"=>100,
                 "refund"=>20000,
-                "backrule"=>"EVERYDAY",
+                "backrule"=>"END",
 				"attrule"=>"RELAY",
                 "description"=>"合约金99元，每天打卡并转发朋友圈，坚持100天，返还200元",
             ]
