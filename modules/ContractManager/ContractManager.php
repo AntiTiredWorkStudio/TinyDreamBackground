@@ -17,23 +17,76 @@ class ContractManager extends DBManager{
 	}
 
 	//计算日历(购买时间,合约ID)
-	public static function GetMonthList($buyTime,$cid){
+	public static function GetMonthList($buyTime,$cid,$needIndex=-1){
         $showtime=date("Y-m-d H:i:s", DAY_START_CELL($buyTime));
         $contract = self::GetContractInfo($cid);
         $startDayStamp = DAY_START_CELL($buyTime);
         $day = [];
+        $year = "";
+        $month = "";
+        $monthCount = 0;
+        $monthIndex = [];
+        $totalCount = 0;
+
         for($i = 0;$i<$contract['durnation'];$i++){
             $currentDayValue = $startDayStamp+86400*$i;
-            $day[$i] = [
+            $todayYear = date("Y",$currentDayValue);
+            $todayMonth = date("m",$currentDayValue);
+
+            $currentIndex = $year.$month;
+            $todayIndex = $todayYear.$todayMonth;
+
+            if($todayIndex != $currentIndex){
+                $month = $todayMonth;
+                $year = $todayYear;
+                $monthCount++;
+                if(!in_array($todayIndex,$monthIndex)){
+                    array_push($monthIndex,$todayIndex);
+                }
+            }
+
+            if(!isset($day[$todayYear.$todayMonth])){
+                $day[$todayYear.$todayMonth] = [];
+            }
+
+            $totalCount++;
+            array_push($day[$todayYear.$todayMonth],[
                 'id'=>$i+1,
                 'dateStamp' =>$currentDayValue,
                 'date' => date("Y-m-d",$currentDayValue),
-                'Year' => date("Y",$currentDayValue),
-                'Month' => date("m",$currentDayValue),
-                'Day' => date("d",$currentDayValue)
-            ];
+                'Year' => $todayYear,
+                'Month' => $todayMonth,
+                'Day' => date("d",$currentDayValue),
+                'needReply'=> ($contract['attrule']=="RELAY")
+            ]);
+
         }
-        return  $day;
+
+        $monthCount = count($monthIndex);
+        if($needIndex > ($monthCount-1)){
+            $needIndex = ($monthCount-1);
+        }
+        $currentMonth = $needIndex==-1?"all":$monthIndex[$needIndex];
+
+
+        if($needIndex==-1){
+            $dayValue = [];
+            foreach ($day as $key=>$value) {
+                $dayValue = array_merge($dayValue,$value);
+            }
+        }else{
+            $dayValue = $day[$currentMonth];
+        }
+
+        return [
+            'monthIndex'=>$monthIndex,
+            'monthCount'=>$monthCount,
+            'currentIndex'=>($needIndex==-1?"all":$needIndex),
+            'currentMonth'=>$currentMonth,
+            'totalDay'=>$totalCount,
+            'currentDayCount'=>count($dayValue),
+            'days'=>$dayValue
+        ];
     }
 
 	//获取合约主题列表
