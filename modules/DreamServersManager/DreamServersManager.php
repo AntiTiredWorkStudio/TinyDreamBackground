@@ -607,7 +607,7 @@ class DreamServersManager extends DBManager {
     public static function GetMainOrders(){
         //未实现
         $DSM = new DreamServersManager();
-        $sql = 'SELECT * FROM `order` WHERE `state`="SUCCESS" order By `ptime` DESC LIMIT 0,8';
+        $sql = 'SELECT * FROM `order` WHERE `state`="SUCCESS" AND `did` NOT LIKE "CO%" order By `ptime` DESC LIMIT 0,8';
         $sresult = mysql_query($sql,$DSM->DBLink());
         $array = DBResultToArray($sresult,true);
 

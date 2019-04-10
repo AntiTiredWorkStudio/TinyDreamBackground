@@ -150,9 +150,8 @@ class OperationManager extends DBManager{
 		}
 		
 		$currentContract = ContractManager::GetContractInfo($currentOperation['cid']);//获取合约规则
-		$type = $currentContract['backrule'];
-		
-		//echo $currentContract['durnation'];
+		$backrule = $currentContract['backrule'];
+		$attrule = $currentContract['attrule'];
 		
 		/*
 		 * 从行动中获取数据
@@ -179,24 +178,25 @@ class OperationManager extends DBManager{
 		}else{//打过卡
 			$deltaTime = $currentTimeStamp - $nextAttendanceTime;
 		}
-		
-//		NORMAL类型
-		//依据变化量判断打卡结果
 		if($deltaTime<0){
-			//echo $deltaTime;
 			//今日已打卡
 			return RESPONDINSTANCE('84',$dateString);
-		}else if($deltaTime <= DAY_TIME){
-			//打卡成功,连续打卡+1
-			$alrday++;//已经打卡天数+1
-			$conday++;//连续打卡天数+1
-			/*依据规则退款*/
-		}else if($deltaTime>DAY_TIME){
-			//打卡成功,中间有漏天
-			$mis = floor($deltaTime/DAY_TIME);
-			$alrday++;//已经打卡天数+1
-			$conday=1;//重置连续打卡天数
-			$misday=$misday+$mis;//增加漏卡天数
+		}
+//		NORMAL类型数值直接处理
+		if($attrule=="NORMAL"){
+			//依据变化量判断打卡结果
+			if($deltaTime <= DAY_TIME){
+				//打卡成功,连续打卡+1
+				$alrday++;//已经打卡天数+1
+				$conday++;//连续打卡天数+1
+				/*依据规则退款*/
+			}else if($deltaTime>DAY_TIME){
+				//打卡成功,中间有漏天
+				$mis = floor($deltaTime/DAY_TIME);
+				$alrday++;//已经打卡天数+1
+				$conday=1;//重置连续打卡天数
+				$misday=$misday+$mis;//增加漏卡天数
+			}
 		}
 		
 		/*判断行动是否结束*/
@@ -237,7 +237,7 @@ class OperationManager extends DBManager{
 			"state"=>"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
-		//echo self::$LastSql;
+		
 		if(!$result){//已经打卡
 			return RESPONDINSTANCE('84',$dateString.",插入问题");
 		}
