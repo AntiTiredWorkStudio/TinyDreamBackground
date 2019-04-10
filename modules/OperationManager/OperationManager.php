@@ -153,11 +153,6 @@ class OperationManager extends DBManager{
 		$backrule = $currentContract['backrule'];
 		$attrule = $currentContract['attrule'];
 		
-		echo 'backrule:'.$backrule.' attrule:'.$attrule;
-		return;
-		
-		//echo $currentContract['durnation'];
-		
 		/*
 		 * 从行动中获取数据
 		 */
@@ -242,7 +237,7 @@ class OperationManager extends DBManager{
 			"state"=>"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
-		//echo self::$LastSql;
+		
 		if(!$result){//已经打卡
 			return RESPONDINSTANCE('84',$dateString.",插入问题");
 		}
