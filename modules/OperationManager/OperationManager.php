@@ -138,7 +138,7 @@ class OperationManager extends DBManager{
 	
 	//打卡
 	public function MakeAttendance($opid,$uid){
-		$currentTimeStamp = PRC_TIME()+DAY_TIME*21;//时间戳
+		$currentTimeStamp = PRC_TIME()+DAY_TIME*0;//时间戳
 		$dateString = date("Y-m-d",$currentTimeStamp);//时间戳时间
 		
 		$currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
