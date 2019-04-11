@@ -27,6 +27,7 @@ class ContractManager extends DBManager{
         $monthCount = 0;
         $monthIndex = [];
         $totalCount = 0;
+		$weekarray=["日","一","二","三","四","五","六"]; 
 
         for($i = 0;$i<$contract['durnation'];$i++){
             $currentDayValue = $startDayStamp+86400*$i;
@@ -54,6 +55,7 @@ class ContractManager extends DBManager{
                 'id'=>$i+1,
                 'dateStamp' =>$currentDayValue,
                 'date' => date("Y-m-d",$currentDayValue),
+                'weekDay' => $weekarray[date("w",$currentDayValue)],
                 'Year' => $todayYear,
                 'Month' => $todayMonth,
                 'Day' => date("d",$currentDayValue),
