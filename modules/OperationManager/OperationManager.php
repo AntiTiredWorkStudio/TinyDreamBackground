@@ -109,12 +109,16 @@ class OperationManager extends DBManager{
     //通过日期获取用户打卡记录(日期格式Y-m-d)
     public static function GetUserAttendence($opid,$date){
         $OPM = new OperationManager();
-        return DBResultToArray($OPM->SelectDataByQuery($OPM->TName('tAttend'),
+        $attendance = DBResultToArray($OPM->SelectDataByQuery($OPM->TName('tAttend'),
             self::C_And(
                 self::FieldIsValue('opid',$opid),
                 self::FieldIsValue('date',$date)
             )
         ),true);
+		if(!empty($attendance)){
+			$attendance = $attendance[0];
+		}
+		return $attendance;
     }
 
     //用户补卡条件判断
@@ -134,9 +138,16 @@ class OperationManager extends DBManager{
         if(empty($menchanceOperation)){
             return false;
         }
+		$menchanceOperation = $menchanceOperation[0];
         $OPM->UpdateDataByQuery($OPM->TName('tOperation'),
-            self::SqlField('menchance').'='.self::Symbol(self::SqlField('menchance'),'1','-')
-            ,self::FieldIsValue('opid',$menchanceOperation['opid']));
+            self::LogicString(
+				[
+					self::SqlField('menchance').'='.self::Symbol(self::SqlField('menchance'),'1','-'),
+					self::SqlField('menday').'='.self::Symbol(self::SqlField('menday'),'1','+'),
+					self::SqlField('misday').'='.self::Symbol(self::SqlField('misday'),'1','-'),
+					self::SqlField('alrday').'='.self::Symbol(self::SqlField('alrday'),'1','+'),
+				],','),
+			self::FieldIsValue('opid',$menchanceOperation['opid']));
         return true;
     }
 
@@ -202,7 +213,7 @@ class OperationManager extends DBManager{
         if(isset($_REQUEST['seek'])){
             $seek = $_REQUEST['seek'];
         }
-        $calendar = ContractManager::GetMonthList($currentOperation['starttime'],"CO0000000002",$seek);
+        $calendar = ContractManager::GetMonthList($currentOperation['starttime']-DAY_TIME,$currentOperation['cid'],$seek);
         $dateList = [];
         $calendarDateIndexList = [];
         foreach ($calendar['days'] as $key=>$item) {
@@ -250,7 +261,7 @@ class OperationManager extends DBManager{
         $startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
         $targetTime = strtotime($date);
 
-        if($targetTime<$todayStamp && $targetTime>$startAttendanceTime){//判断补卡时间范围
+        if($targetTime<$todayStamp && $targetTime>=$startAttendanceTime){//判断补卡时间范围
             $targetAttendence = self::GetUserAttendence($currentOperation['opid'],$date);
             $missAttendence = empty($targetAttendence);//当日漏打卡
             $missRelay = (!empty($targetAttendence) && $targetAttendence['state']=="NOTRELAY");//当日漏转发
@@ -260,7 +271,7 @@ class OperationManager extends DBManager{
                     //执行补卡动作,
                     if($missAttendence){
                         //添加打卡记录
-                        $supplyResult = self::CreateAttendenceInstance($currentOperation['opid'],$uid,$currentTimeStamp,$date,'SUPPLY');
+                        $supplyResult = self::CreateAttendenceInstance($currentOperation['opid'],$uid,$targetTime,$date,'SUPPLY');
                         if($supplyResult['result']){
                             $backMsg = RESPONDINSTANCE('0');
                             $backMsg['attendance'] = $supplyResult['value'];
