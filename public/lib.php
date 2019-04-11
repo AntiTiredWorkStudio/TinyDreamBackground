@@ -204,11 +204,12 @@ function CombineWechatServer(){
 	$echostr = $_REQUEST['echostr'];
 	$timestamp = $_REQUEST['timestamp'];
 	$nonce = $_REQUEST['nonce'];
-	$token = 'konglf';
+	$token = 'konglf01';
 	$tmpArr = array($token,$timestamp, $nonce);
 	sort($tmpArr, SORT_STRING);
 	$tmpStr = implode($tmpArr);
 	$tmpStr = sha1($tmpStr);
+	file_put_contents('signature.txt', json_encode($_REQUEST));
 
 	if($signature == $tmpStr){
 		return true;
@@ -253,7 +254,7 @@ function AutoBack($postObj){
             $time = time();
             $msgType = 'text';
             //<a href="http://tinydream.antit.top/TinydreamWeb">首页</a>
-            $content = "欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb\">首页</a>"."”进入平台，了解小梦想互助玩法点击“"."<a href=\"http://tinydream.antit.top/TinydreamWeb/html/question.html\">新手指引</a>"."”。";
+            $content = "欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb\">首页</a>"."”进入平台，了解小梦想互助玩法点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/html/question.html\">新手指引</a>"."”。";
 			
 			
             $template = "<xml>
@@ -281,20 +282,21 @@ $WebApp = [
         return $jsoninfo["access_token"];
     },
 	WECHAT_COMBINE_COMMAND=>function(){
-		$postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$postArr = isset($GLOBALS['HTTP_RAW_POST_DATA'])?$GLOBALS['HTTP_RAW_POST_DATA']:"";
 		$postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
 		if(!empty($postObj)){
-			//file_put_contents("WECHAT_COMBINE_COMMAND.txt",json_encode($postObj));
 			AutoBack($postObj);
 			return;
 		}
 		if(CombineWechatServer()){
+			file_put_contents('echostr.txt', $_REQUEST['echostr']);
+			echo $_REQUEST['echostr'];
 			return;
 		}
 	},
 	WECHAT_GETUSERINFO_COMMAND =>function(){
 		//echo json_encode($_REQUEST);
-		Header("Location:https://tinydream.antit.top/admin/demo.html?code=".$_REQUEST['code']."&state=".$_REQUEST['state']);
+		Header("Location:https://".$GLOBALS['options']['combine_url']."/admin/demo.html?code=".$_REQUEST['code']."&state=".$_REQUEST['state']);
 		//setcookie('code',json_encode($_REQUEST,JSON_UNESCAPED_UNICODE),PRC_TIME()+3600);
 		return;
 	},

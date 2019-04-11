@@ -114,7 +114,7 @@ var WebApp = {
 	return codeData;
   },
   InitUpload:function(){
-      document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
+      document.write('<script type="text/javascript" src="https://'+Options.CombineUrl+'/admin/js/qiniu.min.js"></script>');
   },
   UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
 		  var config = {
@@ -302,7 +302,7 @@ var WebApp = {
 		ShareDefaultConfig:{
 			title:"小梦想互助",
 			desc:"我刚刚参与互助了一份小梦想，你也一起来吧！",
-			link:"http://tinydream.antit.top/TinydreamWeb",
+			link:"http://"+Options.CombineUrl+"/TinydreamWeb",
 			imgUrl:"http://tdream.antit.top/image/titleLogo.png"
 		},
 		OnSettingShare:function(config){

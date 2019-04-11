@@ -1,6 +1,7 @@
 
 var Options = {
-    Url : "https://tinydream.antit.top",//http://localhost:8003 , https://tinydream.antit.top
+	CombineUrl: "tinydream.ivkcld.cn",
+    Url : "https://tinydream.antit.top",//"https://tinydream.ivkcld.cn",//http://localhost:8003 , 
     Auth:null,
 	AccessToken:null,
 	UserInfo:null,
