@@ -40,9 +40,9 @@ class SnippetManager extends Manager{
 			$fullPath = $fullPath.'.html';
 		}
 		$data = json_decode($data,true);
-		/*if(!file_exists($fullPath)){
+		if(!file_exists($fullPath)){
 			return "未定义:'".$name."'#LB#/br#RB#";
-		}*/
+		}
 		$template = file_get_contents($fullPath);
 		$result = '';
 		foreach($data as $seek=>$index){
