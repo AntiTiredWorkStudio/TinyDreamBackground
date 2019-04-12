@@ -16,6 +16,127 @@ class ContractManager extends DBManager{
 		
 	}
 
+	//将月份信息首尾补充完整,参数需要接收GetMonthList处理过的对象
+	public static function FullMonthList($days){
+        //return $days;
+        $weekarray=["日","一","二","三","四","五","六"];
+
+        $optionDateStamp = $days[0]['dateStamp'];
+        $beginDate=date('Y-m-01', $optionDateStamp);
+        $seekDay = $beginDate;
+        $forwardDays = [];
+        while ($seekDay != $days[0]['date']){
+            $dayTimeStamp = strtotime($seekDay);
+            $year = date('Y',$dayTimeStamp);
+            $month = date('m',$dayTimeStamp);
+            $day = date('d',$dayTimeStamp);
+            $weekSeek = date('w',$dayTimeStamp);
+            array_push($forwardDays,
+                [
+                    "dateStamp"=>$dayTimeStamp,
+                    "date"=>$seekDay,
+                    "weekDay"=>$weekarray[$weekSeek],
+                    "Year"=>$year,
+                    "Month"=>$month,
+                    "Day"=>$day
+                ]
+            );
+            $seekDay = date('Y-m-d',strtotime("$seekDay +1 day"));
+        }
+
+
+        if(empty($forwardDays)){
+            $forwardDays = [
+                [
+                    "dateStamp"=>$days[0]['dateStamp'],
+                    "date"=>$days[0]['date'],
+                    "weekDay"=>$days[0]['weekDay'],
+                    "Year"=>$days[0]['Year'],
+                    "Month"=>$days[0]['Month'],
+                    "Day"=>$days[0]['Day']
+                ]
+            ];
+        }
+            $daySeek = $forwardDays[0];
+
+            $weekSeek = date('w',$forwardDays[0]['dateStamp']);
+            $weekForwardArray = [];
+            for($i=($weekSeek-1);$i>=0;$i--){
+                $daySeek['dateStamp'] = $daySeek['dateStamp']-86400;
+                $daySeek['date'] = date('Y-m-d',$daySeek['dateStamp']);
+                $daySeek['weekDay'] = $weekarray[date('w',$daySeek['dateStamp'])];
+                $daySeek['Year'] = date('Y',$daySeek['dateStamp']);
+                $daySeek['Month'] = date('m',$daySeek['dateStamp']);
+                $daySeek['Day'] = date('d',$daySeek['dateStamp']);
+                array_push($weekForwardArray,$daySeek);
+            }
+            $weekForwardArray = array_reverse($weekForwardArray);
+            $forwardDays = array_merge($weekForwardArray,$forwardDays);
+            unset($forwardDays[count($forwardDays)-1]);
+
+
+        $days = array_merge($forwardDays,$days);
+
+
+        $endSeek = count($days)-1;
+
+        $optionDateStamp = $days[count($days)-1]['dateStamp'];
+        $endDateFirst=date('Y-m-01', $optionDateStamp);
+        $endDate = date('Y-m-d', strtotime("$endDateFirst +1 month -1 day"));
+        $seekDay = $endDate;
+        $backwardDays = [];
+        while ($seekDay != $days[$endSeek]['date']){
+            $dayTimeStamp = strtotime($seekDay);
+            $year = date('Y',$dayTimeStamp);
+            $month = date('m',$dayTimeStamp);
+            $day = date('d',$dayTimeStamp);
+            $weekSeek = date('w',$dayTimeStamp);
+            array_push($backwardDays,
+                [
+                    "dateStamp"=>$dayTimeStamp,
+                    "date"=>$seekDay,
+                    "weekDay"=>$weekarray[$weekSeek],
+                    "Year"=>$year,
+                    "Month"=>$month,
+                    "Day"=>$day
+                ]
+            );
+            $seekDay = date('Y-m-d',strtotime("$seekDay -1 day"));
+        }
+        if(empty($backwardDays)){
+            $bseek =count($days)-1;
+            $backwardDays = [
+                [
+                    "dateStamp"=>$days[$bseek]['dateStamp'],
+                    "date"=>$days[$bseek]['date'],
+                    "weekDay"=>$days[$bseek]['weekDay'],
+                    "Year"=>$days[$bseek]['Year'],
+                    "Month"=>$days[$bseek]['Month'],
+                    "Day"=>$days[$bseek]['Day']
+                ]
+            ];
+        }
+            $daySeek = $backwardDays[count($backwardDays)-1];
+
+            $weekSeek = date('w',$backwardDays[count($backwardDays)-1]['dateStamp']);
+            $weekBackwardArray = [];
+            for($i=($weekSeek+1);$i<=6;$i++){
+                $daySeek['dateStamp'] = $daySeek['dateStamp']+86400;
+                $daySeek['date'] = date('Y-m-d',$daySeek['dateStamp']);
+                $daySeek['weekDay'] = $weekarray[date('w',$daySeek['dateStamp'])];
+                $daySeek['Year'] = date('Y',$daySeek['dateStamp']);
+                $daySeek['Month'] = date('m',$daySeek['dateStamp']);
+                $daySeek['Day'] = date('d',$daySeek['dateStamp']);
+                array_push($weekBackwardArray,$daySeek);
+            }
+            $backwardDays = array_merge($backwardDays,$weekBackwardArray);
+
+        unset($backwardDays[0]);
+
+        $days = array_merge($days,$backwardDays);
+        return $days;
+    }
+
 	//计算日历(购买时间,合约ID)
 	public static function GetMonthList($buyTime,$cid,$needIndex=-1){
         $showtime=date("Y-m-d H:i:s", DAY_START_CELL($buyTime));
