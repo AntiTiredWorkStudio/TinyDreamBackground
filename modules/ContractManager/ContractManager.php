@@ -16,6 +16,23 @@ class ContractManager extends DBManager{
 		
 	}
 
+
+	static function RemoveSimlarDay($dayArray){
+        $indexArray = [];
+        $removeArray = [];
+        foreach($dayArray as $key=>$value){
+            if(!isset($indexArray[$value['date']])) {
+                $indexArray[$value['date']] = $key;
+            }else{
+                array_push($removeArray,$key);
+            }
+        }
+        foreach ($removeArray as $index) {
+            unset($dayArray[$index]);
+        }
+        return $dayArray;
+    }
+
 	//将月份信息首尾补充完整,参数需要接收GetMonthList处理过的对象
 	public static function FullMonthList($days){
         //return $days;
@@ -71,9 +88,7 @@ class ContractManager extends DBManager{
                 array_push($weekForwardArray,$daySeek);
             }
             $weekForwardArray = array_reverse($weekForwardArray);
-            $forwardDays = array_merge($weekForwardArray,$forwardDays);
-            unset($forwardDays[count($forwardDays)-1]);
-
+            //$forwardDays = array_merge($weekForwardArray,$forwardDays);
 
         $days = array_merge($forwardDays,$days);
 
@@ -129,11 +144,11 @@ class ContractManager extends DBManager{
                 $daySeek['Day'] = date('d',$daySeek['dateStamp']);
                 array_push($weekBackwardArray,$daySeek);
             }
-            $backwardDays = array_merge($backwardDays,$weekBackwardArray);
-
-        unset($backwardDays[0]);
+            //$backwardDays = array_merge($backwardDays,$weekBackwardArray);
+        $backwardDays = array_reverse($backwardDays);
 
         $days = array_merge($days,$backwardDays);
+        $days = self::RemoveSimlarDay($days);
         return $days;
     }
 
