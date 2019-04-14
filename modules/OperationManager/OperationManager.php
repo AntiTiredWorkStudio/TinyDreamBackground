@@ -299,8 +299,64 @@ class OperationManager extends DBManager{
     }
 
     //转发成功
-    public function Reply($opid,$uid){
+    public function Reply($opid,$date,$uid){
+        $currentTimeStamp = PRC_TIME();//时间戳
 
+        $currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
+        if(empty($currentOperation)){//行动结束或为找到行动
+            return RESPONDINSTANCE('87');
+        }
+        if($currentOperation['opid'] != $opid){//获取并验证行动数据
+            return RESPONDINSTANCE('85');
+        }
+        $targetAttendence = self::GetUserAttendence($opid,$date);
+        if(empty($targetAttendence)){
+            return RESPONDINSTANCE('92',$date);
+        }
+        if($targetAttendence['state']!="NOTRELAY"){
+            return RESPONDINSTANCE('84',$date);
+        }
+        $currentContract = ContractManager::GetContractInfo($currentOperation['cid']);//获取合约规则
+
+        $attrule = $currentContract['attrule'];//打卡规则
+        $alrday = $currentOperation['alrday'];//已经打卡天数
+        $conday = $currentOperation['conday'];//连续打卡天数
+
+        $deltaTime = $currentTimeStamp - DAY_START_FLOOR($targetAttendence['time']);
+
+        //依据变化量判断打卡结果
+        if($attrule=="RELAY") {
+            if ($deltaTime <= DAY_TIME) {//在1天之内
+                $alrday++;//已经打卡天数+1
+                $conday++;//连续打卡天数+1
+                /*依据规则退款*/
+            }else{
+                return RESPONDINSTANCE('93',$date);
+            }
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+
+        //更新打卡记录状态
+        $this->UpdateDataToTableByQuery(
+            $this->TName('tAttend'),
+            ['state'=>"RELAY"],
+            self::C_And(
+                self::FieldIsValue('opid',$opid),
+                self::FieldIsValue('date',$date)
+            )
+        );
+        //更新打卡数据
+        $updateInfo = [
+            "alrday"=>$alrday,
+            "conday"=>$conday
+        ];
+        //更新行动数据
+        $this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
+            self::FieldIsValue('opid',$opid)
+        );
+
+        return $backMsg;
     }
 	
 	//打卡
@@ -364,7 +420,13 @@ class OperationManager extends DBManager{
 				$conday=1;//重置连续打卡天数
 				$misday=$misday+$mis;//增加漏卡天数
 			}
-		}
+		}else{
+		    if($deltaTime>DAY_TIME){
+                $mis = floor($deltaTime/DAY_TIME);
+                $conday=1;//重置连续打卡天数
+                $misday=$misday+$mis;//增加漏卡天数
+            }
+        }
 		
 		/*判断行动是否结束*/
 		$nextWillAttendanceTime = DAY_START_CELL($currentTimeStamp);
