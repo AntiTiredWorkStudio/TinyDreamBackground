@@ -305,7 +305,7 @@ class OperationManager extends DBManager{
 	
 	//打卡
 	public function MakeAttendance($opid,$uid){
-		$currentTimeStamp = PRC_TIME()+DAY_TIME;//时间戳
+		$currentTimeStamp = PRC_TIME()+DAY_TIME*0;//时间戳
 		$dateString = date("Y-m-d",$currentTimeStamp);//时间戳时间
 		
 		$currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
@@ -392,8 +392,8 @@ class OperationManager extends DBManager{
 		$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
 			self::FieldIsValue('opid',$opid)
 		);
-		
-		$atid = self::GenerateAttendenceID($opid,$currentTimeStamp);
+
+        $atid = self::GenerateAttendenceID($opid,$currentTimeStamp);
 		//生成打卡记录数据
 		$attendanceArray = [
 			"atid"=>$atid,
