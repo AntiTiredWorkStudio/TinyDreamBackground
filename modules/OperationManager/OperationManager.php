@@ -566,5 +566,26 @@ class OperationManager extends DBManager{
         $backMsg['info'] = $info;
         return $backMsg;
     }
+
+    //获得用户所有行动列表
+    public function OperationList($uid,$seek,$count){
+        $backMsg = RESPONDINSTANCE('0');
+        $CountOperations = $this->CountTableRowByQuery($this->TName('tOperation'),
+            self::FieldIsValue('uid',$uid));
+        $operationList = DBResultToArray($this->SelectDataByQuery(
+            $this->TName('tOperation'),
+            self::Limit(
+                self::OrderBy(
+                    self::FieldIsValue('uid',$uid)
+                    ,'starttime','DESC'
+                ),
+                $seek,
+                $count
+            )
+        ),true);
+        $backMsg['count'] = $CountOperations;
+        $backMsg['operations'] = $operationList;
+        return $backMsg;
+    }
 }
 ?>
