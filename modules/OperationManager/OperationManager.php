@@ -17,7 +17,7 @@ class OperationManager extends DBManager{
     }
 
 	public function OperationManager(){
-		
+
 	}
 
 
@@ -30,7 +30,7 @@ class OperationManager extends DBManager{
         }while($OPM->SelectDataFromTable('tOperation',['oid'=>$newOrderID,'_logic'=>' ']));
         return $newOrderID;
     }
-	
+
 	//生成打卡ID
     public static function GenerateAttendenceID($opid,$timeStamp){
         $OPM = new OperationManager();
@@ -49,7 +49,7 @@ class OperationManager extends DBManager{
             return [];
         }
         $OPM = new OperationManager();
-		
+
 		$timeStamp = PRC_TIME();
         $operation = [
             "opid"=>self::GenerateOperationID(),
@@ -70,6 +70,23 @@ class OperationManager extends DBManager{
 		return $operation;
     }
 
+    //生成邀请记录
+    public static function GenerateInvited($iuid,$tuid,$opid){
+        $currentTime = PRC_TIME();
+        $date = date('Y-m-d',$currentTime);
+        $OPM = new OperationManager();
+        $count = self::CountTableRowByQuery(self::TName('tAttend'),self::FieldIsValue('date',$date));
+        $inid =  date('Ymd',$currentTime).(1000+$count);
+        $inviteArray = [
+            "inid"=>$inid,
+            "iuid"=>$iuid,
+            "tuid"=>$tuid,
+            "opid"=>$opid,
+            "time"=>$currentTime,
+            "date"=>$date,
+        ];
+        $OPM->InsertDataToTable($OPM->TName('tInvite'),$inviteArray);
+    }
     //创建打卡记录实例
     public static function CreateAttendenceInstance($opid,$uid,$currentTimeStamp,$dateString="",$state="NOTRELAY"){
         $OPM = new OperationManager();
@@ -87,7 +104,7 @@ class OperationManager extends DBManager{
         $result = $OPM->InsertDataToTable($OPM->TName('tAttend'),$attendanceArray);
         return ['result'=>$result,'value'=>$attendanceArray];
     }
-	
+
 	//获取用户正在参加的行动
 	public static function UserDoingOperation($uid){
         $OPM = new OperationManager();
@@ -104,6 +121,32 @@ class OperationManager extends DBManager{
 			$targetOperation = $targetOperation[0];
 		}
 		return $targetOperation;
+    }
+
+    //通过行动id获取行动信息
+    public static function GetOperationByID($opid){
+        $OPM = new OperationManager();
+        $targetOperation = DBResultToArray(
+            $OPM->SelectDataByQuery(
+                $OPM->TName('tOperation'),
+                self::FieldIsValue('opid',$opid)
+            ),true
+        );
+        if(!empty($targetOperation)){
+            $targetOperation = $targetOperation[0];
+        }
+        return $targetOperation;
+    }
+
+    //行动邀请用户
+    public static function OperationInvitedUser($opid,$iuid,$tuid){
+        $OPM = new OperationManager();
+        $OPM->UpdateDataByQuery($OPM->TName('tOperation'),
+            self::SqlField('menchance').'='. self::SqlField('menchance').'+1,'.
+            self::SqlField('invcount').'='. self::SqlField('invcount').'+1',
+            self::FieldIsValue('opid',$opid)
+            );
+        self::GenerateInvited($iuid,$tuid,$opid);
     }
 
     //通过日期获取用户打卡记录(日期格式Y-m-d)
@@ -197,9 +240,24 @@ class OperationManager extends DBManager{
         if(empty($operation)){
             return RESPONDINSTANCE('83');
         }
-		
+
 		$backMsg = RESPONDINSTANCE('0');
+
+        $inviteResult = [];
+        if(isset($_REQUEST['icode'])){//包含邀请的行动id
+            $inviteOperation = self::GetOperationByID($_REQUEST['icode']);
+            if(empty($inviteOperation)){
+                $inviteResult = false;
+            }else{
+                self::OperationInvitedUser($inviteOperation['opid'],$inviteOperation['uid'],$uid);
+                $inviteResult = true;
+            }
+        }
+
 		$backMsg['operation'] = $operation;
+        if(!empty($inviteResult)){
+            $backMsg['invite'] = $inviteResult;
+        }
 		return $backMsg;
     }
 
@@ -358,12 +416,13 @@ class OperationManager extends DBManager{
 
         return $backMsg;
     }
-	
+
 	//打卡
 	public function MakeAttendance($opid,$uid){
-		$currentTimeStamp = PRC_TIME()+DAY_TIME*0;//时间戳
+        $dayOffset = isset($_REQUEST['dfs'])?$_REQUEST['dfs']:0;
+		$currentTimeStamp = PRC_TIME()+DAY_TIME*$dayOffset;//时间戳
 		$dateString = date("Y-m-d",$currentTimeStamp);//时间戳时间
-		
+
 		$currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
 		if(empty($currentOperation)){//行动结束或为找到行动
 			return RESPONDINSTANCE('87');
@@ -371,30 +430,30 @@ class OperationManager extends DBManager{
 		if($currentOperation['opid'] != $opid){//获取并验证行动数据
 			return RESPONDINSTANCE('85');
 		}
-		
+
 		$currentContract = ContractManager::GetContractInfo($currentOperation['cid']);//获取合约规则
 		$backrule = $currentContract['backrule'];
 		$attrule = $currentContract['attrule'];
-		
+
 		/*
 		 * 从行动中获取数据
 		 */
 		$startAttendanceTime = $currentOperation['starttime'];//起始日期时间戳
-		
+
 		$endAttendanceTime = $startAttendanceTime+$currentContract['durnation']*DAY_TIME;//结束日期时间戳
 		//echo date("Y-m-d",$startAttendanceTime).'/'.date("Y-m-d H:i:s",$endAttendanceTime);
-		
+
 		//最后一次打卡当天时间戳
         $nextAttendanceTime = DAY_START_CELL($currentOperation['lasttime']);//求下一次打卡日期的时间戳
 		$alrday = $currentOperation['alrday'];//已经打卡天数
 		$conday = $currentOperation['conday'];//连续打卡天数
 		$misday = $currentOperation['misday'];//漏卡天数
 		$state = $currentOperation['state'];//行动状态
-		
+
 		if($currentTimeStamp<$startAttendanceTime){//未到开始打卡时间
             return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
 		}
-		
+
 		//计算时间变化量
 		if($currentOperation['lasttime']==0){//未打过卡
 			$deltaTime = $currentTimeStamp - $startAttendanceTime;
@@ -427,7 +486,7 @@ class OperationManager extends DBManager{
                 $misday=$misday+$mis;//增加漏卡天数
             }
         }
-		
+
 		/*判断行动是否结束*/
 		$nextWillAttendanceTime = DAY_START_CELL($currentTimeStamp);
 		if($nextWillAttendanceTime >= $endAttendanceTime){//打卡结束下一天的0点>=结束日期的0点
@@ -439,8 +498,8 @@ class OperationManager extends DBManager{
 				$state = "FAILED";//行动失败
 			}
 		}
-		
-		
+
+
 		//更新数据
 		$updateInfo = [
 			"alrday"=>$alrday,
@@ -449,7 +508,7 @@ class OperationManager extends DBManager{
 			"lasttime"=>$currentTimeStamp,
 			"state"=>$state
 		];
-		
+
 		//更新行动数据
 		$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
 			self::FieldIsValue('opid',$opid)
@@ -466,11 +525,11 @@ class OperationManager extends DBManager{
 			"state"=>"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
-		
+
 		if(!$result){//已经打卡
 			return RESPONDINSTANCE('84',$dateString.",插入问题");
 		}
-		
+
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['attendance'] = $attendanceArray;//打卡记录数据
 		$backMsg['operation'] = $updateInfo;//行动更新数据
