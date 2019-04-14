@@ -587,5 +587,30 @@ class OperationManager extends DBManager{
         $backMsg['operations'] = $operationList;
         return $backMsg;
     }
+
+    //用户行动信息
+    public function UserOperationInfo($uid){
+        $backMsg = RESPONDINSTANCE('0');
+        $alrday = 0;
+        $totaloperation = 0;
+        $sumField = 'SUM('.self::SqlField('alrday').')';
+        $countField ='COUNT(*)';
+        $info = DBResultToArray($this->SelectDataByQuery(
+            $this->TName('tOperation'),
+            self::FieldIsValue('uid',$uid),
+            false,
+            self::LogicString([$sumField,$countField],',')
+        ),true);
+        if(!empty($info)){
+            $info = $info[0];
+            $alrday = $info[$sumField];
+            $totaloperation = $info[$countField];
+        }
+        $backMsg['info'] = [
+            'alrday'=>$alrday,
+            'totaloperation'=>$totaloperation
+        ];
+        return $backMsg;
+    }
 }
 ?>

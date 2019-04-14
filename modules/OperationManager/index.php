@@ -14,5 +14,6 @@
         'rep'=>R('Reply',["opid","date","uid"]),//用户转发,参数：[opid:行动id,date:日期字符串(Y:m:d),uid:用户openid]
         'oif'=>R('OperationInfo',['opid']),//获得行动概况(包含距离目标天数,连续打卡天数,已经打卡天数,缺卡天数,补卡天数,进度),参数：[opid:行动id]
         'olist'=>R('OperationList',['uid','seek','count']),//获得用户所有行动列表,参数：[uid:用户openid,seek:页数,count:每页个数]
+        'uinfo'=>R('UserOperationInfo',['uid']),//用户行动信息,参数：[uid:用户openid]
     ]);
 ?>
