@@ -148,6 +148,9 @@ class DBManager extends Manager{
 		//file_put_contents('count.txt',$sql);
 		self::$LastSql = $sql;
 		$result = mysql_query($sql,$con);
+		if(empty($result)){
+		    return 0;
+        }
 		return mysql_fetch_array($result)[0];
 	}
 
