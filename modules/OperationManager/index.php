@@ -12,5 +12,6 @@
         'cal'=>R('OperationCalendar',['uid']),//获取用户当前行动日历，参数：[uid:用户openid,seek:页数(可选参数，根据月份填写，不传默认全部返回)]
         'pat'=>R('PatchAttendance',['uid','date']),//用户补卡，参数：[uid:用户openid,date:日期字符串(Y:m:d)]
         'rep'=>R('Reply',["opid","date","uid"]),//用户转发,参数：[opid:行动id,date:日期字符串(Y:m:d),uid:用户openid]
+        'oif'=>R('OperationInfo',['opid']),//获得行动概况(包含距离目标天数,连续打卡天数,已经打卡天数,缺卡天数,补卡天数,进度),参数：[opid:行动id]
     ]);
 ?>

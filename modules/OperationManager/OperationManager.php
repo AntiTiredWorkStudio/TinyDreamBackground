@@ -543,5 +543,28 @@ class OperationManager extends DBManager{
 		$backMsg['operation'] = $updateInfo;//行动更新数据
 		return $backMsg;
 	}
+
+	//行动概况
+	public function OperationInfo($opid){
+
+        $operation = self::GetOperationByID($opid);
+        $contract = ContractManager::GetContractInfo($operation['cid']);
+        $durnation = $contract['durnation'];
+        if(empty($operation)){
+            return RESPONDINSTANCE('94');
+        }
+
+        $info = [
+            "desday" => $durnation-$operation['alrday'],//距离目标天数
+            "conday" => $operation['conday'],//连续打卡天数
+            "alrday" => $operation['alrday'],//已经打卡天数
+            "misday" => $operation['misday'],//缺卡天数
+            "menday" => $operation['menday'],//补卡天数
+            "precentage" => round($operation['alrday']/$durnation,2)//进度
+        ];
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['info'] = $info;
+        return $backMsg;
+    }
 }
 ?>
