@@ -26,5 +26,6 @@
         'pcount'=>R('GetPoolsCountInfo',['uid']),
 		'oitc'=>R('GetOrderCountByTeleORDate'),//根据电话或日期获取订单数量
 		'oitd'=>R('GetOrdersByTeleORDate',['seek','count']),//根据电话或日期获取范围订单
+        'refd'=>R('WxRefund',['oid']),//退款
     ]);
 ?>

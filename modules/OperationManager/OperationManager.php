@@ -553,7 +553,7 @@ class OperationManager extends DBManager{
         if(empty($operation)){
             return RESPONDINSTANCE('94');
         }
-
+        $user = UserManager::GetUserInfo($operation['uid']);
         $info = [
             "desday" => $durnation-$operation['alrday'],//距离目标天数
             "conday" => $operation['conday'],//连续打卡天数
@@ -561,7 +561,8 @@ class OperationManager extends DBManager{
             "misday" => $operation['misday'],//缺卡天数
             "menday" => $operation['menday'],//补卡天数
             "precentage" => round($operation['alrday']/$durnation,2),//进度
-			"theme"=>$operation['theme']
+			"theme"=>$operation['theme'],
+            'nickname'=>$user['nickname']
         ];
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['info'] = $info;
