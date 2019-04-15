@@ -560,7 +560,8 @@ class OperationManager extends DBManager{
             "alrday" => $operation['alrday'],//已经打卡天数
             "misday" => $operation['misday'],//缺卡天数
             "menday" => $operation['menday'],//补卡天数
-            "precentage" => round($operation['alrday']/$durnation,2)//进度
+            "precentage" => round($operation['alrday']/$durnation,2),//进度
+			"theme"=>$operation['theme']
         ];
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['info'] = $info;
