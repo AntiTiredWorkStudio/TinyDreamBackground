@@ -653,21 +653,27 @@ class OperationManager extends DBManager{
         $alrday = 0;
         $totaloperation = 0;
         $sumField = 'SUM('.self::SqlField('alrday').')';
+        $menchanceField = 'SUM('.self::SqlField('menchance').')';
+        $invcountField = 'SUM('.self::SqlField('invcount').')';
         $countField ='COUNT(*)';
         $info = DBResultToArray($this->SelectDataByQuery(
             $this->TName('tOperation'),
             self::FieldIsValue('uid',$uid),
             false,
-            self::LogicString([$sumField,$countField],',')
+            self::LogicString([$sumField,$countField,$menchanceField,$invcountField],',')
         ),true);
         if(!empty($info)){
             $info = $info[0];
             $alrday = $info[$sumField];
             $totaloperation = $info[$countField];
+            $menchance = $info[$menchanceField];
+            $invcount = $info[$invcountField];
         }
         $backMsg['info'] = [
             'alrday'=>$alrday,
-            'totaloperation'=>$totaloperation
+            'totaloperation'=>$totaloperation,
+            'menchance'=>$menchance,
+            'invcount'=>$invcount
         ];
         return $backMsg;
     }
