@@ -114,7 +114,7 @@ var WebApp = {
 	return codeData;
   },
   InitUpload:function(){
-      document.write('<script type="text/javascript" src="http://'+Options.CombineUrl+'/TinyDreamBackground/admin/js/qiniu.min.js"></script>');
+      document.write('<script type="text/javascript" src="https://'+Options.CombineUrl+'/admin/js/qiniu.min.js"></script>');
   },
   UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
 		  var config = {
