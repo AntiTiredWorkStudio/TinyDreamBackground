@@ -537,13 +537,13 @@ class DreamServersManager extends DBManager {
     }
 
     //创建未支付订单
-    public static function GenerateEmptyOrder($uid,$pid,$did,$oidType=1,$dcount=0){
+    public static function GenerateEmptyOrder($uid,$pid,$did,$bill,$oidType=1,$dcount=0){
         $DSM = new DreamServersManager();
         $orderArray = [
             "oid"=>self::GenerateOrderID($oidType),
             "uid"=>$uid,
             "pid"=>$pid,
-            "bill"=>0,
+            "bill"=>$bill,
             "ctime"=>PRC_TIME(),//创建时间
             "ptime"=>0,
             "state"=>"SUBMIT",

@@ -272,7 +272,7 @@ class OperationManager extends DBManager{
 
         DreamServersManager::ClearSubmitOrder($uid);//清除用户未支付订单
 
-        $orderInfo = DreamServersManager::GenerateEmptyOrder($uid,"",$tContract['cid'],3);//创建空订单
+        $orderInfo = DreamServersManager::GenerateEmptyOrder($uid,"",$tContract['cid'],$tContract['price'],3);//创建空订单
 
         $unifiedInfo = DreamServersManager::UnifiedOrder($orderInfo['oid'],$tContract['price'],$uid);//统一下单
 
