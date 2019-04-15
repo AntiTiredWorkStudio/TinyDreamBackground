@@ -1040,7 +1040,7 @@ class DreamServersManager extends DBManager {
             }
             return $backMsg;
         } catch (Exception $e) {
-            $backMsg = RESPONDINSTANCE('96');
+            return RESPONDINSTANCE('96',":退款异常");
             $backMsg['error'] = $e->getMessage();
             return $backMsg;
         }

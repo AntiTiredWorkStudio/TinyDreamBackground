@@ -236,11 +236,20 @@ class OperationManager extends DBManager{
         $attendenceIndex = (DAY_START_CELL($attendence['time']) - $operation['starttime'])/86400;
         $bill = 0;
         //EVERYDAY', 'END
+        if($tOrder['bill'] != $contract['price'] || $tOrder['bill']<100){
+            return RESPONDINSTANCE('96',":订单金额不匹配或金额过低");
+        }
         if($contract['backrule'] == 'EVERYDAY'){
-
+            if($attendenceIndex==$contract['durnation']){
+                $bill = 100;
+            }else if(DAY_START_CELL($attendence['time']) == DAY_START_CELL($operation['lasttime'])){
+                $bill = $contract['refund'] - $attendenceIndex*100;
+            }
         }
         if($contract['backrule'] == 'END'){
-            //if($attendenceIndex==)
+            if($attendenceIndex==$contract['durnation']){
+                $bill = $contract['refund'];
+            }
         }
         return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid);
     }
@@ -578,7 +587,7 @@ class OperationManager extends DBManager{
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
 
-        self::OperationRefund($currentOperation,$currentContract,$atid);
+        $refundInfo = self::OperationRefund($currentOperation,$currentContract,$atid);
 
 
 		if(!$result){//已经打卡
@@ -588,6 +597,7 @@ class OperationManager extends DBManager{
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['attendance'] = $attendanceArray;//打卡记录数据
 		$backMsg['operation'] = $updateInfo;//行动更新数据
+        $backMsg['refund'] = $refundInfo;
 		return $backMsg;
 	}
 
