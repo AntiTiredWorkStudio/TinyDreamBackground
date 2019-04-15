@@ -314,6 +314,7 @@ class OperationManager extends DBManager{
         $backMsg = RESPONDINSTANCE('0');
         $calendar['days'] = (isset($_REQUEST['full']) && $_REQUEST['full']=="month")?ContractManager::FullMonthList($calendar['days']):$calendar['days'];
         $backMsg['calendar'] = $calendar;
+        $backMsg['lastattend'] = $currentOperation['lasttime'];
         return $backMsg;
     }
 
