@@ -555,6 +555,12 @@ class DreamServersManager extends DBManager {
         return $orderArray;
     }
 
+    //便捷版退款
+    public static function Refund($oid,$rebill=-1,$reid=""){
+        $DSM = new DreamServersManager();
+        return $DSM->WxRefund($oid,$rebill,$reid);
+    }
+
     //便捷版统一下单
     public static function UnifiedOrder($oid,$bill,$uid,$type="web"){
         $target = [
@@ -966,20 +972,18 @@ class DreamServersManager extends DBManager {
     }
 
     //退款
-    public function WxRefund($oid){
+    public function WxRefund($oid,$refundBill = -1,$reid=""){
         $order = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),self::FieldIsValue('oid',$oid)),true);
         if(!empty($order)){
             $order = $order[0];
         }else{
             return RESPONDINSTANCE('95');
         }
-        /*if($order['traid'] == ""){
-            return RESPONDINSTANCE('96');
-        }*/
+
         $oid = $order['oid'];
         $traid = $order['traid'];
         $bill = $order['bill'];
-        $refundid = self::GenerateOrderToRefundOid($oid);
+        $refundid = ($reid=="")?self::GenerateOrderToRefundOid($oid):$reid;
 
         include 'init.php';
 
@@ -1001,9 +1005,9 @@ class DreamServersManager extends DBManager {
                 // 微信支付密钥
                 'mch_key'    => $GLOBALS['options']['MCH_KEY'],
                 // 微信证书 cert 文件
-                'ssl_cer'    => 'public/cert/apiclient_cert.pem',
+                'ssl_cer'    => ROOT_DIR().'/cert/apiclient_cert.pem',
                 // 微信证书 key 文件
-                'ssl_key'    =>  'public/cert/apiclient_key.pem',
+                'ssl_key'    =>  ROOT_DIR().'/cert/apiclient_key.pem',
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址
@@ -1013,21 +1017,32 @@ class DreamServersManager extends DBManager {
             ]
         ];
 
+        if($refundBill == -1){
+            $refundBill = $bill;
+        }
+
+
+
 // 实例支付对象
         $pay = new \Pay\Pay($config);
 // 订单退款参数
         $options = [
-            'out_trade_no'  => $traid, // 原商户订单号
+            'out_trade_no'  => $oid, // 原商户订单号
             'out_refund_no' => $refundid, // 退款订单号
             'total_fee'     => $bill,   // 原订单交易总金额
-            'refund_fee'    => $bill,  // 申请退款金额
+            'refund_fee'    => $refundBill,  // 申请退款金额
         ];
         try {
             $result = $pay->driver('wechat')->gateway('transfer')->refund($options);
-            echo '<pre>';
-            var_export($result);
+            $backMsg = RESPONDINSTANCE('0');
+            foreach ($result as $key=>$item) {
+                $backMsg[$key] = $item;
+            }
+            return $backMsg;
         } catch (Exception $e) {
-            echo $e->getMessage();
+            $backMsg = RESPONDINSTANCE('96');
+            $backMsg['error'] = $e->getMessage();
+            return $backMsg;
         }
     }
 

@@ -592,7 +592,9 @@ class PermissionManager{
     }
 }
 
-
+function ROOT_DIR(){
+    return __DIR__;
+}
 
 //设置模块的响应动作
 function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//此处permission可被R中权限覆盖

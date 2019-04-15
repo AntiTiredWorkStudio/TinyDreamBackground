@@ -201,6 +201,12 @@ class ContractManager extends DBManager{
         }
 
         $monthCount = count($monthIndex);
+        $month = date("Ym",PRC_TIME());
+
+        if($needIndex==-1) {
+            $needIndex = array_search($month, $monthIndex);
+        }
+
         if($needIndex > ($monthCount-1)){
             $needIndex = ($monthCount-1);
         }
@@ -217,6 +223,7 @@ class ContractManager extends DBManager{
         }
 
         return [
+            'realMonth'=>$month,
             'monthIndex'=>$monthIndex,
             'monthCount'=>$monthCount,
             'currentIndex'=>($needIndex==-1?"all":$needIndex),

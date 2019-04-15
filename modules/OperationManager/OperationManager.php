@@ -44,16 +44,18 @@ class OperationManager extends DBManager{
     }
 
 	//创建合约实例
-	public static function CreateContractInstance($cid,$uid,$theme){
+	public static function CreateContractInstance($cid,$uid,$theme,$opid=""){
         $tContract = ContractManager::GetContractInfo($cid);
         if(empty($tContract)){//判断存在合约
             return [];
         }
         $OPM = new OperationManager();
-
+        if($opid == ""){
+            $opid = self::GenerateOperationID();
+        }
 		$timeStamp = PRC_TIME();
         $operation = [
-            "opid"=>self::GenerateOperationID(),
+            "opid"=>$opid,
             "uid"=>$uid,
             "cid"=>$cid,
             "starttime"=>DAY_START_CELL($timeStamp),
@@ -173,6 +175,18 @@ class OperationManager extends DBManager{
 		return $attendance;
     }
 
+    //通过打卡记录id获取打卡记录
+    public static function GetAttendenceById($atid){
+        $OPM = new OperationManager();
+        $attendance = DBResultToArray($OPM->SelectDataByQuery($OPM->TName('tAttend'),
+            self::FieldIsValue('atid',$atid)
+        ),true);
+        if(!empty($attendance)){
+            $attendance = $attendance[0];
+        }
+        return $attendance;
+    }
+
     //用户补卡条件判断
     public static function DoOperationPatchAttendence($opid){
         $OPM = new OperationManager();
@@ -201,6 +215,34 @@ class OperationManager extends DBManager{
 				],','),
 			self::FieldIsValue('opid',$menchanceOperation['opid']));
         return true;
+    }
+
+    //行动退款
+    public static function OperationRefund($operation,$contract,$attendid){
+        $OPM = new DreamServersManager();
+        $tOrder = DBResultToArray(
+            $OPM->SelectDataByQuery(
+                $OPM->TName('tOrder'),
+                self::FieldIsValue('pid',$operation['opid'])
+            ),true
+        );
+        if(empty($tOrder)){
+            return false;
+        }
+
+        $attendence = self::GetAttendenceById($attendid);
+
+        $tOrder = $tOrder[0];
+        $attendenceIndex = (DAY_START_CELL($attendence['time']) - $operation['starttime'])/86400;
+        $bill = 0;
+        //EVERYDAY', 'END
+        if($contract['backrule'] == 'EVERYDAY'){
+
+        }
+        if($contract['backrule'] == 'END'){
+            //if($attendenceIndex==)
+        }
+        return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid);
     }
 
     //参加合约，点击参加按钮时调用
@@ -238,13 +280,14 @@ class OperationManager extends DBManager{
 
     //完成支付后成功参与合约，创建行动实例
     public function JoinContractComplete($cid,$oid,$uid,$theme){
+        $opid = self::GenerateOperationID();
         //完成订单
-        if(!DreamServersManager::OrderFinished($oid,['state'=>'SUCCESS'])){
+        if(!DreamServersManager::OrderFinished($oid,['pid'=>$opid,'state'=>'SUCCESS'])){
             return RESPONDINSTANCE('20');
         }
 
         //创建行动实例
-        $operation = self::CreateContractInstance($cid,$uid,$theme);
+        $operation = self::CreateContractInstance($cid,$uid,$theme,$opid);
 
         if(empty($operation)){
             return RESPONDINSTANCE('83');
@@ -534,6 +577,9 @@ class OperationManager extends DBManager{
 			"state"=>"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
+
+        self::OperationRefund($currentOperation,$currentContract,$atid);
+
 
 		if(!$result){//已经打卡
 			return RESPONDINSTANCE('84',$dateString.",插入问题");
