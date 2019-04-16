@@ -559,7 +559,7 @@ class OperationManager extends DBManager{
 		}else{
 		    if($deltaTime>DAY_TIME){
                 $mis = floor($deltaTime/DAY_TIME);
-                $conday=1;//重置连续打卡天数
+                $conday=0;//重置连续打卡天数
                 $misday=$misday+$mis;//增加漏卡天数
             }
         }
