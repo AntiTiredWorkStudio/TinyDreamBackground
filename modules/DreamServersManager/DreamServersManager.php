@@ -955,8 +955,20 @@ class DreamServersManager extends DBManager {
 
     //获取用户的全部订单
     public function GetAllOrdersUser($uid){
-        $array = DBResultToArray($this->SelectDataFromTable($this->TName('tOrder'),
-            ['uid'=>$uid,'_logic'=>' ']),true);
+		$condition = self::FieldIsValue('uid',$uid);
+		$total = -1;
+		if(isset($_REQUEST['seek']) && isset($_REQUEST['count'])){
+			$total = $this->CountTableRowByQuery($this->TName('tOrder'),$condition);
+			$condition = self::Limit($condition,$_REQUEST['seek'],$_REQUEST['count']);
+		}
+        $array = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),
+           $condition),true);
+		if($total != -1){
+			$backMsg = RESPONDINSTANCE('0');
+			$backMsg['total'] = $total;
+			$backMsg['orders'] = $array;
+			return $backMsg;
+		}   
         return $array;
     }
 
