@@ -481,8 +481,7 @@ class OperationManager extends DBManager{
 
 	//打卡
 	public function MakeAttendance($opid,$uid){
-        $dayOffset = isset($_REQUEST['dfs'])?$_REQUEST['dfs']:0;
-		$currentTimeStamp = PRC_TIME()+DAY_TIME*$dayOffset;//时间戳
+		$currentTimeStamp = PRC_TIME()+DAY_TIME*ContractManager::Day_Offset();//时间戳
 		$dateString = date("Y-m-d",$currentTimeStamp);//时间戳时间
 
 		$currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
@@ -669,13 +668,13 @@ class OperationManager extends DBManager{
             $totaloperation = $info[$countField];
             $menchance = $info[$menchanceField];
             $invcount = $info[$invcountField];
+			$backMsg['info'] = [
+				'alrday'=>$alrday,
+				'totaloperation'=>$totaloperation,
+				'menchance'=>$menchance,
+				'invcount'=>$invcount
+			];
         }
-        $backMsg['info'] = [
-            'alrday'=>$alrday,
-            'totaloperation'=>$totaloperation,
-            'menchance'=>$menchance,
-            'invcount'=>$invcount
-        ];
         return $backMsg;
     }
 

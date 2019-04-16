@@ -151,9 +151,13 @@ class ContractManager extends DBManager{
         $days = self::RemoveSimlarDay($days);
         return $days;
     }
-
+	
+	public static function Day_Offset(){
+		return isset($_REQUEST['dfs'])?$_REQUEST['dfs']:0;
+	}
 	//计算日历(购买时间,合约ID)
 	public static function GetMonthList($buyTime,$cid,$needIndex=-1){
+		$currentTimeStamp = PRC_TIME()+86400*self::Day_Offset();
         $showtime=date("Y-m-d H:i:s", DAY_START_CELL($buyTime));
         $contract = self::GetContractInfo($cid);
         $startDayStamp = DAY_START_CELL($buyTime);
@@ -187,7 +191,8 @@ class ContractManager extends DBManager{
             }
 
             $totalCount++;
-            array_push($day[$todayYear.$todayMonth],[
+			
+			$dayObject = [
                 'id'=>$i+1,
                 'dateStamp' =>$currentDayValue,
                 'date' => date("Y-m-d",$currentDayValue),
@@ -196,7 +201,14 @@ class ContractManager extends DBManager{
                 'Month' => $todayMonth,
                 'Day' => date("d",$currentDayValue),
                 'needReply'=> ($contract['attrule']=="RELAY")
-            ]);
+            ];
+			
+			
+			if(DAY_START_FLOOR($currentTimeStamp)==$currentDayValue){
+				$dayObject['today'] = true;
+			}
+			
+            array_push($day[$todayYear.$todayMonth],$dayObject);
 
         }
 
