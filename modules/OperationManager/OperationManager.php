@@ -621,11 +621,11 @@ class OperationManager extends DBManager{
 	public function OperationInfo($opid){
 
         $operation = self::GetOperationByID($opid);
-        $contract = ContractManager::GetContractInfo($operation['cid']);
-        $durnation = $contract['durnation'];
         if(empty($operation)){
             return RESPONDINSTANCE('94');
         }
+        $contract = ContractManager::GetContractInfo($operation['cid']);
+        $durnation = $contract['durnation'];
         $user = UserManager::GetUserInfo($operation['uid']);
         $info = [
             "desday" => $durnation-$operation['alrday'],//距离目标天数
