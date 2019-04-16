@@ -326,12 +326,14 @@ class OperationManager extends DBManager{
 	public function OnShareOpen($opid){
 		$operation = self::GetOperationByID($opid);
 		$uid = $operation['uid'];
+		$contractRefund = ContractManager::GetContractInfo($operation['cid'])['refund'];
 		$uinfo = $this->UserOperationInfo($uid);
 		$userInfo = UserManager::GetUserInfo($uid);
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['alrday'] =  $uinfo['info']['alrday'];
 		$backMsg['nickname'] = $userInfo['nickname'];
 		$backMsg['headicon'] = $userInfo['headicon'];
+		$backMsg['refund'] = $contractRefund;
 		$backMsg['contract'] = ContractManager::MakeContractList();
 		return $backMsg;
 	}
