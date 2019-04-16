@@ -321,6 +321,20 @@ class OperationManager extends DBManager{
         }
 		return $backMsg;
     }
+	
+	//打开分享页面
+	public function OnShareOpen($opid){
+		$operation = self::GetOperationByID($opid);
+		$uid = $operation['uid'];
+		$uinfo = $this->UserOperationInfo($uid);
+		$userInfo = UserManager::GetUserInfo($uid);
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['alrday'] =  $uinfo['info']['alrday'];
+		$backMsg['nickname'] = $userInfo['nickname'];
+		$backMsg['headicon'] = $userInfo['headicon'];
+		$backMsg['contract'] = ContractManager::MakeContractList();
+		return $backMsg;
+	}
 
     //获取行动日历
     public function OperationCalendar($uid){

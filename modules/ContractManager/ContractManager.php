@@ -258,6 +258,18 @@ class ContractManager extends DBManager{
     }
 
 	//获取合约类型表（信息）
+	public static function MakeContractList(){
+        $backMsg = RESPONDINSTANCE('0');
+		$CM = new ContractManager();
+        $result = DBResultToArray(
+            $CM->SelectDataByQuery($CM->TName('tContract'),"1"),
+            true
+        );
+        return $result;
+    }
+
+
+	//获取合约类型表（信息）
 	public function ContractList(){
         $backMsg = RESPONDINSTANCE('0');
         $result = DBResultToArray(

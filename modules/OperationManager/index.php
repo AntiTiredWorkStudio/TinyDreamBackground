@@ -16,5 +16,6 @@
         'olist'=>R('OperationList',['uid','seek','count']),//获得用户所有行动列表,参数：[uid:用户openid,seek:页数,count:每页个数]
         'uinfo'=>R('UserOperationInfo',['uid']),//用户行动信息,参数：[uid:用户openid]
         'ihics'=>R('UserInvitedUserHeadicons',['uid']), //获得被用户邀请的全部邀请者的头像[uid:用户openid]
+		'oshar'=>R('OnShareOpen',['opid']),//打开分享页面,参与：[opid:行动id]
     ]);
 ?>
