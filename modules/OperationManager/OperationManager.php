@@ -259,9 +259,9 @@ class OperationManager extends DBManager{
 	//进入行动派首页
 	public function EnterOperationMainPage($uid){
 		$doingOperation = self::UserDoingOperation($uid);
-		/*if(!empty($doingOperation)){
+		if(!empty($doingOperation)){
 			return RESPONDINSTANCE('82');
-		}*/
+		}
 		$orders = DreamServersManager::GetOrderLikeTypeByIndex("CO%",0,8);
 		$uidList = [];
 		foreach($orders as $order){
@@ -280,9 +280,17 @@ class OperationManager extends DBManager{
 			unset($orders[$key]['traid']);
 			unset($orders[$key]['dcount']);
 		}
+		$cPersonField="COUNT(DISTINCT `uid`)";
+		$cPerson = DBResultToArray($this->SelectDataByQuery($this->TName('tOperation'),1,false,$cPersonField),true);
+		if(!empty($cPerson)){
+			$cPerson = $cPerson[0];
+		}
+		$cAttendence = $this->CountTableRowByQuery($this->TName('tAttend'),1);
 		$backMsg = RESPONDINSTANCE('0');
 		$backMsg['orders'] = $orders;
         $backMsg['feedback'] = SnippetManager::GetAttributeFromData('OperationData','feedback');
+        $backMsg['cPerson'] = $cPerson[$cPersonField];
+        $backMsg['cAttendence'] = $cAttendence;
 		return $backMsg;
 	}
 	
@@ -313,7 +321,6 @@ class OperationManager extends DBManager{
         }
 
         $backMsg = RESPONDINSTANCE('0');
-
         $backMsg['order'] = $orderInfo;
         $backMsg['pay'] = $unifiedInfo;
         return $backMsg;
