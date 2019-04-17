@@ -976,7 +976,7 @@ class DreamServersManager extends DBManager {
 		$total = -1;
 		if(isset($_REQUEST['seek']) && isset($_REQUEST['count'])){
 			$total = $this->CountTableRowByQuery($this->TName('tOrder'),$condition);
-			$condition = self::Limit($condition,$_REQUEST['seek'],$_REQUEST['count']);
+			$condition = self::Limit(self::C_And($condition,self::FieldIsValue('state','SUCCESS')),$_REQUEST['seek'],$_REQUEST['count']);
 		}
         $array = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),
            $condition),true);
