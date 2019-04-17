@@ -351,7 +351,11 @@ $tables = [
     'tInvite'=>[
         'name'=>'invite',
         'command'=>"CREATE TABLE `#DBName#` ( `inid` TEXT NOT NULL COMMENT '邀请id' , `iuid` TEXT NOT NULL COMMENT '邀请者id' , `tuid` TEXT NOT NULL COMMENT '被邀请者id' , `opid` TEXT NOT NULL COMMENT '邀请者行动id' , `time` INT NOT NULL COMMENT '邀请时间' , `date` TEXT NOT NULL COMMENT '邀请日期' , PRIMARY KEY (`inid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '邀请记录表';"
-    ]
+    ],
+	'tRefund'=>[
+		'name'=>'refund',
+		'command'=>"CREATE TABLE `#DBName#` ( `reid` TEXT NOT NULL COMMENT '退款id' , `oid` TEXT NOT NULL COMMENT '原订单号' , `bill` INT NOT NULL COMMENT '退款金额' , `time` INT NOT NULL COMMENT '退款时间' , `state` ENUM('SUCCESS','FAILED') NOT NULL COMMENT '退款状态' , `reason` TEXT NOT NULL COMMENT '退款理由' , PRIMARY KEY (`reid`(15))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '退款记录';"
+	]
 ];
 
 
