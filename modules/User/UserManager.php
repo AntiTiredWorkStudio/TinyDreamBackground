@@ -357,17 +357,25 @@ class UserManager extends DBManager{
             $userArray = $userArray[0];
         }
 
-        $cPersonField="COUNT(DISTINCT `uid`)";
-        $cPerson = DBResultToArray($this->SelectDataByQuery($this->TName('tOperation'),1,false,$cPersonField),true);
-        if(!empty($cPerson)){
-            $cPerson = $cPerson[0];
-        }
-        $cAttendence = $this->CountTableRowByQuery($this->TName('tAttend'),1);
-
         $backMsg = RESPONDINSTANCE('0');
+
+        $attend = 'SUM('.self::SqlField('alrday').")";
+        $continue = 'SUM('.self::SqlField('conday').")";
+
+        $data = DBResultToArray($this->SelectDataByQuery(
+            $this->TName('tOperation'),
+            self::FieldIsValue('uid',$uid),
+            false,
+            self::LogicString([$attend,$continue],',')
+        ),true);
+
+        if(!empty($data)){
+            $data = $data[0];
+            $backMsg['total_alrday'] = $data[$attend];
+            $backMsg['total_conday'] = $data[$continue];
+        }
+
         $backMsg['selfinfo'] = $userArray;
-        $backMsg['cPerson'] = $cPerson[$cPersonField];
-        $backMsg['cAttendence'] = $cAttendence;
         return $backMsg;
     }
 	
