@@ -356,8 +356,18 @@ class UserManager extends DBManager{
         if(!empty($userArray)){
             $userArray = $userArray[0];
         }
+
+        $cPersonField="COUNT(DISTINCT `uid`)";
+        $cPerson = DBResultToArray($this->SelectDataByQuery($this->TName('tOperation'),1,false,$cPersonField),true);
+        if(!empty($cPerson)){
+            $cPerson = $cPerson[0];
+        }
+        $cAttendence = $this->CountTableRowByQuery($this->TName('tAttend'),1);
+
         $backMsg = RESPONDINSTANCE('0');
         $backMsg['selfinfo'] = $userArray;
+        $backMsg['cPerson'] = $cPerson[$cPersonField];
+        $backMsg['cAttendence'] = $cAttendence;
         return $backMsg;
     }
 	
