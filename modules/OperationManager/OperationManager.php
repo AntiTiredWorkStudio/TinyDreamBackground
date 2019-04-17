@@ -263,7 +263,7 @@ class OperationManager extends DBManager{
 	public function EnterOperationMainPage($uid){
 		$doingOperation = self::UserDoingOperation($uid);
 		if(!empty($doingOperation)){
-			//return RESPONDINSTANCE('82');
+			return RESPONDINSTANCE('82');
 		}
 		$orders = DreamServersManager::GetOrderLikeTypeByIndex("CO%",0,8);
 		$uidList = [];
@@ -424,6 +424,7 @@ class OperationManager extends DBManager{
         $backMsg = RESPONDINSTANCE('0');
         $calendar['days'] = (isset($_REQUEST['full']) && $_REQUEST['full']=="month")?ContractManager::FullMonthList($calendar['days']):$calendar['days'];
         $backMsg['calendar'] = $calendar;
+        $backMsg['cid'] = $currentOperation['cid'];
         $backMsg['lastattend'] = $currentOperation['lasttime'];
         return $backMsg;
     }

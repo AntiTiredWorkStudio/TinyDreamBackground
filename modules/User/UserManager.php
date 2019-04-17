@@ -371,8 +371,9 @@ class UserManager extends DBManager{
 
         if(!empty($data)){
             $data = $data[0];
-            $backMsg['total_alrday'] = $data[$attend];
-            $backMsg['total_conday'] = $data[$continue];
+			$backMsg['total'] =$data;
+            //$backMsg['total_alrday'] = $data[$attend];
+            //$backMsg['total_conday'] = $data[$continue];
         }
 
         $backMsg['selfinfo'] = $userArray;
