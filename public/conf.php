@@ -150,7 +150,8 @@ $fallbacks = [
 	'98' => "模块#FALLTEXT#不存在",
 	'99' => "请求错误:#FALLTEXT#",
 	'100' => "参数错误:#FALLTEXT#",
-	'101' => "appid不匹配"
+	'101' => "appid不匹配",
+	'110' => "无退款",
 ];
 
 //权限级别定义
@@ -354,7 +355,7 @@ $tables = [
     ],
 	'tRefund'=>[
 		'name'=>'refund',
-		'command'=>"CREATE TABLE `#DBName#` ( `reid` TEXT NOT NULL COMMENT '退款id' , `oid` TEXT NOT NULL COMMENT '原订单号' , `bill` INT NOT NULL COMMENT '退款金额' , `time` INT NOT NULL COMMENT '退款时间' , `state` ENUM('SUCCESS','FAILED') NOT NULL COMMENT '退款状态' , `reason` TEXT NOT NULL COMMENT '退款理由' , PRIMARY KEY (`reid`(15))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '退款记录';"
+		'command'=>"CREATE TABLE `#DBName#` ( `reid` TEXT NOT NULL COMMENT '退款id', `uid` TEXT NOT NULL COMMENT '用户id' , `oid` TEXT NOT NULL COMMENT '原订单号' , `bill` INT NOT NULL COMMENT '退款金额' , `time` INT NOT NULL COMMENT '退款时间' , `state` ENUM('SUCCESS','FAILED') NOT NULL COMMENT '退款状态' , `reason` TEXT NOT NULL COMMENT '退款理由' , PRIMARY KEY (`reid`(15))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '退款记录';"
 	]
 ];
 

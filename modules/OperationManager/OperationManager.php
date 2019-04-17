@@ -253,7 +253,10 @@ class OperationManager extends DBManager{
                 $bill = $contract['refund'];
             }
         }
-        return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid);
+		if($bill == 0){
+			return RESPONDINSTANCE('110');
+		}
+        return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid,"行动打卡退款");
     }
 
 	//进入行动派首页

@@ -573,9 +573,9 @@ class DreamServersManager extends DBManager {
 	}
 
     //便捷版退款
-    public static function Refund($oid,$rebill=-1,$reid=""){
+    public static function Refund($oid,$rebill=-1,$reid="",$reason=""){
         $DSM = new DreamServersManager();
-        return $DSM->WxRefund($oid,$rebill,$reid);
+        return $DSM->WxRefund($oid,$rebill,$reid,$reason);
     }
 
     //便捷版统一下单
@@ -1001,7 +1001,7 @@ class DreamServersManager extends DBManager {
     }
 
     //退款
-    public function WxRefund($oid,$refundBill = -1,$reid=""){
+    public function WxRefund($oid,$refundBill = -1,$reid="",$reason=""){
         $order = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),self::FieldIsValue('oid',$oid)),true);
         if(!empty($order)){
             $order = $order[0];
@@ -1067,13 +1067,52 @@ class DreamServersManager extends DBManager {
             foreach ($result as $key=>$item) {
                 $backMsg[$key] = $item;
             }
+			self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
             return $backMsg;
         } catch (Exception $e) {
             return RESPONDINSTANCE('96',":退款异常");
             $backMsg['error'] = $e->getMessage();
+			self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
             return $backMsg;
         }
     }
+	
+	//用户退款列表信息
+	public function RefundList($uid,$seek,$count){
+		$array = DBResultToArray($this->SelectDataByQuery($this->TName('tRefund'),
+			self::Limit(
+				self::C_And(
+					self::FieldIsValue('state','SUCCESS'),
+					self::FieldIsValue('uid',$uid)
+				),
+				$seek,
+				$count
+			)
+		),true);
+        $CountRefund = $this->CountTableRowByQuery($this->TName('tOperation'),
+			self::C_And(
+				self::FieldIsValue('state','SUCCESS'),
+				self::FieldIsValue('uid',$uid)
+			));
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['count'] =  $CountRefund;
+		$backMsg['refund'] = $array;
+		return $backMsg;
+	}
+	
+	//创建退款记录
+	public static function CreateRefundRecord($reid,$oid,$bill,$reason,$state){
+		$DSM = new DreamServersManager();
+		$refundArray = [
+			"reid"=>$reid,
+			"oid"=>$oid,
+			"bill"=>$bill,
+			"time"=>PRC_TIME(),
+			"state"=>$state,
+			"reason"=>$reason,
+		];
+		$DSM->InsertDataToTable($DSM->TName('tRefund'),$refundArray);
+	}
 
     //统一下单公众号
     public function WxPayWeb($oid,$bill,$uid){
