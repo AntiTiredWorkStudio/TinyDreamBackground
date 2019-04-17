@@ -438,6 +438,7 @@ class DreamServersManager extends DBManager {
 
     public function info()
     {
+		echo json_encode(DreamServersManager::GetOrderLikeTypeByIndex("CO%",0,8));
         //return self::GenerateOrderToRefundOid('101541939435');
         //echo ConnectArrayByChar(['1','2','3'],'、');
         //echo self::GenerateOrderID();
@@ -554,6 +555,22 @@ class DreamServersManager extends DBManager {
         $DSM->InsertDataToTable($DSM->TName('tOrder'),$orderArray);
         return $orderArray;
     }
+	
+	//通过范围获取订单
+	public static function GetOrderLikeTypeByIndex($type,$seek,$count){ 
+		$DSM = new DreamServersManager();
+        $orderArray = DBResultToArray($DSM->SelectDataByQuery($DSM->TName('tOrder'),
+			self::Limit(
+					self::C_And(
+						self::FieldIsValue('state','SUCCESS'),
+						self::FieldLikeValue('did',$type)
+					),
+					$seek,
+					$count
+				)
+		),true);
+        return $orderArray;
+	}
 
     //便捷版退款
     public static function Refund($oid,$rebill=-1,$reid=""){

@@ -278,6 +278,7 @@ class ContractManager extends DBManager{
         );
         $backMsg['contracts'] = $result;
         $backMsg['themes'] = self::ThemeList();
+        $backMsg['cattention'] = SnippetManager::GetAttributeFromData('OperationData','cattention');
         return $backMsg;
     }
 

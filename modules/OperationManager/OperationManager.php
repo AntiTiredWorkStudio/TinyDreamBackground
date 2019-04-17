@@ -6,6 +6,7 @@ LIB('db');
 LIB('co');
 LIB('ds');
 LIB('us');
+LIB('view');
 define("DAY_TIME",86400);
 
 class OperationManager extends DBManager{
@@ -255,6 +256,36 @@ class OperationManager extends DBManager{
         return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid);
     }
 
+	//进入行动派首页
+	public function EnterOperationMainPage($uid){
+		$doingOperation = self::UserDoingOperation($uid);
+		/*if(!empty($doingOperation)){
+			return RESPONDINSTANCE('82');
+		}*/
+		$orders = DreamServersManager::GetOrderLikeTypeByIndex("CO%",0,8);
+		$uidList = [];
+		foreach($orders as $order){
+			if(!in_array($order['uid'],$uidList))
+				array_push($uidList,$order['uid']);
+		}
+		$nicknames = UserManager::GetUserNickname(self::LogicString($uidList));
+		
+		foreach($orders as $key=>$order){
+			$orders[$key]['nickname'] = $nicknames[$order['uid']]['nickname'];
+			unset($orders[$key]['oid']);
+			unset($orders[$key]['uid']);
+			unset($orders[$key]['pid']);
+			unset($orders[$key]['ctime']);
+			unset($orders[$key]['ptime']);
+			unset($orders[$key]['traid']);
+			unset($orders[$key]['dcount']);
+		}
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['orders'] = $orders;
+        $backMsg['feedback'] = SnippetManager::GetAttributeFromData('OperationData','feedback');
+		return $backMsg;
+	}
+	
     //参加合约，点击参加按钮时调用
 	public function JoinContract($cid,$uid){
         $tContract = ContractManager::GetContractInfo($cid);

@@ -253,7 +253,11 @@ class UserManager extends DBManager{
                 ($resultArray['state']=="SUCCESS"));
     }
 
-
+	//获取用户的昵称列表
+	public static function GetUserNickname($uid){
+        $USM = new UserManager();
+		return DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),self::FieldIsValue('uid',$uid),false,"`uid`,`nickname`"),false);
+	}
 
 
     //获取验证码
