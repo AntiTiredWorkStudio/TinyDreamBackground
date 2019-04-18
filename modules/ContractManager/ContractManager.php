@@ -89,7 +89,11 @@ class ContractManager extends DBManager{
             }
             $weekForwardArray = array_reverse($weekForwardArray);
             //$forwardDays = array_merge($weekForwardArray,$forwardDays);
-
+        //$forwardDays[count($forwardDays)-1]['id']=0;
+        if(count($forwardDays)>0) {
+            $forwardDays[count($forwardDays) - 1]['id'] = '0';
+        }
+        //echo json_encode($forwardDays[count($forwardDays)-1]).'</br>';
         $days = array_merge($forwardDays,$days);
 
 
