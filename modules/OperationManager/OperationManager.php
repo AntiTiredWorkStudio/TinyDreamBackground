@@ -428,6 +428,7 @@ class OperationManager extends DBManager{
         $backMsg['calendar'] = $calendar;
         $backMsg['cid'] = $currentOperation['cid'];
         $backMsg['lastattend'] = $currentOperation['lasttime'];
+        $backMsg['date'] = date('Y-m-d',PRC_TIME());
         return $backMsg;
     }
 
