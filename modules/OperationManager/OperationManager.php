@@ -600,7 +600,9 @@ class OperationManager extends DBManager{
                 self::FieldIsValue('opid',$opid)
             );
 
-            return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
+            $backMsg = RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
+            $backMsg['date'] = date('Y-m-d',$currentTimeStamp);
+            return $backMsg;
 		}
 
 		//计算时间变化量
