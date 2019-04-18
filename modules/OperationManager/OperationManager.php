@@ -491,6 +491,24 @@ class OperationManager extends DBManager{
         }
         $targetAttendence = self::GetUserAttendence($opid,$date);
         if(empty($targetAttendence)){
+            if($currentOperation['lasttime']==-1){
+                //更新数据
+                $updateInfo = [
+                    "lasttime"=>-2
+                ];
+                //更新行动数据
+                $this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
+                    self::FieldIsValue('opid',$opid)
+                );
+                $firstResult = RESPONDINSTANCE('0');
+                $firstResult['beforestart'] = true;
+                return $firstResult;
+            }
+            if($currentOperation['lasttime']==-2){
+                $firstResult = RESPONDINSTANCE('0');
+                $firstResult['beforestart'] = true;
+                return $firstResult;
+            }
             return RESPONDINSTANCE('92',$date);
         }
         if($targetAttendence['state']!="NOTRELAY"){
@@ -572,6 +590,16 @@ class OperationManager extends DBManager{
 		$state = $currentOperation['state'];//行动状态
 
 		if($currentTimeStamp<$startAttendanceTime){//未到开始打卡时间
+
+            //更新数据
+            $updateInfo = [
+                "lasttime"=>-1
+            ];
+            //更新行动数据
+            $this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
+                self::FieldIsValue('opid',$opid)
+            );
+
             return RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
 		}
 
@@ -620,7 +648,7 @@ class OperationManager extends DBManager{
 			}
 		}
 
-		
+
 		//更新数据
 		$updateInfo = [
 			"alrday"=>$alrday,
