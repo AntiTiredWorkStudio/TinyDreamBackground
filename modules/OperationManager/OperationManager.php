@@ -37,8 +37,10 @@ class OperationManager extends DBManager{
 	//生成打卡ID
     public static function GenerateAttendenceID($opid,$timeStamp){
         $OPM = new OperationManager();
+        $date = date("YmdHis",DAY_START_FLOOR($timeStamp));
+        $counttoday = $OPM->CountTableRowByQuery($OPM->TName('tAttend'),self::FieldLikeValue('atid',$date.'%'));
         //生成订单号
-        $AttendenceID = (999999+($opid%1000000)).date("Ymd",DAY_START_FLOOR($timeStamp));
+        $AttendenceID = date("YmdHis",$timeStamp).$counttoday;
         if($OPM->SelectDataFromTable('tAttend',['atid'=>$AttendenceID,'_logic'=>' '])){
 			return "";
 		}
@@ -618,7 +620,7 @@ class OperationManager extends DBManager{
 			}
 		}
 
-
+		
 		//更新数据
 		$updateInfo = [
 			"alrday"=>$alrday,
