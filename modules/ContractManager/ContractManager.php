@@ -36,13 +36,16 @@ class ContractManager extends DBManager{
 	//将月份信息首尾补充完整,参数需要接收GetMonthList处理过的对象
 	public static function FullMonthList($days){
         //return $days;
+        //echo json_encode($days);
         $weekarray=["日","一","二","三","四","五","六"];
 
         $optionDateStamp = $days[0]['dateStamp'];
         $beginDate=date('Y-m-01', $optionDateStamp);
         $seekDay = $beginDate;
         $forwardDays = [];
+        $addedFirst = ($seekDay != $days[0]['date']);
         while ($seekDay != $days[0]['date']){
+            //echo $seekDay.'<-->'.$days[0]['date'];
             $dayTimeStamp = strtotime($seekDay);
             $year = date('Y',$dayTimeStamp);
             $month = date('m',$dayTimeStamp);
@@ -62,7 +65,7 @@ class ContractManager extends DBManager{
         }
 
 
-        if(empty($forwardDays)){
+        if(empty($forwardDays) && $addedFirst){
             $forwardDays = [
                 [
                     "dateStamp"=>$days[0]['dateStamp'],
@@ -74,20 +77,25 @@ class ContractManager extends DBManager{
                 ]
             ];
         }
-            $daySeek = $forwardDays[0];
 
-            $weekSeek = date('w',$forwardDays[0]['dateStamp']);
-            $weekForwardArray = [];
-            for($i=($weekSeek-1);$i>=0;$i--){
-                $daySeek['dateStamp'] = $daySeek['dateStamp']-86400;
-                $daySeek['date'] = date('Y-m-d',$daySeek['dateStamp']);
-                $daySeek['weekDay'] = $weekarray[date('w',$daySeek['dateStamp'])];
-                $daySeek['Year'] = date('Y',$daySeek['dateStamp']);
-                $daySeek['Month'] = date('m',$daySeek['dateStamp']);
-                $daySeek['Day'] = date('d',$daySeek['dateStamp']);
-                array_push($weekForwardArray,$daySeek);
-            }
-            $weekForwardArray = array_reverse($weekForwardArray);
+
+
+       /* $daySeek = $forwardDays[0];
+
+        $weekSeek = date('w',$forwardDays[0]['dateStamp']);
+        $weekForwardArray = [];
+        for($i=($weekSeek-1);$i>=0;$i--){
+            $daySeek['dateStamp'] = $daySeek['dateStamp']-86400;
+            $daySeek['date'] = date('Y-m-d',$daySeek['dateStamp']);
+            $daySeek['weekDay'] = $weekarray[date('w',$daySeek['dateStamp'])];
+            $daySeek['Year'] = date('Y',$daySeek['dateStamp']);
+            $daySeek['Month'] = date('m',$daySeek['dateStamp']);
+            $daySeek['Day'] = date('d',$daySeek['dateStamp']);
+            array_push($weekForwardArray,$daySeek);
+        }
+        $weekForwardArray = array_reverse($weekForwardArray);*/
+
+
             //$forwardDays = array_merge($weekForwardArray,$forwardDays);
         //$forwardDays[count($forwardDays)-1]['id']=0;
         if(count($forwardDays)>0) {
