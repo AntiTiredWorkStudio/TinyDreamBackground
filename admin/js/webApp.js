@@ -113,8 +113,8 @@ var WebApp = {
 	}
 	return codeData;
   },
-  InitUpload:function(){
-      document.write('<script type="text/javascript" src="https://'+Options.CombineUrl+'/admin/js/qiniu.min.js"></script>');
+  InitUpload:function(){//https://tinydream.antit.top/admin/js/qiniu.min.js
+      document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
   },
   UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
 		  var config = {
