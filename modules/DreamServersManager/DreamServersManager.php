@@ -1070,7 +1070,8 @@ class DreamServersManager extends DBManager {
 			self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
             return $backMsg;
         } catch (Exception $e) {
-            return RESPONDINSTANCE('96',":退款异常");
+			echo json_encode($options);
+            $backMsg = RESPONDINSTANCE('96',":退款异常");
             $backMsg['error'] = $e->getMessage();
 			self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
             return $backMsg;
