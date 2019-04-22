@@ -1013,7 +1013,7 @@ class DreamServersManager extends DBManager {
         $uid = $order['uid'];
         $refundid = ($reid=="")?self::GenerateOrderToRefundOid($oid):$reid;
 
-        include '../init.php';
+        include 'init.php';
 
 // 加载配置参数
         $config = [
