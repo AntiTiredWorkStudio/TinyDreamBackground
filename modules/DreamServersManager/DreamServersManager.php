@@ -575,7 +575,7 @@ class DreamServersManager extends DBManager {
     //便捷版退款
     public static function Refund($oid,$rebill=-1,$reid="",$reason=""){
         $DSM = new DreamServersManager();
-        return $DSM->WxRefund($oid,$rebill,$reid,$reason);
+        return $DSM->WxTransfer($oid,$rebill,$reid,$reason);
     }
 
     //便捷版统一下单
@@ -1000,6 +1000,81 @@ class DreamServersManager extends DBManager {
         return $backMsg;
     }
 
+    //企业转账
+    public function WxTransfer($oid,$refundBill = -1,$reid="",$reason=""){
+        $order = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),self::FieldIsValue('oid',$oid)),true);
+        if(!empty($order)){
+            $order = $order[0];
+        }else{
+            return RESPONDINSTANCE('95');
+        }
+
+        $oid = $order['oid'];
+        $uid = $order['uid'];
+        $refundid = ($reid=="")?self::GenerateOrderToRefundOid($oid):$reid;
+
+        include '../init.php';
+
+// 加载配置参数
+        $config = [
+            'wechat'=>[
+                // 沙箱模式
+                'debug'      => false,
+                // 应用ID
+                'app_id'     => $GLOBALS['options']['WEB_APP_ID'],
+                // 微信支付商户号
+                'mch_id'     => $GLOBALS['options']['MCH_ID'],
+                /*
+                 // 子商户公众账号ID
+                 'sub_appid'  => '子商户公众账号ID，需要的时候填写',
+                 // 子商户号
+                 'sub_mch_id' => '子商户号，需要的时候填写',
+                */
+                // 微信支付密钥
+                'mch_key'    => $GLOBALS['options']['MCH_KEY'],
+                // 微信证书 cert 文件
+                'ssl_cer'    => ROOT_DIR().'/cert/apiclient_cert.pem',
+                // 微信证书 key 文件
+                'ssl_key'    =>  ROOT_DIR().'/cert/apiclient_key.pem',
+                // 缓存目录配置
+                'cache_path' => '',
+                // 支付成功通知地址
+                'notify_url' => 'https://tinydream.antit.top/paid.php',
+                // 网页支付回跳地址
+                'return_url' => '',
+            ]
+        ];
+
+// 支付参数
+        $options = [
+            'partner_trade_no' => $refundid, //商户订单号
+            'openid'           => $uid, //收款人的openid
+            'check_name'       => 'NO_CHECK', //NO_CHECK：不校验真实姓名\FORCE_CHECK：强校验真实姓名
+            // 're_user_name'     => '张三', //check_name为 FORCE_CHECK 校验实名的时候必须提交
+            'amount'           => $refundBill, //企业付款金额，单位为分
+            'desc'             => $reason, //付款说明
+            'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], //发起交易的IP地址
+        ];
+
+// 实例支付对象
+        $pay = new \Pay\Pay($config);
+
+        try {
+            $result = $pay->driver('wechat')->gateway('transfer')->apply($options);
+            $backMsg = RESPONDINSTANCE('0');
+            foreach ($result as $key=>$item) {
+                $backMsg[$key] = $item;
+            }
+            self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
+            return $backMsg;
+        } catch (Exception $e) {
+            $backMsg = RESPONDINSTANCE('96',":退款异常");
+            $backMsg['error'] = $e->getMessage();
+            self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
+            return $backMsg;
+        }
+    }
+
     //退款
     public function WxRefund($oid,$refundBill = -1,$reid="",$reason=""){
         $order = DBResultToArray($this->SelectDataByQuery($this->TName('tOrder'),self::FieldIsValue('oid',$oid)),true);
@@ -1010,7 +1085,6 @@ class DreamServersManager extends DBManager {
         }
 
         $oid = $order['oid'];
-        $traid = $order['traid'];
         $bill = $order['bill'];
         $refundid = ($reid=="")?self::GenerateOrderToRefundOid($oid):$reid;
 
@@ -1070,10 +1144,9 @@ class DreamServersManager extends DBManager {
 			self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
             return $backMsg;
         } catch (Exception $e) {
-			echo json_encode($options);
             $backMsg = RESPONDINSTANCE('96',":退款异常");
             $backMsg['error'] = $e->getMessage();
-			self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
+            self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
             return $backMsg;
         }
     }
