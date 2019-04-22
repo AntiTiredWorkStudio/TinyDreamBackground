@@ -343,7 +343,7 @@ $tables = [
     ],
     'tOperation'=>[
         'name'=>'operation',
-        'command'=>"CREATE TABLE `#DBName#` ( `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `cid` TEXT NOT NULL COMMENT '合约id' , `starttime` INT NOT NULL COMMENT '开始时间' , `lasttime` INT NOT NULL COMMENT '上次打卡时间' , `theme` TEXT NOT NULL COMMENT '主题字符串' , `alrday` INT NOT NULL COMMENT '已经打卡天数' , `conday` INT NOT NULL COMMENT '连续打卡天数' , `misday` INT NOT NULL COMMENT '漏卡天数' , `menday` INT NOT NULL COMMENT '补卡天数' , `menchance` INT NOT NULL COMMENT '补卡机会' , `invcount` INT NOT NULL COMMENT '邀请人数' , `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' , PRIMARY KEY (`opid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '行动表';"
+        'command'=>"CREATE TABLE `#DBName#` ( `opid` TEXT NOT NULL COMMENT '行动id' , `uid` TEXT NOT NULL COMMENT '用户id' , `cid` TEXT NOT NULL COMMENT '合约id' , `starttime` INT NOT NULL COMMENT '开始时间' , `lasttime` INT NOT NULL COMMENT '上次打卡时间' , `theme` TEXT NOT NULL COMMENT '主题字符串' , `alrday` INT NOT NULL COMMENT '已经打卡天数' , `conday` INT NOT NULL COMMENT '连续打卡天数' , `misday` INT NOT NULL COMMENT '漏卡天数' , `menday` INT NOT NULL COMMENT '补卡天数' , `menchance` INT NOT NULL COMMENT '补卡机会' , `invcount` INT NOT NULL COMMENT '邀请人数' , `state` ENUM('DOING','SUCCESS','FAILED') NOT NULL COMMENT '行动状态(进行，完成，失败)' , `firstday` ENUM('NONE','RELAY','NOTRELAY') NOT NULL COMMENT '首天打卡状态(转发、未转发、未打卡)' , PRIMARY KEY (`opid`(12))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '行动表';"
     ],
     'tAttend'=>[
         'name'=>'attendance',
