@@ -641,6 +641,7 @@ class OperationManager extends DBManager{
 
 		/*判断行动是否结束*/
 		$nextWillAttendanceTime = DAY_START_CELL($currentTimeStamp);
+		$end = [];
 		if($nextWillAttendanceTime >= $endAttendanceTime){//打卡结束下一天的0点>=结束日期的0点
 			$state = "SUCCESS";
 			if($alrday >= $currentContract['durnation'] && $misday<=0){//连续打卡天数达到要求且无漏卡
@@ -649,6 +650,7 @@ class OperationManager extends DBManager{
 			}else{
 				$state = "FAILED";//行动失败
 			}
+            $end = $state;
 		}
 
 
@@ -689,6 +691,9 @@ class OperationManager extends DBManager{
 		$backMsg['attendance'] = $attendanceArray;//打卡记录数据
 		$backMsg['operation'] = $updateInfo;//行动更新数据
         $backMsg['refund'] = $refundInfo;
+        if(!empty($end)){
+            $backMsg['end'] = $end;
+        }
 		return $backMsg;
 	}
 
