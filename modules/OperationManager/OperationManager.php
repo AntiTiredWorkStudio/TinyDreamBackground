@@ -239,13 +239,15 @@ class OperationManager extends DBManager{
         $tOrder = $tOrder[0];
         $attendenceIndex = (DAY_START_CELL($attendence['time']) - $operation['starttime'])/86400;
         $bill = 0;
-        //EVERYDAY', 'END
+		//echo $tOrder['bill'].'<==>'.$contract['price']." ".$tOrder['bill'].'</br>';
         if($tOrder['bill'] != $contract['price'] || $tOrder['bill']<100){
             return RESPONDINSTANCE('96',":订单金额不匹配或金额过低");
         }
+		//echo $attendenceIndex.'<==>'.$contract['durnation'];
         if($contract['backrule'] == 'EVERYDAY'){
 			if($attendenceIndex==$contract['durnation']){
-                $bill = $contract['refund'] - $attendenceIndex*100;
+                $bill = $contract['refund'] - ($attendenceIndex-1)*100;
+				//echo 'bill:'.$bill;
             }else if(DAY_START_CELL($attendence['time']) == DAY_START_CELL($operation['lasttime'])){
                 $bill = 100;
             }
