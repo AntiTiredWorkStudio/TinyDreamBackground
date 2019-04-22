@@ -244,10 +244,10 @@ class OperationManager extends DBManager{
             return RESPONDINSTANCE('96',":订单金额不匹配或金额过低");
         }
         if($contract['backrule'] == 'EVERYDAY'){
-            if($attendenceIndex==$contract['durnation']){
-                $bill = 100;
-            }else if(DAY_START_CELL($attendence['time']) == DAY_START_CELL($operation['lasttime'])){
+			if($attendenceIndex==$contract['durnation']){
                 $bill = $contract['refund'] - $attendenceIndex*100;
+            }else if(DAY_START_CELL($attendence['time']) == DAY_START_CELL($operation['lasttime'])){
+                $bill = 100;
             }
         }
         if($contract['backrule'] == 'END'){
@@ -662,6 +662,7 @@ class OperationManager extends DBManager{
 			"lasttime"=>$currentTimeStamp,
 			"state"=>$state
 		];
+		$currentOperation['lasttime'] = $currentTimeStamp;
 
 		//更新行动数据
 		$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
