@@ -516,7 +516,7 @@ class OperationManager extends DBManager{
             if($currentOperation['firstday']=="NOTRELAY"){
                 //更新数据
                 $updateInfo = [
-                    "lasttime"=>-2,
+                    //"lasttime"=>-2,
 					"firstday"=>"RELAY"
                 ];
                 //更新行动数据
@@ -619,7 +619,7 @@ class OperationManager extends DBManager{
 			if($currentOperation['firstday'] == "NONE"){
 				//更新数据
 				$updateInfo = [
-					"lasttime"=>-1,
+					//"lasttime"=>-1,
 					"firstday"=>"NOTRELAY"
 				];
 				//更新行动数据
