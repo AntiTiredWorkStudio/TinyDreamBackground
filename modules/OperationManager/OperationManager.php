@@ -414,8 +414,11 @@ class OperationManager extends DBManager{
 
         $attendenceList = DBResultToArray($this->SelectDataByQuery($this->TName('tAttend'),
             self::C_And(
-                self::FieldIsValue('uid',$uid),
-                self::FieldIsValue('date',self::LogicString($dateList))
+                self::C_And(
+                    self::FieldIsValue('uid',$uid),
+                    self::FieldIsValue('date',self::LogicString($dateList))
+                ),
+                self::FieldIsValue('opid',$currentOperation['opid'])
             ),false,
             self::LogicString(
                 [
@@ -426,6 +429,8 @@ class OperationManager extends DBManager{
                 ','
             )
         ),true);
+        //echo self::$LastSql;
+        //echo json_encode($attendenceList);
         foreach ($attendenceList as $item) {
             if(isset($calendarDateIndexList[$item['date']])){
                 $index = $calendarDateIndexList[$item['date']];
