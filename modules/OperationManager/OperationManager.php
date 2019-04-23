@@ -480,6 +480,15 @@ class OperationManager extends DBManager{
             return RESPONDINSTANCE('88');//补卡不在时间范围
         }
     }
+	
+	//清理行动及打卡数据
+	public function ClearAllOAInfo(){
+		$this->DeletDataByQuery($this->TName('tAttend'),1);
+		$this->DeletDataByQuery($this->TName('tOperation'),1);
+		$this->DeletDataByQuery($this->TName('tInvite'),1);
+		$this->DeletDataByQuery($this->TName('tOrder'),self::FieldLikeValue('did','co%'));
+		return RESPONDINSTANCE('0');
+	}
 
     //转发成功
     public function Reply($opid,$date,$uid){
@@ -494,10 +503,11 @@ class OperationManager extends DBManager{
         }
         $targetAttendence = self::GetUserAttendence($opid,$date);
         if(empty($targetAttendence)){
-            if($currentOperation['lasttime']==-1){
+            if($currentOperation['firstday']=="NOTRELAY"){
                 //更新数据
                 $updateInfo = [
-                    "lasttime"=>-2
+                    "lasttime"=>-2,
+					"firstday"=>"RELAY"
                 ];
                 //更新行动数据
                 $this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
@@ -505,11 +515,13 @@ class OperationManager extends DBManager{
                 );
                 $firstResult = RESPONDINSTANCE('0');
                 $firstResult['beforestart'] = true;
+                $firstResult['firstday'] = "RELAY";
                 return $firstResult;
             }
             if($currentOperation['lasttime']==-2){
                 $firstResult = RESPONDINSTANCE('0');
                 $firstResult['beforestart'] = true;
+                $firstResult['firstday'] = "RELAY";
                 return $firstResult;
             }
             return RESPONDINSTANCE('92',$date);
@@ -593,17 +605,19 @@ class OperationManager extends DBManager{
 		$state = $currentOperation['state'];//行动状态
 
 		if($currentTimeStamp<$startAttendanceTime){//未到开始打卡时间
-
-            //更新数据
-            $updateInfo = [
-                "lasttime"=>-1
-            ];
-            //更新行动数据
-            $this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
-                self::FieldIsValue('opid',$opid)
-            );
-
-            $backMsg = RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
+			$backMsg = RESPONDINSTANCE('86',date('Y-m-d H:i:s',$startAttendanceTime)."当前时间:".date('Y-m-d H:i:s',$currentTimeStamp));
+			if($currentOperation['firstday'] == "NONE"){
+				//更新数据
+				$updateInfo = [
+					"lasttime"=>-1,
+					"firstday"=>"NOTRELAY"
+				];
+				//更新行动数据
+				$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateInfo,
+					self::FieldIsValue('opid',$opid)
+				);
+				$backMsg['firstday'] = "NOTRELAY";
+			}
             $backMsg['date'] = date('Y-m-d',$currentTimeStamp);
             return $backMsg;
 		}
