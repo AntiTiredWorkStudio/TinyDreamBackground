@@ -427,6 +427,12 @@ class OperationManager extends DBManager{
 
         $backMsg = RESPONDINSTANCE('0');
         $calendar['days'] = (isset($_REQUEST['full']) && $_REQUEST['full']=="month")?ContractManager::FullMonthList($calendar['days']):$calendar['days'];
+		foreach($calendar['days'] as $key=>$day){
+			if(isset($day['id']) && $day['id']==0){
+				$calendar['days'][$key]['state'] = $currentOperation['firstday'];
+				//echo json_encode($day);
+			}
+		}
         $backMsg['calendar'] = $calendar;
         $backMsg['cid'] = $currentOperation['cid'];
         $backMsg['lastattend'] = $currentOperation['lasttime'];
