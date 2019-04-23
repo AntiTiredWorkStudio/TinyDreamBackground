@@ -221,6 +221,15 @@ class OperationManager extends DBManager{
         return true;
     }
 
+    //通过日期行动退款
+    public static function PatchAttendenceRefund($operation,$attendid){
+        $contract = ContractManager::GetContractInfo($operation['cid']);
+        if($contract['backrule'] == "END"){
+            return [];
+        }
+        return self::OperationRefund($operation,$contract,$attendid);
+    }
+
     //行动退款
     public static function OperationRefund($operation,$contract,$attendid){
         $OPM = new DreamServersManager();
@@ -260,6 +269,9 @@ class OperationManager extends DBManager{
 		if($bill == 0){
 			return RESPONDINSTANCE('110');
 		}
+		if($bill != 100 && $operation['misday']>0){
+            return RESPONDINSTANCE('111');//合约未成功,有漏卡天数
+        }
         return DreamServersManager::Refund($tOrder['oid'],$bill,$attendid,$attendence['date']."日行动打卡返还");
     }
 
@@ -480,6 +492,10 @@ class OperationManager extends DBManager{
                         if($supplyResult['result']){
                             $backMsg = RESPONDINSTANCE('0');
                             $backMsg['attendance'] = $supplyResult['value'];
+                            $refund = self::PatchAttendenceRefund($currentOperation,$backMsg['attendance']['atid']);
+                            if(!empty($refund)){
+                                $backMsg['refund'] = $refund;
+                            }
                             return $backMsg;
                         }else{
                             return RESPONDINSTANCE('91');
@@ -489,6 +505,10 @@ class OperationManager extends DBManager{
                         //修改打卡记录状态
                         $this->UpdateDataToTableByQuery($this->TName('tAttend'),['state'=>'SUPPLY'],self::FieldIsValue('opid',$currentOperation['opid']));
                         $backMsg = RESPONDINSTANCE('0');
+                        $refund = self::PatchAttendenceRefund($currentOperation,$targetAttendence['atid']);
+                        if(!empty($refund)){
+                            $backMsg['refund'] = $refund;
+                        }
                         return $backMsg;
                     }
                 }else{
