@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试行动打卡</title>
+</head>
+<body>
+	<script>
+	var config={
+		openid:"oSORf5kkXvHNxhIx8lQVe3DFRFvw"
+	};
+	</script>
+    <script src="http://tinydream.antit.top/TinydreamWeb/lib/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="http://tinydream.antit.top/TinydreamWeb/lib/rem.js"></script>
+    <script src="https://tinydream.antit.top/admin/js/lib.js"></script>
+    <script src="https://tinydream.antit.top/admin/js/webApp.js"></script>
+    <script>
+		TD_Request('op','mat',{opid:"199198536683",uid:"oSORf5kkXvHNxhIx8lQVe3DFRFvw"},
+			function(code,data){
+            },
+			function(code,data){
+			
+            }
+		);
+	
+	
+        /*setInterval(() => {
+            TD_Request('op','mat',{opid:"199198536683",uid:"oSORf5kkXvHNxhIx8lQVe3DFRFvw"},function(code,data){
+                
+                TD_Request('op','rep',{opid:'199198536683',date:data.today,uid:'oSORf5kkXvHNxhIx8lQVe3DFRFvw'},function(code,data){
+                },function(code,data){
+                    console.log(date);
+                })
+            },function(code,data){
+			
+            })
+        }, 2000);*/
+    </script>
+</body>
+</html>
