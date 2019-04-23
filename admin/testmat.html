@@ -7,9 +7,11 @@
     <title>测试行动打卡</title>
 </head>
 <body>
+    <p id="console"></p>
 	<script>
 	var config={
-		openid:"oSORf5kkXvHNxhIx8lQVe3DFRFvw"
+		openid:"oSORf5kn6hr_H5ZSRyYSHFUzyBd4",//测试打卡用户的uid
+        delay : 1500,//默认延迟的秒数
 	};
 	</script>
     <script src="http://tinydream.antit.top/TinydreamWeb/lib/jquery-1.12.3.min.js"></script>
@@ -18,13 +20,106 @@
     <script src="https://tinydream.antit.top/admin/js/lib.js"></script>
     <script src="https://tinydream.antit.top/admin/js/webApp.js"></script>
     <script>
-		TD_Request('op','mat',{opid:"199198536683",uid:"oSORf5kkXvHNxhIx8lQVe3DFRFvw"},
-			function(code,data){
-            },
-			function(code,data){
-			
+        var printf = function (context) {
+            var current = $("#console").html();
+            $("#console").html((context+"</br>")+current);
+        }
+
+        var clear = function () {
+            $("#console").html("");
+        }
+        
+        var today = function () {
+            return parseInt(new Date().getTime()/1000);
+        }
+        var OnGetContract = function (code,data) {
+            var durnation = data.contract.durnation;
+            //printf(durnation);
+            var datetime = config.lasttime==0?today():config.lasttime;
+
+            var starttime = config.starttime;
+            config.endtime = parseInt(config.starttime)+durnation*86400;
+
+            var delta = datetime - starttime;
+            delta = (delta<0)?0:delta;
+
+            var deltaFinished = config.endtime - datetime;
+            deltaFinished = (deltaFinished<0)?0:deltaFinished;
+
+            config.dfs = Math.floor(delta/86400)+1;
+            config.tdfs = Math.floor(deltaFinished/86400);
+
+            config.seek = config.dfs;
+            printf("当前配置:"+JSON.stringify(config));
+
+            DoInterval();
+        }
+
+        var Init = function () {
+            TD_Request('op','gudo',{uid:config.openid,secret:sha1("追梦行动派")},
+                function(code,data){
+                    config.opid = data.operation.opid;
+                    //config.dfs = data.operation.alrday;
+                    config.cid = data.operation.cid;
+                    config.starttime = data.operation.starttime;
+                    config.lasttime = data.operation.lasttime;
+
+                    TD_Request('co','info',{cid:config.cid},
+                        OnGetContract,OnGetContract);
+                },
+                function(code,data){
+                    console.log(data);
+                    alert(data.context);
+                }
+            );
+        }
+        var currentLoop = null;
+        var DoInterval = function () {
+            currentLoop = setTimeout(MainLoop, config.delay);
+        }
+        
+        var MainLoop = function () {
+            if(config.seek<=config.tdfs){
+                TD_Request('op','mat',
+                    {
+                        opid:config.opid,
+                        uid:config.openid,
+                        dfs:config.seek
+                    },
+                    function (code, data) {
+                        printf(JSON.stringify(data));
+                        var attend = data.attendance;
+                        if(config.cid =="CO0000000002"){
+                            TD_Request("op","rep",
+                                {
+                                    opid:attend.opid,
+                                    date:attend.date,
+                                    uid:config.openid
+                                },
+                                function (code, data) {
+                                    printf(JSON.stringify(data));
+                                    config.seek++;
+                                    DoInterval();
+                                },
+                                function (code,data) {
+                                    printf(JSON.stringify(data));
+                                }
+                            );
+                        }else {
+                            config.seek++;
+                            DoInterval();
+                        }
+                    },
+                    function (code, data) {
+                        printf(JSON.stringify(data));
+                    }
+                )
+            }else {
+                printf("无执行步骤:"+JSON.stringify(config));
             }
-		);
+        }
+
+        Init();
 	
 	
         /*setInterval(() => {

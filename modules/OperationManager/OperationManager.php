@@ -658,6 +658,7 @@ class OperationManager extends DBManager{
 			//今日已打卡
 			return RESPONDINSTANCE('84',$dateString);
 		}
+		$RelayLastDay = false;//是否是需要转发的合约的最后一天
 //		NORMAL类型数值直接处理
 		if($attrule=="NORMAL"){
 			//依据变化量判断打卡结果
@@ -678,6 +679,11 @@ class OperationManager extends DBManager{
                 $mis = floor($deltaTime/DAY_TIME);
                 $conday=0;//重置连续打卡天数
                 $misday=$misday+$mis;//增加漏卡天数
+            }else if($deltaTime<DAY_TIME && ($currentContract['durnation']-$alrday)==1){
+                //最后一天打卡成功,连续打卡+1
+                $alrday++;//已经打卡天数+1
+                $conday++;//连续打卡天数+1
+                $RelayLastDay = true;
             }
         }
 
@@ -685,14 +691,16 @@ class OperationManager extends DBManager{
 		$nextWillAttendanceTime = DAY_START_CELL($currentTimeStamp);
 		$end = [];
 		if($nextWillAttendanceTime >= $endAttendanceTime){//打卡结束下一天的0点>=结束日期的0点
-			$state = "SUCCESS";
-			if($alrday >= $currentContract['durnation'] && $misday<=0){//连续打卡天数达到要求且无漏卡
-				/*依据规则退款*/
-				$state = "SUCCESS";//行动成功
-			}else{
-				$state = "FAILED";//行动失败
-			}
-            $end = $state;
+            //if($attrule=="NORMAL") {
+                $state = "SUCCESS";
+                if ($alrday >= $currentContract['durnation'] && $misday <= 0) {//连续打卡天数达到要求且无漏卡
+                    /*依据规则退款*/
+                    $state = "SUCCESS";//行动成功
+                } else {
+                    $state = "FAILED";//行动失败
+                }
+                $end = $state;
+            //}
 		}
 
 
@@ -719,7 +727,7 @@ class OperationManager extends DBManager{
 			"uid"=>$uid,
 			"time"=>$currentTimeStamp,
 			"date"=>$dateString,
-			"state"=>"NOTRELAY",
+			"state"=>($attrule=="NORMAL" || $RelayLastDay)?"RELAY":"NOTRELAY",
 		];
 		$result = $this->InsertDataToTable($this->TName('tAttend'),$attendanceArray);
 
