@@ -1065,12 +1065,12 @@ class DreamServersManager extends DBManager {
             foreach ($result as $key=>$item) {
                 $backMsg[$key] = $item;
             }
-            self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
+            self::CreateRefundRecord($refundid,$uid,$oid,$refundBill,$reason,"SUCCESS");
             return $backMsg;
         } catch (Exception $e) {
             $backMsg = RESPONDINSTANCE('96',":退款异常");
             $backMsg['error'] = $e->getMessage();
-            self::CreateRefundRecord($refundid,$oid,0,$reason,"FAILED");
+            self::CreateRefundRecord($refundid,$uid,$oid,0,$reason,"FAILED");
             return $backMsg;
         }
     }
@@ -1175,10 +1175,11 @@ class DreamServersManager extends DBManager {
 	}
 	
 	//创建退款记录
-	public static function CreateRefundRecord($reid,$oid,$bill,$reason,$state){
+	public static function CreateRefundRecord($reid,$uid,$oid,$bill,$reason,$state){
 		$DSM = new DreamServersManager();
 		$refundArray = [
 			"reid"=>$reid,
+			'uid'=>$uid,
 			"oid"=>$oid,
 			"bill"=>$bill,
 			"time"=>PRC_TIME(),
