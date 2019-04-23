@@ -19,5 +19,6 @@
 		'oshar'=>R('OnShareOpen',['opid']),//打开分享页面,参数：[opid:行动id]
 		'eomp'=>R('EnterOperationMainPage',['uid']),//进入行动派首页,参数：[uid:用户openid]
 		'cls'=>R('ClearAllOAInfo'),//清理行动及打卡数据（包括：行动信息、打卡记录、邀请信息、行动订单）,参数：[uid:用户openid](可不加，不加为清除全部)
+		'gudo'=>R('GetUserDoingOperation',['uid','secret']),//获取用户正在参加的行动,参数:[uid:用户openid,secret:sha1("追梦行动派")]
     ]);
 ?>

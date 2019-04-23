@@ -367,6 +367,16 @@ class OperationManager extends DBManager{
 		return $backMsg;
     }
 	
+	//获取用户正在参加的行动
+	public function GetUserDoingOperation($uid,$secret){
+		if($secret!=sha1("追梦行动派")){
+			return RESPONDINSTANCE('8');
+		}
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['operation'] = self::UserDoingOperation($uid);
+		return $backMsg;
+	}
+	
 	//打开分享页面
 	public function OnShareOpen($opid){
 		$operation = self::GetOperationByID($opid);
