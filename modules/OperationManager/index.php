@@ -18,6 +18,6 @@
         'ihics'=>R('UserInvitedUserHeadicons',['uid']), //获得被用户邀请的全部邀请者的头像[uid:用户openid]
 		'oshar'=>R('OnShareOpen',['opid']),//打开分享页面,参数：[opid:行动id]
 		'eomp'=>R('EnterOperationMainPage',['uid']),//进入行动派首页,参数：[uid:用户openid]
-		'cls'=>R('ClearAllOAInfo'),//清理行动及打卡数据
+		'cls'=>R('ClearAllOAInfo'),//清理行动及打卡数据（包括：行动信息、打卡记录、邀请信息、行动订单）,参数：[uid:用户openid](可不加，不加为清除全部)
     ]);
 ?>

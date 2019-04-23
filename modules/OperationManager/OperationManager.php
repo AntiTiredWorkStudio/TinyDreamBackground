@@ -483,10 +483,20 @@ class OperationManager extends DBManager{
 	
 	//清理行动及打卡数据
 	public function ClearAllOAInfo(){
-		$this->DeletDataByQuery($this->TName('tAttend'),1);
-		$this->DeletDataByQuery($this->TName('tOperation'),1);
-		$this->DeletDataByQuery($this->TName('tInvite'),1);
-		$this->DeletDataByQuery($this->TName('tOrder'),self::FieldLikeValue('did','co%'));
+		$operationCondition = 1;
+		$inviteCondition = 1;
+		$orderCondition = self::FieldLikeValue('did','co%');
+		
+		if(isset($_REQUEST['uid'])){
+			$operationCondition = self::C_And($operationCondition,self::FieldIsValue('uid',$_REQUEST['uid']));
+			$inviteCondition = self::C_OR(self::FieldIsValue('iuid',$_REQUEST['uid']),self::FieldIsValue('tuid',$_REQUEST['uid']));
+			$orderCondition = self::C_And($orderCondition,self::FieldIsValue('uid',$_REQUEST['uid']));
+		}
+		
+		$this->DeletDataByQuery($this->TName('tAttend'),$operationCondition);
+		$this->DeletDataByQuery($this->TName('tOperation'),$operationCondition);
+		$this->DeletDataByQuery($this->TName('tInvite'),$inviteCondition);
+		$this->DeletDataByQuery($this->TName('tOrder'),$orderCondition);
 		return RESPONDINSTANCE('0');
 	}
 
