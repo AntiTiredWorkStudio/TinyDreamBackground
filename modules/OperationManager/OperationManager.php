@@ -94,6 +94,7 @@ class OperationManager extends DBManager{
         ];
         $OPM->InsertDataToTable($OPM->TName('tInvite'),$inviteArray);
     }
+
     //创建打卡记录实例
     public static function CreateAttendenceInstance($opid,$uid,$currentTimeStamp,$dateString="",$state="NOTRELAY"){
         $OPM = new OperationManager();
@@ -521,10 +522,29 @@ class OperationManager extends DBManager{
             return RESPONDINSTANCE('88');//补卡不在时间范围
         }
     }
-	
+
 	//重置用户的打卡信息
 	public function ResetOperation($uid){
-		
+        $operation = self::UserDoingOperation($uid);
+		if(empty($operation)){
+		    return RESPONDINSTANCE('82');
+        }
+        $updateArray =  [
+            "lasttime"=>0,
+            "alrday"=>0,
+            "conday"=>0,
+            "misday"=>0,
+            "menday"=>0,
+            "menchance"=>0,
+            "invcount"=>0,
+            "state"=>"DOING",
+            "firstday"=>"NONE",
+        ];
+		$this->UpdateDataToTableByQuery($this->TName('tOperation'),$updateArray,self::FieldIsValue('opid',$operation['opid']));
+		$this->DeletDataByQuery($this->TName('tAttend'),self::FieldIsValue('opid',$operation['opid']));
+		$backMsg = RESPONDINSTANCE('0');
+        $backMsg['reset'] = $operation['opid'];
+		return $backMsg;
 	}
 	//清理行动及打卡数据
 	public function ClearAllOAInfo(){

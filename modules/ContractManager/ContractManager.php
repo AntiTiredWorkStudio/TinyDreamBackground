@@ -280,6 +280,31 @@ class ContractManager extends DBManager{
         return $result;
     }
 
+    //设置合约信息
+    public function SetContract($cid){
+        //$cid = isset($_REQUEST['cid'])?$_REQUEST['cid']:"";
+        $paras = $_REQUEST;
+        unset($paras['cid']);
+        $fields = $this->GetTableFields($this->TName('tContract'));
+        array_shift($fields);
+        $backMsg = RESPONDINSTANCE('0');
+        $updateArray = [];
+        foreach ($paras as $key => $value) {
+            if(in_array($key,$fields)){
+                $updateArray[$key] = $value;
+            }
+        }
+
+        if(empty($cid) || empty($paras) || empty($updateArray)){
+            $backMsg['fields'] =$fields;
+            return $backMsg;
+        }
+
+        if(!empty($updateArray))
+            $this->UpdateDataToTableByQuery($this->TName('tContract'),$updateArray,self::FieldIsValue('cid',$cid));
+        $backMsg['updated'] = $updateArray;
+        return $backMsg;
+    }
 
 	//获取合约类型表（信息）
 	public function ContractList(){
