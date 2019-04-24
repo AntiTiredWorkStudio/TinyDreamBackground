@@ -527,18 +527,34 @@ class OperationManager extends DBManager{
 		$operationCondition = 1;
 		$inviteCondition = 1;
 		$orderCondition = self::FieldLikeValue('did','co%');
-		
+		$clearType = ["att","ope","inv","ord"];
+		if(isset($_REQUEST['type'])){
+			$clearType = explode('|',$_REQUEST['type']);
+		}
 		if(isset($_REQUEST['uid'])){
 			$operationCondition = self::C_And($operationCondition,self::FieldIsValue('uid',$_REQUEST['uid']));
 			$inviteCondition = self::C_OR(self::FieldIsValue('iuid',$_REQUEST['uid']),self::FieldIsValue('tuid',$_REQUEST['uid']));
 			$orderCondition = self::C_And($orderCondition,self::FieldIsValue('uid',$_REQUEST['uid']));
 		}
-		
-		$this->DeletDataByQuery($this->TName('tAttend'),$operationCondition);
-		$this->DeletDataByQuery($this->TName('tOperation'),$operationCondition);
-		$this->DeletDataByQuery($this->TName('tInvite'),$inviteCondition);
-		$this->DeletDataByQuery($this->TName('tOrder'),$orderCondition);
-		return RESPONDINSTANCE('0');
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['clear'] = [];
+		if(in_array("att",$clearType)){
+			$this->DeletDataByQuery($this->TName('tAttend'),$operationCondition);
+			array_push($backMsg['clear'],"att");
+		}
+		if(in_array("ope",$clearType)){
+			$this->DeletDataByQuery($this->TName('tOperation'),$operationCondition);
+			array_push($backMsg['clear'],"ope");
+		}
+		if(in_array("inv",$clearType)){
+			$this->DeletDataByQuery($this->TName('tInvite'),$inviteCondition);
+			array_push($backMsg['clear'],"inv");
+		}
+		if(in_array("ord",$clearType)){
+			$this->DeletDataByQuery($this->TName('tOrder'),$orderCondition);
+			array_push($backMsg['clear'],"ord");
+		}
+		return $backMsg;
 	}
 
     //转发成功
