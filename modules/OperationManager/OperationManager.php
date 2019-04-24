@@ -522,6 +522,10 @@ class OperationManager extends DBManager{
         }
     }
 	
+	//重置用户的打卡信息
+	public function ResetOperation($uid){
+		
+	}
 	//清理行动及打卡数据
 	public function ClearAllOAInfo(){
 		$operationCondition = 1;
