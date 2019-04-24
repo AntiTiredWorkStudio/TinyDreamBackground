@@ -328,7 +328,7 @@ $tables = [
                 "refund"=>9800,
                 "backrule"=>"EVERYDAY",
 				"attrule"=>"NORMAL",
-                "description"=>"21天行动合约，合约金98元，每天行动并打卡，坚持21天可返还98元。",
+                "description"=>"合约金98元，每天行动并打卡，坚持21天可返还98元。",
             ],
             '100天合约'=>[
                 "cid"=>"CO0000000002",
@@ -338,7 +338,7 @@ $tables = [
                 "refund"=>20000,
                 "backrule"=>"END",
 				"attrule"=>"RELAY",
-                "description"=>"100天行动合约，合约金99元，每天行动并打卡发朋友圈，坚持100天可返200元。",
+                "description"=>"合约金99元，每天行动并打卡发朋友圈，坚持100天可返200元。",
             ]
         ]
     ],
