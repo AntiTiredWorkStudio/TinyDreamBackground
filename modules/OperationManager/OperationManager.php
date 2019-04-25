@@ -334,6 +334,8 @@ class OperationManager extends DBManager{
 
         $orderInfo = DreamServersManager::GenerateEmptyOrder($uid,"",$tContract['cid'],$tContract['price'],3);//创建空订单
 
+        DreamServersManager::SetPaymentBody("购买行动合约");//设置商品为合约
+
         $unifiedInfo = DreamServersManager::UnifiedOrder($orderInfo['oid'],$tContract['price'],$uid);//统一下单
 
         if($unifiedInfo['result'] != 0){

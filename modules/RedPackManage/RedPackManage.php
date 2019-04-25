@@ -162,6 +162,7 @@ class RedPackManage extends DBManager {
 
         //统一下单 crp
         $DSM = new DreamServersManager();
+        DreamServersManager::SetPaymentBody("购买红包");//设置商品为红包
         $orderInfo = $DSM->WxPayWeb($rid,$bill,$uid);
         if($orderInfo['code'] != "0"){
             //统一下单错误
