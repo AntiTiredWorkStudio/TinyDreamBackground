@@ -1043,7 +1043,7 @@ class DreamServersManager extends DBManager {
             'openid'           => $uid, //收款人的openid
             'check_name'       => 'NO_CHECK', //NO_CHECK：不校验真实姓名\FORCE_CHECK：强校验真实姓名
             // 're_user_name'     => '张三', //check_name为 FORCE_CHECK 校验实名的时候必须提交
-            'amount'           => $refundBill, //企业付款金额，单位为分
+            'amount'           => $refundbill, //企业付款金额，单位为分
             'desc'             => $reason, //付款说明
             'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], //发起交易的IP地址
         ];
