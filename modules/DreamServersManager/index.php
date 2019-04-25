@@ -28,5 +28,6 @@
 		'oitd'=>R('GetOrdersByTeleORDate',['seek','count']),//根据电话或日期获取范围订单
         'refd'=>R('WxRefund',['oid']),//退款
 		'rinfo'=>R('RefundList',['uid']),//退款列表
+		'transfer'=>('WxTargetTransfer',['reid','uid','refundbill','reason']),//转账给用户
     ]);
 ?>
