@@ -254,7 +254,7 @@ function AutoBack($postObj){
             $time = time();
             $msgType = 'text';
             //<a href="http://tinydream.antit.top/TinydreamWeb">首页</a>
-			$content = "有梦想，坚持行动——欢迎加入追梦行动派！参加行动合约赢现金点击“行动打卡”， 互助小梦想点击“梦想互助”，与行动派一起行动点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/html/cach.html\">立即进群</a>"."”。";
+			$content = "有梦想，坚持行动——欢迎加入追梦行动派！参加行动合约赢现金点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/vue/block/dist/clock.html\">行动打卡</a>"."”， 互助小梦想点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb\">梦想互助</a>"."”，与行动派一起行动点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/html/cach.html\">立即进群</a>"."”。";
             //$content = "欢迎关注小梦想互助——互助小额零钱，夺大额梦想金！ 点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb\">首页</a>"."”进入平台，了解小梦想互助玩法点击“"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/html/question.html\">新手指引</a>"."”。";
 			
 			
@@ -319,7 +319,7 @@ $WebApp = [
             $jsonmenu = '{
                   "button":[
 					   {
-							"name":"参与互助",
+							"name":"梦想互助",
 							"type":"view",
 							"url":"'.$GLOBALS['options']['web_url'].'"
 					   },{
