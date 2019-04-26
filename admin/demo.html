@@ -5,28 +5,18 @@
     <title>demo</title>
 </head>
 <body>
-<p>
-<a href='demo01.html'>
-<h1>测试</h1>
-</a>
-<p id="test">conent</p>
-</p>
 <script src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 <script src="js/lib.js"></script>
 <script src="js/webApp.js"></script>
 <script>
-/*WebApp.Init('wxdca9f5edc034c1a0',
-	function(result,data){
-		console.log(Options.GetUserInfo());
-		$('#test').html(JSON.stringify(Options.GetUserInfo()));
-	}
-);*/
-	WebApp.JSAPI.Init({
+	WebApp.JSAPI.InitShare({
 			title:"测试分享",
-			desc:"我刚刚参与互助了一份小梦想，你也一起来吧！",
+			desc:"测试分享测试分享！",
 			link:"http://"+Options.CombineUrl+"/TinyDreamBackground/admin/demo.html",
 			imgUrl:"http://tdream.antit.top/image/titleLogo.png"
 		});
+	
 	WebApp.JSAPI.OnShareTimeLine = function(result){
 		alert(JSON.stringify(result));
 	}
