@@ -1155,6 +1155,7 @@ class DreamServersManager extends DBManager {
         }
 
         $oid = $order['oid'];
+		$uid = $order['uid'];
         $bill = $order['bill'];
         $refundid = ($reid=="")?self::GenerateOrderToRefundOid($oid):$reid;
 
@@ -1211,7 +1212,7 @@ class DreamServersManager extends DBManager {
             foreach ($result as $key=>$item) {
                 $backMsg[$key] = $item;
             }
-			self::CreateRefundRecord($refundid,$oid,$refundBill,$reason,"SUCCESS");
+			self::CreateRefundRecord($refundid,$uid,$oid,$refundBill,$reason,"SUCCESS");
             return $backMsg;
         } catch (Exception $e) {
             $backMsg = RESPONDINSTANCE('96',":退款异常");
