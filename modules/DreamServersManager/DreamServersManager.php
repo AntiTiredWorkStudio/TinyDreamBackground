@@ -1225,13 +1225,15 @@ class DreamServersManager extends DBManager {
 	//用户退款列表信息
 	public function RefundList($uid,$seek,$count){
 		$array = DBResultToArray($this->SelectDataByQuery($this->TName('tRefund'),
-			self::Limit(
-				self::C_And(
-					self::FieldIsValue('state','SUCCESS'),
-					self::FieldIsValue('uid',$uid)
-				),
-				$seek,
-				$count
+			self::OrderBy(
+				self::Limit(
+					self::C_And(
+						self::FieldIsValue('state','SUCCESS'),
+						self::FieldIsValue('uid',$uid)
+					),
+					$seek,
+					$count
+				),"time","DESC"
 			)
 		),true);
         $CountRefund = $this->CountTableRowByQuery($this->TName('tOperation'),
