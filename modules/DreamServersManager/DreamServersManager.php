@@ -578,6 +578,11 @@ class DreamServersManager extends DBManager {
         return $DSM->WxTransfer($oid,$rebill,$reid,$reason);
     }
 
+    //设置支付商品名称
+    public static function SetPaymentBody($info){
+        $_REQUEST['bodyinfo'] = $info;
+    }
+
     //便捷版统一下单
     public static function UnifiedOrder($oid,$bill,$uid,$type="web"){
         $target = [
@@ -1287,12 +1292,12 @@ class DreamServersManager extends DBManager {
                 'return_url' => '',
             ]
         ];
-
+        $bodyInfo = !isset($_REQUEST['bodyinfo'])?'购买梦想':$_REQUEST['bodyinfo'];
 // 支付参数
         $options = [
             'out_trade_no'     => $oid, // 订单号
             'total_fee'        => $bill, // 订单金额，**单位：分**
-            'body'             => '小梦想互助-购买梦想', // 订单描述
+            'body'             => $bodyInfo, // 订单描述
             'spbill_create_ip' => $_SERVER["REMOTE_ADDR"], // 支付人的 IP
             'openid'           => $uid, // 支付人的 openID
             'notify_url'       => 'https://tinydream.antit.top/paid.php', // 定义通知URL
