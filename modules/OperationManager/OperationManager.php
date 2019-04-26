@@ -588,7 +588,7 @@ class OperationManager extends DBManager{
         $currentTimeStamp = PRC_TIME();//时间戳
 
         $currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
-        if(empty($currentOperation)){//行动结束或为找到行动
+        if(empty($currentOperation)){//行动结束或未找到行动
             return RESPONDINSTANCE('87');
         }
         if($currentOperation['opid'] != $opid){//获取并验证行动数据
@@ -596,7 +596,7 @@ class OperationManager extends DBManager{
         }
         $targetAttendence = self::GetUserAttendence($opid,$date);
         if(empty($targetAttendence)){
-            if($currentOperation['firstday']=="NOTRELAY"){
+            if($currentOperation['starttime']>$currentTimeStamp && $currentOperation['firstday']=="NOTRELAY"){
                 //更新数据
                 $updateInfo = [
                     //"lasttime"=>-2,
@@ -611,12 +611,12 @@ class OperationManager extends DBManager{
                 $firstResult['firstday'] = "RELAY";
                 return $firstResult;
             }
-            if($currentOperation['lasttime']==-2){
+            /*if($currentOperation['lasttime']==-2){
                 $firstResult = RESPONDINSTANCE('0');
                 $firstResult['beforestart'] = true;
                 $firstResult['firstday'] = "RELAY";
                 return $firstResult;
-            }
+            }*/
             return RESPONDINSTANCE('92',$date);
         }
         if($targetAttendence['state']!="NOTRELAY"){
