@@ -21,7 +21,18 @@
 		$('#test').html(JSON.stringify(Options.GetUserInfo()));
 	}
 );*/
-	WebApp.JSAPI.Init();
+	WebApp.JSAPI.Init({
+			title:"测试分享",
+			desc:"我刚刚参与互助了一份小梦想，你也一起来吧！",
+			link:"http://"+Options.CombineUrl+"/TinyDreamBackground/admin/demo.html",
+			imgUrl:"http://tdream.antit.top/image/titleLogo.png"
+		});
+	WebApp.JSAPI.OnShareTimeLine = function(result){
+		alert(JSON.stringify(result));
+	}
+	WebApp.JSAPI.OnShareFriend = function(result){
+		alert(JSON.stringify(result));
+	}
 </script>
 </body>
 </html>
