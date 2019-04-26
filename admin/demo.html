@@ -10,12 +10,14 @@
 <script src="js/lib.js"></script>
 <script src="js/webApp.js"></script>
 <script>
-	WebApp.JSAPI.InitShare({
+	var shareConf = {
 			title:"测试分享",
 			desc:"测试分享测试分享！",
 			link:"http://"+Options.CombineUrl+"/TinyDreamBackground/admin/demo.html",
 			imgUrl:"http://tdream.antit.top/image/titleLogo.png"
-		});
+		};
+	alert(JSON.stringify(shareConf))
+	WebApp.JSAPI.InitShare(shareConf);
 	
 	WebApp.JSAPI.OnShareTimeLine = function(result){
 		alert(JSON.stringify(result));
