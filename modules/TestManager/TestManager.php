@@ -372,5 +372,10 @@ class TestManager extends DBManager {
 	public function TestBat(){
 		file_put_contents(time().'.txt',time());
 	}
+	
+	//创建时间戳
+	public function GenerateTimeStamp(){
+		return PRC_TIME();
+	}
 }
 ?>

@@ -23,5 +23,6 @@
 		'time'=>R('TestBat'),//测试批处理文件
         'udebug'=>R("DebugUsers",null,PERMISSION_AUTH_FREE|PERMISSION_ALL,false),
         'ref'=>R('RefreashFunc',null,PERMISSION_AUTH_FREE|PERMISSION_ALL),
+		'ts'=>R('GenerateTimeStamp'),
     ],PERMISSION_LOCAL | PERMISSION_AUTH_FREE);
 ?>
