@@ -561,9 +561,11 @@ class DreamServersManager extends DBManager {
 		$DSM = new DreamServersManager();
         $orderArray = DBResultToArray($DSM->SelectDataByQuery($DSM->TName('tOrder'),
 			self::Limit(
-					self::C_And(
-						self::FieldIsValue('state','SUCCESS'),
-						self::FieldLikeValue('did',$type)
+					self::OrderBy(
+						self::C_And(
+							self::FieldIsValue('state','SUCCESS'),
+							self::FieldLikeValue('did',$type)
+						),"ctime","DESC"
 					),
 					$seek,
 					$count
