@@ -418,7 +418,7 @@ class OperationManager extends DBManager{
         if(isset($_REQUEST['seek'])){
             $seek = $_REQUEST['seek'];
         }
-        $calendar = ContractManager::GetMonthList($currentOperation['starttime']-DAY_TIME*2,$currentOperation['cid'],$seek);
+        $calendar = ContractManager::GetMonthList($currentOperation['starttime']-DAY_TIME,$currentOperation['cid'],$seek);
         $dateList = [];
         $calendarDateIndexList = [];
         foreach ($calendar['days'] as $key=>$item) {
