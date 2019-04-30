@@ -77,6 +77,27 @@ class ContractManager extends DBManager{
                 ]
             ];
         }
+        if(empty($forwardDays) && !$addedFirst){
+
+            $dayTimeStamp = $days[0]['dateStamp']-86400;
+            $year = date('Y',$dayTimeStamp);
+            $month = date('m',$dayTimeStamp);
+            $day = date('d',$dayTimeStamp);
+            $weekSeek = date('w',$dayTimeStamp);
+            $date = date('Y-m-d', $dayTimeStamp);
+
+            $forwardDays = [
+                [
+                    "dateStamp"=>$dayTimeStamp,
+                    "date"=>$date,
+                    "weekDay"=>$weekarray[$weekSeek],
+                    "Year"=>$year,
+                    "Month"=>$month,
+                    "Day"=>$day
+                ]
+            ];
+        }
+
 
 
 
