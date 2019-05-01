@@ -78,7 +78,7 @@ class ContractManager extends DBManager{
             ];
         }
 
-        if(empty($forwardDays) && !$addedFirst && $days[0]['id']==0){
+        if(empty($forwardDays) && !$addedFirst && $days[0]['id']==1){
 
             $dayTimeStamp = $days[0]['dateStamp']-86400;
             $year = date('Y',$dayTimeStamp);
