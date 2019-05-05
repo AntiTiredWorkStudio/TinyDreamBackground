@@ -151,6 +151,7 @@ var TD_Request = function(module,action,paras,fSuccess,fFailed) {
             }
         },
         error: function (err) {
+			alert("error:"+JSON.stringify(err));
             fFailed('-1',err);
         }
     };
