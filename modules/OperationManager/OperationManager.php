@@ -921,7 +921,7 @@ class OperationManager extends DBManager{
         return $backMsg;
     }
 
-    //获取数据
+    //获取行动数据
     public function GetOperationData($state,$seek,$count){
         $stateText = [
             "SUCCESS"=>"成功",
@@ -929,6 +929,8 @@ class OperationManager extends DBManager{
             "FAILED"=>"失败"
         ];
         $searchCondition = ($state == 'ALL')?1:self::FieldIsValue('state',$state);
+        $tcount = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
+
         $searchCondition = self::OrderBy($searchCondition,'starttime','DESC');
         $searchCondition = self::Limit($searchCondition,$seek,$count);
         $datas = DBResultToArray(
@@ -936,7 +938,6 @@ class OperationManager extends DBManager{
                 $searchCondition
             ),true
         );
-        $count = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
         foreach ($datas as $key => $value) {
             $value['starttime'] = date('Y-m-d',$value['starttime']);
             $value['lasttime'] = date('Y-m-d H:i:s',$value['lasttime']);
@@ -946,7 +947,74 @@ class OperationManager extends DBManager{
         }
 
         $backMsg = RESPONDINSTANCE('0');
-        $backMsg['count'] = $count;
+        $backMsg['count'] = $tcount;
+        $backMsg['tpage'] = ceil($tcount/$count);
+        $backMsg['cpage'] = ceil($seek/$count+1);
+        $backMsg['data'] = $datas;
+        return $backMsg;
+    }
+
+    //获取行动数据
+    public function GetInviteData($seek,$count){
+
+        $searchCondition = 1;
+        $tcount = $this->CountTableRowByQuery($this->TName('tInvite'),$searchCondition);
+        $searchCondition = self::OrderBy($searchCondition,'time','DESC');
+        $searchCondition = self::Limit($searchCondition,$seek,$count);
+        $datas = DBResultToArray(
+            $this->SelectDataByQuery($this->TName('tInvite'),
+                $searchCondition
+            ),true
+        );
+        foreach ($datas as $key => $value) {
+            $value['time'] = date('Y-m-d H:i:s',$value['time']);
+            $datas[$key] = $value;
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['count'] = $tcount;
+        $backMsg['tpage'] = ceil($tcount/$count);
+        $backMsg['cpage'] = ceil($seek/$count+1);
+        $backMsg['data'] = $datas;
+        return $backMsg;
+    }
+
+
+    //获取用户打卡记录
+    public function GetAttendenceData($tele,$seek,$count){
+        $user = UserManager::GetUserByTele($tele);
+        if(empty($user)){
+            return RESPONDINSTANCE('15');
+        }else{
+            $user = array_reverse($user);
+            $user = $user[0];
+        }
+        $stateText = [
+            "RELAY"=>"打卡",
+            "NOTRELAY"=>"未打卡",
+            "SUPPLY"=>"补卡"
+        ];
+        $searchCondition = self::FieldIsValue('uid',$user->uid);
+        $tcount = $this->CountTableRowByQuery($this->TName('tAttend'),$searchCondition);
+        $searchCondition = self::OrderBy($searchCondition,'time','DESC');
+        $searchCondition = self::Limit($searchCondition,$seek,$count);
+        $datas = DBResultToArray(
+            $this->SelectDataByQuery($this->TName('tAttend'),
+                $searchCondition
+            ),true
+        );
+        foreach ($datas as $key => $value) {
+            $value['time'] = date('Y-m-d H:i:s',$value['time']);
+            $value['state'] =$stateText[$value['state']];
+            unset($value['atid']);
+            unset($value['uid']);
+            $datas[$key] = $value;
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['count'] = $tcount;
+        $backMsg['tpage'] = ceil($tcount/$count);
+        $backMsg['cpage'] = ceil($seek/$count+1);
         $backMsg['data'] = $datas;
         return $backMsg;
     }

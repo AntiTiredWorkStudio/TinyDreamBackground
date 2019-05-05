@@ -22,6 +22,9 @@ define('WECHAT_IMAGE_COMMAND','wechatimage');
 define('WECHAT_CUSTOMER_COMMAND','wechatcustomer'); 
 define('TIME_ZONE',8);
 
+
+define('CONFIG_ACCESS_LIST','access_list');
+
 //控制器基类
 class Manager{
     public function info(){
@@ -29,6 +32,7 @@ class Manager{
     }
 }
 
+$ACCESS_LIST = [];
 
 function TaskSort($a,$b)
 {
@@ -599,6 +603,10 @@ function ROOT_DIR(){
 
 //设置模块的响应动作
 function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//此处permission可被R中权限覆盖
+    $GLOBALS['ACCESS_LIST'][$action] = $actionArray;
+    if(!isset($_REQUEST[$action])){
+        return;
+    }
     $targetPermission = $permission;
     if(isset($actionArray[$_REQUEST[$action]]['permission']) && $actionArray[$_REQUEST[$action]]['permission']!=PERMISSION_ALL){
         $targetPermission = $actionArray[$_REQUEST[$action]]['permission'];
@@ -669,8 +677,8 @@ function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//
 }
 
 //创建响应结构
-function R($funcName, $pars = null,$permission = PERMISSION_ALL,$return=true){//此处permission若填写可覆盖Respond中定义的权限
-    return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission,'backMsg'=>$return];
+function R($funcName, $pars = null,$permission = PERMISSION_ALL,$return=true,$codes=[]){//此处permission若填写可覆盖Respond中定义的权限
+    return ['func'=>$funcName,'pars'=>$pars,'permission'=>$permission,'backMsg'=>$return,'backcode'=>$codes];
 }
 
 function DBResultArrayExist($array){
