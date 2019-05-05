@@ -393,7 +393,7 @@ class DreamManager extends DBManager{
 				$awardInfo = AwardManager::GetAwardByDid($did);
 				if(!empty($awardInfo)){
 					$pid = $awardInfo['pid'];
-					NoticeManager::CreateNotice($uid,NOTICE_PAID,[],//创建通知——打款
+					NoticeManager::CreateNotice($uid,NOTICE_PAID,['pid'=>$pid],//创建通知——打款
 						NoticeManager::CreateAction('view',[])
 					);
 				}
