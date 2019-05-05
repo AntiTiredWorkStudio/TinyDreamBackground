@@ -61,6 +61,20 @@ class AwardManager extends DBManager{
         }
     }
 
+	//通过did获取中奖信息
+	public static function GetAwardByDid($did){
+        $AWM = new AwardManager();
+        $awrad = DBResultToArray($AWM->SelectDataByQuery($AWM->TName('tAward'),
+            self::FieldIsValue('did',$did)
+            ),true);
+        if(!empty($awrad)){
+            $awrad = $awrad[0];
+            return $awrad;
+        }else{
+            return null;
+        }
+	}
+	
     //获取用户在某参与梦想池的编号数量
     public static function GetUserLottery($pid,$uid){
         $sql = 'SELECT COUNT(*) FROM `lottery` WHERE `uid`="'.$uid.'" AND `pid`="'.$pid.'"';
