@@ -920,5 +920,35 @@ class OperationManager extends DBManager{
         $backMsg['headicons'] = $resultArray;
         return $backMsg;
     }
+
+    //获取数据
+    public function GetOperationData($state,$seek,$count){
+        $stateText = [
+            "SUCCESS"=>"成功",
+            "DOING"=>"正在进行",
+            "FAILED"=>"失败"
+        ];
+        $searchCondition = ($state == 'ALL')?1:self::FieldIsValue('state',$state);
+        $searchCondition = self::OrderBy($searchCondition,'starttime','DESC');
+        $searchCondition = self::Limit($searchCondition,$seek,$count);
+        $datas = DBResultToArray(
+            $this->SelectDataByQuery($this->TName('tOperation'),
+                $searchCondition
+            ),true
+        );
+        $count = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
+        foreach ($datas as $key => $value) {
+            $value['starttime'] = date('Y-m-d',$value['starttime']);
+            $value['lasttime'] = date('Y-m-d H:i:s',$value['lasttime']);
+            $value['state'] =$stateText[$value['state']];
+            unset($value['firstday']);
+            $datas[$key] = $value;
+        }
+
+        $backMsg = RESPONDINSTANCE('0');
+        $backMsg['count'] = $count;
+        $backMsg['data'] = $datas;
+        return $backMsg;
+    }
 }
 ?>

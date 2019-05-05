@@ -12,7 +12,37 @@ LIB('view');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
-	
+
+    //通用数据查询接口
+  /*  public function GeneralSearchAccess($type,$seek,$count,$condition){
+        $condition = 1;
+        $condition = json_decode($condition);
+        foreach ($condition as $key => $value) {
+            $condition = self::C_And($condition,self::FieldIsValue())
+        }
+        $searchList = [
+
+        ];
+        $datas = DBResultToArray(
+            $this->SelectDataByQuery($this->TName($type),
+                $searchCondition
+            ),true
+        );
+        $count = $this->CountTableRowByQuery($this->TName($type),$searchCondition);*/
+        /*foreach ($datas as $key => $value) {
+            $value['starttime'] = date('Y-m-d',$value['starttime']);
+            $value['lasttime'] = date('Y-m-d H:i:s',$value['lasttime']);
+            $value['state'] =$stateText[$value['state']];
+            unset($value['firstday']);
+            $datas[$key] = $value;
+        }*/
+
+  /*      $backMsg = RESPONDINSTANCE('0');
+        $backMsg['count'] = $count;
+        $backMsg['data'] = $datas;
+        return $backMsg;
+    }*/
+
 	//页面内容配置
     public $pages = [
         'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/view/navagator.php'],

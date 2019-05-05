@@ -21,5 +21,6 @@
 		'cls'=>R('ClearAllOAInfo'),//清理行动及打卡数据（包括：行动信息、打卡记录、邀请信息、行动订单）,参数：[uid:用户openid](可不加，不加为清除全部)
 		'gudo'=>R('GetUserDoingOperation',['uid','secret']),//获取用户正在参加的行动,参数:[uid:用户openid,secret:sha1("追梦行动派")]
         'reset'=>R('ResetOperation',['uid']),//重置用户正在进行的行动数据及打卡记录,参数:[uid:用户openid]
+        'gopdata'=>R('GetOperationData',['state','seek','count']),//获取用户行动数据
     ]);
 ?>
