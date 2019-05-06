@@ -15,33 +15,17 @@
                 <div class="col-md-12">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">行动查询</h3>
+                            <h3 class="panel-title">按状态查询行动</h3>
                         </div>
                         <div class="panel-body">
-
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <div class="input-group"  data-toggle="dropdown">
-                                        <span class="input-group-addon">梦想互助期号</span>
-                                        <input id="input_pid"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
-                                    </div>
-									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-									
-										<?php 
-										foreach($pageData['pids'] as $key=>$value){
-										?>
-										<li class="pid" pid="<?php echo $value;?>"><?php echo $value;?></li>
-										<?php 
-										}
-										?>
-									</ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-7" style="margin: 15px auto;display: block;text-align: center;">
-                                <button id="search" type="button" class="btn btn-primary" style="width: 10%;">查询</button>
-                            </div>
+							<div class="row">
+								<div class="col-lg-7" style="margin: 15px auto;display: block;text-align: center;">
+									<span><button id="ALL" type="button" class="btn btn-primary" style="width: 10%;">所有</button></span>
+									<span><button id="DOING" type="button" class="btn btn-primary" style="width: 10%;">进行中</button></span>
+									<span><button id="SUCCESS" type="button" class="btn btn-primary" style="width: 10%;">完成</button></span>
+									<span><button id="FAILED" type="button" class="btn btn-primary" style="width: 10%;">失败</button></span>
+								</div>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -50,25 +34,25 @@
 					<!-- BASIC TABLE -->
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title">红包列表:
-							<?php if(isset($pageData['packs']['pid'])){ ?>
-							<span style="padding-left:25px;color:red;font-weight:bold;">梦想互助<?php echo $pageData['packs']['pid']; ?>期</span>
-							<?php } ?>
-							</h3>
+							<h3 class="panel-title">行动列表:</h3>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered ">
 								<thead> 
 									<tr> 
-									 <th>红包id</th> 
-									 <th>发出人</th> 
-									 <th>手机号</th> 
-									 <th>总金额</th> 
-									 <th>单价(元)</th> 
-									 <th>领取状态</th> 
-									 <th>发布时间</th> 
-									 <th>祝福语</th> 
-									 <th>梦想互助期号</th> 
+									 <th>行动id</th> 
+									 <th>用户</th> 
+									 <th>行动类型</th> 
+									 <th>行动开始时间</th> 
+									 <th>上次打卡时间</th> 
+									 <th>行动主题</th> 
+									 <th>已打卡天数</th> 
+									 <th>连续打卡天数</th> 
+									 <th>缺失天数</th> 
+									 <th>补卡天数</th> 
+									 <th>补卡机会</th> 
+									 <th>邀请用户</th> 
+									 <th>行动状态</th> 
 									</tr> 
 								   </thead> 
 								   <tbody> 
