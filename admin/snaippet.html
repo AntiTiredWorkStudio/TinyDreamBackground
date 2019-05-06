@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+</head>
+<body>
+<div id="container">
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/lib.js"></script>
+<script src="js/webApp.js"></script>
+<script>
+	var table = {
+		index:"tindex",
+		content:"tcontent"
+	}
+	var onViewCreated = function(result,data){
+		if(result){
+			console.log(data);
+		}
+	}
+	var view = WebApp.View.CreateSingleView("table",table);
+	WebApp.View.BuildsView([view],"admin/view/snippets",onViewCreated);
+//	console.log(view);
+</script>
+</body>
+</html>

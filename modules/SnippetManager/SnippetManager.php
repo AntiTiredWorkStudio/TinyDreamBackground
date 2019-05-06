@@ -45,10 +45,34 @@ class SnippetManager extends Manager{
 		}
 		$template = file_get_contents($fullPath);
 		$result = '';
-		foreach($data as $seek=>$index){
+		if(is_array($data)){
+			foreach($data as $seek=>$index){
+				$current = $template;
+				foreach($index as $key=>$value){
+					if(is_array($value)){
+						if(isset($value['sub']) && isset($value['data'])){
+							$current = str_replace("{{{$key}}}",$this->SingleSnippet($path,$value['sub'],json_encode($value['data'])),$current);
+						}else{
+							$current = str_replace("{{{$key}}}",json_encode($value),$current);
+						}
+					}else{
+						$current = str_replace("{{{$key}}}",$value,$current);
+					}
+				}
+				$result = $result.$current;
+			}
+		}else{
 			$current = $template;
 			foreach($index as $key=>$value){
-				$current = str_replace("{{{$key}}}",$value,$current);
+				if(is_array($value)){
+					if(isset($value['sub']) && isset($value['data'])){
+						$current = str_replace("{{{$key}}}",$this->SingleSnippet($path,$value['sub'],json_encode($value['data'])),$current);
+					}else{
+						$current = str_replace("{{{$key}}}",json_encode($value),$current);
+					}
+				}else{
+					$current = str_replace("{{{$key}}}",$value,$current);
+				}
 			}
 			$result = $result.$current;
 		}

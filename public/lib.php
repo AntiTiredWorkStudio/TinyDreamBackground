@@ -793,4 +793,20 @@ function EachFunction($array,$func){
     return $resultList;
 }
 
+function StartWith($str,$pattern) {
+    if(strpos($str,$pattern) === 0)
+          return true;
+    else
+          return false;
+}
+
+function EndWith($haystack, $needle) {
+	$length = strlen($needle);
+	if($length == 0)
+	{
+	return true;
+	}
+	return (substr($haystack, -$length) === $needle);
+}
+
 ?>
