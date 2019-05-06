@@ -100,45 +100,9 @@
 						</div>
 					
 					<!-- 页面切换导航 -->
-					<?php
-						if(isset($pageData['packs']['totalpage'])){
-								?>
-							<div class="desc" style="float: left;margin: 25px 0;">
-								<p>每页显示<?php echo $pageData['packs']['size'];?>条记录，总计<?php echo $pageData['packs']['total'];?>条记录 当前第<?php echo $pageData['packs']['currentpage']+1;?>页</p>
-							</div>
-							<div class="pagination" style="float: right;display: block;">
-                                <?php if($pageData['index']['allowLast']){ ?>
-                                <li>
-									<a seek="<?php echo ($pageData['index']['current']-1)*$pageData['packs']['size'];?>" size="<?php echo $pageData['packs']['size'];?>" href="#">&laquo;</a>
-								</li>
-                                <?php }?>
-                                <?php
-								if(isset($pageData['index']['list'])){
-                                $indexList = $pageData['index']['list'];
-								$pageSeek = $pageData['index']['current'];
-									foreach($indexList as $key=>$value) {
-										?>
-										<li>
-											<a
-												<?php if($key == $pageSeek){ ?>
-												style="font-weight:bold;color:#d43f3a"
-												<?php  }  ?>
-												seek="<?php echo $value;?>" size="<?php echo $pageData['packs']['size'];?>" href="#"><?php echo ($key+1);?>
-											</a>
-										</li>
-										<?php
-									}
-								}
-                                ?>
-                                <?php if($pageData['index']['allowNext']){ ?>
-                                <li>
-									<a seek="<?php echo ($pageData['index']['current']+1)*$pageData['packs']['size'];?>" size="<?php echo $pageData['packs']['size'];?>" href="#">&raquo;</a>
-								</li>
-                                <?php }?>
-							</div>
-					<?php
-						}
-					?>
+					
+					<!-- 页面切换导航 -->
+					<?php include_once("admin/view/indexlist.php");?>
 					<!-- 页面切换导航 -->
 					</div>
 					<!-- END BASIC TABLE -->
