@@ -559,6 +559,11 @@ function MoitorTime(){
     return (PRC_TIME()+8*3600);
 }
 
+//获取可选参数及设置默认值
+function FREE_PARS($field,$noset='null'){
+    return isset($_REQUEST[$field])?$_REQUEST[$field]:$noset;
+}
+
 //获取当天已过时间
 function GetDayPassTime(){
     return (PRC_TIME()+8*3600)%86400;
