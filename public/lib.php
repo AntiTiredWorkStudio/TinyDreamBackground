@@ -422,15 +422,19 @@ function RequestedFields($fields,$freefieldcheck){
                 unset($currentRequest[$key]);
             }
         }
-        //判断参数无用
-        if($freefieldcheck) {
-            foreach ($currentRequest as $key => $value) {
-                $free_field = '#' . $key;
-                if (!in_array($free_field, $fields)) {
-                    $result['result'] = 'useless';
-                    $result['field'] = $key;
-                    return $result;
-                }
+    }
+    //判断参数无用
+    if($freefieldcheck) {
+        $NoCheckArray =["signal","openid","uid"];//与签名相关的缺省参数不予进行判断
+        foreach ($currentRequest as $key => $value) {
+            if(in_array($key,$NoCheckArray)){
+                continue;//与签名相关的缺省参数不予进行判断
+            }
+            $free_field = '#' . $key;
+            if (!in_array($free_field, $fields)) {
+                $result['result'] = 'useless';
+                $result['field'] = $key;
+                return $result;
             }
         }
     }
