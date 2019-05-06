@@ -59,22 +59,23 @@
 									
 								<?php
 								
-								if(isset($pageData['packs']['redpack'])){
-									//$verifyArray = $pageData['verify'];
-									//$btnStyle = $pageData['btnStyle'];
-									foreach($pageData['packs']['redpack'] as $key=>$value){
-										
+								if(isset($pageData['operations']['data'])){
+									foreach($pageData['operations']['data'] as $key=>$value){
 								?>
 								 <tr> 
-									 <td><?php echo $value['rid'];?></td> 
-									 <td><?php echo $value['nickname'];?></td> 
-									 <td><?php echo $value['tele'];?></td> 
-									 <td><?php echo $value['bill']*0.01;?></td> 
-									 <td><?php echo $value['bill']/$value['rcount']*0.01;?></td> 
-									 <td><?php echo $value['rcount'].'/'.$value['gcount'];?></td> 
-									 <td><?php echo date('Y-m-d H:i:s', $value['ctime']);?></td> 
-									 <td><?php echo $value['content'];?></td> 
-									 <td><?php echo $value['pid'];?></td> 
+									 <td><?php echo $value['opid'];?></td> 
+									 <td><?php echo $value['uid'];?></td> 
+									 <td><?php echo $value['cid'];?></td> 
+									 <td><?php echo $value['starttime'];?></td> 
+									 <td><?php echo $value['lasttime'];?></td> 
+									 <td><?php echo $value['theme'];?></td> 
+									 <td><?php echo $value['alrday'];?></td> 
+									 <td><?php echo $value['conday'];?></td> 
+									 <td><?php echo $value['misday'];?></td> 
+									 <td><?php echo $value['menday'];?></td> 
+									 <td><?php echo $value['menchance'];?></td> 
+									 <td><?php echo $value['invcount'];?></td> 
+									 <td><?php echo $value['state'];?></td> 
 								 </tr> 
 								<?php }
 								}
@@ -85,15 +86,15 @@
 					
 					<!-- 页面切换导航 -->
 					<?php
-						if(isset($pageData['packs']['totalpage'])){
+						if(isset($pageData['index'])){
 								?>
 							<div class="desc" style="float: left;margin: 25px 0;">
-								<p>每页显示<?php echo $pageData['packs']['size'];?>条记录，总计<?php echo $pageData['packs']['total'];?>条记录 当前第<?php echo $pageData['packs']['currentpage']+1;?>页</p>
+								<p>每页显示<?php echo $pageData['index']['size'];?>条记录，总计<?php echo $pageData['index']['count'];?>条记录 当前第<?php echo $pageData['index']['current']+1;?>页</p>
 							</div>
 							<div class="pagination" style="float: right;display: block;">
                                 <?php if($pageData['index']['allowLast']){ ?>
                                 <li>
-									<a seek="<?php echo ($pageData['index']['current']-1)*$pageData['packs']['size'];?>" size="<?php echo $pageData['packs']['size'];?>" href="#">&laquo;</a>
+									<a seek="<?php echo ($pageData['index']['current']-1)*$pageData['index']['size'];?>" size="<?php echo $pageData['index']['size'];?>" href="#">&laquo;</a>
 								</li>
                                 <?php }?>
                                 <?php
@@ -107,7 +108,7 @@
 												<?php if($key == $pageSeek){ ?>
 												style="font-weight:bold;color:#d43f3a"
 												<?php  }  ?>
-												seek="<?php echo $value;?>" size="<?php echo $pageData['packs']['size'];?>" href="#"><?php echo ($key+1);?>
+												seek="<?php echo $value;?>" size="<?php echo $pageData['index']['size'];?>" href="#"><?php echo ($key+1);?>
 											</a>
 										</li>
 										<?php
@@ -116,7 +117,7 @@
                                 ?>
                                 <?php if($pageData['index']['allowNext']){ ?>
                                 <li>
-									<a seek="<?php echo ($pageData['index']['current']+1)*$pageData['packs']['size'];?>" size="<?php echo $pageData['packs']['size'];?>" href="#">&raquo;</a>
+									<a seek="<?php echo ($pageData['index']['current']+1)*$pageData['index']['size'];?>" size="<?php echo $pageData['index']['size'];?>" href="#">&raquo;</a>
 								</li>
                                 <?php }?>
 							</div>

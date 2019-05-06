@@ -9,6 +9,7 @@ LIB('us');
 LIB('ub');
 LIB('rp');
 LIB('view');
+LIB('op');
 define("DEFAULT_PAGE_SIZE",5);
 define("DEFAULT_START_SEEK",0);
 class BackgroundController extends DBManager {
@@ -272,10 +273,9 @@ class BackgroundController extends DBManager {
         $count = FREE_PARS('count','5');
 
         $pageData['operations'] = $OPM->GetOperationData($state,$seek,$count);
-        if(!empty($pageData['operations']['data'])){
-            $pageData['operations'] = $pageData['operations']['data'];
-        }
+		
         $pageData['index'] = self::BuildPageIndex($seek,$pageData['operations']['count'],$count);
+		//echo json_encode($pageData['index']);
         require ($pageData['path']);
     }
 

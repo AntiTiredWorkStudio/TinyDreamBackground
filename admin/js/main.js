@@ -70,6 +70,8 @@ document.OnPartLoad = function (data) {
 	if(ModuleRegister.hasOwnProperty(data.id)){
 		//console.log(ModuleRegister);
 		ModuleRegister[data.id].init(data);
+	}else{
+		console.log("未定义控制器:"+data.id);
 	}
 }
 
@@ -579,6 +581,71 @@ var RedPackageModule = {
 	}
 }
 
+var OperationModule = {
+	seek:0,
+	count:5,
+	size:10,
+	state:"ALL",
+	init:function(option){
+		var module = this;
+		console.log("init:",option);
+		$("#ALL").click(function(){
+			OperationModule.state = "ALL";
+			LoadWorkSpace('a_operation',
+			{
+				state:OperationModule.state,
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			});
+		});
+		$("#DOING").click(function(){
+			OperationModule.state = "DOING";
+			LoadWorkSpace('a_operation',
+			{
+				state:OperationModule.state,
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			});
+		});
+		$("#SUCCESS").click(function(){
+			OperationModule.state = "SUCCESS";
+			LoadWorkSpace('a_operation',
+			{
+				state:OperationModule.state,
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			});
+		});
+		$("#FAILED").click(function(){
+			OperationModule.state = "FAILED";
+			LoadWorkSpace('a_operation',
+			{
+				state:OperationModule.state,
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			});
+		});
+		$("[seek]").click(
+            module.switchPage
+        );
+	},
+	onSelectPid:function(res){
+		$("#input_pid").val($(res.currentTarget).attr('pid'));
+	},
+	switchPage:function(page){
+		console.log(OperationModule.seek);
+		//console.log(page.currentTarget.attributes[0].value,page.currentTarget.attributes[1].value);
+		//return;
+		//var module = this;
+			LoadWorkSpace('a_operation',
+			{
+				state:OperationModule.state,
+				seek:page.currentTarget.attributes[0].value,
+				count:page.currentTarget.attributes[1].value,
+			});
+	}
+}
+
 var ModuleRegister = {
 	"nav":NavigatorModule,
 	"post":PostModule,
@@ -588,6 +655,7 @@ var ModuleRegister = {
 	"act":ActivityModule,
 	"refund":RefundModule,
 	"redpack":RedPackageModule,
+	'oper':OperationModule
 }
 
 Page.OnSignalFailed = function () {
