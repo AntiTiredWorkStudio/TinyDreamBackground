@@ -279,6 +279,16 @@ class BackgroundController extends DBManager {
         require ($pageData['path']);
     }
 
+    //引用打卡记录
+    public function BuildAttendence(){
+
+    }
+
+    //引用邀请
+    public function BuildInvite(){
+
+    }
+
 	
     public function info()
     {
