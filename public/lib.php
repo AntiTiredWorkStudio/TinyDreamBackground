@@ -402,12 +402,35 @@ function REQUEST($key){
 }
 
 //判断字段请求是否存在
-function RequestedFields($fields){
+function RequestedFields($fields,$freefieldcheck){
+    $currentRequest = $_REQUEST;
+    unset($currentRequest[array_keys($currentRequest)[0]]);
+    $result = [
+        'result'=>'miss',
+        'field'=>''
+    ];
     if(!empty($fields)) {
-
         foreach ($fields as $key) {
-            if (!isset($_REQUEST[$key])) {
-                return $key;
+            if(StartWith($key,'#')){
+                continue;
+            }
+            if (!isset($currentRequest[$key])) {
+                $result['result'] = 'miss';
+                $result['field'] = $key;
+                return $result;
+            }else{
+                unset($currentRequest[$key]);
+            }
+        }
+        //判断参数无用
+        if($freefieldcheck) {
+            foreach ($currentRequest as $key => $value) {
+                $free_field = '#' . $key;
+                if (!in_array($free_field, $fields)) {
+                    $result['result'] = 'useless';
+                    $result['field'] = $key;
+                    return $result;
+                }
             }
         }
     }
@@ -636,7 +659,7 @@ function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//
     if(array_key_exists('pars',$actionArray[$_REQUEST[$action]])
         && array_key_exists('func',$actionArray[$_REQUEST[$action]])
     ){
-        $fieldCheck = RequestedFields($actionArray[$_REQUEST[$action]]['pars']);
+        $fieldCheck = RequestedFields($actionArray[$_REQUEST[$action]]['pars'],$GLOBALS['options']['free_field_check']);
         $paras = $_REQUEST;
         unset($paras[$action]);
         $paras = array_values($paras);
@@ -669,7 +692,9 @@ function Responds($action, $manager, $actionArray,$permission=PERMISSION_ALL){//
                 echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求正确
             }
         }else{
-            echo json_encode(RESPONDINSTANCE('100',"缺少参数'".$fieldCheck."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求格式正确,参数不全
+            $state = $fieldCheck['result'] =="miss"?"缺少参数":"无用的参数";
+            $fieldName = $fieldCheck['field'];
+            echo json_encode(RESPONDINSTANCE('100',$state."'".$fieldName."''"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求格式正确,参数不全
         }
     }else {
         echo json_encode(RESPONDINSTANCE('99',"请求格式错误"),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);//请求格式错误

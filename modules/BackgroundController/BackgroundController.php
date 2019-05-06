@@ -53,7 +53,8 @@ class BackgroundController extends DBManager {
         'orders'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
         'activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
         'redRefund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
-        'redPackage'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php']
+        'redPackage'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php'],
+        'operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php']
     ];
 	
 	//导航栏配置,索引为id,js用
@@ -64,7 +65,8 @@ class BackgroundController extends DBManager {
 		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store'],
         'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter'],
         'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left'],
-        'a_redpack'=>['title'=>'红包','class'=>'lnr lnr-map']
+        'a_redpack'=>['title'=>'红包','class'=>'lnr lnr-map'],
+        'a_operation'=>['title'=>'行动','class'=>'lnr lnr-rocket']
     ];
 	
 	//创建目录导航
@@ -231,7 +233,8 @@ class BackgroundController extends DBManager {
         $pageData['act'] = $awardController->ActivityLive();
         require ($pageData['path']);
     }
-	
+
+    //引用退款
 	public function BuildRefund(){
 		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'20190208';
 		$pageData = $this->pages['redRefund'];
@@ -241,7 +244,8 @@ class BackgroundController extends DBManager {
 		$pageData['pids'] = $DPM->PoolIdList()['pids'];
 		require ($pageData['path']);
 	}
-	
+
+    //引用红包
 	public function BuildRedPackage(){
 		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
 		$pageData = $this->pages['redPackage'];
@@ -258,6 +262,13 @@ class BackgroundController extends DBManager {
 		$pageData['pids'] = $DPM->PoolIdList()['pids'];
 		require ($pageData['path']);
 	}
+
+	//引用行动
+    public function BuildOperation(){
+        $pageData = $this->pages['operation'];
+
+        require ($pageData['path']);
+    }
 
 	
     public function info()

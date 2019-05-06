@@ -27,7 +27,8 @@ $options = [
     'MCH_KEY'=>'xmxtinydream2018XMXTINYDREAM2018',//微信商户key
     'MCH_ID'=>'1520507531',//微信商户号
     'Notify_Url'=>'http://paysdk.weixin.qq.com/notify.php',//'http://www.antit.top:8001/fitback/index.php'
-    'ManageIndex'=>'admin/index.html'
+    'ManageIndex'=>'admin/index.html',
+    'free_field_check'=>false,//筛查可选参数
 ];
 
 //模块配置
