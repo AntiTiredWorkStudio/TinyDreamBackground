@@ -14,6 +14,6 @@
 		'a_activity'=>R('BuildActivity',null,PERMISSION_AUTH_FORCE,false),//引用订单
 		'a_refund'=>R('BuildRefund',null,PERMISSION_AUTH_FORCE,false),//引用退款
 		'a_redpack'=>R('BuildRedPackage',null,PERMISSION_AUTH_FORCE,false),//引用红包
-        'a_operation'=>R('BuildOperation',null,PERMISSION_AUTH_FORCE,false),//引用行动
+        'a_operation'=>R('BuildOperation',["#state","#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用行动
     ]);
 ?>

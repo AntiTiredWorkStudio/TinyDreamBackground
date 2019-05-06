@@ -266,7 +266,16 @@ class BackgroundController extends DBManager {
 	//引用行动
     public function BuildOperation(){
         $pageData = $this->pages['operation'];
+        $OPM = new OperationManager();
+        $state = FREE_PARS('state','ALL');
+        $seek = FREE_PARS('seek','0');
+        $count = FREE_PARS('count','5');
 
+        $pageData['operations'] = $OPM->GetOperationData($state,$seek,$count);
+        if(!empty($pageData['operations']['data'])){
+            $pageData['operations'] = $pageData['operations']['data'];
+        }
+        $pageData['index'] = self::BuildPageIndex($seek,$pageData['operations']['count'],$count);
         require ($pageData['path']);
     }
 
