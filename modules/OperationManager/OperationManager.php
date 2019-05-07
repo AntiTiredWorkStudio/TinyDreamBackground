@@ -472,7 +472,8 @@ class OperationManager extends DBManager{
 
     //按日期补卡
     public function PatchAttendance($uid,$date){
-        $currentTimeStamp = PRC_TIME();
+        $currentTimeStamp = PRC_TIME()+DAY_TIME*ContractManager::Day_Offset();;
+;
         $todayStamp = DAY_START_FLOOR($currentTimeStamp);
         $currentOperation = self::UserDoingOperation($uid);//获取用户正在进行的行动
         if(empty($currentOperation)){//行动结束或为找到行动
