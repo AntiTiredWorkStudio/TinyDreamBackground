@@ -616,15 +616,19 @@ var OperationModule = {
             module.switchPage
         );
 	},
-	onGetArgs:function(){
-		var arg = {
+	onGetArgs:function(arg){
+		if(arg == null){
+			arg = {
 				state:OperationModule.state,
 				seek:OperationModule.seek,
 				count:OperationModule.count,
 			};
+		}
 		if($("#input_tele").val()!=""){
 			SaveStorage("tele",$("#input_tele").val());
 			arg.tele = $("#input_tele").val();
+		}else{
+			RemoveStorage('tele');
 		}
 		return arg; 
 	},
@@ -633,12 +637,13 @@ var OperationModule = {
 		//console.log(page.currentTarget.attributes[0].value,page.currentTarget.attributes[1].value);
 		//return;
 		//var module = this;
+			
 			LoadWorkSpace('a_operation',
-			{
+			OperationModule.onGetArgs({
 				state:OperationModule.state,
 				seek:page.currentTarget.attributes[0].value,
 				count:page.currentTarget.attributes[1].value,
-			});
+			}));
 	}
 }
 
