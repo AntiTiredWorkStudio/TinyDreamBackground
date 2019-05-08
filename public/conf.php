@@ -70,7 +70,9 @@ $modules = [
 	,'co' => ['rq'=>'modules/ContractManager/index.php',//ContractManager
 			'lib'=>'modules/ContractManager/ContractManager.php']
 	,'op' => ['rq'=>'modules/OperationManager/index.php',//OperationManager
-			'lib'=>'modules/OperationManager/OperationManager.php']#NEW_MODULES#
+			'lib'=>'modules/OperationManager/OperationManager.php']
+	,'utils' => ['rq'=>'modules/UtilsManager/index.php',//UtilsManager
+			'lib'=>'modules/UtilsManager/UtilsManager.php']#NEW_MODULES#
 ];
 
 //错误配置

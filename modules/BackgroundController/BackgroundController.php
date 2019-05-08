@@ -1,7 +1,7 @@
 <?php
 //引用此页面前需先引用conf.php
 error_reporting(E_ALL ^ E_DEPRECATED);
-
+LIB('utils');
 LIB('db');
 LIB('dp');
 LIB('ds');
@@ -70,28 +70,6 @@ class BackgroundController extends DBManager {
         'a_operation'=>['title'=>'行动','class'=>'lnr lnr-rocket']
     ];
 	
-	//创建目录导航
-	public static function BuildPageIndex($seek,$count,$size,$HalfPageMax = 3){
-		$pageIndex = [];
-		$currentPage = Ceil($seek/$size);
-		
-		
-		$totalPage = Ceil($count/$size);
-		
-		$startIndex = ($currentPage - $HalfPageMax)<0?0: ($currentPage - $HalfPageMax);
-		$endIndex = ($currentPage + $HalfPageMax)>$totalPage?$totalPage: ($currentPage + $HalfPageMax);
-		
-		$pageIndex['allowLast'] = $startIndex>0;
-		$pageIndex['allowNext'] = $endIndex<$totalPage;
-		
-		for($i=$startIndex;$i<$endIndex;$i++){
-			$pageIndex['list'][$i] = $i*$size;
-		}
-		$pageIndex['current'] = $currentPage;
-		$pageIndex['count'] = $count;
-		$pageIndex['size'] = $size;
-		return $pageIndex;
-	}
     
 	public function BuildNavigatorList(){
         return $this->navigateList;
@@ -144,7 +122,7 @@ class BackgroundController extends DBManager {
 		
 		$pageData['orders'] = $orders;
 		
-		$pageData['index'] = self::BuildPageIndex($pageData['seek'],$pageData['ordCount'],$pageData['size']);
+		$pageData['index'] = UtilsManager::BuildPageIndex($pageData['seek'],$pageData['ordCount'],$pageData['size']);
 		
         require ($pageData['path']);
 	}
@@ -257,7 +235,7 @@ class BackgroundController extends DBManager {
 			$count =  isset($_REQUEST['count'])?$_REQUEST['count']:10;
 			$_REQUEST['type'] = "listview";
 			$pageData['packs'] = $redOrderController->GetRedPacksInfo($pid,$seek,$count);
-			$pageData['index'] = self::BuildPageIndex($seek,$pageData['packs']['total'],$count);
+			$pageData['index'] = UtilsManager::BuildPageIndex($seek,$pageData['packs']['total'],$count);
 		}
 		$DPM = new DreamPoolManager();
 		$pageData['pids'] = $DPM->PoolIdList()['pids'];
@@ -274,7 +252,7 @@ class BackgroundController extends DBManager {
 
         $pageData['operations'] = $OPM->GetOperationData($state,$seek,$count);
 		
-        $pageData['index'] = self::BuildPageIndex($seek,$pageData['operations']['count'],$count);
+        $pageData['index'] = UtilsManager::BuildPageIndex($seek,$pageData['operations']['count'],$count);
 		//echo json_encode($pageData['index']);
         require ($pageData['path']);
     }
