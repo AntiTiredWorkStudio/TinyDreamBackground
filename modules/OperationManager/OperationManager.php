@@ -7,6 +7,7 @@ LIB('co');
 LIB('ds');
 LIB('us');
 LIB('view');
+LIB('utils');
 define("DAY_TIME",86400);
 
 class OperationManager extends DBManager{
@@ -924,35 +925,74 @@ class OperationManager extends DBManager{
 
     //获取行动数据
     public function GetOperationData($state,$seek,$count){
-        $stateText = [
-            "SUCCESS"=>"成功",
-            "DOING"=>"正在进行",
-            "FAILED"=>"失败"
-        ];
-        $searchCondition = ($state == 'ALL')?1:self::FieldIsValue('state',$state);
-        $tcount = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
+        return UtilsManager::CreateTable($state,$seek,$count)->LoadField([//加载字段
+            "昵称","手机号","行动id","行动类型"	,"行动开始时间","上次打卡时间",	"行动主题","已打卡天数","连续打卡天数","缺失天数","补卡天数","补卡机会","邀请用户","行动状态"
+        ])->LoadDatasHandle(//加载原始数据
+            function ($args){
+                $state = $args[0];
+                $seek = $args[1];
+                $count = $args[2];
+                $searchCondition = ($state == 'ALL')?1:self::FieldIsValue('state',$state);
+                $tcount = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
+                $searchCondition = self::OrderBy($searchCondition,'starttime','DESC');
+                $searchCondition = self::Limit($searchCondition,$seek,$count);
+                $datas = DBResultToArray(
+                    $this->SelectDataByQuery($this->TName('tOperation'),
+                        $searchCondition
+                    ),true
+                );
+                return [
+                    "datas"=>$datas,
+                    "seek"=>$seek,
+                    "size"=>$count,
+                    "total"=>$tcount
+                ];
+            }
+        )->DataHandle(//处理关联数据
+            function ($datas){
+                $contracts = ContractManager::MakeContractList(false);
 
-        $searchCondition = self::OrderBy($searchCondition,'starttime','DESC');
-        $searchCondition = self::Limit($searchCondition,$seek,$count);
-        $datas = DBResultToArray(
-            $this->SelectDataByQuery($this->TName('tOperation'),
-                $searchCondition
-            ),true
-        );
-        foreach ($datas as $key => $value) {
-            $value['starttime'] = date('Y-m-d',$value['starttime']);
-            $value['lasttime'] = date('Y-m-d H:i:s',$value['lasttime']);
-            $value['state'] =$stateText[$value['state']];
-            unset($value['firstday']);
-            $datas[$key] = $value;
-        }
+                $stateText = [
+                    "SUCCESS"=>"成功",
+                    "DOING"=>"正在进行",
+                    "FAILED"=>"失败"
+                ];
+                $uidList = [];
+                foreach ($datas as $key => $value) {
+                    if(!in_array($value['uid'],$uidList)) {
+                        array_push($uidList, $value['uid']);
+                    }
+                }
+                $teles = UserManager::GetTelesByUidList($uidList);
+                $nicknames = UserManager::GetUserNickname(self::LogicString($uidList));
 
-        $backMsg = RESPONDINSTANCE('0');
-        $backMsg['count'] = $tcount;
-        $backMsg['tpage'] = ceil($tcount/$count);
-        $backMsg['cpage'] = ceil($seek/$count+1);
-        $backMsg['data'] = $datas;
-        return $backMsg;
+                $combineData = [];
+                foreach ($uidList as $key => $value) {
+                    $combineData[$value] = [
+                        'tele'=>$teles[$key]['tele'],
+                        'nickname'=>$nicknames[$value]['nickname']
+                    ];
+                }
+
+                foreach ($datas as $key => $value) {
+                    $target = [
+                        "nickname"=>$combineData[$value['uid']]['nickname'],
+                        "tele"=>$combineData[$value['uid']]['tele']
+                    ];
+                    $value["starttime"] =date('Y-m-d',$value["starttime"]);
+                    $value["lasttime"] =date('Y-m-d H:i:s', $value["lasttime"]);
+                    $value["cid"] = $contracts[ $value["cid"]]['title'];
+                    $value["state"] = $stateText[$value["state"]];
+                    unset($value['uid']);
+                    unset($value['firstday']);
+                    foreach ($value as $k => $v) {
+                        $target[$k] = $v;
+                    }
+                    $datas[$key] = $target;
+                }
+                return $datas;
+            }
+        )->DataFinished()->ToRespond();//封口,转字符
     }
 
     //获取行动数据

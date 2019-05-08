@@ -292,12 +292,12 @@ class ContractManager extends DBManager{
     }
 
 	//获取合约类型表（信息）
-	public static function MakeContractList(){
+	public static function MakeContractList($NumKey = true){
         $backMsg = RESPONDINSTANCE('0');
 		$CM = new ContractManager();
         $result = DBResultToArray(
             $CM->SelectDataByQuery($CM->TName('tContract'),"1"),
-            true
+            $NumKey
         );
         return $result;
     }

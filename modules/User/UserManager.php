@@ -72,13 +72,13 @@ class UserManager extends DBManager{
         ),true)[0]['tele'];
     }
 
-    public static function GetTelesByUidList($uidlist){
+    public static function GetTelesByUidList($uidlist,$Numkey=true){
         $USM = new UserManager();
         return DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),
             self::FieldIsValue('uid',self::LogicString($uidlist)),
             false,
             'tele'
-        ),true);
+        ),$Numkey);
     }
 
     //生成活动照片上传token

@@ -10,6 +10,7 @@ class Table{
 	public $seek = 0;
 	public $total = 1;
 	public $size = 1;
+	public $args = [];
 	
 	public function LoadField($fields){
 		foreach($fields as $key){
@@ -17,42 +18,69 @@ class Table{
 		}
 		return $this;
 	}
-	
+
+	//需要返回数组包含属性:需要方法格式: function():[datas,seek,size,total]
+	public function LoadDatasHandle($func){
+	    $standard = $func($this->args[0]);
+        $this->datas = $standard['datas'];
+        $this->seek = $standard['seek'];
+        $this->size = $standard['size'];
+        $this->total = $standard['total'];
+        return $this;
+    }
+
 	public function LoadDatas($tData,$seek,$count,$total){
-		$this->$datas = $tData;
-		$this->$seek = $seek;
-		$this->$size = $count;
-		$this->$total = $total;
+		$this->datas = $tData;
+		$this->seek = $seek;
+		$this->size = $count;
+		$this->total = $total;
 		return $this;
 	}
-	
-	public function DataHandle($func){
-		if(empty($this->$datas)){
+
+	//需要方法格式: function($key,$value):$value
+	public function DataEachHandle($func){
+		if(empty($this->datas)){
 			return $this;
 		}
-		foreach($this->$datas as $key=>$value){
-			$this->$datas[$key] = $func($key,$value);
+		foreach($this->datas as $key=>$value){
+		    $targetValue = $func($key,$value);
+		    if(empty($targetValue)){
+                unset($this->datas[$key]);
+            }else {
+                $this->datas[$key] = $targetValue;
+            }
 		}
 		return $this;
 	}
-	
+
+    //需要方法格式: function($data):$value
+    public function DataHandle($func){
+        if(empty($this->datas)){
+            return $this;
+        }
+        $this->datas = $func($this->datas);
+        return $this;
+    }
+
+	//为表格添加翻页索引
 	public function DataFinished(){
-		$this->$indexObject = UtilsManager::BuildPageIndex($this->$seek,$this->$count,$this->$size);
+		$this->indexObject = UtilsManager::BuildPageIndex($this->seek,$this->total,$this->size);
 		return $this;
 	}
-	
+
+	//封口转换为请求返回
 	public function ToRespond(){
 		$backMsg = RESPONDINSTANCE('0');
-		$backMsg['data'] = $this->$datas;
-		$backMsg['index'] = $this->$indexObject;
-		$backMsg['fields'] = $this->$fieldsArray;
-		$backMsg['count'] = $this->$total;
+		$backMsg['data'] = $this->datas;
+		$backMsg['index'] = $this->indexObject;
+		$backMsg['fields'] = $this->fieldsArray;
+		$backMsg['count'] = $this->total;
 		return $backMsg;
 	}
 	
 	public function Table(){
-		
-	}
+        $this->args = func_get_args();
+    }
 }
 class UtilsManager extends DBManager{
     public function info()
@@ -88,11 +116,11 @@ class UtilsManager extends DBManager{
 	}
 	
 	public static function CreateTable(){
-		return new Table();
+		return new Table(func_get_args());
 	}
 	
-	public function TryTable(){
-		return self::CreateTable();
+	public function TryTable($state,$seek,$count){
+        return RESPONDINSTANCE('0');
 	}
 }
 ?>

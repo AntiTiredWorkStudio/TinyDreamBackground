@@ -8,6 +8,6 @@
 	Responds($_GET['act'],(new UtilsManager()),
     [
         'inf'=>R('info'),//模块信息
-		'try'=>R('TryTable'),//测试Table
+		'try'=>R('TryTable',['state','seek','count']),//测试Table
     ]);
 ?>
