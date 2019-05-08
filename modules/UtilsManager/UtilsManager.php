@@ -1,5 +1,6 @@
 <?php
 //引用此页面前需先引用conf.php
+LIB('db');
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 class Table{
@@ -88,6 +89,10 @@ class UtilsManager extends DBManager{
 	
 	public static function CreateTable(){
 		return new Table();
+	}
+	
+	public function TryTable(){
+		return self::CreateTable();
 	}
 }
 ?>

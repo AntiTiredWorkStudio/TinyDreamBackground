@@ -7,6 +7,7 @@
 
 	Responds($_GET['act'],(new UtilsManager()),
     [
-        'inf'=>R('info')//模块信息
+        'inf'=>R('info'),//模块信息
+		'try'=>R('TryTable'),//测试Table
     ]);
 ?>
