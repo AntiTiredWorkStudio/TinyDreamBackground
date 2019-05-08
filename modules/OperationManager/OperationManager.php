@@ -925,14 +925,26 @@ class OperationManager extends DBManager{
 
     //获取行动数据
     public function GetOperationData($state,$seek,$count){
-        return UtilsManager::CreateTable($state,$seek,$count)->LoadField([//加载字段
+        $tele = FREE_PARS('tele','');
+        return UtilsManager::CreateTable($state,$seek,$count,$tele)->LoadField([//加载字段
             "昵称","手机号","行动id","行动类型"	,"行动开始时间","上次打卡时间",	"行动主题","已打卡天数","连续打卡天数","缺失天数","补卡天数","补卡机会","邀请用户","行动状态"
         ])->LoadDatasHandle(//加载原始数据
             function ($args){
                 $state = $args[0];
                 $seek = $args[1];
                 $count = $args[2];
+                $tele = $args[3];
                 $searchCondition = ($state == 'ALL')?1:self::FieldIsValue('state',$state);
+                if($tele!=""){
+                    $users = UserManager::GetUserByTele($tele);
+                    $uids = [];
+                    if(!empty($users)){
+                        foreach ($users as $user) {
+                            array_push($uids,$user['uid']);
+                        }
+                    }
+                    $searchCondition = self::C_And($searchCondition,self::FieldIsValue('uid',self::LogicString($uids)));
+                }
                 $tcount = $this->CountTableRowByQuery($this->TName('tOperation'),$searchCondition);
                 $searchCondition = self::OrderBy($searchCondition,'starttime','DESC');
                 $searchCondition = self::Limit($searchCondition,$seek,$count);
