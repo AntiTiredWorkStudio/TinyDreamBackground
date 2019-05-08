@@ -940,7 +940,7 @@ class OperationManager extends DBManager{
                     $uids = [];
                     if(!empty($users)){
                         foreach ($users as $user) {
-                            array_push($uids,$user['uid']);
+                            array_push($uids,$user->uid);
                         }
                     }
                     $searchCondition = self::C_And($searchCondition,self::FieldIsValue('uid',self::LogicString($uids)));
@@ -975,17 +975,14 @@ class OperationManager extends DBManager{
                         array_push($uidList, $value['uid']);
                     }
                 }
-                $teles = UserManager::GetTelesByUidList($uidList);
-                $telesUid = [];
-                foreach ($teles as $key => $value) {
-                    $telesUid[$uidList[$key]] = $value;
-                }
+                $teles = UserManager::GetTelesToUidTeleList($uidList,false);
+                
                 $nicknames = UserManager::GetUserNickname(self::LogicString($uidList));
 
                 $combineData = [];
                 foreach ($uidList as $key => $value) {
                     $combineData[$value] = [
-                        'tele'=>$telesUid[$value]['tele'],
+                        'tele'=>$teles[$value]['tele'],
                         'nickname'=>$nicknames[$value]['nickname']
                     ];
                 }

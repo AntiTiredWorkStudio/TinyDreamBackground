@@ -80,6 +80,15 @@ class UserManager extends DBManager{
             'tele'
         ),$Numkey);
     }
+	
+	public static function GetTelesToUidTeleList($uidlist,$Numkey=true){
+        $USM = new UserManager();
+        return DBResultToArray($USM->SelectDataByQuery($USM->TName('tUser'),
+            self::FieldIsValue('uid',self::LogicString($uidlist)),
+            false,
+            '`uid`,`tele`'
+        ),$Numkey);
+    }
 
     //生成活动照片上传token
     public static function GenerateActivityPhoto($uid){
