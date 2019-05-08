@@ -976,12 +976,16 @@ class OperationManager extends DBManager{
                     }
                 }
                 $teles = UserManager::GetTelesByUidList($uidList);
+                $telesUid = [];
+                foreach ($teles as $key => $value) {
+                    $telesUid[$uidList[$key]] = $value;
+                }
                 $nicknames = UserManager::GetUserNickname(self::LogicString($uidList));
 
                 $combineData = [];
                 foreach ($uidList as $key => $value) {
                     $combineData[$value] = [
-                        'tele'=>$teles[$key]['tele'],
+                        'tele'=>$telesUid[$value]['tele'],
                         'nickname'=>$nicknames[$value]['nickname']
                     ];
                 }
