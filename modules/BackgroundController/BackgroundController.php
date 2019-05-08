@@ -250,10 +250,12 @@ class BackgroundController extends DBManager {
         $seek = FREE_PARS('seek','0');
         $count = FREE_PARS('count','5');
 
-        $pageData['operations'] = $OPM->GetOperationData($state,$seek,$count);
-		
-        $pageData['index'] = UtilsManager::BuildPageIndex($seek,$pageData['operations']['count'],$count);
-		//echo json_encode($pageData['index']);
+        $datas = $OPM->GetOperationData($state,$seek,$count);
+        $pageData['data'] = $datas['data'];
+        $pageData['index'] = $datas['index'];
+        $pageData['fields'] = $datas['fields'];
+        $pageData['count'] = $datas['count'];
+        
         require ($pageData['path']);
     }
 
