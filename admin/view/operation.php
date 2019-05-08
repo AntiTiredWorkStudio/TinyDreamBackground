@@ -18,6 +18,12 @@
                         </div>
                         <div class="panel-body">
 							<div class="row">
+								<div class="col-lg-7">
+                                    <div class="input-group"  data-toggle="dropdown">
+                                        <span class="input-group-addon">用户手机号</span>
+                                        <input id="input_tele"  maxlength='11'  type="text" class="form-control" value="" placeholder="">
+                                    </div>
+                                </div>
 								<div class="col-lg-7" style="margin: 15px auto;display: block;text-align: center;">
 									<span><button id="ALL" type="button" class="btn btn-primary" style="width: 10%;">所有</button></span>
 									<span><button id="DOING" type="button" class="btn btn-primary" style="width: 10%;">进行中</button></span>

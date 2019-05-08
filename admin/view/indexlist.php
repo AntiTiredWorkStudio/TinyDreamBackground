@@ -1,41 +1,4 @@
 
-						<div class="panel-body">
-							<table class="table table-bordered ">
-								<thead> 
-									<tr> 
-									<?php
-									if(isset($pageData['fields'])){
-										foreach($pageData['fields'] as $field){
-									?>
-									 <th><?php echo $field;?></th> 
-									<?php
-										}
-									}
-									?>
-									</tr> 
-								   </thead> 
-								   <tbody> 
-									
-								<?php
-								
-								if(isset($pageData['data'])){
-									foreach($pageData['data'] as $key=>$value){
-								?>
-								 <tr> 
-									<?php
-									foreach($value as $k=>$v){
-									?>
-									 <td><?php echo $v;?></td> 
-									<?php
-									}
-									?>
-								 </tr> 
-								<?php }
-								}
-								?>
-								   </tbody> 
-							</table>
-						</div>
 <?php
 						if(isset($pageData['index'])){
 								?>
