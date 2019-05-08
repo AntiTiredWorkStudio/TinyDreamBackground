@@ -588,49 +588,45 @@ var OperationModule = {
 	state:"ALL",
 	init:function(option){
 		var module = this;
+		if(ExistStorage("tele")){
+			$("#input_tele").val(GetStorage("tele"));
+		}
 		console.log("init:",option);
 		$("#ALL").click(function(){
 			OperationModule.state = "ALL";
 			LoadWorkSpace('a_operation',
-			{
-				state:OperationModule.state,
-				seek:OperationModule.seek,
-				count:OperationModule.count,
-			});
+			OperationModule.onGetArgs());
 		});
 		$("#DOING").click(function(){
 			OperationModule.state = "DOING";
 			LoadWorkSpace('a_operation',
-			{
-				state:OperationModule.state,
-				seek:OperationModule.seek,
-				count:OperationModule.count,
-			});
+			OperationModule.onGetArgs());
 		});
 		$("#SUCCESS").click(function(){
 			OperationModule.state = "SUCCESS";
 			LoadWorkSpace('a_operation',
-			{
-				state:OperationModule.state,
-				seek:OperationModule.seek,
-				count:OperationModule.count,
-			});
+			OperationModule.onGetArgs());
 		});
 		$("#FAILED").click(function(){
 			OperationModule.state = "FAILED";
 			LoadWorkSpace('a_operation',
-			{
-				state:OperationModule.state,
-				seek:OperationModule.seek,
-				count:OperationModule.count,
-			});
+			OperationModule.onGetArgs());
 		});
 		$("[seek]").click(
             module.switchPage
         );
 	},
-	onSelectPid:function(res){
-		$("#input_pid").val($(res.currentTarget).attr('pid'));
+	onGetArgs:function(){
+		var arg = {
+				state:OperationModule.state,
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			};
+		if($("#input_tele").val()!=""){
+			SaveStorage("tele",$("#input_tele").val());
+			arg.tele = $("#input_tele").val();
+		}
+		return arg; 
 	},
 	switchPage:function(page){
 		console.log(OperationModule.seek);
