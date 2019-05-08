@@ -255,7 +255,7 @@ class BackgroundController extends DBManager {
         $pageData['index'] = $datas['index'];
         $pageData['fields'] = $datas['fields'];
         $pageData['count'] = $datas['count'];
-        
+
         require ($pageData['path']);
     }
 
