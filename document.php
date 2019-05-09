@@ -40,7 +40,7 @@ $commentRules=[
     "aw=atnums"=>"",
     "aw=lfromp"=>"",
     "aw=gawap"=>"",
-    "aw=gplu"=>"",
+    "aw=gplu"=>"拉取中奖数据",
     "aw=cplu"=>"",
     "aw=calc"=>"",
     "aw=uplid"=>"",
@@ -265,6 +265,12 @@ $commentPars=[
     "cid"=>"合约id",
     "theme"=>"行动主题字符串",
     "opid"=>"行动id",
+	"#awardtype"=>"中奖类型字符,取值:TR/DR （小生意中奖/小梦想中奖）",
+	"#dblink"=>"测试服务器标识,如果使用测试服务器,请加此参数并取值为test",
+	"#state"=>"状态",
+	"#pid"=>"梦想互助期号",
+	"#seek"=>"起始下标",
+	"#count"=>"获取数目"
 ];
 function Comment($type,$key){
     if(isset($GLOBALS[$type][$key]) && $GLOBALS[$type][$key]!=""){
@@ -308,7 +314,11 @@ foreach ($GLOBALS['ACCESS_LIST'] as $key=>$value){
                 if(!in_array($comment_key,$commitList)){
                     $commitList['pars'][$comment_key] = "";
                 }
-                echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" . $seek . ')' . $comment_key. ":".Comment("commentPars",$comment_key)."</br>";
+				$argType = "";
+				if(StartWith($comment_key,'#')){
+					$argType = "(可选参数)";
+				}
+                echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" . $seek . ')' . $comment_key.$argType. ":".Comment("commentPars",$comment_key)."</br>";
             }
         }
     }
