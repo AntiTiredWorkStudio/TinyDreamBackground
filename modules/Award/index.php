@@ -9,8 +9,8 @@
         'onums'=>R('GetLotteryByOrder',['oid']),//通过订单获取
         'anums'=>R('AutoLottery',null,PERMISSION_AUTH_FREE|PERMISSION_LOCAL),//自动开奖
         'atnums'=>R('AutoTryLottery'),//自动开奖测试
-        'lfromp' => R('GetLotteryFromPid',['pid']),
-        'gawap'=>R('GetUnawardPools'),
+        'lfromp' => R('GetLotteryFromPid',['pid']),//获取梦想池开奖号
+        'gawap'=>R('GetUnawardPools'),//获取全部未开奖梦想池
 		'gplu'=>R('GetPreviousLuckyByRange',['seek','count','#awardtype']),//获取往期幸运者
 		'cplu'=>R('CountPreviousLucky',['#awardtype']),//获取往期幸运者
         'calc'=>R('GetCalc',['pid']),//获取计算步骤
