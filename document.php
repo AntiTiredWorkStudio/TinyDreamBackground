@@ -198,7 +198,7 @@ $commentRules=[
     "op=oshar"=>"打开分享页面,参数：[opid:行动id]",
     "op=eomp"=>"进入行动派首页,参数：[uid:用户openid]",
     "op=cls"=>"清理行动及打卡数据（包括：行动信息、打卡记录、邀请信息、行动订单）,参数：[uid:用户openid](可不加，不加为清除全部)",
-    "op=gudo"=>"获取用户正在参加的行动,参数:[uid:用户openid,secret:sha1("追梦行动派")]",
+    "op=gudo"=>"获取用户正在参加的行动,参数:[uid:用户openid,secret:sha1('追梦行动派')]",
     "op=reset"=>"重置用户正在进行的行动数据及打卡记录,参数:[uid:用户openid]",
     "op=gopd"=>"获取用户行动数据",
     "op=gatd"=>"获取用户打卡数据",
