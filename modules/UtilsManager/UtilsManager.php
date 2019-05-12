@@ -88,7 +88,7 @@ class QrcodeObject{
     public function QrcodeObject($name,$suffix='.png'){
         $cachePath = 'datas\qrcode';
         if(!is_dir($cachePath)){
-            mkdir($cachePath);
+            mkdir($cachePath, 0777, true);
         }
         $this->path=$cachePath.'\\'.$name.$suffix;
     }
