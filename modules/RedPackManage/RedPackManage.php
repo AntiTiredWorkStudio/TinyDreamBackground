@@ -439,7 +439,7 @@ class RedPackManage extends DBManager {
 
         $userCondition = self::Brackets(
             self::LogicString(
-                EachFunction(ListAttributeToArray($tRedPackages,'uid'),
+                PublicTools::EachFunction(PublicTools::ListAttributeToArray($tRedPackages,'uid'),
                     function ($item){
                         return self::FieldIsValue('uid',$item);
                     }

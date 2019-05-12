@@ -317,7 +317,7 @@ foreach ($GLOBALS['ACCESS_LIST'] as $key=>$value){
                     $commitList['pars'][$comment_key] = "";
                 }
 				$argType = "";
-				if(StartWith($comment_key,'#')){
+				if(PublicTools::StartWith($comment_key,'#')){
 					$argType = "(可选参数)";
 				}
                 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" . $seek . ')' . $comment_key.$argType. ":".Comment("commentPars",$comment_key)."</br>";

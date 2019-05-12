@@ -98,7 +98,7 @@ class DreamPoolManager extends DBManager{
 	
 	//通过梦想池的期号生成ID
 	public static function GeneratePoolIDAuto(){
-		$ftime = GetFirstMonthDayStamp();
+		$ftime = PublicTools::GetFirstMonthDayStamp();
 		$sql = 'SELECT COUNT(*) FROM `dreampool` WHERE `ptime`>"'."$ftime".'"';
 		$DPM = new DreamPoolManager();
 		$link = $DPM->DBLink();
@@ -106,7 +106,7 @@ class DreamPoolManager extends DBManager{
 		if($index <10){
 			$index = '0'.$index;
 		}
-		$date = GetFirstMonthDayObject();
+		$date = PublicTools::GetFirstMonthDayObject();
 		return $date['y'].$date['m'].$index;
 	}
 
@@ -422,7 +422,7 @@ class DreamPoolManager extends DBManager{
 		
         $pid = self::GeneratePoolIDAuto();
 		$title= POOL_TITLE_PREFIX.$pid.POOL_TITLE_POSTFIX;
-		$duration = GetDayLessTime()+86400*($day-1)+3600*21;//今天的剩余时间+day天
+		$duration = PublicTools::GetDayLessTime()+86400*($day-1)+3600*21;//今天的剩余时间+day天
         /*
          *
          * 小生意互助潜在修改位置
@@ -483,7 +483,7 @@ class DreamPoolManager extends DBManager{
 		
         $pid = $index;
 		$title= POOL_TITLE_PREFIX.$index.POOL_TITLE_POSTFIX;
-		$duration = GetDayLessTime()+86400*$day;//今天的剩余时间+day天
+		$duration = PublicTools::GetDayLessTime()+86400*$day;//今天的剩余时间+day天
         /*
          *
          * 小生意互助潜在修改位置
@@ -511,7 +511,7 @@ class DreamPoolManager extends DBManager{
 	
 	//获取当天剩余时间
 	public function GetDayTimeLess(){
-		$second = GetDayLessTime();
+		$second = PublicTools::GetDayLessTime();
 		if(!isset($_REQUEST['formate'])){
 			return $second;
 		}
@@ -613,7 +613,7 @@ class DreamPoolManager extends DBManager{
 	//获取近1个月内的梦想互助id号
 	public function PoolIdList(){
 		$backMsg = RESPONDINSTANCE('0');
-		$backMsg['pids'] = ListAttributeToArray(DBResultToArray($this->SelectDataByQuery($this->TName("tPool"),
+		$backMsg['pids'] = PublicTools::ListAttributeToArray(DBResultToArray($this->SelectDataByQuery($this->TName("tPool"),
 			self::FieldIsValue("ptime",(PRC_TIME()-(86400*30)),">"),
 			false,
 			'`pid`'

@@ -936,7 +936,7 @@ class DreamServersManager extends DBManager {
                 NOTICE_BUY,
                 [
                     'ptitle'=>$noticePrefix.$actionList['pay']['pid'].'期',
-                    'lids'=>ConnectArrayByChar($numArray,'、')
+                    'lids'=>PublicTools::ConnectArrayByChar($numArray,'、')
                 ],
                 NoticeManager::CreateAction(
                     'buy',
@@ -1032,9 +1032,9 @@ class DreamServersManager extends DBManager {
                 // 微信支付密钥
                 'mch_key'    => $GLOBALS['options']['MCH_KEY'],
                 // 微信证书 cert 文件
-                'ssl_cer'    => ROOT_DIR().'/cert/apiclient_cert.pem',
+                'ssl_cer'    => PublicTools::ROOT_DIR().'/cert/apiclient_cert.pem',
                 // 微信证书 key 文件
-                'ssl_key'    =>  ROOT_DIR().'/cert/apiclient_key.pem',
+                'ssl_key'    =>  PublicTools::ROOT_DIR().'/cert/apiclient_key.pem',
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址
@@ -1105,9 +1105,9 @@ class DreamServersManager extends DBManager {
                 // 微信支付密钥
                 'mch_key'    => $GLOBALS['options']['MCH_KEY'],
                 // 微信证书 cert 文件
-                'ssl_cer'    => ROOT_DIR().'/cert/apiclient_cert.pem',
+                'ssl_cer'    => PublicTools::ROOT_DIR().'/cert/apiclient_cert.pem',
                 // 微信证书 key 文件
-                'ssl_key'    =>  ROOT_DIR().'/cert/apiclient_key.pem',
+                'ssl_key'    =>  PublicTools::ROOT_DIR().'/cert/apiclient_key.pem',
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址
@@ -1181,9 +1181,9 @@ class DreamServersManager extends DBManager {
                 // 微信支付密钥
                 'mch_key'    => $GLOBALS['options']['MCH_KEY'],
                 // 微信证书 cert 文件
-                'ssl_cer'    => ROOT_DIR().'/cert/apiclient_cert.pem',
+                'ssl_cer'    => PublicTools::ROOT_DIR().'/cert/apiclient_cert.pem',
                 // 微信证书 key 文件
-                'ssl_key'    =>  ROOT_DIR().'/cert/apiclient_key.pem',
+                'ssl_key'    =>  PublicTools::ROOT_DIR().'/cert/apiclient_key.pem',
                 // 缓存目录配置
                 'cache_path' => '',
                 // 支付成功通知地址

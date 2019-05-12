@@ -1027,7 +1027,7 @@ class UserManager extends DBManager{
 	public function GetUserInfoWeb($atoken,$uid){
 		$url = "https://api.weixin.qq.com/sns/userinfo?access_token=$atoken&openid=$uid&lang=zh_CN";
 		$backMsg = RESPONDINSTANCE('0');
-		$backMsg['info'] = HttpGet($url);
+		$backMsg['info'] = PublicTools::HttpGet($url);
 		return $backMsg;
 	}
 	

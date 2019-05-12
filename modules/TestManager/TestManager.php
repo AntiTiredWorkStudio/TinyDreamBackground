@@ -288,7 +288,7 @@ class TestManager extends DBManager {
             NOTICE_BUY,
             [
                 'ptitle'=>'梦想互助20190101期',
-                'lids'=>ConnectArrayByChar(['001','002'],'、')
+                'lids'=>PublicTools::ConnectArrayByChar(['001','002'],'、')
             ],
             NoticeManager::CreateAction(
                 'buy',
