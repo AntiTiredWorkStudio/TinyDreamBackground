@@ -9,5 +9,6 @@
     [
         'inf'=>R('info'),//模块信息
 		'try'=>R('TryTable',['state','seek','count']),//测试Table
+        'qrcode'=>R('TryQrcode',['text']),//生成二维码
     ]);
 ?>

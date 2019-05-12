@@ -82,6 +82,28 @@ class Table{
         $this->args = func_get_args();
     }
 }
+
+class QrcodeObject{
+    public $path;
+    public function QrcodeObject($name,$suffix='.png'){
+        $cachePath = 'datas\qrcode';
+        if(!is_dir($cachePath)){
+            mkdir($cachePath);
+        }
+        $this->path=$cachePath.'\\'.$name.$suffix;
+    }
+
+
+    public function MakeQrcode($text){
+        include "phpqrcode.php";
+        QRcode::png($text,$this->path,'L',6,2);
+        return $this;
+    }
+
+    public function UrlLink(){
+        return "https://".$_SERVER['HTTP_HOST'].'/'.$this->path;
+    }
+}
 class UtilsManager extends DBManager{
     public function info()
     {
@@ -92,10 +114,6 @@ class UtilsManager extends DBManager{
 	public function UtilsManager(){
 	}
 
-	public static function MakeQrcode(){
-        include "phpqrcode.php";
-        QRcode::png("http://www.baidu.com","target.png",'L',6,2);
-    }
 	
 	//创建目录导航
 	public static function BuildPageIndex($seek,$count,$size,$HalfPageMax = 3){
@@ -127,5 +145,10 @@ class UtilsManager extends DBManager{
 	public function TryTable($state,$seek,$count){
         return RESPONDINSTANCE('0');
 	}
+
+
+    public function TryQrcode($text){
+        echo (new QrcodeObject(sha1('qr'.PRC_TIME())))->MakeQrcode($text)->UrlLink();
+    }
 }
 ?>
