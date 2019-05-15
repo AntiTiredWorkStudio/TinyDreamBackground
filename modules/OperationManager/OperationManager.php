@@ -1078,10 +1078,10 @@ class OperationManager extends DBManager{
         $operation = self::UserDoingOperation($uid);
         $catalog = FREE_PARS('catalog','true');
         $notopdoing = empty($operation);
-        $notop = $notopdoing && ($catalog=='true');
+        $notop = ($notopdoing || $catalog=='true') && ($catalog=='true');
         $ctypes = ContractManager::ThemeTypesList();
         $data = RESPONDINSTANCE('0');
-        $data['opexist'] = $notopdoing;
+        $data['opexist'] = !$notopdoing;
         if($notop){
             $data['typelist'] = $ctypes;
         }else{
