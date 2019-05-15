@@ -77,6 +77,17 @@ class Table{
 		$backMsg['count'] = $this->total;
 		return $backMsg;
 	}
+
+	public function ToArray(){
+        $backMsg = [];
+        $backMsg['data'] = $this->datas;
+        $backMsg['index'] = $this->indexObject;
+        if(!empty($this->fieldsArray)) {
+            $backMsg['fields'] = $this->fieldsArray;
+        }
+        $backMsg['count'] = $this->total;
+        return $backMsg;
+    }
 	
 	public function Table(){
         $this->args = func_get_args();

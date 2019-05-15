@@ -24,5 +24,6 @@
         'gopd'=>R('GetOperationData',['state','seek','count','#tele']),//获取用户行动数据
         'gatd'=>R('GetAttendenceData',['tele','seek','count']),//获取用户打卡数据
         'gind'=>R('GetInviteData',['seek','count']),//获取用户邀请记录
+        'opt'=>R('GetOperationTools',['uid','#catalog','#select','#seek','#count']),//获取行动工具,参数[uid:用户openid,catalog(可选):可填写值为true/false(为true时不论是否有用户合约,都会返回无合约时工具页面内容,不填时默认为true),select(可选):筛选主题的类别(为typelist数组中的值,不填时默认为合约主题对应的类别),seek(可选):公众号列表起始下标(不填默认为0),count:公众号列表单位获取长度(不填默认为5)]
     ]);
 ?>

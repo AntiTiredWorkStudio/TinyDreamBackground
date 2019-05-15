@@ -1072,5 +1072,30 @@ class OperationManager extends DBManager{
         $backMsg['data'] = $datas;
         return $backMsg;
     }
+
+    //获取行动工具
+    public function GetOperationTools($uid){
+        $operation = self::UserDoingOperation($uid);
+        $catalog = FREE_PARS('catalog','true');
+        $notopdoing = empty($operation);
+        $notop = $notopdoing && ($catalog=='true');
+        $ctypes = ContractManager::ThemeTypesList();
+        $data = RESPONDINSTANCE('0');
+        $data['opexist'] = $notopdoing;
+        if($notop){
+            $data['typelist'] = $ctypes;
+        }else{
+            $selectionType = FREE_PARS('select',
+                $notopdoing?'全部':ContractManager::GetTypeByTheme($operation['theme'])
+            );
+            array_push($ctypes,"全部");
+            $data['typelist'] = $ctypes;
+            $data['select'] = $selectionType;
+            $seek = FREE_PARS('seek',0);
+            $count = FREE_PARS('count',5);
+            $data['accounts'] = ContractManager::GetPublicAccountByThemeType($selectionType,$seek,$count);
+        }
+        return $data;
+    }
 }
 ?>

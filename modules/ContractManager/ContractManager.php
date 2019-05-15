@@ -4,6 +4,7 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 LIB('db');
 LIB('view');
+LIB('utils');
 
 class ContractManager extends DBManager{
     public function info()
@@ -189,6 +190,7 @@ class ContractManager extends DBManager{
 	public static function Day_Offset(){
 		return isset($_REQUEST['dfs'])?$_REQUEST['dfs']:0;
 	}
+
 	//计算日历(购买时间,合约ID)
 	public static function GetMonthList($buyTime,$cid,$needIndex=-1){
 		$currentTimeStamp = PRC_TIME()+86400*self::Day_Offset();
@@ -284,6 +286,54 @@ class ContractManager extends DBManager{
 	public static function ThemeList(){
         return SnippetManager::GetAttributeFromData('OperationData','theme');
     }
+
+    //通过主题信息获取合约主题类别
+    public static function GetTypeByTheme($theme){
+        return "全部";
+    }
+
+    //获取合约主题类别定义
+    public static function ThemeTypesList(){
+        return ["运动健身","英语","艺术","创业/职场","生活"];
+    }
+
+    //通过主题获取公众号
+    public static function GetPublicAccountByThemeType($themeType,$seek,$count){
+        return (new Table([$themeType,$seek,$count]))->LoadDatasHandle(
+            function ($args){
+                $themeType = $args[0];
+                $seek = $args[1];
+                $count = $args[2];
+                $datas = [
+                    [
+                        'title'=>"公众号01",
+                        'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                        'description'=>'这是一个公众号,填写公众号介绍信息',
+                        'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg'
+                    ],
+                    [
+                        'title'=>"公众号02",
+                        'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                        'description'=>'这是一个公众号,填写公众号介绍信息',
+                        'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg'
+                    ],
+                    [
+                        'title'=>"公众号03",
+                        'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                        'description'=>'这是一个公众号,填写公众号介绍信息',
+                        'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg'
+                    ]
+                ];
+                return [
+                    "datas"=>$datas,
+                    "seek"=>$seek,
+                    "size"=>$count,
+                    "total"=>4
+                ];
+            }
+        )->DataFinished()->ToArray();
+    }
+
 
     //通过合约id获取合约信息
 	public static function GetContractInfo($cid){

@@ -203,6 +203,7 @@ $commentRules=[
     "op=gopd"=>"获取用户行动数据",
     "op=gatd"=>"获取用户打卡数据",
     "op=gind"=>"获取用户邀请记录",
+    "op=opt"=>"获取行动工具,参数[uid:用户openid,catalog(可选):可填写值为true/false(为true时不论是否有用户合约,都会返回无合约时工具页面内容,不填时默认为true),select(可选):筛选主题的类别(为typelist数组中的值,不填时默认为合约主题对应的类别),seek(可选):公众号列表起始下标(不填默认为0),count:公众号列表单位获取长度(不填默认为5)]"
 ];
 $commentPars=[
     "tname"=>"数据表代号",
@@ -272,7 +273,9 @@ $commentPars=[
 	"#state"=>"状态",
 	"#pid"=>"梦想互助期号",
 	"#seek"=>"起始下标",
-	"#count"=>"获取数目"
+	"#count"=>"获取数目",
+    "#catalog"=>"是否获取目录",
+    "#select"=>"筛选的主题类型,传入typelist中的值"
 ];
 function Comment($type,$key){
     if(isset($GLOBALS[$type][$key]) && $GLOBALS[$type][$key]!=""){
