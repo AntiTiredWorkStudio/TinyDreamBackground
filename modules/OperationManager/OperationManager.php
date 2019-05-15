@@ -1077,14 +1077,15 @@ class OperationManager extends DBManager{
     public function GetOperationTools($uid){
         $operation = self::UserDoingOperation($uid);
         $catalog = FREE_PARS('catalog','true');
+        $hascatalogarg = isset($_REQUEST['catalog']);
         $notopdoing = empty($operation);
-        $notop = ($notopdoing || $catalog=='true') && ($catalog=='true');
+        $notop = ($notopdoing || ($hascatalogarg && $catalog=='true')) && ($catalog=='true');
         $ctypes = ContractManager::ThemeTypesList();
         $data = RESPONDINSTANCE('0');
         $data['opexist'] = !$notopdoing;
-        if($notop){
+        if($notop){//无行动或设置了目录参数且目录参数为true时
             $data['typelist'] = $ctypes;
-        }else{
+        }else{//未设置目录参数且有行动
             $selectionType = FREE_PARS('select',
                 $notopdoing?'全部':ContractManager::GetTypeByTheme($operation['theme'])
             );
