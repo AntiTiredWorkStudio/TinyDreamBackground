@@ -309,25 +309,27 @@ function Comment($type,$key){
     }
     return $key;
 }
-
+$moduleSelect = FREE_PARS('m','all');
 foreach ($GLOBALS['modules'] as $key=>$value){
-    if(!$debugModule) {
-        echo $value['rq'] . '</br>';
+    if($moduleSelect == 'all' || $key == $moduleSelect) {
+        if (!$debugModule) {
+            echo $value['rq'] . '</br>';
+        }
+        $_GET['act'] = $key;
+        include_once($value['rq']);
     }
-    $_GET['act'] = $key;
-    include_once ($value['rq']);
 }
 
 if($debugModule){
     $parsList = $GLOBALS['ACCESS_LIST'][$targetModule][$targetAction]['pars'];
     //echo json_encode();
-    echo "<p id='result'></p></br>";
+    echo "<span>接口测试</span></br><p id='result'></p></br>";
     if($parsList!=null)
     foreach ($parsList as $item) {
         echo '<span>参数<input type="text" name="'.$item.'" id="par_'.$item.'"></input></span>:'.$item.'</br>';
     }
     echo '<button id="submit">提交请求</button>';
-    $backLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php';
+    $backLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect;
     echo "</br><a href='$backLink'>返回</a>";
     echo "<script>
 var module = '$targetModule';
@@ -345,7 +347,8 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
         if(!in_array($comment_key,$commitList)){
             $commitList['modules'][$comment_key] = "";
         }
-        echo "<h5>".Comment("commentModules",$comment_key)."模块"."</h5>";
+        $moduleLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$key;
+        echo "<h5><span>".Comment("commentModules",$comment_key)."模块"."[<a href='".$moduleLink."'>查看</a>]</span></h5>";
         foreach ($value as $k=>$v){
             if($k=="inf"){
                 continue;
@@ -355,7 +358,7 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
                 $commitList['rules'][$comment_key] = "";
             }
             $index++;
-            $testLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?module='.$key.'&action='.$k;
+            $testLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect.'&module='.$key.'&action='.$k;
 
             echo "&nbsp;&nbsp;".$index.'.<a href="'.$testLink.'">'.$comment_key."</a>请求:".Comment("commentRules",$comment_key)."</br>";
             $seek = 0;
@@ -377,7 +380,10 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
             }
         }
     }
-
+    if($moduleSelect != 'all') {
+        $totalLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php';
+        echo "</br><a href='$totalLink'>显示全部</a>";
+    }
 
 /*echo '$commentModules=[</br>';
 foreach ($commitList['modules'] as $key=>$value){
