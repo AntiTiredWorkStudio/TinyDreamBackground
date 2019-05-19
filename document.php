@@ -328,12 +328,15 @@ if($debugModule){
     foreach ($parsList as $item) {
         echo '<span>参数<input type="text" name="'.$item.'" id="par_'.$item.'"></input></span>:'.$item.'</br>';
     }
+
     echo '<button id="submit">提交请求</button>';
-    $backLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect;
+    $requestLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'];
+    $backLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect;
     echo "</br><a href='$backLink'>返回</a>";
     echo "<script>
 var module = '$targetModule';
 var action='$targetAction';
+var requestUrl='$requestLink';
 var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction],JSON_UNESCAPED_UNICODE)."</script>";
     include "admin/view/snippets/document_debugger.html";
     return;
@@ -347,7 +350,7 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
         if(!in_array($comment_key,$commitList)){
             $commitList['modules'][$comment_key] = "";
         }
-        $moduleLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$key;
+        $moduleLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$key;
         echo "<h5><span>".Comment("commentModules",$comment_key)."模块"."[<a href='".$moduleLink."'>查看</a>]</span></h5>";
         foreach ($value as $k=>$v){
             if($k=="inf"){
@@ -358,7 +361,7 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
                 $commitList['rules'][$comment_key] = "";
             }
             $index++;
-            $testLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect.'&module='.$key.'&action='.$k;
+            $testLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$moduleSelect.'&module='.$key.'&action='.$k;
 
             echo "&nbsp;&nbsp;".$index.'.<a href="'.$testLink.'">'.$comment_key."</a>请求:".Comment("commentRules",$comment_key)."</br>";
             $seek = 0;
@@ -381,7 +384,7 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
         }
     }
     if($moduleSelect != 'all') {
-        $totalLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php';
+        $totalLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/document.php';
         echo "</br><a href='$totalLink'>显示全部</a>";
     }
 
