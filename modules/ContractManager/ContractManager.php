@@ -328,7 +328,7 @@ class ContractManager extends DBManager{
                     "datas"=>$datas,
                     "seek"=>$seek,
                     "size"=>$count,
-                    "total"=>4
+                    "total"=>3
                 ];
             }
         )->DataFinished()->ToArray();
