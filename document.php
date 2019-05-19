@@ -313,7 +313,7 @@ $moduleSelect = FREE_PARS('m','all');
 foreach ($GLOBALS['modules'] as $key=>$value){
     if($moduleSelect == 'all' || $key == $moduleSelect) {
         if (!$debugModule) {
-            echo $value['rq'] . '</br>';
+            echo '<a href="#'.$key.'">'.$value['rq'] . '</a></br>';
         }
         $_GET['act'] = $key;
         include_once($value['rq']);
@@ -351,7 +351,7 @@ var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction
             $commitList['modules'][$comment_key] = "";
         }
         $moduleLink = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/document.php?m='.$key;
-        echo "<h5><span>".Comment("commentModules",$comment_key)."模块"."[<a href='".$moduleLink."'>查看</a>]</span></h5>";
+        echo "<h5 id='$key'><span>".Comment("commentModules",$comment_key)."模块"."[<a href='".$moduleLink."'>仅查看</a>]</span></h5>";
         foreach ($value as $k=>$v){
             if($k=="inf"){
                 continue;
