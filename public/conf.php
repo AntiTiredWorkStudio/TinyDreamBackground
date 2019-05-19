@@ -361,7 +361,34 @@ $tables = [
 	'tRefund'=>[
 		'name'=>'refund',
 		'command'=>"CREATE TABLE `#DBName#` ( `reid` TEXT NOT NULL COMMENT '退款id', `uid` TEXT NOT NULL COMMENT '用户id' , `oid` TEXT NOT NULL COMMENT '原订单号' , `bill` INT NOT NULL COMMENT '退款金额' , `time` INT NOT NULL COMMENT '退款时间' , `state` ENUM('SUCCESS','FAILED') NOT NULL COMMENT '退款状态' , `reason` TEXT NOT NULL COMMENT '退款理由' , PRIMARY KEY (`reid`(15))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '退款记录';"
-	]
+	],
+    'tAccount'=>[
+        'name'=>'publicaccounts',
+        'command'=>"CREATE TABLE `#DBName#` (`title` TEXT NOT NULL COMMENT '公众号名称' , `icon` TEXT NOT NULL COMMENT '图标链接' , `qrcode` TEXT NOT NULL COMMENT '二维码链接' , `description` TEXT NOT NULL COMMENT '公众号简介' , `type` TEXT NOT NULL COMMENT '公众号类别' , PRIMARY KEY (`title`(50))) ENGINE = InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT = '公众号记录';",
+        'default'=>[
+            'public01'=>[
+                'title'=>"公众号01",
+                'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                'description'=>'这是一个公众号,填写公众号介绍信息',
+                'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg',
+                'type'=>'exercise'
+            ],
+            'public02'=>[
+                'title'=>"公众号02",
+                'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg',
+                'description'=>'这是一个公众号,填写公众号介绍信息',
+                'type'=>'art'
+            ],
+            'public03'=>[
+                'title'=>"公众号03",
+                'icon'=>'https://tdream.antit.top/image/miniLogo.jpg',
+                'qrcode'=>'http://cloud.antit.top/LongPress2ShareQR01.jpg',
+                'description'=>'这是一个公众号,填写公众号介绍信息',
+                'type'=>'life'
+            ]
+        ]
+    ]
 ];
 
 

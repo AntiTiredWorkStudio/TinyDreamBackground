@@ -1089,7 +1089,8 @@ class OperationManager extends DBManager{
             $selectionType = FREE_PARS('select',
                 $notopdoing?'全部':ContractManager::GetTypeByTheme($operation['theme'])
             );
-            array_push($ctypes,"全部");
+            array_unshift($ctypes,"全部");
+//            array_push($ctypes,"全部");
             $data['typelist'] = $ctypes;
             $data['select'] = $selectionType;
             $seek = FREE_PARS('seek',0);

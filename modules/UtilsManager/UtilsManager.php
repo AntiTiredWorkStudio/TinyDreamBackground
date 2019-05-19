@@ -94,14 +94,33 @@ class Table{
     }
 }
 
+class DataManager{
+    public static $ROOT = 'datas';//默认缓存文件夹路径
+
+    //获取完整的路径
+    public static function Data_Dir($path){
+        $path = self::$ROOT.'\\'.$path;
+        if(!is_dir($path)){
+            mkdir($path, 0777, true);
+        }
+        return $path;
+    }
+
+    //获取完整文件路径
+    public static function Data_File($path,$name,$suffix){
+        return self::Data_Dir($path).'\\'.$name.$suffix;
+    }
+
+    //判断文件是否存在
+    public static function File_Exist($path,$name,$suffix){
+        return file_exists(self::Data_File($path,$name,$suffix));
+    }
+}
+
 class QrcodeObject{
     public $path;
-    public function QrcodeObject($name,$suffix='.png'){
-        $cachePath = 'datas\qrcode';
-        if(!is_dir($cachePath)){
-            mkdir($cachePath, 0777, true);
-        }
-        $this->path=$cachePath.'\\'.$name.$suffix;
+    public function QrcodeObject($name){
+        $this->path=DataManager::Data_File('qrcode',$name,'.png');
     }
 
 
