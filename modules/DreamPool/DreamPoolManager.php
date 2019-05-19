@@ -523,7 +523,7 @@ class DreamPoolManager extends DBManager{
 	
 	//获取本月第一天的时间戳
 	public function FirstMonthDay(){
-		return GetFirstMonthDay();
+		return PublicTools::GetFirstMonthDayObject();
 	}
 	
     //【请求】增加梦想池

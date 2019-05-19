@@ -1,4 +1,29 @@
 <?php
+include "public/conf.php";
+include "public/adapter.php";
+include "public/lib.php";
+
+$targetModule = FREE_PARS('module',null);
+$targetAction = FREE_PARS('action',null);
+$debugModule = $targetAction != null && $targetModule !=null;
+?>
+<html>
+<head>
+    <title>
+        <?php
+            if($targetAction==null || $targetModule==null){
+                echo "接口文档";
+            }else {
+                echo "测试$targetModule=$targetAction";
+            }
+        ?>
+    </title>
+</head>
+<body>
+<script src="admin/js/jquery-1.11.3.min.js"></script>
+<script src="admin/js/lib.js"></script>
+<script src="admin/js/login.js"></script>
+<?php
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -6,9 +31,8 @@
  * Time: 上午 12:02
  */
 
-include "public/conf.php";
-include "public/adapter.php";
-include "public/lib.php";
+
+
 $commentModules=[
     "db"=>"数据库模块",
     "aw"=>"开奖模块",
@@ -277,6 +301,8 @@ $commentPars=[
     "#catalog"=>"是否获取目录",
     "#select"=>"筛选的主题类型,传入typelist中的值"
 ];
+
+
 function Comment($type,$key){
     if(isset($GLOBALS[$type][$key]) && $GLOBALS[$type][$key]!=""){
         return $GLOBALS[$type][$key];
@@ -284,51 +310,73 @@ function Comment($type,$key){
     return $key;
 }
 
-
 foreach ($GLOBALS['modules'] as $key=>$value){
-    echo $value['rq'].'</br>';
+    if(!$debugModule) {
+        echo $value['rq'] . '</br>';
+    }
     $_GET['act'] = $key;
     include_once ($value['rq']);
 }
-$index = 0;
-$commitList = [];
 
-foreach ($GLOBALS['ACCESS_LIST'] as $key=>$value){
-    $comment_key = $key;
-    if(!in_array($comment_key,$commitList)){
-        $commitList['modules'][$comment_key] = "";
+if($debugModule){
+    $parsList = $GLOBALS['ACCESS_LIST'][$targetModule][$targetAction]['pars'];
+    //echo json_encode();
+    echo "<p id='result'></p></br>";
+    if($parsList!=null)
+    foreach ($parsList as $item) {
+        echo '<span>参数<input type="text" name="'.$item.'" id="par_'.$item.'"></input></span>:'.$item.'</br>';
     }
-    echo "<h5>".Comment("commentModules",$comment_key)."模块"."</h5>";
-    foreach ($value as $k=>$v){
-        if($k=="inf"){
-            continue;
-        }
-        $comment_key = $key."=".$k;
-        if(!in_array($comment_key,$commitList)){
-            $commitList['rules'][$comment_key] = "";
-        }
-        $index++;
-        echo "&nbsp;&nbsp;".$index.'.'.$comment_key."请求:".Comment("commentRules",$comment_key)."</br>";
-        $seek = 0;
+    echo '<button id="submit">提交请求</button>';
+    $backLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php';
+    echo "</br><a href='$backLink'>返回</a>";
+    echo "<script>
+var module = '$targetModule';
+var action='$targetAction';
+var debugData=".json_encode($GLOBALS['ACCESS_LIST'][$targetModule][$targetAction],JSON_UNESCAPED_UNICODE)."</script>";
+    include "admin/view/snippets/document_debugger.html";
+    return;
+}
 
-        if(!empty($v['pars'])) {
-            echo "&nbsp;&nbsp;&nbsp;&nbsp;【参数列表】</br>";
-            foreach ($v['pars'] as $par) {
-                $seek++;
-                $comment_key = $par;
-                if(!in_array($comment_key,$commitList)){
-                    $commitList['pars'][$comment_key] = "";
+    $index = 0;
+    $commitList = [];
+
+    foreach ($GLOBALS['ACCESS_LIST'] as $key=>$value){
+        $comment_key = $key;
+        if(!in_array($comment_key,$commitList)){
+            $commitList['modules'][$comment_key] = "";
+        }
+        echo "<h5>".Comment("commentModules",$comment_key)."模块"."</h5>";
+        foreach ($value as $k=>$v){
+            if($k=="inf"){
+                continue;
+            }
+            $comment_key = $key."=".$k;
+            if(!in_array($comment_key,$commitList)){
+                $commitList['rules'][$comment_key] = "";
+            }
+            $index++;
+            $testLink = 'http://'.$_SERVER['HTTP_HOST'].'/document.php?module='.$key.'&action='.$k;
+
+            echo "&nbsp;&nbsp;".$index.'.<a href="'.$testLink.'">'.$comment_key."</a>请求:".Comment("commentRules",$comment_key)."</br>";
+            $seek = 0;
+
+            if(!empty($v['pars'])) {
+                echo "&nbsp;&nbsp;&nbsp;&nbsp;【参数列表】</br>";
+                foreach ($v['pars'] as $par) {
+                    $seek++;
+                    $comment_key = $par;
+                    if(!in_array($comment_key,$commitList)){
+                        $commitList['pars'][$comment_key] = "";
+                    }
+                    $argType = "";
+                    if(PublicTools::StartWith($comment_key,'#')){
+                        $argType = "(可选参数)";
+                    }
+                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" . $seek . ')' . $comment_key.$argType. ":".Comment("commentPars",$comment_key)."</br>";
                 }
-				$argType = "";
-				if(PublicTools::StartWith($comment_key,'#')){
-					$argType = "(可选参数)";
-				}
-                echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" . $seek . ')' . $comment_key.$argType. ":".Comment("commentPars",$comment_key)."</br>";
             }
         }
     }
-}
-
 
 
 /*echo '$commentModules=[</br>';
@@ -348,3 +396,5 @@ foreach ($commitList['pars'] as $key=>$value){
 echo "];</br>";*/
 
 ?>
+</body>
+</html>

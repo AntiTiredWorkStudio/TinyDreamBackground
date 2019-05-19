@@ -1,0 +1,31 @@
+<script>
+$("#submit").click(function () {
+    var hasPars = true;
+    var parsArray = [];
+    for(var key in debugData['pars']){
+        var parId = "par_"+debugData['pars'][key];
+        var parValue = $("#"+parId).val();
+        hasPars = hasPars && (parValue != "" || debugData['pars'][key].indexOf("#")==0);
+        if(parValue!="" && parValue!=null) {
+            parsArray[debugData['pars'][key]] = parValue;
+        }
+    }
+    console.log(parsArray);
+
+    if(!hasPars){
+        alert("参数未填全");
+    }else{
+        //alert("请求发送");
+        TD_Request(module,action,parsArray,
+            output,
+            output
+        );
+    }
+
+});
+
+var output = function (code, data) {
+    $('#result').html(JSON.stringify(data));
+}
+
+</script>
