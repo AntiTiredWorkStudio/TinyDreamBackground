@@ -2,7 +2,7 @@
 //引用此页面前需先引用conf.php
 LIB('db');
 error_reporting(E_ALL ^ E_DEPRECATED);
-require "public/Res/autoload.php";
+include_once "public/Res/autoload.php";
 use Qiniu\Auth;
 
 class Table{

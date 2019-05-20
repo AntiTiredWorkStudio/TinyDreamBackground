@@ -116,6 +116,19 @@ var WebApp = {
   InitUpload:function(){//https://tinydream.antit.top/admin/js/qiniu.min.js
       document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
   },
+  GenerateTokens : function(id_array,res){
+	  TD_Request('utils','utokens',
+		{
+			id_list:id_array,
+		},
+		function(code,data){
+			res(true,data['token']);
+		},
+		function(code,data){
+			res(false,data['token']);
+		}
+	);
+  },
   UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
 		  var config = {
 			  useCdnDomain: true,
