@@ -13,7 +13,14 @@
 <script src="js/lib.js"></script>
 <script src="js/webApp.js"></script>
 <script>
-console.log(Options.GetUserInfo());
+WebApp.InitUpload();
+WebApp.GenerateTokens(
+	JSON.stringify(["we01","we02","we03","we04"]),
+	function(result,token){
+		console.log(token);
+	}
+);
+//console.log(Options.GetUserInfo());
 </script>
 </body>
 </html>

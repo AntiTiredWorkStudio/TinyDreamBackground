@@ -116,18 +116,34 @@ var WebApp = {
   InitUpload:function(){//https://tinydream.antit.top/admin/js/qiniu.min.js
       document.write('<script type="text/javascript" src="https://tinydream.antit.top/admin/js/qiniu.min.js"></script>');
   },
-  GenerateTokens : function(id_array,res){
-	  TD_Request('utils','utokens',
-		{
-			id_list:id_array,
-		},
-		function(code,data){
-			res(true,data['token']);
-		},
-		function(code,data){
-			res(false,data['token']);
-		}
-	);
+  GenerateTokens : function(id_array,id_type,res){
+	  if(Array.isArray(id_array)){
+		TD_Request('utils','utokens',
+			{
+				id_list:id_array,
+				type:id_type
+			},
+			function(code,data){
+				res(true,data['token']);
+			},
+			function(code,data){
+				res(false,data['token']);
+			}
+		);
+	  }else{
+		TD_Request('utils','utoken',
+			{
+				id:id_array,
+				type:id_type
+			},
+			function(code,data){
+				res(true,data['token']);
+			},
+			function(code,data){
+				res(false,data['token']);
+			}
+		);
+	  }
   },
   UploadWithSDK :  function (token,domain,tfile,filename,OnQiniuComplete) {
 		  var config = {
