@@ -1487,7 +1487,7 @@ class DreamServersManager extends DBManager {
             }else{
                 continue;
             }
-            if($seek>=$min && $seek<($min+$count)){
+            if($seek>=$min && $seek<=($min+$count)){
                 //$condition = $condition.'`pid`="'.$value['pid'].'"';
                 $condition = $condition.$value['pid'].'|';
             }
