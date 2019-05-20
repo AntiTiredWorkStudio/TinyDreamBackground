@@ -120,7 +120,7 @@ var WebApp = {
 	  if(Array.isArray(id_array)){
 		TD_Request('utils','utokens',
 			{
-				id_list:id_array,
+				id_list:JSON.stringify(id_array),
 				type:id_type
 			},
 			function(code,data){

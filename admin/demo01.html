@@ -5,17 +5,13 @@
     <title>demo01</title>
 </head>
 <body>
-<a href='demo.html'>
-<h1>测试</h1>
-</a>
-
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/lib.js"></script>
 <script src="js/webApp.js"></script>
 <script>
 WebApp.InitUpload();
 WebApp.GenerateTokens(
-	JSON.stringify(["we01","we02","we03","we04"]),
+	["we01","we02","we03","we04"],"default",
 	function(result,token){
 		console.log(token);
 	}
