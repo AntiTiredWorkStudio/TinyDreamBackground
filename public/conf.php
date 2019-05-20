@@ -29,6 +29,13 @@ $options = [
     'Notify_Url'=>'http://paysdk.weixin.qq.com/notify.php',//'http://www.antit.top:8001/fitback/index.php'
     'ManageIndex'=>'admin/index.html',
     'free_field_check'=>false,//筛查可选参数
+	'cloud'=>[
+        'ak'=>'d-SztTGFAV7_BX-dKRtM8y1diABoXe1zxCgd-2yi',
+        'sk'=>'CWv29dzAFng2KZ15Cf21Pv6FoOoWtB3-nzh1zgJH',
+        'domain'=>'https://tdream.antit.top',
+        'bucket'=>'tinydream',
+        'region'=>'ECN'
+    ],//云存储配置
 ];
 
 //模块配置

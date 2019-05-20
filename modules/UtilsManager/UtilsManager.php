@@ -2,6 +2,8 @@
 //引用此页面前需先引用conf.php
 LIB('db');
 error_reporting(E_ALL ^ E_DEPRECATED);
+require "public/Res/autoload.php";
+use Qiniu\Auth;
 
 class Table{
 	public $fieldsArray = [];
@@ -117,6 +119,47 @@ class DataManager{
     }
 }
 
+//上传管理器
+class UploadObject{
+	public static function GenerateFileName($id,$type){
+        return $type.'_'.sha1($id);
+    }
+
+	public static function uploadURLFromRegionCode($code) {
+        $uploadURL = null;
+        switch($code) {
+            case 'ECN': $uploadURL = 'https://up.qbox.me'; break;
+            case 'NCN': $uploadURL = 'https://up-z1.qbox.me'; break;
+            case 'SCN': $uploadURL = 'https://up-z2.qbox.me'; break;
+            case 'NA': $uploadURL = 'https://up-na0.qbox.me'; break;
+            case 'ASG': $uploadURL = 'https://up-as0.qbox.me'; break;
+            default: $uploadURL="";
+        }
+        return $uploadURL;
+    }
+
+	public $id;
+	public $type;
+	public function UploadObject($id,$type){
+		$this->id = $id;
+		$this->type = $type;
+	}
+	
+	public function GetTokenInfo(){
+		$conf = $GLOBALS['options']['cloud'];
+        $auth = new Auth($conf['ak'], $conf['sk']);
+        $token = $auth->uploadToken($conf['bucket']);
+        $timeStamp = PRC_TIME();
+		$backMsg = [];
+        $backMsg['uptoken']=$token;
+        $backMsg['upurl']= self::uploadURLFromRegionCode($conf['region']);
+        $backMsg['domain']=$conf['domain'];
+        $backMsg['timeStamp']=$timeStamp;
+        $backMsg['fileName'] = self::GenerateFileName($this->id,$this->type);
+		return $backMsg;
+	}
+}
+
 class QrcodeObject{
     public $path;
     public function QrcodeObject($name){
@@ -180,5 +223,27 @@ class UtilsManager extends DBManager{
     public function TryQrcode($text){
         echo (new QrcodeObject(sha1('qr'.PRC_TIME())))->MakeQrcode($text)->UrlLink();
     }
+		
+	//获取上传凭证
+	public function UploadToken($id){
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['token'] = (new UploadObject($id, FREE_PARS('type','DEFAULT')))->GetTokenInfo();
+		return $backMsg;
+	}
+	//获取多个上传凭证
+	public function UploadTokens($id_list){
+		$ids = json_decode($id_list);
+		if(empty($ids)){
+			return RESPONDINSTANCE('100','JSON格式有误');
+		}
+		$array = [];
+		foreach($ids as $id){
+			$token = (new UploadObject($id, FREE_PARS('type','DEFAULT')))->GetTokenInfo();
+			$array[$id] = $token;
+		}
+		$backMsg = RESPONDINSTANCE('0');
+		$backMsg['token'] = $array;
+		return $backMsg;
+	}
 }
 ?>
