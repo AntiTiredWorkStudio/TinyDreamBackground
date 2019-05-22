@@ -1237,7 +1237,7 @@ class DreamServersManager extends DBManager {
 					$count
 			)
 		),true);
-        $CountRefund = $this->CountTableRowByQuery($this->TName('tOperation'),
+        $CountRefund = $this->CountTableRowByQuery($this->TName('tRefund'),
 			self::C_And(
 				self::FieldIsValue('state','SUCCESS'),
 				self::FieldIsValue('uid',$uid)
