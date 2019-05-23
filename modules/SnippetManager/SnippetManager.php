@@ -176,43 +176,56 @@ class SnippetManager extends Manager{
     }
 
 	public function BuildJson($turl){
-		$command = FREE_PARS('command','build');
+		$command = FREE_PARS('command','read');
         $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.json';
 		$dataset = FREE_PARS('datas',[]);
-		
+		//$field = FREE_PARS('field','all');
+
+        if($command == 'read'){
+            if(!file_exists($fullPath)){
+                return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
+            }
+            $data = file_get_contents($fullPath);
+            $backMsg = RESPONDINSTANCE('0');
+            $backMsg['data'] = json_decode($data,true);
+            return $backMsg;
+        }
 		if($command == 'build'){
 			$data = [];
 			if(file_exists($fullPath)){
 				return RESPONDINSTANCE('113','路径已存在:'.$fullPath);
 			}
-			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE));
 			return RESPONDINSTANCE('0');
-		}
-		if($command == 'read'){
-			if(!file_exists($fullPath)){
-				return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
-			}
-			$data = file_get_contents($fullPath);
-			$backMsg = RESPONDINSTANCE('0');
-			$backMsg['data'] = $data;
-			return $backMsg;
 		}
 		if($command == 'write'){
 			if(!file_exists($fullPath)){
 				return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
 			}
 			$data = file_get_contents($fullPath);
-			$data = json_decode($data);
+			$data = json_decode($data,true);
 			if(!empty($dataset)){
-				$dataset = json_decode($dataset);
+				$dataset = json_decode($dataset,true);
 				foreach($dataset as $key=>$value){
-					$data[$key] = $value;
+				    if(empty($value)){
+				        unset($data[$key]);
+                    }else{
+                        $data[$key] = $value;
+                    }
 				}
 			}
-			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE));
 			$backMsg = RESPONDINSTANCE('0');
 			return $backMsg;
 		}
+		if($command == 'delete'){
+            if(!file_exists($fullPath)){
+                return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
+            }
+		    unlink($fullPath);
+            $backMsg = RESPONDINSTANCE('0');
+            return $backMsg;
+        }
 	}
 }
 ?>
