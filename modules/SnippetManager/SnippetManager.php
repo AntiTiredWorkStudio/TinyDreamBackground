@@ -15,7 +15,7 @@ class SnippetManager extends Manager{
 	];
 
 	public function SnippetManager(){
-		
+		$this->config = isset($GLOBALS['options']['snippet'])?$GLOBALS['options']['snippet']:$this->config;
 	}
 	
 	public function BuildSnippets($datas){
@@ -137,14 +137,8 @@ class SnippetManager extends Manager{
     }
 
 	public function BuildTemplate($turl){
-	    $templatePath = $this->config['templatePath'];
-
-
-        if(isset($_REQUEST['root'])){
-            $templatePath = $_REQUEST['root'];
-        }
-
-        $fullPath = $templatePath.'/'.$turl.'.php';
+		
+        $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.php';
 
         $data = [];
 
@@ -180,5 +174,15 @@ class SnippetManager extends Manager{
 
         return $backMsg;
     }
+
+	public function BuildJson($turl){
+        $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.json';
+		$data = [];
+		if(file_exists($fullPath)){
+			return RESPONDINSTANCE('113',$fullPath);
+		}
+		file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+		return RESPONDINSTANCE('0');
+	}
 }
 ?>

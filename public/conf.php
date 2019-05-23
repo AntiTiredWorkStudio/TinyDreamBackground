@@ -36,6 +36,10 @@ $options = [
         'bucket'=>'tinydream',
         'region'=>'ECN'
     ],//云存储配置
+	'snippet'=>[
+		'viewPath'=>'../TinydreamWeb/view',//默认视图路径
+        'templatePath'=>'../TinydreamUConfig',//默认模板路径
+	],//模板配置
 ];
 
 //模块配置
@@ -165,6 +169,7 @@ $fallbacks = [
 	'110' => "无退款",
     '111' => "合约未达成,无退款",
     '112' => "无该公众号类别id",
+	'113' => "文件已存在:#FALLTEXT#",
 ];
 
 //权限级别定义
