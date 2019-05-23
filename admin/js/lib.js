@@ -277,6 +277,9 @@ var DescriptionTime = function(sec) {
     if (sec < 86400 * 30) {
         return parseInt(Math.floor(sec / 86400)) + "天";
     }
+	
+    return parseInt(Math.floor(sec / 86400)) + "天";
+	
 }
 
 var formatNumber = function (n) {
