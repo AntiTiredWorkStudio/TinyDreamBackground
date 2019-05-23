@@ -176,13 +176,43 @@ class SnippetManager extends Manager{
     }
 
 	public function BuildJson($turl){
+		$command = FREE_PARS('command','build');
         $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.json';
-		$data = [];
-		if(file_exists($fullPath)){
-			return RESPONDINSTANCE('113',$fullPath);
+		$dataset = FREE_PARS('datas',[]);
+		
+		if($command == 'build'){
+			$data = [];
+			if(file_exists($fullPath)){
+				return RESPONDINSTANCE('113','路径已存在:'.$fullPath);
+			}
+			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			return RESPONDINSTANCE('0');
 		}
-		file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-		return RESPONDINSTANCE('0');
+		if($command == 'read'){
+			if(!file_exists($fullPath)){
+				return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
+			}
+			$data = file_get_contents($fullPath);
+			$backMsg = RESPONDINSTANCE('0');
+			$backMsg['data'] = $data;
+			return $backMsg;
+		}
+		if($command == 'write'){
+			if(!file_exists($fullPath)){
+				return RESPONDINSTANCE('113','路径不存在:'.$fullPath);
+			}
+			$data = file_get_contents($fullPath);
+			$data = json_decode($data);
+			if(!empty($dataset)){
+				$dataset = json_decode($dataset);
+				foreach($dataset as $key=>$value){
+					$data[$key] = $value;
+				}
+			}
+			file_put_contents($fullPath,json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+			$backMsg = RESPONDINSTANCE('0');
+			return $backMsg;
+		}
 	}
 }
 ?>

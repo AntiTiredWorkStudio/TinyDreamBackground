@@ -9,5 +9,6 @@
 		'builds'=>R('BuildSnippets',['datas','#url'],PERMISSION_ALL),
         'build_dt'=>R('BuildTemplate',['turl','#root'],PERMISSION_ALL),//数据&模板构建页面
         'tlist'=>R('TemplateList'),//获取模板列表
+		'build_json'=>R('BuildJson',['turl','#root','#datas'],PERMISSION_ALL),//创建json
     ]);
 ?>
