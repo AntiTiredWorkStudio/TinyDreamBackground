@@ -139,6 +139,7 @@ class SnippetManager extends Manager{
 	public function BuildTemplate($turl){
 		
         $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.php';
+		$templateUrl = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.html';
 
         $data = [];
 
@@ -148,9 +149,8 @@ class SnippetManager extends Manager{
 
         include ($fullPath);
 
-        $templateUrl = $templatePath.'/'.$turl.'.html';
         if(isset($data['template']) && !empty($data['template'])){
-            $templateUrl = $templatePath.'/'.$data['template'];
+            $templateUrl = $this->config['templatePath'].'/'.$data['template'];
         }
 
         if(!file_exists($templateUrl)){
