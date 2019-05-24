@@ -178,21 +178,24 @@ class QrcodeObject{
 }
 //Json对象
 class JsonObject{
+	public static function Create($tUrl =''){
+		return new JsonObject($tUrl);
+	}
 	public $path;
 	public $data;
 	public function JsonObject($tUrl=''){
 		$this->path = $tUrl;
 		$this->data = [];
-		$this->Loading();
+		$this->Load();
 	}
 	
-	public function Loading($tUrl=''){
+	public function Load($tUrl=''){
 		if($tUrl!=''){
 			$this->path = $tUrl;
 		}
 		if(!empty($this->path)){
-			if(file_exists($path)){
-				$this->data = json_decode(file_get_contents($path),true);
+			if(file_exists($this->path)){
+				$this->data = json_decode(file_get_contents($this->path),true);
 			}else{
 				file_put_contents($this->path,json_encode($this->data,JSON_UNESCAPED_UNICODE));
 			}
@@ -200,9 +203,12 @@ class JsonObject{
 		return $this;
 	}
 	public function Write($writeHandle){
-		if(!empty($this->data))
-			$this->data = $writeHandle($this->data);
+		//if(empty($this->data))
+		$this->data = $writeHandle($this->data);
 		return $this->Save();
+	}
+	public function Read(){
+		return $this->data;
 	}
 	public function Save(){
 		if($this->path!='')
@@ -215,6 +221,7 @@ class JsonObject{
 		$this->data = [];
 		return $this;
 	}
+	
 }
 
 class UtilsManager extends DBManager{
