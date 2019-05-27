@@ -56,6 +56,10 @@ var SwitchTab = function (res) {
     LoadWorkSpace(res.currentTarget.id,{});
 }
 
+var InitInput = function(){
+	
+}
+
 var LoadWorkSpace = function (id,pars) {
     Page_Builder('admin',id,pars,
         function (data) {
@@ -647,6 +651,70 @@ var OperationModule = {
 	}
 }
 
+var ToolsModule = {
+	seek:0,
+	count:5,
+	size:10,
+	init:function(option){
+		var module = this;
+		$("[seek]").click(
+            module.switchPage
+        );
+		$("#btn_submit").click(
+			module.onPostTools
+		);
+	},
+	onPostTools:function(page){
+		console.log(
+			$("#title").val(),
+			$("#icon").val(),
+			$("#qrcode").val(),
+			$("#description").val(),
+			$("#type").val(),
+		);
+		TD_Request("co","apa",{
+			title:$("#title").val(),
+			icon:$("#icon").val(),
+			qrcode:$("#qrcode").val(),
+			description:$("#description").val(),
+			type:$("#type").val()
+		},
+			function(code,data){
+				alert(data.context);
+					LoadWorkSpace('a_tools',
+				ToolsModule.onGetArgs({
+					seek:0,
+					count:5,
+				}));
+			},
+			function(code,data){
+				alert(data.context);
+			}
+		);
+		
+		console.log(page);
+	},
+	onGetArgs:function(arg){
+		if(arg==null)
+			arg = {
+				seek:OperationModule.seek,
+				count:OperationModule.count,
+			};
+		return arg; 
+	},
+	switchPage:function(page){
+		console.log(OperationModule.seek);
+			
+			LoadWorkSpace('a_tools',
+			ToolsModule.onGetArgs({
+				seek:page.currentTarget.attributes[0].value,
+				count:page.currentTarget.attributes[1].value,
+			}));
+	}
+}
+
+
+
 var ModuleRegister = {
 	"nav":NavigatorModule,
 	"post":PostModule,
@@ -656,7 +724,8 @@ var ModuleRegister = {
 	"act":ActivityModule,
 	"refund":RefundModule,
 	"redpack":RedPackageModule,
-	'oper':OperationModule
+	'oper':OperationModule,
+	'tools':ToolsModule
 }
 
 Page.OnSignalFailed = function () {

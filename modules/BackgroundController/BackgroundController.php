@@ -271,6 +271,13 @@ class BackgroundController extends DBManager {
         $pageData['index'] = $datas['index'];
         $pageData['fields'] = $datas['fields'];
         $pageData['count'] = $datas['count'];
+		$input = [
+			['title'=>'公众号名称','id'=>'title'],
+			['title'=>'图标链接','id'=>'icon'],
+			['title'=>'二维码链接','id'=>'qrcode'],
+			['title'=>'公众号简介','id'=>'description','flag'=>'textarea','cols'=>'30','rows'=>'10'],
+			['title'=>'公众号类别','id'=>'type'],   
+		];
         require ($pageData['path']);
     }
 
