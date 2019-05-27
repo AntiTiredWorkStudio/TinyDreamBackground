@@ -15,5 +15,6 @@
 		'a_refund'=>R('BuildRefund',["#pid"],PERMISSION_AUTH_FORCE,false),//引用退款
 		'a_redpack'=>R('BuildRedPackage',["#pid","#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用红包
         'a_operation'=>R('BuildOperation',["#state","#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用行动
+        'a_tools'=>R('BuildTools',["#seek","#count"]),//引用行动工具
     ]);
 ?>

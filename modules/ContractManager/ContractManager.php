@@ -418,6 +418,8 @@ class ContractManager extends DBManager{
             function ($args){
                 $seek = $args[0];
                 $count = $args[1];
+                $datas = DBResultToArray($this->SelectDataByQuery($this->TName('tAccount'),self::Limit('1',$seek,$count)),true);
+                $tcount = $this->CountTableRowByQuery($this->TName('tAccount'),'1');
                 return [
                     "datas"=>$datas,
                     "seek"=>$seek,
@@ -427,7 +429,19 @@ class ContractManager extends DBManager{
             }
         )->DataHandle(//处理关联数据
             function ($datas){
+                $typelist = [
+                    'life'=>'生活',
+                    'art'=>'艺术',
+                    'exercise'=>'运动健身',
+                    'english'=>'英语',
+                    'work'=>'创业/职场',
+                ];
                 foreach ($datas as $key => $value) {
+                    if(isset($typelist[$datas[$key]['type']])) {
+                        $datas[$key]['type'] = $typelist[$datas[$key]['type']];
+                    }else{
+                        $datas[$key]['type'] = $typelist['life'];
+                    }
                 }
                 return $datas;
             }

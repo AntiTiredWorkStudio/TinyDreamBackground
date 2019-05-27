@@ -74,7 +74,7 @@ class SnippetManager extends Manager{
 			}
 		}else{
 			$current = $template;
-			foreach($index as $key=>$value){
+			foreach($data as $key=>$value){
 				if(is_array($value)){
 					if(isset($value['sub']) && isset($value['data'])){
 						$current = str_replace("{{{$key}}}",$this->SingleSnippet($path,$value['sub'],json_encode($value['data'])),$current);

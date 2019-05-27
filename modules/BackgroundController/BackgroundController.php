@@ -55,7 +55,8 @@ class BackgroundController extends DBManager {
         'activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
         'redRefund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
         'redPackage'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php'],
-        'operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php']
+        'operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php'],
+        'tools'=>['id'=>'tools','title'=>'行动工具','path'=>'admin/view/tools.php']
     ];
 	
 	//导航栏配置,索引为id,js用
@@ -67,7 +68,8 @@ class BackgroundController extends DBManager {
         'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter'],
         'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left'],
         'a_redpack'=>['title'=>'红包','class'=>'lnr lnr-map'],
-        'a_operation'=>['title'=>'行动','class'=>'lnr lnr-rocket']
+        'a_operation'=>['title'=>'行动','class'=>'lnr lnr-rocket'],
+        'a_tools'=>['title'=>'行动工具','class'=>'lnr lnr-calendar-full'],
     ];
 	
     
@@ -256,6 +258,19 @@ class BackgroundController extends DBManager {
         $pageData['fields'] = $datas['fields'];
         $pageData['count'] = $datas['count'];
 
+        require ($pageData['path']);
+    }
+
+    public function BuildTools(){
+        $pageData = $this->pages['tools'];
+        $COM = new ContractManager();
+        $seek = FREE_PARS('seek','0');
+        $count = FREE_PARS('count','5');
+        $datas = $COM->GetPublicAccounts($seek,$count);
+        $pageData['data'] = $datas['data'];
+        $pageData['index'] = $datas['index'];
+        $pageData['fields'] = $datas['fields'];
+        $pageData['count'] = $datas['count'];
         require ($pageData['path']);
     }
 
