@@ -10,5 +10,6 @@
         'build_dt'=>R('BuildTemplate',['turl','#root'],PERMISSION_ALL),//数据&模板构建页面
         'tlist'=>R('TemplateList'),//获取模板列表
 		'build_json'=>R('BuildJson',['turl','#root','#datas'],PERMISSION_ALL),//创建json
+		'upload_img'=>R('BuildUploadImgList',['imglist'],PERMISSION_ALL),//配置文件表
     ]);
 ?>

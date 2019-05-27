@@ -185,6 +185,21 @@ class SnippetManager extends Manager{
 
         return $backMsg;
     }
+	
+	public function BuildUploadImgList($imglist){
+		$imglist = json_decode($imglist,true);
+		$fullUrl = $this->config['templatePath'].'/ImgTable.json';
+		$jsonObject = new JsonObject($fullUrl);
+		$jsonObject->Write(
+			function($data){
+				foreach($imglist as $key=>$value){
+					array_push($data,$value);
+				}
+				return $data;
+			}
+		);
+		return RESPONDINSTANCE('0');
+	}
 
 	public function BuildJson($turl){
 		$command = FREE_PARS('command','read');

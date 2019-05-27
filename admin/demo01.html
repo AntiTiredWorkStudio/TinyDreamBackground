@@ -5,18 +5,57 @@
     <title>demo01</title>
 </head>
 <body>
+<input id="uploader" type="file" multiple />
+
+<button id="submit"/>上传</button>
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/lib.js"></script>
 <script src="js/webApp.js"></script>
 <script>
+var fileList = [];
+var idArray = [];
+var fileArray = [];
+var tokens = {};
 WebApp.InitUpload();
-WebApp.GenerateTokens(
-	["we01","we02","we03","we04"],"default",
-	function(result,token){
-		console.log(token);
+$("#uploader").change(function (res) {
+	fileList = res.target.files;
+})
+$('#submit').click(function(res){
+	for(var i in fileList){
+		if(isNaN(i)){
+			continue;
+		}
+		idArray.push(fileList[i].name);
+		fileArray.push(fileList[i]);
 	}
-);
-//console.log(Options.GetUserInfo());
+	WebApp.GenerateTokens(
+		idArray,"icon",
+		function(result,token){
+			console.log(token);
+			tokens = token;
+			InitUploadQueue();
+		}
+	);
+});
+var resultArray = [];
+var InitUploadQueue = function(){
+	if(idArray == [] || fileArray == []){
+		console.log(resultArray);
+		return;
+	}
+	var file = fileArray.shift();
+	if(file==null){
+		return;
+	}
+	var token = tokens[file.name];
+	var url_prefix = token.domain;
+	console.log("准备上传:"+JSON.stringify(token));
+	WebApp.UploadWithSDK(token.uptoken, token.upurl,file,token.fileName,function(result){
+		console.log(result.imgName);
+		resultArray.push(result);
+		InitUploadQueue();
+	});
+}
 </script>
 </body>
 </html>
