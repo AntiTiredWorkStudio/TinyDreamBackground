@@ -45,6 +45,8 @@ var InitUploadQueue = function(){
 	}
 	var file = fileArray.shift();
 	if(file==null){
+		UploadFinished();
+		console.log(resultArray);
 		return;
 	}
 	var token = tokens[file.name];
@@ -52,8 +54,18 @@ var InitUploadQueue = function(){
 	console.log("准备上传:"+JSON.stringify(token));
 	WebApp.UploadWithSDK(token.uptoken, token.upurl,file,token.fileName,function(result){
 		console.log(result.imgName);
-		resultArray.push(result);
+		result.imgName = url_prefix+"/"+result.imgName;
+		resultArray.push(result.imgName);
 		InitUploadQueue();
+	});
+}
+
+var UploadFinished = function(){
+	TD_Request('view','upload_img',{imglist:JSON.stringify(resultArray)},function(code,data){
+		console.log(data);
+	},
+	function(code,data){
+		console.log(data);
 	});
 }
 </script>
