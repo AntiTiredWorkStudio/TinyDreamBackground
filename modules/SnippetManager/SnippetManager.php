@@ -192,9 +192,7 @@ class SnippetManager extends Manager{
 		$jsonObject = new JsonObject($fullUrl);
 		$jsonObject->Write(
 			function($data){
-				foreach($GLOBALS['imglist'] as $key=>$value){
-					array_push($data,$value);
-				}
+				$data[date("YmdHis",PRC_TIME())] = $GLOBALS['imglist'];
 				unset($GLOBALS['imglist']);
 				return $data;
 			}
