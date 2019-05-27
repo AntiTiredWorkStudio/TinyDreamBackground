@@ -390,11 +390,12 @@ class ContractManager extends DBManager{
     //增加
     public function AddPublicAccount($title,$iconurl,$linkUrl,$description,$type){
 
-        if(!DataManager::File_Exist('qrcode',sha1($title),'.png')) {
+        /*if(!DataManager::File_Exist('qrcode',sha1($title),'.png')) {
             $qrcodeLink = (new QrcodeObject(sha1($title)))->MakeQrcode($linkUrl)->UrlLink();
         }else{
             $qrcodeLink = DataManager::Data_File('qrcode',sha1($title),'.png');
-        }
+        }*/
+		
 
         if(!isset(self::ThemeConfig('main')[$type])){
             return RESPONDINSTANCE('112');
@@ -403,12 +404,35 @@ class ContractManager extends DBManager{
         $this->InsertDataToTable($this->TName('tAccount'),[
             "title"=>$title,
             "icon"=>$iconurl,
-            "qrcode"=>$qrcodeLink,
+            "qrcode"=>$linkUrl,
             "description"=>$description,
             "type"=>$type,
         ]);
         return RESPONDINSTANCE('0');
     }
+	
+	public function GetPublicAccounts($seek,$count){
+		return UtilsManager::CreateTable($seek,$count)->LoadField([//加载字段
+            "公众号名称","图标链接","二维码链接","公众号简介","公众号类别"
+        ])->LoadDatasHandle(//加载原始数据
+            function ($args){
+                $seek = $args[0];
+                $count = $args[1];
+                return [
+                    "datas"=>$datas,
+                    "seek"=>$seek,
+                    "size"=>$count,
+                    "total"=>$tcount
+                ];
+            }
+        )->DataHandle(//处理关联数据
+            function ($datas){
+                foreach ($datas as $key => $value) {
+                }
+                return $datas;
+            }
+        )->DataFinished()->ToRespond();//封口,转字符
+	}
 
     //设置合约信息
     public function SetContract($cid){
