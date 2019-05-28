@@ -697,8 +697,8 @@ var ToolsModule = {
 	onGetArgs:function(arg){
 		if(arg==null)
 			arg = {
-				seek:OperationModule.seek,
-				count:OperationModule.count,
+				seek:ToolsModule.seek,
+				count:ToolsModule.count,
 			};
 		return arg; 
 	},
@@ -706,6 +706,40 @@ var ToolsModule = {
 		console.log(OperationModule.seek);
 			
 			LoadWorkSpace('a_tools',
+			ToolsModule.onGetArgs({
+				seek:page.currentTarget.attributes[0].value,
+				count:page.currentTarget.attributes[1].value,
+			}));
+	}
+}
+
+var FilesModule = {
+	seek:0,
+	count:5,
+	size:10,
+	init:function(option){
+		var module = this;
+		$("[seek]").click(
+            module.switchPage
+        );
+		$("#btn_submit").click(
+			module.onPostTools
+		);
+	},
+	onPostTools:function(page){
+	},
+	onGetArgs:function(arg){
+		if(arg==null)
+			arg = {
+				seek:FilesModule.seek,
+				count:FilesModule.count,
+			};
+		return arg; 
+	},
+	switchPage:function(page){
+		console.log(OperationModule.seek);
+			
+			LoadWorkSpace('a_file',
 			ToolsModule.onGetArgs({
 				seek:page.currentTarget.attributes[0].value,
 				count:page.currentTarget.attributes[1].value,
@@ -725,7 +759,8 @@ var ModuleRegister = {
 	"a_refund":RefundModule,
 	"a_redpack":RedPackageModule,
 	'a_operation':OperationModule,
-	'a_tools':ToolsModule
+	'a_tools':ToolsModule,
+	'a_file':FilesModule
 }
 
 Page.OnSignalFailed = function () {
