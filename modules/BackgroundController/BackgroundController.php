@@ -56,7 +56,8 @@ class BackgroundController extends DBManager {
         'a_refund'=>['title'=>'红包退款','path'=>'admin/view/refund.php','class'=>'lnr lnr lnr-arrow-left'],
         'a_redpack'=>['title'=>'红包','path'=>'admin/view/redpackage.php','class'=>'lnr lnr-map'],
         'a_operation'=>['title'=>'行动','path'=>'admin/view/operation.php','class'=>'lnr lnr-rocket'],
-        'a_tools'=>['title'=>'行动工具','path'=>'admin/view/tools.php','class'=>'lnr lnr-calendar-full']
+        'a_tools'=>['title'=>'行动工具','path'=>'admin/view/tools.php','class'=>'lnr lnr-calendar-full'],
+        'a_file'=>['title'=>'文件上传','path'=>'admin/view/filemanager.php','class'=>'lnr lnr lnr-file-add']
     ];
 	
 	public function CurrentPageData(){
@@ -283,9 +284,18 @@ class BackgroundController extends DBManager {
         require ($pageData['path']);
     }
 
+    public function BuildFiles(){
+        $pageData = $this->CurrentPageData();
+        //<input id="uploader" type="file" multiple />
+        $input = [
+            ['title'=>'文件选择','id'=>'uploader','type'=>"file",'multiple'=>'true']
+        ];
+        require ($pageData['path']);
+    }
+
     //引用打卡记录
     public function BuildAttendence(){
-
+        $pageData = $this->CurrentPageData();
     }
 
     //引用邀请

@@ -16,5 +16,6 @@
 		'a_redpack'=>R('BuildRedPackage',["#pid","#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用红包
         'a_operation'=>R('BuildOperation',["#state","#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用行动
         'a_tools'=>R('BuildTools',["#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用行动工具
+        'a_file'=>R('BuildFiles',["#seek","#count"],PERMISSION_AUTH_FORCE,false),//引用文件上传工具
     ]);
 ?>

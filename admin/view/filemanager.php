@@ -14,10 +14,10 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">增加行动工具</h3>
+                <h3 class="panel-title">文件上传</h3>
             </div>
             <div class="panel-body">
-                <?php include_once("admin/view/inputs.php");?>
+            <?php include_once("admin/view/inputs.php");?>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
         <!-- BASIC TABLE -->
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">工具列表</h3>
+                <h3 class="panel-title">文件列表</h3>
             </div>
 
             <!-- 页面切换导航 -->
