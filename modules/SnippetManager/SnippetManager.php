@@ -200,6 +200,43 @@ class SnippetManager extends Manager{
 		return RESPONDINSTANCE('0');
 	}
 
+	//获取文件映像
+	public function UploadFileInfo($seek,$count){
+	    return (new Table([$seek,$count]))->LoadField(['链接','预览图'])->LoadDatasHandle(
+	        function ($args){
+                $seek = $args[0];
+                $count = $args[1];
+                $fullUrl = $this->config['templatePath'].'/ImgTable.json';
+                $jsonObject = new JsonObject($fullUrl);
+                $data = $jsonObject->Read();
+                $totalFileArray = [];
+                $i = 0;
+                foreach ($data as $key => $group) {
+                    foreach ($group as $key=>$value) {
+                        if($i>=$seek && $i<($seek+$count)) {
+                            array_push($totalFileArray, ['url'=>$value]);
+                        }
+                        $i++;
+                    }
+                }
+                return [//返回
+                    "datas"=>$totalFileArray,
+                    "seek"=>$seek,
+                    "size"=>$count,
+                    "total"=>$i
+                ];
+            })->DataHandle(
+                function ($data){
+                    //$data['view'] = '<img src="'.$data['url'].'"></img>';
+                    foreach ($data as $key=>$single) {
+
+                        $data[$key]['view'] = '<img src="'. str_replace('\\','',$single['url']).'">';
+                    }
+                    return $data;
+                }
+            )->DataFinished()->ToRespond();
+    }
+
 	public function BuildJson($turl){
 		$command = FREE_PARS('command','read');
         $fullPath = FREE_PARS('root',$this->config['templatePath']).'/'.$turl.'.json';
@@ -252,5 +289,7 @@ class SnippetManager extends Manager{
             return $backMsg;
         }
 	}
+
+
 }
 ?>

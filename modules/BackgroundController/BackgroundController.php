@@ -286,10 +286,17 @@ class BackgroundController extends DBManager {
 
     public function BuildFiles(){
         $pageData = $this->CurrentPageData();
-        //<input id="uploader" type="file" multiple />
+        $seek = FREE_PARS('seek','0');
+        $count = FREE_PARS('count','5');
         $input = [
             ['title'=>'文件选择','id'=>'uploader','type'=>"file",'multiple'=>'true']
         ];
+        $SNM = new SnippetManager();
+        $datas = $SNM->UploadFileInfo($seek,$count);
+        $pageData['data'] = $datas['data'];
+        $pageData['index'] = $datas['index'];
+        $pageData['fields'] = $datas['fields'];
+        $pageData['count'] = $datas['count'];
         require ($pageData['path']);
     }
 
