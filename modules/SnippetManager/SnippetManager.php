@@ -230,7 +230,7 @@ class SnippetManager extends Manager{
                     //$data['view'] = '<img src="'.$data['url'].'"></img>';
                     foreach ($data as $key=>$single) {
 
-                        $data[$key]['view'] = '<img src="'. str_replace('\\','',$single['url']).'">';
+                        $data[$key]['view'] = '<img width="300" src="'. str_replace('\\','',$single['url']).'">';
                     }
                     return $data;
                 }
