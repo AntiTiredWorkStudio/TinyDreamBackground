@@ -48,15 +48,15 @@ class BackgroundController extends DBManager {
     public $pages = [
         'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/view/navagator.php'],
 		'personalinfo'=>['id'=>'pinf','title'=>'个人信息块','path'=>'admin/view/personalinfo.php'],
-        'postDream'=>['id'=>'post','title'=>'发布梦想池','path'=>'admin/view/postdream.php'],
-        'verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
-        'datas'=>['id'=>'data','title'=>'数据','path'=>'admin/view/data.php'],
-        'orders'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
-        'activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
-        'redRefund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
-        'redPackage'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php'],
-        'operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php'],
-        'tools'=>['id'=>'tools','title'=>'行动工具','path'=>'admin/view/tools.php']
+        'a_post'=>['id'=>'post','title'=>'发布梦想池','path'=>'admin/view/postdream.php'],
+        'a_verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
+        'a_data'=>['id'=>'data','title'=>'数据','path'=>'admin/view/data.php'],
+        'a_order'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
+        'a_activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
+        'a_refund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
+        'a_redpack'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php'],
+        'a_operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php'],
+        'a_tools'=>['id'=>'tools','title'=>'行动工具','path'=>'admin/view/tools.php']
     ];
 	
 	//导航栏配置,索引为id,js用
@@ -72,6 +72,9 @@ class BackgroundController extends DBManager {
         'a_tools'=>['title'=>'行动工具','class'=>'lnr lnr-calendar-full'],
     ];
 	
+	public function CurrentPageData(){
+		
+	}
     
 	public function BuildNavigatorList(){
         return $this->navigateList;

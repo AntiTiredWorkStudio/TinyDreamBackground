@@ -717,15 +717,15 @@ var ToolsModule = {
 
 var ModuleRegister = {
 	"nav":NavigatorModule,
-	"post":PostModule,
-	"verf":VerfModule,
-	"data":DataModule,
-	"ord":OrderModule,
-	"act":ActivityModule,
-	"refund":RefundModule,
-	"redpack":RedPackageModule,
-	'oper':OperationModule,
-	'tools':ToolsModule
+	"a_post":PostModule,
+	"a_verify":VerfModule,
+	"a_data":DataModule,
+	"a_order":OrderModule,
+	"a_activity":ActivityModule,
+	"a_refund":RefundModule,
+	"a_redpack":RedPackageModule,
+	'a_operation':OperationModule,
+	'a_tools':ToolsModule
 }
 
 Page.OnSignalFailed = function () {
