@@ -38,7 +38,7 @@ var CheckAuthEnable = function(resfunc){
 
 var BuildNavigator = function () {
     Page_Builder('admin','bnav',{},function (data) {
-        $("#navigator").html(data);
+		$("#navigator").html(data);
     },function (code, data) {
         console.log(code, data);
     });
@@ -716,7 +716,7 @@ var ToolsModule = {
 
 
 var ModuleRegister = {
-	"nav":NavigatorModule,
+	"bnav":NavigatorModule,
 	"a_post":PostModule,
 	"a_verify":VerfModule,
 	"a_data":DataModule,

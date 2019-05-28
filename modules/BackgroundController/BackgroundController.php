@@ -46,50 +46,49 @@ class BackgroundController extends DBManager {
 
 	//页面内容配置
     public $pages = [
-        'navi'=>['id'=>'nav','title'=>'导航栏','path'=>'admin/view/navagator.php'],
-		'personalinfo'=>['id'=>'pinf','title'=>'个人信息块','path'=>'admin/view/personalinfo.php'],
-        'a_post'=>['id'=>'post','title'=>'发布梦想池','path'=>'admin/view/postdream.php'],
-        'a_verify'=>['id'=>'verf','title'=>'审核','path'=>'admin/view/verify.php'],
-        'a_data'=>['id'=>'data','title'=>'数据','path'=>'admin/view/data.php'],
-        'a_order'=>['id'=>'ord','title'=>'订单','path'=>'admin/view/order.php'],
-        'a_activity'=>['id'=>'act','title'=>'活动','path'=>'admin/view/activity.php'],
-        'a_refund'=>['id'=>'refund','title'=>'红包退款','path'=>'admin/view/refund.php'],
-        'a_redpack'=>['id'=>'redpack','title'=>'红包','path'=>'admin/view/redpackage.php'],
-        'a_operation'=>['id'=>'oper','title'=>'行动','path'=>'admin/view/operation.php'],
-        'a_tools'=>['id'=>'tools','title'=>'行动工具','path'=>'admin/view/tools.php']
-    ];
-	
-	//导航栏配置,索引为id,js用
-    public $navigateList = [
-        'a_post'=>['title'=>'发布梦想池','class'=>'lnr lnr-home'],
-        'a_verify'=>['title'=>'中标用户审核','class'=>'lnr lnr-pencil'],
-        'a_data'=>['title'=>'访问数据统计','class'=>'lnr lnr-dice'],
-		'a_order'=>['title'=>'订单查看','class'=>'lnr lnr-store'],
-        'a_activity'=>['title'=>'活动照片','class'=>'lnr lnr-enter'],
-        'a_refund'=>['title'=>'红包退款','class'=>'lnr lnr lnr-arrow-left'],
-        'a_redpack'=>['title'=>'红包','class'=>'lnr lnr-map'],
-        'a_operation'=>['title'=>'行动','class'=>'lnr lnr-rocket'],
-        'a_tools'=>['title'=>'行动工具','class'=>'lnr lnr-calendar-full'],
+        'bnav'=>['id'=>'bnav','title'=>'导航栏','path'=>'admin/view/navagator.php','notnav'=>true],
+		'pinfo'=>['id'=>'pinf','title'=>'个人信息块','path'=>'admin/view/personalinfo.php','class'=>'lnr lnr-home','notnav'=>true],
+        'a_post'=>['title'=>'发布梦想池','path'=>'admin/view/postdream.php','class'=>'lnr lnr-home'],
+        'a_verify'=>['title'=>'审核','path'=>'admin/view/verify.php','class'=>'lnr lnr-pencil'],
+        'a_data'=>['title'=>'数据','path'=>'admin/view/data.php','class'=>'lnr lnr-dice'],
+        'a_order'=>['title'=>'订单','path'=>'admin/view/order.php','class'=>'lnr lnr-store'],
+        'a_activity'=>['title'=>'活动','path'=>'admin/view/activity.php','class'=>'lnr lnr-enter'],
+        'a_refund'=>['title'=>'红包退款','path'=>'admin/view/refund.php','class'=>'lnr lnr lnr-arrow-left'],
+        'a_redpack'=>['title'=>'红包','path'=>'admin/view/redpackage.php','class'=>'lnr lnr-map'],
+        'a_operation'=>['title'=>'行动','path'=>'admin/view/operation.php','class'=>'lnr lnr-rocket'],
+        'a_tools'=>['title'=>'行动工具','path'=>'admin/view/tools.php','class'=>'lnr lnr-calendar-full']
     ];
 	
 	public function CurrentPageData(){
-		
+		$id = $_REQUEST[$_GET['act']];
+		$tData = isset($this->pages[$id])?$this->pages[$id]:$this->pages['a_post'];
+		$tData['id'] = $id;
+		return $tData;
 	}
     
 	public function BuildNavigatorList(){
-        return $this->navigateList;
+		$navlist = [];
+		foreach($this->pages as $key=>$value){
+			if(isset($value['notnav']) && $value['notnav']){
+				
+			}else{
+				$navlist[$key] = $value;
+			}
+		}
+        return $navlist;
     }
 
 	//引用导航栏
     public function BuildNavigator(){
-        $pageData = $this->pages['navi'];
+        $pageData = $this->CurrentPageData();
         $pageData['navList'] = $this->BuildNavigatorList();
+		//echo json_encode($pageData);
         require ($pageData['path']);
     }
 
 	//引用订单
 	public function BuildOrders(){
-        $pageData = $this->pages['orders'];
+        $pageData = $this->CurrentPageData();
 		
 		$pageData['size'] = 10;
 		
@@ -134,7 +133,7 @@ class BackgroundController extends DBManager {
 	
     //引用发布梦想池
     public function BuildPostDream(){
-        $pageData = $this->pages['postDream'];
+        $pageData = $this->CurrentPageData();
         $DPM = new DreamPoolManager();
         $pageData['count'] = $DPM->CountPools()['count'];
         $pageData['psize'] = (isset($_REQUEST['psize']))?$_REQUEST['psize']:DEFAULT_PAGE_SIZE;
@@ -148,7 +147,7 @@ class BackgroundController extends DBManager {
 
     //引用审核结果
     public function BuildVerify(){
-        $pageData = $this->pages['verify'];
+        $pageData = $this->CurrentPageData();
 		
 		
 		$btn_submit_style = 'btn disable';
@@ -193,7 +192,7 @@ class BackgroundController extends DBManager {
 	
 	//引用个人信息
 	public function BuildPersonalInfo($uid){
-        $pageData = $this->pages['personalinfo'];
+        $pageData = $this->CurrentPageData();
         $USM = new UserManager();
 		$selfInfo = UserManager::GetUserInfo($uid);
 		$pageData['selfInfo'] = $selfInfo;
@@ -202,7 +201,7 @@ class BackgroundController extends DBManager {
 	
 	//引用数据
 	public function BuildDatas(){
-        $pageData = $this->pages['datas'];
+        $pageData = $this->CurrentPageData();
 
 		$uBehaviour = new UserBehaviourManager();
         $pageData['recs'] = $uBehaviour->GetRecordsRecordsByRange(0,20)['recs'];
@@ -212,7 +211,7 @@ class BackgroundController extends DBManager {
 
 	//引用活动照片
 	public function BuildActivity(){
-        $pageData = $this->pages['activity'];
+        $pageData = $this->CurrentPageData();
         $awardController = new AwardManager();
         $pageData['act'] = $awardController->ActivityLive();
         require ($pageData['path']);
@@ -221,7 +220,7 @@ class BackgroundController extends DBManager {
     //引用退款
 	public function BuildRefund(){
 		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'20190208';
-		$pageData = $this->pages['redRefund'];
+        $pageData = $this->CurrentPageData();
 		$redOrderController = new RedPackManage();
 		$pageData['packs'] = $redOrderController->CollectRefundInfo($pid);
 		$DPM = new DreamPoolManager();
@@ -232,7 +231,7 @@ class BackgroundController extends DBManager {
     //引用红包
 	public function BuildRedPackage(){
 		$pid = isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
-		$pageData = $this->pages['redPackage'];
+        $pageData = $this->CurrentPageData();
 		//$pid = "20190209";
 		if($pid!=''){
 			$redOrderController = new RedPackManage();
@@ -249,7 +248,7 @@ class BackgroundController extends DBManager {
 
 	//引用行动
     public function BuildOperation(){
-        $pageData = $this->pages['operation'];
+        $pageData = $this->CurrentPageData();
         $OPM = new OperationManager();
         $state = FREE_PARS('state','ALL');
         $seek = FREE_PARS('seek','0');
@@ -265,7 +264,7 @@ class BackgroundController extends DBManager {
     }
 
     public function BuildTools(){
-        $pageData = $this->pages['tools'];
+        $pageData = $this->CurrentPageData();
         $COM = new ContractManager();
         $seek = FREE_PARS('seek','0');
         $count = FREE_PARS('count','5');
