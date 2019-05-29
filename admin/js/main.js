@@ -744,6 +744,65 @@ var FilesModule = {
 				seek:page.currentTarget.attributes[0].value,
 				count:page.currentTarget.attributes[1].value,
 			}));
+	},
+	UploadObject = {
+		fileList:[],
+		idArray:[],
+		fileArray:[],
+		tokens:{},
+		resultArray:[],
+		Init:function(){
+			WebApp.InitUpload();
+			$("#uploader").change(function (res) {
+				FilesModule.UploadObject.fileList = res.target.files;
+			})
+			$('#submit').click(function(res){
+				for(var i in FilesModule.UploadObject.fileList){
+					if(isNaN(i)){
+						continue;
+					}
+					FilesModule.UploadObject.idArray.push(FilesModule.UploadObject.fileList[i].name);
+					FilesModule.UploadObject.fileArray.push(FilesModule.UploadObject.fileList[i]);
+				}
+				WebApp.GenerateTokens(
+					FilesModule.UploadObject.idArray,"icon",
+					function(result,token){
+						console.log(token);
+						FilesModule.UploadObject.tokens = token;
+						FilesModule.UploadObject.InitUploadQueue();
+					}
+				);
+			});
+		},
+		InitUploadQueue:function(){
+			if(FilesModule.UploadObject.idArray == [] || FilesModule.UploadObject.fileArray == []){
+				console.log(FilesModule.UploadObject.resultArray);
+				return;
+			}
+			var file = FilesModule.UploadObject.fileArray.shift();
+			if(file==null){
+				FilesModule.UploadObject.UploadFinished();
+				console.log(FilesModule.UploadObject.resultArray);
+				return;
+			}
+			var token = tokens[file.name];
+			var url_prefix = token.domain;
+			console.log("准备上传:"+JSON.stringify(token));
+			WebApp.UploadWithSDK(token.uptoken, token.upurl,file,token.fileName,function(result){
+				console.log(result.imgName);
+				result.imgName = url_prefix+"/"+result.imgName;
+				FilesModule.UploadObject.resultArray.push(result.imgName);
+				FilesModule.UploadObject.InitUploadQueue();
+			});
+		},
+		UploadFinished:function(){
+			TD_Request('view','upload_img',{imglist:JSON.stringify(FilesModule.UploadObject.resultArray)},function(code,data){
+				console.log(data);
+			},
+			function(code,data){
+				console.log(data);
+			});
+		}
 	}
 }
 
@@ -766,6 +825,5 @@ var ModuleRegister = {
 Page.OnSignalFailed = function () {
     window.location.href = "index.html";
 }
-
 
 main();
