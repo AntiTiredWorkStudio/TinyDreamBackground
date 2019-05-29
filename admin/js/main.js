@@ -725,6 +725,7 @@ var FilesModule = {
 		$("#btn_submit").click(
 			module.onPostTools
 		);
+		module.UploadObject.Init();
 	},
 	onPostTools:function(page){
 	},
@@ -745,18 +746,17 @@ var FilesModule = {
 				count:page.currentTarget.attributes[1].value,
 			}));
 	},
-	UploadObject = {
+	UploadObject:{
 		fileList:[],
 		idArray:[],
 		fileArray:[],
 		tokens:{},
 		resultArray:[],
 		Init:function(){
-			WebApp.InitUpload();
 			$("#uploader").change(function (res) {
 				FilesModule.UploadObject.fileList = res.target.files;
 			})
-			$('#submit').click(function(res){
+			$('#btn_submit').click(function(res){
 				for(var i in FilesModule.UploadObject.fileList){
 					if(isNaN(i)){
 						continue;
@@ -785,7 +785,7 @@ var FilesModule = {
 				console.log(FilesModule.UploadObject.resultArray);
 				return;
 			}
-			var token = tokens[file.name];
+			var token = FilesModule.UploadObject.tokens[file.name];
 			var url_prefix = token.domain;
 			console.log("准备上传:"+JSON.stringify(token));
 			WebApp.UploadWithSDK(token.uptoken, token.upurl,file,token.fileName,function(result){
