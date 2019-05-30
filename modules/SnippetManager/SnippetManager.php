@@ -199,6 +199,24 @@ class SnippetManager extends Manager{
 		);
 		return RESPONDINSTANCE('0');
 	}
+	
+	//执行sql文件
+	public function RunSql($name){
+        $fullUrl = $this->config['templatePath']."/$name.sql";
+		if(!file_exists($fullUrl)){
+            return RESPONDINSTANCE('78',$fullUrl);
+		}
+		$content = fopen($fullUrl, "r");
+		$sqls = [];
+		$DBM = new DBManager();
+		
+		while(!feof($content))
+		{
+			$csql = str_replace("\r\n", '', fgets($content));
+			array_push($sqls,['sql'=>$csql,'result'=>DBResultToArray($DBM->RunSqlQuery($csql))]);
+		}
+		return $sqls;
+	}
 
 	//获取文件映像
 	public function UploadFileInfo($seek,$count){

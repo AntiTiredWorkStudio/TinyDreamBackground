@@ -197,6 +197,18 @@ class DBManager extends Manager{
             }
         }
     }
+	
+	//执行sql语句
+	public function RunSqlQuery($sql){
+	    $con = $this->DBLink();
+		self::$LastSql = $sql;
+        $result = mysql_query($sql,$con) ;
+		if($result && mysql_affected_rows() >= 1){
+			return $result;
+		}else{
+			return false;
+		}
+	}
 
     //表单字段
 	public function GetTableFields($tableName){
@@ -206,7 +218,7 @@ class DBManager extends Manager{
         $result = mysql_query($sql,$con);
         return array_keys(DBResultToArray($result));
     }
-
+	
 	//判断是否存在数据
 	public function ExistRowInTable($tableName,$conditionArray,$closeDBLink = false){
 		$con = $this->DBLink();
