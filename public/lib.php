@@ -308,6 +308,9 @@ function DBResultToArray($dbResult, $NumKey = false,$keepNum = false){
     if(empty($dbResult)){
         return $resultArray;
     }
+	if(is_bool($dbResult)){
+        return $dbResult;
+	}
     $seek = 0;
     while($single = mysql_fetch_array($dbResult)){
         $rowKey = "";
