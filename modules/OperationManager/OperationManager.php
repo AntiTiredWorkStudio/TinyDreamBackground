@@ -845,6 +845,8 @@ class OperationManager extends DBManager{
     //获得用户所有行动列表
     public function OperationList($uid,$seek,$count){
         $backMsg = RESPONDINSTANCE('0');
+        //echo json_encode();
+        $Contracts = ContractManager::MakeContractList(false);
         $CountOperations = $this->CountTableRowByQuery($this->TName('tOperation'),
             self::FieldIsValue('uid',$uid));
         $operationList = DBResultToArray($this->SelectDataByQuery(
@@ -858,6 +860,9 @@ class OperationManager extends DBManager{
                 $count
             )
         ),true);
+        foreach($operationList as $key=>$value){
+            $operationList[$key]['endtime'] = $operationList[$key]['starttime'] + $Contracts[$value['cid']]['durnation']*86400;
+        }
         $backMsg['count'] = $CountOperations;
         $backMsg['operations'] = $operationList;
         return $backMsg;
