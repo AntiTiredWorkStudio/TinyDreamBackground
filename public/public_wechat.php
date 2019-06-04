@@ -13,6 +13,7 @@ define('WECHAT_WEB_COMMAND','webchatweb');
 define('WECHAT_MENU_COMMAND','wechatmenu');
 define('WECHAT_IMAGE_COMMAND','wechatimage');
 define('WECHAT_CUSTOMER_COMMAND','wechatcustomer');
+define('WECHAT_TEXT_COMMAND','wechattext');
 
 
 
@@ -183,7 +184,23 @@ $WebApp = [
         */
         echo $result;
         return;
-    }
+    },
+	WECHAT_TEXT_COMMAND=>function($uid,$content){ 
+		$access_token = $GLOBALS['WebApp'][WECHAT_ACCESSTOKEN_COMMAND]();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=$access_token";
+
+        $msg = [
+            'touser'=>$uid,
+            'msgtype'=>"text",
+            'text'=>[
+                "content"=>$content
+            ]
+        ];
+
+        $result = PublicTools::https_request($url,json_encode($msg,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        echo $result;
+        return;
+	}
 ];
 
 ?>
