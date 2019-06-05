@@ -20,6 +20,12 @@ class NoticeManager extends DBManager {
 
     }
 
+    //
+    public static function NoticeByPublicAccountText($uid,$content){
+        //$content = "您的21天合约（2019.2.3-2019.3.18）已结束,"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/dream/dist/html/contract.htm\">查看详情</a>";
+        //'oSORf5kn6hr_H5ZSRyYSHFUzyBd4'
+        return $GLOBALS['WebApp'][WECHAT_TEXT_COMMAND]($uid,$content);
+    }
     /*
      *
      *  1、购买通知
