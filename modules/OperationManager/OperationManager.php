@@ -777,7 +777,7 @@ class OperationManager extends DBManager{
                 $startDateText = date('Y.m.d',$startAttendanceTime);
                 $endDateText = date('Y.m.d',$endAttendanceTime);
 
-                $finishedNotice = "您的".$currentContract['title']."（".$startDateText."-".$endDateText."）已结束,"."<a href=\"http://".$GLOBALS['options']['combine_url']."/TinydreamWeb/dream/dist/html/contract.htm\">查看详情</a>";;
+                $finishedNotice = "您的".$currentContract['title']."（".$startDateText."-".$endDateText."）已结束,"."<a href=\"http://".$GLOBALS['options']['combine_url']."TinydreamWeb/dream/dist/#/list\">查看详情</a>";;
                 NoticeManager::NoticeByPublicAccountText($uid,$finishedNotice);
                 //发送完成公众号消息
             //}
