@@ -195,13 +195,13 @@ class OperationManager extends DBManager{
     }
 
     //用户补卡条件判断
-    public static function DoOperationPatchAttendence($opid){
+    public static function DoOperationPatchAttendence($uid){
         $OPM = new OperationManager();
         $menchanceOperation = DBResultToArray($OPM->SelectDataByQuery($OPM->TName('tOperation'),
             self::Limit(
                 self::OrderBy(
                     self::C_And(
-                        self::FieldIsValue('opid',$opid),
+                        self::FieldIsValue('uid',$uid),
                         self::FieldIsValue('menchance',0,'>')
                     ),
                     'starttime','ASC'
@@ -490,7 +490,7 @@ class OperationManager extends DBManager{
             $missRelay = (!empty($targetAttendence) && $targetAttendence['state']=="NOTRELAY");//当日漏转发
             if($missAttendence || $missRelay){
                 //在时间范围
-                if(self::DoOperationPatchAttendence($currentOperation['opid'])){//有补卡次数并且成功扣除补卡次数
+                if(self::DoOperationPatchAttendence($uid)){//有补卡次数并且成功扣除补卡次数
                     //执行补卡动作,
                     if($missAttendence){
                         //添加打卡记录
