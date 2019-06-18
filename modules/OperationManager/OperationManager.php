@@ -224,6 +224,7 @@ class OperationManager extends DBManager{
         return true;
     }
 
+	//'SELECT COUNT(*) FROM `attendance` WHERE `opid`="131374865802"'
     //通过日期行动退款
     public static function PatchAttendenceRefund($operation,$attendid){
         $contract = ContractManager::GetContractInfo($operation['cid']);
@@ -471,6 +472,74 @@ class OperationManager extends DBManager{
         $backMsg['date'] = date('Y-m-d',PRC_TIME());
         return $backMsg;
     }
+	
+	//获取连续打卡记录数量
+	public function GerContinuityAttendance($opid){
+		$attendanceArray = DBResultToArray($this->SelectDataByQuery($this->TName('tAttend'),self::FieldIsValue('opid',$opid)),true);
+		if(empty($attendanceArray)){
+			return ['effect'=>0,'total'=>0];
+		}
+		$startDate = strtotime($attendanceArray[0]['date']);
+		$effectiveDateCount = 0;
+		foreach($attendanceArray as $key=>$attendance){
+			if(strtotime($attendance['date']) - $startDate == 0){
+				$startDate+=86400;
+				$effectiveDateCount++;
+			}else{
+				break;
+			}
+		}
+		
+		return ['effect'=>$effectiveDateCount,'total'=>count($attendanceArray)];
+	}
+	
+	//测试用户的行动数据
+	public function TryUserOperation($uid){
+		$operations = DBResultToArray($this->SelectDataByQuery($this->TName('tOperation'),self::FieldIsValue('uid',$uid)),true);
+		$results = [];
+		foreach($operations as $key=>$operation){
+			$already = $operation['alrday'];
+			$conday = $operation['conday'];
+			
+			$ContinuityAttendance = $this->GerContinuityAttendance($operation['opid']);
+			//echo json_encode($ContinuityAttendance);
+			$realalrday = $ContinuityAttendance['total'];
+			$realConday = $ContinuityAttendance['effect'];
+			
+			$misday = $realalrday - $realConday;
+			$results[$operation['opid']] = [
+				'alrday' => $already,
+				'conday' => $conday,
+				'realalrday' => $realalrday,
+				'realconday' => $realConday,
+				'misday' => $misday,
+			];
+		}
+		return $results;
+	}
+	
+	//根据打卡记录更新行动数据
+	public function UpdateOperationStat($opid){
+		$operation = self::GetOperationByID($opid);
+		$results = [];
+		$already = $operation['alrday'];
+		$conday = $operation['conday'];
+		
+		$ContinuityAttendance = $this->GerContinuityAttendance($operation['opid']);
+		$realalrday = $ContinuityAttendance['total'];
+		$realConday = $ContinuityAttendance['effect'];
+		
+		$misday = $realalrday - $realConday;
+		$results = [
+			'alrday' => $already,
+			'conday' => $conday,
+			'realalrday' => $realalrday,
+			'realconday' => $realConday,
+			'misday' => $misday,
+		];
+		$this->UpdateDataToTableByQuery($this->TName('tOperation'),['alrday'=>$realalrday,'conday'=>$realConday,'misday'=>$misday],self::FieldIsValue('opid',$opid));
+		return $results;
+	}
 
     //按日期补卡
     public function PatchAttendance($uid,$date){
@@ -512,6 +581,7 @@ class OperationManager extends DBManager{
                         $this->UpdateDataToTableByQuery($this->TName('tAttend'),['state'=>'SUPPLY'],self::FieldIsValue('opid',$currentOperation['opid']));
                         $backMsg = RESPONDINSTANCE('0');
                         $refund = self::PatchAttendenceRefund($currentOperation,$targetAttendence['atid']);
+						$this->UpdateOperationStat($currentOperation['opid']);
                         if(!empty($refund)){
                             $backMsg['refund'] = $refund;
                         }
